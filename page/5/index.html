@@ -71,12 +71,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-上车问题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-操作系统 概论" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T07:02:46.253Z" itemprop="datePublished">2021-03-13</time>
+    <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T13:13:57.017Z" itemprop="datePublished">2021-03-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -85,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">上车问题</a>
+      <a class="p-name article-title" href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/">操作系统 概论</a>
     </h1>
   
 
@@ -93,93 +97,56 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="上车问题-C-解决"><a href="#上车问题-C-解决" class="headerlink" title="上车问题 C++解决"></a>上车问题 C++解决</h1><p>问题描述：火车从始发站（第 1站）开出，在始发站上车的人数为 a，然后到达第 2 站，在第 2 站有人上、下车，但上、下车的人数相同，因此在第 2 站开出时车上的人数保持为 a 人。从第 3 站起，上、下车的人数有如下规律：上车的人数都是前两站上车人数之和，而下车人数等于上一站上车人数，一直到终点站的前一站。已知：共有 n 个车站，始发站上车的人数为 a ，终点站全部下车的人数是 m。试问 第x 站开出时车上的人数是多少？程序运行时，先输入四个整数：始发站上车人数 a，车站数 n，终点站下车人数 m 和所求的站点编号 x。要求输出从 x 站开出时车上的人数。</p>
-<p>根据题意列出上车下车人数的表格：</p>
-<table>
-<thead>
-<tr>
-<th>车站</th>
-<th>进站前人数</th>
-<th>上车人数</th>
-<th>下车人数</th>
-<th>出站人数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>0</td>
-<td>a</td>
-<td>0</td>
-<td>a</td>
-</tr>
-<tr>
-<td>2</td>
-<td>a</td>
-<td>b</td>
-<td>b</td>
-<td>a</td>
-</tr>
-<tr>
-<td>3</td>
-<td>a</td>
-<td>a+b</td>
-<td>b</td>
-<td>2a</td>
-</tr>
-<tr>
-<td>4</td>
-<td>2a</td>
-<td>a+2b</td>
-<td>a+b</td>
-<td>2a+b</td>
-</tr>
-<tr>
-<td>5</td>
-<td>2a+b</td>
-<td>2a+3b</td>
-<td>a+2b</td>
-<td>3a+2b</td>
-</tr>
-<tr>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-</tr>
-<tr>
-<td>n-1</td>
-<td>?</td>
-<td>?</td>
-<td>?</td>
-<td>m</td>
-</tr>
-<tr>
-<td>n</td>
-<td>m</td>
-<td>0</td>
-<td>m</td>
-<td>0</td>
-</tr>
-</tbody></table>
-<p>根据表格本题的关键在于根据m求出b</p>
-<p><em>m=f(n-1)a+g(n-1)b</em></p>
-<p>求出f和g即可</p>
-<p>而出站人数=进站人数 + 上车人数 - 下车人数</p>
-<p>每站的上车人数和下车人数可以根据题意递推求得</p>
-<p>据此可解决问题</p>
-<p>C++代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站上了多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upa</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upa(n<span class="number">-1</span>) + upa(n<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站上了多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upb</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upb(n<span class="number">-1</span>) + upb(n<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站下了多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">downa</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upa(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站下了多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">downb</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upb(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站出的时候有多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (upa(n) - downa(n)) + f(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站出的时候有多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (upb(n) - downb(n)) + g(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a, n, m, x;</span><br><span class="line">    <span class="keyword">int</span> b; <span class="comment">//b表示第二站上车人数</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;输入始发站上车人数，车站数，终点站下车人数和所求的站点编号：&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>; </span><br><span class="line">	</span><br><span class="line">    <span class="comment">//根据定义m=f(n-1)+g(n-1)，据此求出b</span></span><br><span class="line">	b = (m-(f(n<span class="number">-1</span>) * a)) / g(n<span class="number">-1</span>);</span><br><span class="line">    <span class="comment">//计算第x站出站后人数</span></span><br><span class="line">	ans = (f(x)*a) + (g(x)*b);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;<span class="string">&quot;第&quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;x;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;<span class="string">&quot;站开出时车上的人数是:&quot;</span>; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
+        <h2 id="OS"><a href="#OS" class="headerlink" title="OS:"></a>OS:</h2><ol>
+<li>管理计算机硬件和软件资源的程序</li>
+<li>屏蔽了硬件层的复杂性</li>
+<li>操作系统内核是核心，负责内存、硬件、文件系统和应用程序的管理。</li>
+<li> 操作系统的位数：根据CPU位数设计的</li>
+<li>特征</li>
+</ol>
+<ul>
+<li><p>并发：宏观</p>
+</li>
+<li><p>共享：互斥和同时</p>
+</li>
+<li><p>虚拟：时分复用/空分复用</p>
+</li>
+<li><p>异步</p>
+</li>
+</ul>
+<h2 id="系统调用："><a href="#系统调用：" class="headerlink" title="系统调用："></a>系统调用：</h2><ol>
+<li>用户态和系统态</li>
+<li>程序需要使用系统级的功能 -&gt; 系统调用</li>
+</ol>
+<ul>
+<li><p>设备管理</p>
+</li>
+<li><p>文件管理</p>
+</li>
+<li><p>进程控制</p>
+</li>
+<li><p>进程通信</p>
+</li>
+<li><p>内存管理</p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li>宏内核（一个紧密结合整体）和微内核（只有微内核模块运行在内核态，其他在用户态）</li>
+<li>中断分类</li>
+</ol>
+<ul>
+<li><p>外中断：CPU执行以外的事件（I/O中断等）</p>
+</li>
+<li><p>异常：CPU执行的内部事件（地址溢出等）</p>
+</li>
+<li><p>陷入：系统调用</p>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/" data-id="ckm7dusr20000w4v561q57sud" data-title="上车问题" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/" data-id="ckm7ruvsd0000hwv59w5f7i4i" data-title="操作系统 概论" class="article-share-link">Share</a>
       
       
       
@@ -195,7 +162,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -203,6 +170,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -227,23 +201,23 @@
       <ul>
         
           <li>
-            <a href="/2021/03/13/JVM/">JVM</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">第二章 算法基础</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">第三章 函数的增长</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+            <a href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">计算机网络 知识点整理</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">操作系统 知识点总结</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">上车问题</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/">操作系统 概论</a>
           </li>
         
       </ul>

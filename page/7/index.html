@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   
   
-  <title>Archives: 2021/3 | R Blog</title>
+  <title>R Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta property="og:type" content="website">
 <meta property="og:title" content="R Blog">
-<meta property="og:url" content="http://example.com/archives/2021/03/page/2/index.html">
+<meta property="og:url" content="http://example.com/page/7/index.html">
 <meta property="og:site_name" content="R Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Rui Chen">
@@ -71,42 +71,89 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/03/13/hello-world/" class="archive-article-date">
-  <time class="dt-published" datetime="2021-03-13T06:34:29.013Z" itemprop="datePublished">Mar 13</time>
+    <article id="post-Java容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T08:58:11.594Z" itemprop="datePublished">2021-03-13</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/13/hello-world/">Hello World</a>
+      <a class="p-name article-title" href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
+<ol>
+<li>Set：TreeSet HashSet LinkedHashSet</li>
+<li>List：ArrayList Vector(线程安全) LinkedList</li>
+<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
+</ol>
+<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
+<ul>
+<li>支持快速随机访问、默认大小为10</li>
+<li>基于动态数组实现，具有动态扩容性</li>
+</ul>
+<p>Vector</p>
+<ul>
+<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
+<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
+</ul>
+<p>CopyOnWriteArrayList</p>
+<ul>
+<li>读写分离，适用读多写少的情况</li>
+</ul>
+<p>LinkedList</p>
+<ul>
+<li><p>基于双向链表实现</p>
+</li>
+<li><p>不支持随机访问但插入删除效率高</p>
+</li>
+<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
+</li>
+<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
+</li>
+<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
+</li>
+<li><p>Collection（只需要存放元素）：需要唯一用Set，否则用List</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/" data-id="ckm7hypel00037cv53mtzebpr" data-title="Java容器" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
   </div>
+  
 </article>
-  
-  
-    </div></section>
+
+
+
   
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/2021/03/">&laquo; Prev</a><a class="page-number" href="/archives/2021/03/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
   </nav>
 
 </section>

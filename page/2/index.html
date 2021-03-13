@@ -71,12 +71,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Java容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-第三章 函数的增长" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T08:58:11.594Z" itemprop="datePublished">2021-03-13</time>
+    <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T13:16:54.749Z" itemprop="datePublished">2021-03-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -85,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+      <a class="p-name article-title" href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">第三章 函数的增长</a>
     </h1>
   
 
@@ -93,47 +97,26 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h1><h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
-<ol>
-<li>Set：TreeSet HashSet LinkedHashSet</li>
-<li>List：ArrayList Vector(线程安全) LinkedList</li>
-<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
-</ol>
-<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
-<ul>
-<li>支持快速随机访问、默认大小为10</li>
-<li>基于动态数组实现，具有动态扩容性</li>
+        <h2 id="渐进记号"><a href="#渐进记号" class="headerlink" title="渐进记号"></a>渐进记号</h2><ul>
+<li>Θ记号：等于（即f(n) = Θ(g(n))，f(n) = g(n)，下同）</li>
+<li>O记号：小于等于、最坏情况，时间复杂度上界</li>
+<li>Ω记号：大于等于</li>
+<li>o记号：小于</li>
+<li>ω记号：大于</li>
 </ul>
-<p>Vector</p>
-<ul>
-<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
-<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
-</ul>
-<p>CopyOnWriteArrayList</p>
-<ul>
-<li>读写分离，适用读多写少的情况</li>
-</ul>
-<p>LinkedList</p>
-<ul>
-<li><p>基于双向链表实现</p>
-</li>
-<li><p>不支持随机访问但插入删除效率高</p>
-</li>
-<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
-</li>
-<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
-</li>
-<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
-</li>
-<li><p>Collection（只需要存放元素）：需要唯一用Set，否则用List</p>
-</li>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
+<li>多项式</li>
+<li>指数</li>
+<li>对数</li>
+<li>阶乘</li>
+<li>多重函数（多重对数函数lg*n）</li>
+<li>斐波那契数</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/" data-id="ckm7hypel00037cv53mtzebpr" data-title="Java容器" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" data-id="ckm7ruvsy0006hwv56ld1fvq7" data-title="第三章 函数的增长" class="article-share-link">Share</a>
       
       
       
@@ -149,7 +132,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -157,6 +140,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -181,23 +171,23 @@
       <ul>
         
           <li>
-            <a href="/2021/03/13/JVM/">JVM</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">第二章 算法基础</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">第三章 函数的增长</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+            <a href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">计算机网络 知识点整理</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">操作系统 知识点总结</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">上车问题</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/">操作系统 概论</a>
           </li>
         
       </ul>

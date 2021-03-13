@@ -71,12 +71,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-JVM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-第二章 算法基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/13/JVM/" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T08:58:11.596Z" itemprop="datePublished">2021-03-13</time>
+    <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T13:16:54.751Z" itemprop="datePublished">2021-03-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -85,7 +89,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/03/13/JVM/">JVM</a>
+      <a class="p-name article-title" href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">第二章 算法基础</a>
     </h1>
   
 
@@ -93,134 +97,36 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
-<ul>
-<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
-<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
-<li>本地方法栈：为本地方法服务</li>
-</ul>
-<ul>
-<li>堆：对象分配的内存</li>
-<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
-<li>运行常量池：方法区的一部分</li>
-<li>直接内存</li>
-</ul>
-<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
-<li><p>判断一个对象是否可回收</p>
+        <h2 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> j &lt;- <span class="number">2</span> to length[A]</span><br><span class="line">	<span class="keyword">do</span> key &lt;- A[j]</span><br><span class="line">    <span class="comment">//将A[j]插入A[1...j-1]</span></span><br><span class="line">    i = j - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &gt; <span class="number">0</span> and A[i] &gt; key</span><br><span class="line">         A[i + <span class="number">1</span>] &lt;- A[i]</span><br><span class="line">         i &lt;- i - <span class="number">1</span></span><br><span class="line">    A[i + <span class="number">1</span>] &lt;- key</span><br></pre></td></tr></table></figure>
+
+<p>正确性证明：循环不变式A[1…j-1]</p>
 <ol>
-<li>引用计数法</li>
-<li>可达性分析法</li>
-<li>方法区的回收</li>
-<li>finalize()</li>
+<li>初始化：循环第一次迭代前为真</li>
+<li>保持：若循环的某次迭代前为真，那么下次迭代前它仍然为真</li>
+<li>终止：在循环终止时，不变式提供一个性质，该性质有助于证明算法正确性</li>
 </ol>
+<h2 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h2><ul>
+<li><p>描述算法所用资源及其代价的模型：随机访问机RAM模型</p>
 </li>
-<li><p>引用类型</p>
-<ol>
-<li>强引用：不会被回收</li>
-<li>软引用：内存不够会回收</li>
-<li>弱引用：一定会回收</li>
-<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
-</ol>
+<li><p>最坏情况与平均情况分析：往往考虑最坏情况（例如输入数组是反向排好序的）</p>
 </li>
-<li><p>垃圾收集算法</p>
-<ol>
-<li><p>标记-清除</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
-</li>
-<li><p>标记-整理</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
-</li>
-<li><p>复制</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
-</li>
-<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
-</li>
-</ol>
-</li>
-<li><p>垃圾收集器</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
-<ol>
-<li>Serial收集器</li>
-<li>ParNew收集器</li>
-<li>Parallel Scavenge收集器</li>
-</ol>
+<li><p>增长量级：只考虑运行时间公式中最重要的项，如Θ(n^2)</p>
 </li>
 </ul>
-<ol start="4">
-<li>Serial Old收集器</li>
-<li>Parallel Old收集器</li>
-<li>CMS收集器</li>
-<li>G1收集器</li>
-</ol>
-<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
-<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
-<ul>
-<li><p>内存分配策略</p>
-<ol>
-<li><p>对象优先在Eden分配</p>
+<h2 id="2-3-算法设计"><a href="#2-3-算法设计" class="headerlink" title="2.3 算法设计"></a>2.3 算法设计</h2><ul>
+<li><p>分治法（Divide Conquer Combine）</p>
+<p>归并排序</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308152734.png" alt="image-20210308152734063"></p>
 </li>
-<li><p>大对象直接进入老年代</p>
+<li><p>归并排序的分析：递归树</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308153637.png" alt="image-20210308153637122"></p>
 </li>
-<li><p>长期存活的对象进入老年代</p>
-</li>
-<li><p>动态对象年龄判定</p>
-</li>
-<li><p>空间分配担保</p>
-</li>
-</ol>
-</li>
-<li><p>Full GC的触发条件</p>
-<ol>
-<li>调用System.gc()</li>
-<li>老年代空间不足</li>
-<li>空间分配担保失败</li>
-<li>JDK1.7及以前的永久代空间不足</li>
-<li>Concurrent Mode Failure</li>
-</ol>
-</li>
-</ul>
-<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
-<li>类的生命周期</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
-<ul>
-<li>类加载过程<ol>
-<li>加载：<ul>
-<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
-<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
-<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
-</ul>
-</li>
-<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
-<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
-<li>解析：将常量池的符号引用替换为直接引用的过程</li>
-<li>初始化：真正执行类中定义的Java程序的代码</li>
-</ol>
-</li>
-<li>类初始化时机<ol>
-<li>主动引用：五个场景，必须对类初始化<ol>
-<li>遇到new、getstatic、putstatic、invokestatic</li>
-<li>使用java.lang.reflect进行反射调用</li>
-<li>要初始化类，但父类还没初始化</li>
-<li>执行主类（包含main()）</li>
-<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
-</ol>
-</li>
-<li>被动引用：不会触发初始化的引用</li>
-</ol>
-</li>
-</ul>
-<p>类和类加载器</p>
-<ul>
-<li>分类：启动类加载器/其他类加载器</li>
-<li>双亲委派模型</li>
-<li>自定义类加载器实现</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/03/13/JVM/" data-id="ckm7hype000007cv53ga03q33" data-title="JVM" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" data-id="ckm7ruvt30009hwv5aocg6n5j" data-title="第二章 算法基础" class="article-share-link">Share</a>
       
       
       
@@ -236,7 +142,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -244,6 +150,13 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -268,23 +181,23 @@
       <ul>
         
           <li>
-            <a href="/2021/03/13/JVM/">JVM</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">第二章 算法基础</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">第三章 函数的增长</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+            <a href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">计算机网络 知识点整理</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">操作系统 知识点总结</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">上车问题</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/">操作系统 概论</a>
           </li>
         
       </ul>

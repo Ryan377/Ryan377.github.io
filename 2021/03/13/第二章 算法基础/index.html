@@ -4,19 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>Java容器 | R Blog</title>
+  <title>第二章 算法基础 | R Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="概览Collection  Set：TreeSet HashSet LinkedHashSet List：ArrayList Vector(线程安全) LinkedList Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆&#x2F;小顶堆)  Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHa">
+  <meta name="description" content="2.1 插入排序12345678for j &lt;- 2 to length[A]	do key &lt;- A[j]    &#x2F;&#x2F;将A[j]插入A[1...j-1]    i &#x3D; j - 1    while i &gt; 0 and A[i] &gt; key         A[i + 1] &lt;- A[i]         i &lt;- i - 1    A[i + 1] &lt;-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java容器">
-<meta property="og:url" content="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:title" content="第二章 算法基础">
+<meta property="og:url" content="http://example.com/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="R Blog">
-<meta property="og:description" content="概览Collection  Set：TreeSet HashSet LinkedHashSet List：ArrayList Vector(线程安全) LinkedList Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆&#x2F;小顶堆)  Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHa">
+<meta property="og:description" content="2.1 插入排序12345678for j &lt;- 2 to length[A]	do key &lt;- A[j]    &#x2F;&#x2F;将A[j]插入A[1...j-1]    i &#x3D; j - 1    while i &gt; 0 and A[i] &gt; key         A[i + 1] &lt;- A[i]         i &lt;- i - 1    A[i + 1] &lt;-">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-13T08:58:11.594Z">
-<meta property="article:modified_time" content="2021-03-13T13:08:58.801Z">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308152734.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308153637.png">
+<meta property="article:published_time" content="2021-03-13T13:16:54.751Z">
+<meta property="article:modified_time" content="2021-03-13T13:17:21.442Z">
 <meta property="article:author" content="Rui Chen">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308152734.png">
   
     <link rel="alternate" href="/atom.xml" title="R Blog" type="application/atom+xml">
   
@@ -73,14 +76,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-Java容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-第二章 算法基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="article-date">
-  <time class="dt-published" datetime="2021-03-13T08:58:11.594Z" itemprop="datePublished">2021-03-13</time>
+    <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T13:16:54.751Z" itemprop="datePublished">2021-03-13</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/">算法导论</a>
   </div>
 
   </div>
@@ -91,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Java容器
+      第二章 算法基础
     </h1>
   
 
@@ -99,47 +102,36 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
+        <h2 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> j &lt;- <span class="number">2</span> to length[A]</span><br><span class="line">	<span class="keyword">do</span> key &lt;- A[j]</span><br><span class="line">    <span class="comment">//将A[j]插入A[1...j-1]</span></span><br><span class="line">    i = j - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &gt; <span class="number">0</span> and A[i] &gt; key</span><br><span class="line">         A[i + <span class="number">1</span>] &lt;- A[i]</span><br><span class="line">         i &lt;- i - <span class="number">1</span></span><br><span class="line">    A[i + <span class="number">1</span>] &lt;- key</span><br></pre></td></tr></table></figure>
+
+<p>正确性证明：循环不变式A[1…j-1]</p>
 <ol>
-<li>Set：TreeSet HashSet LinkedHashSet</li>
-<li>List：ArrayList Vector(线程安全) LinkedList</li>
-<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
+<li>初始化：循环第一次迭代前为真</li>
+<li>保持：若循环的某次迭代前为真，那么下次迭代前它仍然为真</li>
+<li>终止：在循环终止时，不变式提供一个性质，该性质有助于证明算法正确性</li>
 </ol>
-<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
-<ul>
-<li>支持快速随机访问、默认大小为10</li>
-<li>基于动态数组实现，具有动态扩容性</li>
+<h2 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h2><ul>
+<li><p>描述算法所用资源及其代价的模型：随机访问机RAM模型</p>
+</li>
+<li><p>最坏情况与平均情况分析：往往考虑最坏情况（例如输入数组是反向排好序的）</p>
+</li>
+<li><p>增长量级：只考虑运行时间公式中最重要的项，如Θ(n^2)</p>
+</li>
 </ul>
-<p>Vector</p>
-<ul>
-<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
-<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
-</ul>
-<p>CopyOnWriteArrayList</p>
-<ul>
-<li>读写分离，适用读多写少的情况</li>
-</ul>
-<p>LinkedList</p>
-<ul>
-<li><p>基于双向链表实现</p>
+<h2 id="2-3-算法设计"><a href="#2-3-算法设计" class="headerlink" title="2.3 算法设计"></a>2.3 算法设计</h2><ul>
+<li><p>分治法（Divide Conquer Combine）</p>
+<p>归并排序</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308152734.png" alt="image-20210308152734063"></p>
 </li>
-<li><p>不支持随机访问但插入删除效率高</p>
-</li>
-<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
-</li>
-<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
-</li>
-<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
-</li>
-<li><p>Collection（只需要存放元素）：需要唯一用Set，否则用List</p>
+<li><p>归并排序的分析：递归树</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308153637.png" alt="image-20210308153637122"></p>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/" data-id="ckm7hypel00037cv53mtzebpr" data-title="Java容器" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" data-id="ckm7ruvt30009hwv5aocg6n5j" data-title="第二章 算法基础" class="article-share-link">Share</a>
       
       
       
@@ -149,19 +141,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/03/13/JVM/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JVM
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Java基础</div>
+      <div class="article-nav-title">第三章 函数的增长</div>
     </a>
   
 </nav>
