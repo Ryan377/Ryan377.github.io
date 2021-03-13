@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>R Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="R Blog">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="R Blog">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Rui Chen">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="R Blog" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -42,7 +42,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">R Blog</a>
       </h1>
       
     </div>
@@ -70,6 +70,456 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-JVM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/13/JVM/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T08:58:11.596Z" itemprop="datePublished">2021-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
+<ul>
+<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
+<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
+<li>本地方法栈：为本地方法服务</li>
+</ul>
+<ul>
+<li>堆：对象分配的内存</li>
+<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
+<li>运行常量池：方法区的一部分</li>
+<li>直接内存</li>
+</ul>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
+<li><p>判断一个对象是否可回收</p>
+<ol>
+<li>引用计数法</li>
+<li>可达性分析法</li>
+<li>方法区的回收</li>
+<li>finalize()</li>
+</ol>
+</li>
+<li><p>引用类型</p>
+<ol>
+<li>强引用：不会被回收</li>
+<li>软引用：内存不够会回收</li>
+<li>弱引用：一定会回收</li>
+<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
+</ol>
+</li>
+<li><p>垃圾收集算法</p>
+<ol>
+<li><p>标记-清除</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
+</li>
+<li><p>标记-整理</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
+</li>
+<li><p>复制</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
+</li>
+<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
+</li>
+</ol>
+</li>
+<li><p>垃圾收集器</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
+<ol>
+<li>Serial收集器</li>
+<li>ParNew收集器</li>
+<li>Parallel Scavenge收集器</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>Serial Old收集器</li>
+<li>Parallel Old收集器</li>
+<li>CMS收集器</li>
+<li>G1收集器</li>
+</ol>
+<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
+<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
+<ul>
+<li><p>内存分配策略</p>
+<ol>
+<li><p>对象优先在Eden分配</p>
+</li>
+<li><p>大对象直接进入老年代</p>
+</li>
+<li><p>长期存活的对象进入老年代</p>
+</li>
+<li><p>动态对象年龄判定</p>
+</li>
+<li><p>空间分配担保</p>
+</li>
+</ol>
+</li>
+<li><p>Full GC的触发条件</p>
+<ol>
+<li>调用System.gc()</li>
+<li>老年代空间不足</li>
+<li>空间分配担保失败</li>
+<li>JDK1.7及以前的永久代空间不足</li>
+<li>Concurrent Mode Failure</li>
+</ol>
+</li>
+</ul>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
+<li>类的生命周期</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
+<ul>
+<li>类加载过程<ol>
+<li>加载：<ul>
+<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
+<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
+<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
+</ul>
+</li>
+<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
+<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
+<li>解析：将常量池的符号引用替换为直接引用的过程</li>
+<li>初始化：真正执行类中定义的Java程序的代码</li>
+</ol>
+</li>
+<li>类初始化时机<ol>
+<li>主动引用：五个场景，必须对类初始化<ol>
+<li>遇到new、getstatic、putstatic、invokestatic</li>
+<li>使用java.lang.reflect进行反射调用</li>
+<li>要初始化类，但父类还没初始化</li>
+<li>执行主类（包含main()）</li>
+<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
+</ol>
+</li>
+<li>被动引用：不会触发初始化的引用</li>
+</ol>
+</li>
+</ul>
+<p>类和类加载器</p>
+<ul>
+<li>分类：启动类加载器/其他类加载器</li>
+<li>双亲委派模型</li>
+<li>自定义类加载器实现</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/13/JVM/" data-id="ckm7hype000007cv53ga03q33" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T08:58:11.594Z" itemprop="datePublished">2021-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h1><h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
+<ol>
+<li>Set：TreeSet HashSet LinkedHashSet</li>
+<li>List：ArrayList Vector(线程安全) LinkedList</li>
+<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
+</ol>
+<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
+<ul>
+<li>支持快速随机访问、默认大小为10</li>
+<li>基于动态数组实现，具有动态扩容性</li>
+</ul>
+<p>Vector</p>
+<ul>
+<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
+<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
+</ul>
+<p>CopyOnWriteArrayList</p>
+<ul>
+<li>读写分离，适用读多写少的情况</li>
+</ul>
+<p>LinkedList</p>
+<ul>
+<li><p>基于双向链表实现</p>
+</li>
+<li><p>不支持随机访问但插入删除效率高</p>
+</li>
+<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
+</li>
+<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
+</li>
+<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
+</li>
+<li><p>Collection（只需要存放元素）：需要唯一用Set，否则用List</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/" data-id="ckm7hypel00037cv53mtzebpr" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T08:58:11.592Z" itemprop="datePublished">2021-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><p>数据类型：</p>
+<ul>
+<li>八大基本数据类型：byte char short int float long double boolean</li>
+<li>包装类型：和基本类型对应，自动装箱和自动拆箱</li>
+<li>缓存池：valueOf方法，如果数值在缓冲池范围内，直接调用缓冲池的对象</li>
+</ul>
+<p>String字符串</p>
+<ul>
+<li>Java8中内部用char数组存储，Java9之后，改用byte数组，并用coder标识编码方式</li>
+<li>String内部定义为final，不可变（可用于缓存hash值）</li>
+<li>StringBuilder（不是线程安全的）和StringBuffer（线程安全）可变</li>
+<li>String Pool：保存所有字符串的字面量，如果还没有则编译时添加，也可用intern()添加</li>
+</ul>
+<p>运算</p>
+<ul>
+<li>Java参数使用值传递</li>
+<li>类型转换：不能隐式向下转型，但++运算符会进行隐式类型转换</li>
+</ul>
+<p>关键字</p>
+<ol>
+<li>final：声明数据常量、声明不可重写方法、声明不可继承类</li>
+<li>static：静态变量、静态方法等</li>
+</ol>
+<p>Object类的通用方法：</p>
+<ul>
+<li>equals()</li>
+<li>hashcode()</li>
+<li>toString()</li>
+<li>clone()：浅拷贝引用同一对象，深拷贝引用不同对象</li>
+<li>…</li>
+</ul>
+<p>继承</p>
+<ul>
+<li>访问权限修饰符：private protected public 不加表示package内可见</li>
+<li>抽象类abstract class、接口interface</li>
+<li>用super访问父类构造函数和成员</li>
+<li>重写Override：重写一个和父类在方法声明上完全一样的方法</li>
+<li>重载Overload：同一个类中指定参数不同的方法</li>
+</ul>
+<p>I/O</p>
+<ul>
+<li>磁盘操作：File</li>
+<li>字节操作：InputStream和OutputStream，适用于媒体文件</li>
+<li>字符操作：Reader和Writer，涉及到字符的时候使用</li>
+<li>对象操作：<br>Serializable<br>序列化：将一个对象转换成字节序列，方便存储传输</li>
+<li>网络操作：Socket</li>
+<li>NIO<br>NIO以块的方式处理数据，I/O用流方式处理<br>NIO非阻塞<br>BIO同步阻塞式、NIO同步非阻塞、AIO异步非阻塞</li>
+</ul>
+<p>其他</p>
+<ul>
+<li><p>运行步骤：源代码经过JDK中的Javac编译成字节码，JVM再转换成可执行的二进制机器码</p>
+</li>
+<li><p>面向对象三大特性：封装、继承和多态</p>
+</li>
+<li><p>反射：运行时提供类的信息 java.lang.reflect</p>
+</li>
+<li><p>异常</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210309120121.png" alt="image-20210309120114463"></p>
+</li>
+<li><p>泛型、注解…</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/13/Java%E5%9F%BA%E7%A1%80/" data-id="ckm7hypef00017cv52o0cf5rx" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java并发" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/" class="article-date">
+  <time class="dt-published" datetime="2021-03-13T08:58:11.590Z" itemprop="datePublished">2021-03-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java并发"><a href="#Java并发" class="headerlink" title="Java并发"></a>Java并发</h1><h2 id="使用线程"><a href="#使用线程" class="headerlink" title="使用线程"></a>使用线程</h2><ul>
+<li>实现Runnable接口</li>
+<li>实现Callable接口</li>
+<li>继承Thread类</li>
+<li>优先使用实现接口的方法，实现接口的方法只是一个可以在线程中运行的任务，任务是通过线程驱动执行的。</li>
+</ul>
+<h2 id="基础线程机制"><a href="#基础线程机制" class="headerlink" title="基础线程机制"></a>基础线程机制</h2><ul>
+<li>Executor：用于管理多个异步任务<ul>
+<li>CachedThreadPool：一个任务创建一个线程</li>
+<li>FixedThreadPool：所有任务只能使用固定大小的线程</li>
+<li>SingleThreadExecutor：相当于大小为1的FixedThreadPool</li>
+</ul>
+</li>
+<li>Daemon：守护线程</li>
+<li>sleep()：休眠当前正在执行的线程</li>
+<li>yield()：声明当前线程已经完成主要任务，建议切换</li>
+</ul>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><ul>
+<li>InterruptedException：中断时如果该线程处于阻塞、限期等待或无限期等待状态会抛出的异常，提前结束线程，但I/O阻塞和synchronized阻塞不能中断</li>
+<li>Interrupted()</li>
+<li>Executor的中断操作：shutdown()和shutdownNow()方法</li>
+</ul>
+<h2 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h2><ul>
+<li>Synchronized：JVM提供，可以用来同步一个代码块/方法/类/静态方法</li>
+<li>ReentrantLock：java.util.concurrent包中的锁（JDK实现的）</li>
+<li>除非使用后者的高级功能，否则优先使用synchronized，不会产生死锁问题，JVM会确保锁的释放</li>
+</ul>
+<h2 id="线程之间的协作"><a href="#线程之间的协作" class="headerlink" title="线程之间的协作"></a>线程之间的协作</h2><ul>
+<li>join()：在一个线程中调用另一个线程的join()方法，会挂起当前线程，直到目标线程结束</li>
+<li>wait() notify() notifyAll()：调用 wait() 使得线程等待某个条件满足，线程在等待时会被挂起，当其他线程的运行使得这个条件满足时，其它线程会调用 notify() 或者 notifyAll() 来唤醒挂起的线程。（Object中的方法）</li>
+<li>Await() signal() signalAll()：java.util.concurrent 类库中提供了 Condition 类来实现线程之间的协调，可以在 Condition 上调用 await() 方法使线程等待，其它线程调用 signal() 或 signalAll() 方法唤醒等待的线程。</li>
+</ul>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
+<li>new 新建</li>
+<li>Runnable 可运行</li>
+<li>Blocked 阻塞（被动）</li>
+<li>Waiting 无限期等待（主动）</li>
+<li>Timed_waiting 限期等待（一定时间后被系统自动唤醒）</li>
+<li>Terminated 死亡</li>
+</ul>
+<h2 id="J-U-C-AQS"><a href="#J-U-C-AQS" class="headerlink" title="J.U.C-AQS"></a>J.U.C-AQS</h2><ul>
+<li>CountDownLatch：用来控制一个或多个线程等待多个线程</li>
+<li>CyclicBarrier：用来控制多个线程互相等待，只有多个线程都到达了，线程才会继续执行</li>
+<li>Semaphore：类似操作系统信号量，控制对互斥资源的访问</li>
+</ul>
+<h2 id="J-U-C-其他组件"><a href="#J-U-C-其他组件" class="headerlink" title="J.U.C-其他组件"></a>J.U.C-其他组件</h2><ul>
+<li>FutureTask：可以异步获取执行结果或取消执行任务的场景</li>
+<li>BlockingQueue：提供FIFO和优先级的阻塞队列实现方法，可以用于实现生产者消费者问题</li>
+<li>ForkJoin：用于并行计算，类似于MapReduce</li>
+</ul>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><ul>
+<li><p>主内存与工作内存</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194849.png" alt="image-20210311194849104"></p>
+<p>所有变量都存储在主内存中</p>
+</li>
+<li><p>内存间交互操作：8个操作实现主内存和工作内存的交互</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194952.png" alt="image-20210311194952576"></p>
+</li>
+<li><p>内存模型三大特性</p>
+<ul>
+<li>原子性：上述8个操作具有原子性</li>
+<li>可见性：一个线程修改共享变量的值，其他线程能够立刻得知修改（实现方式有volatile、synchronized、final）</li>
+<li>有序性：本线程内观察，所有操作都是有序的；在一个线程内观察另一个线程，所有操作都是无序的</li>
+</ul>
+</li>
+<li><p>先行发生原则：让一个操作无需控制就能先于另一个操作完成</p>
+<ol>
+<li>单一线程原则</li>
+<li>管程锁定原则</li>
+<li>volatile变量规则</li>
+<li>线程启动规则</li>
+<li>线程加入规则</li>
+<li>线程中断规则</li>
+<li>对象终结规则</li>
+<li>传递性</li>
+</ol>
+</li>
+</ul>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><ul>
+<li>不可变：一定线程安全，有final、String、枚举类型、Number部分子类</li>
+<li>互斥同步：sychronized和ReentrantLock（阻塞同步）</li>
+<li>非阻塞同步：乐观的并发策略，先执行，有冲突再补偿<ul>
+<li>CAS乐观锁</li>
+<li>AtomicInteger</li>
+<li>ABA</li>
+</ul>
+</li>
+<li>无同步方案：当方法不涉及共享数据时，就不用同步措施<ul>
+<li>栈封闭</li>
+<li>线程本地存储</li>
+<li>可重入代码</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>主要指JVM对synchronized的优化</p>
+<ul>
+<li>自旋锁：让一个线程在请求一个共享数据的锁时忙循环一段时间，若能获得锁，则可以避免阻塞状态</li>
+<li>锁消除：对于检测出不可能存在竞争的共享数据的锁进行消除</li>
+<li>锁粗化：若频繁对一个对象加锁解锁，则将加锁范围扩展到整个操作序列的外部</li>
+<li>轻量级锁和偏向锁：JDK1.6引入</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol>
+<li><p>给线程起有意义的名字</p>
+</li>
+<li><p>缩小同步范围</p>
+</li>
+<li><p>多用同步工具少用wait()和notify()</p>
+</li>
+<li><p>使用BlockingQueue实现生产者消费者问题</p>
+</li>
+<li><p>多用并发集合少用同步集合</p>
+</li>
+<li><p>使用本地变量和不可变类来保证安全</p>
+</li>
+<li><p>使用线程池而不是直接创建线程</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/03/13/Java%E5%B9%B6%E5%8F%91/" data-id="ckm7hypel00027cv5de4zayxs" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-上车问题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -263,11 +713,23 @@
       <ul>
         
           <li>
-            <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">(no title)</a>
+            <a href="/2021/03/13/JVM/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2021/03/13/hello-world/">Hello World</a>
+            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/13/Java%E5%9F%BA%E7%A1%80/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/13/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">(no title)</a>
           </li>
         
       </ul>
@@ -283,7 +745,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2021 John Doe<br>
+      &copy; 2021 Rui Chen<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
