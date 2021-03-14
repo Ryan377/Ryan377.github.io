@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">Java容器</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" class="post-title-link" itemprop="url">第三章 函数的增长</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-13 16:58:11 / Modified: 21:08:58" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+              <time title="Created: 2021-03-13 21:16:54 / Modified: 21:17:49" itemprop="dateCreated datePublished" datetime="2021-03-13T21:16:54+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +188,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -203,41 +203,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
-<ol>
-<li>Set：TreeSet HashSet LinkedHashSet</li>
-<li>List：ArrayList Vector(线程安全) LinkedList</li>
-<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
-</ol>
-<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
-<ul>
-<li>支持快速随机访问、默认大小为10</li>
-<li>基于动态数组实现，具有动态扩容性</li>
+          <h2 id="渐进记号"><a href="#渐进记号" class="headerlink" title="渐进记号"></a>渐进记号</h2><ul>
+<li>Θ记号：等于（即f(n) = Θ(g(n))，f(n) = g(n)，下同）</li>
+<li>O记号：小于等于、最坏情况，时间复杂度上界</li>
+<li>Ω记号：大于等于</li>
+<li>o记号：小于</li>
+<li>ω记号：大于</li>
 </ul>
-<p>Vector</p>
-<ul>
-<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
-<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
-</ul>
-<p>CopyOnWriteArrayList</p>
-<ul>
-<li>读写分离，适用读多写少的情况</li>
-</ul>
-<p>LinkedList</p>
-<ul>
-<li><p>基于双向链表实现</p>
-</li>
-<li><p>不支持随机访问但插入删除效率高</p>
-</li>
-<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
-</li>
-<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
-</li>
-<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
-</li>
-<li><p>Collection（只需要存放元素）：需要唯一用Set，否则用List</p>
-</li>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
+<li>多项式</li>
+<li>指数</li>
+<li>对数</li>
+<li>阶乘</li>
+<li>多重函数（多重对数函数lg*n）</li>
+<li>斐波那契数</li>
 </ul>
 
       
@@ -257,7 +236,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -323,14 +302,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>

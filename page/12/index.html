@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/JVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2021/03/13/JVM/" class="post-title-link" itemprop="url">JVM</a>
         </h2>
 
         <div class="post-meta">
@@ -178,8 +178,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-03-13 14:34:29" itemprop="dateCreated datePublished" datetime="2021-03-13T14:34:29+08:00">2021-03-13</time>
+              <time title="Created: 2021-03-13 16:58:11 / Modified: 21:09:06" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
             </span>
 
           
@@ -193,19 +203,129 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+          <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
+<ul>
+<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
+<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
+<li>本地方法栈：为本地方法服务</li>
+</ul>
+<ul>
+<li>堆：对象分配的内存</li>
+<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
+<li>运行常量池：方法区的一部分</li>
+<li>直接内存</li>
+</ul>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
+<li><p>判断一个对象是否可回收</p>
+<ol>
+<li>引用计数法</li>
+<li>可达性分析法</li>
+<li>方法区的回收</li>
+<li>finalize()</li>
+</ol>
+</li>
+<li><p>引用类型</p>
+<ol>
+<li>强引用：不会被回收</li>
+<li>软引用：内存不够会回收</li>
+<li>弱引用：一定会回收</li>
+<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
+</ol>
+</li>
+<li><p>垃圾收集算法</p>
+<ol>
+<li><p>标记-清除</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
+</li>
+<li><p>标记-整理</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
+</li>
+<li><p>复制</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
+</li>
+<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
+</li>
+</ol>
+</li>
+<li><p>垃圾收集器</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
+<ol>
+<li>Serial收集器</li>
+<li>ParNew收集器</li>
+<li>Parallel Scavenge收集器</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>Serial Old收集器</li>
+<li>Parallel Old收集器</li>
+<li>CMS收集器</li>
+<li>G1收集器</li>
+</ol>
+<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
+<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
+<ul>
+<li><p>内存分配策略</p>
+<ol>
+<li><p>对象优先在Eden分配</p>
+</li>
+<li><p>大对象直接进入老年代</p>
+</li>
+<li><p>长期存活的对象进入老年代</p>
+</li>
+<li><p>动态对象年龄判定</p>
+</li>
+<li><p>空间分配担保</p>
+</li>
+</ol>
+</li>
+<li><p>Full GC的触发条件</p>
+<ol>
+<li>调用System.gc()</li>
+<li>老年代空间不足</li>
+<li>空间分配担保失败</li>
+<li>JDK1.7及以前的永久代空间不足</li>
+<li>Concurrent Mode Failure</li>
+</ol>
+</li>
+</ul>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
+<li>类的生命周期</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
+<ul>
+<li>类加载过程<ol>
+<li>加载：<ul>
+<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
+<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
+<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
+</ul>
+</li>
+<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
+<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
+<li>解析：将常量池的符号引用替换为直接引用的过程</li>
+<li>初始化：真正执行类中定义的Java程序的代码</li>
+</ol>
+</li>
+<li>类初始化时机<ol>
+<li>主动引用：五个场景，必须对类初始化<ol>
+<li>遇到new、getstatic、putstatic、invokestatic</li>
+<li>使用java.lang.reflect进行反射调用</li>
+<li>要初始化类，但父类还没初始化</li>
+<li>执行主类（包含main()）</li>
+<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
+</ol>
+</li>
+<li>被动引用：不会触发初始化的引用</li>
+</ol>
+</li>
+</ul>
+<p>类和类加载器</p>
+<ul>
+<li>分类：启动类加载器/其他类加载器</li>
+<li>双亲委派模型</li>
+<li>自定义类加载器实现</li>
+</ul>
 
       
     </div>
@@ -224,7 +344,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -290,14 +410,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
