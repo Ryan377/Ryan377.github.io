@@ -25,7 +25,7 @@
 <meta property="og:url" content="http://example.com/page/12/index.html">
 <meta property="og:site_name" content="R Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="Rui Chen">
+<meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/page/12/">
@@ -155,11 +155,11 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/JVM/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Rui Chen">
+      <meta itemprop="name" content="chenrui">
       <meta itemprop="description" content="">
     </span>
 
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/JVM/" class="post-title-link" itemprop="url">JVM</a>
+            <a href="/2021/03/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">操作系统 知识点总结</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:09:06" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:13:57 / 修改时间：21:15:25" itemprop="dateCreated datePublished" datetime="2021-03-13T21:13:57+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +188,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
                 </span>
             </span>
 
@@ -203,129 +203,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
+          <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li>进程是资源分配的单位。</li>
+<li>线程是独立调度的基本单位，是进程内部的一个执行序列。是进程划分的更小的运行单位。</li>
+<li>线程共享进程的堆和方法区（元空间），每个线程有自己的程序计数器、虚拟机栈和本地方法栈。</li>
+</ul>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>5种状态：new, ready, running, waiting, terminated.</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>7种常见方式：管道/匿名管道（父子进程或兄弟进程间）、有名管道（实现本机任意两个进程通信）、信号、消息队列（消息的列表，存放在内核，克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺陷）、信号量、共享内存、套接字（客户端和服务器之间）。</p>
+<h3 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h3><ul>
+<li>先到先服务</li>
+<li>短作业优先</li>
+<li>时间片轮转</li>
+<li>多级反馈队列调度</li>
+<li>优先级调度</li>
+</ul>
+<h3 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h3><ul>
+<li>概念：临界区、同步与互斥</li>
+<li>信号量解决同步问题</li>
+<li>管程：把同步互斥问题的代码独立出来</li>
+<li>经典问题：哲学家进餐、读者写者</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li>孤儿进程（父进程退出，子进程还在，没有危害），僵尸进程（子进程退出，父进程没有释放子进程信息，可能因为没有可用进程号导致不能产生新进程）</li>
+<li>线程同步：互斥量、信号量、事件</li>
+<li>实时系统（硬实时和软实时）</li>
+</ol>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li><p>必要条件：互斥、占有等待、不可抢占、环路等待</p>
+</li>
+<li><p>处理方法</p>
+</li>
+</ul>
+<ol>
+<li>鸵鸟策略：Unix,Linux,Windows都采用</li>
+<li>死锁检测和恢复</li>
+<li>死多预防（破坏必要条件）</li>
+<li>死锁避免：安全状态、银行家算法</li>
+</ol>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>内存管理主要负责内存的分配和回收以及地址转换。</p>
+<h3 id="内存管理机制"><a href="#内存管理机制" class="headerlink" title="内存管理机制"></a>内存管理机制</h3><ul>
+<li><p>虚拟内存：让物理内存扩充成更大的逻辑内存，MMU管理地址空间和物理内存的转换</p>
+</li>
+<li><p>连续：块式</p>
+</li>
+<li><p>非连续</p>
+</li>
+</ul>
+<ol>
+<li>页式：页表（页和页框段映射表），页面号+偏移量。</li>
+<li>段式：一个段构成一个独立地址空间，共享和保护。</li>
+<li>段页式：先分成若干段，每段再分成若干页。</li>
+</ol>
 <ul>
-<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
-<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
-<li>本地方法栈：为本地方法服务</li>
+<li><p>快表TLB（加速虚拟地址到物理地址的转换）和多级页表（避免把全部页表一直放在内存中占用过多空间）。</p>
+</li>
+<li><p>分页大小固定，分段大小不固定，段是逻辑信息的基本单位。分页是一维的，分段是二维的。</p>
+</li>
+<li><p>内部碎片和外部碎片</p>
+</li>
+<li><p>局部性原理：时间局部性和空间局部性</p>
+</li>
+<li><p>页面置换算法</p>
+</li>
 </ul>
-<ul>
-<li>堆：对象分配的内存</li>
-<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
-<li>运行常量池：方法区的一部分</li>
-<li>直接内存</li>
-</ul>
-<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
-<li><p>判断一个对象是否可回收</p>
 <ol>
-<li>引用计数法</li>
-<li>可达性分析法</li>
-<li>方法区的回收</li>
-<li>finalize()</li>
+<li>OPT最佳</li>
+<li>FIFO先进先出</li>
+<li>LRU最近最久未使用</li>
+<li>LFU最少使用</li>
+<li>NRU最近未使用</li>
+<li>第二次机会算法</li>
+<li>时钟算法</li>
 </ol>
+<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><ul>
+<li><p>磁盘结构：盘面、磁道、扇区、磁头、制动手臂、主轴。</p>
 </li>
-<li><p>引用类型</p>
+<li><p>磁盘调度算法：</p>
+</li>
+</ul>
 <ol>
-<li>强引用：不会被回收</li>
-<li>软引用：内存不够会回收</li>
-<li>弱引用：一定会回收</li>
-<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
+<li>先来先服务</li>
+<li>最短寻道时间优先（可能饥饿）</li>
+<li>电梯算法</li>
 </ol>
-</li>
-<li><p>垃圾收集算法</p>
-<ol>
-<li><p>标记-清除</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
-</li>
-<li><p>标记-整理</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
-</li>
-<li><p>复制</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
-</li>
-<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
-</li>
-</ol>
-</li>
-<li><p>垃圾收集器</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
-<ol>
-<li>Serial收集器</li>
-<li>ParNew收集器</li>
-<li>Parallel Scavenge收集器</li>
-</ol>
-</li>
-</ul>
-<ol start="4">
-<li>Serial Old收集器</li>
-<li>Parallel Old收集器</li>
-<li>CMS收集器</li>
-<li>G1收集器</li>
-</ol>
-<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
-<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
-<ul>
-<li><p>内存分配策略</p>
-<ol>
-<li><p>对象优先在Eden分配</p>
-</li>
-<li><p>大对象直接进入老年代</p>
-</li>
-<li><p>长期存活的对象进入老年代</p>
-</li>
-<li><p>动态对象年龄判定</p>
-</li>
-<li><p>空间分配担保</p>
-</li>
-</ol>
-</li>
-<li><p>Full GC的触发条件</p>
-<ol>
-<li>调用System.gc()</li>
-<li>老年代空间不足</li>
-<li>空间分配担保失败</li>
-<li>JDK1.7及以前的永久代空间不足</li>
-<li>Concurrent Mode Failure</li>
-</ol>
-</li>
-</ul>
-<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
-<li>类的生命周期</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
-<ul>
-<li>类加载过程<ol>
-<li>加载：<ul>
-<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
-<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
-<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
-</ul>
-</li>
-<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
-<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
-<li>解析：将常量池的符号引用替换为直接引用的过程</li>
-<li>初始化：真正执行类中定义的Java程序的代码</li>
-</ol>
-</li>
-<li>类初始化时机<ol>
-<li>主动引用：五个场景，必须对类初始化<ol>
-<li>遇到new、getstatic、putstatic、invokestatic</li>
-<li>使用java.lang.reflect进行反射调用</li>
-<li>要初始化类，但父类还没初始化</li>
-<li>执行主类（包含main()）</li>
-<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
-</ol>
-</li>
-<li>被动引用：不会触发初始化的引用</li>
-</ol>
-</li>
-</ul>
-<p>类和类加载器</p>
-<ul>
-<li>分类：启动类加载器/其他类加载器</li>
-<li>双亲委派模型</li>
-<li>自定义类加载器实现</li>
-</ul>
 
       
     </div>
@@ -344,7 +304,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -402,7 +362,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Rui Chen</p>
+  <p class="site-author-name" itemprop="name">chenrui</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -410,7 +370,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -448,7 +408,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Rui Chen</span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
