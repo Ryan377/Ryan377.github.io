@@ -267,11 +267,16 @@
 </ol>
 </li>
 </ul>
-<ol start="4">
-<li>Serial Old收集器</li>
-<li>Parallel Old收集器</li>
-<li>CMS收集器</li>
+<ol>
+<li><p>Serial Old收集器</p>
+<ol>
+<li><p>Parallel Old收集器</p>
+</li>
+<li><p>CMS收集器</p>
+</li>
 <li>G1收集器</li>
+</ol>
+</li>
 </ol>
 <h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
 <p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
@@ -286,8 +291,7 @@
 </li>
 <li><p>动态对象年龄判定</p>
 </li>
-<li><p>空间分配担保</p>
-</li>
+<li>空间分配担保</li>
 </ol>
 </li>
 <li><p>Full GC的触发条件</p>
@@ -517,6 +521,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   

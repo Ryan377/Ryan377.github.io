@@ -253,6 +253,7 @@
 <li>可串行化</li>
 </ul>
 <p>隔离级别能解决的并发一致性问题</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -262,7 +263,8 @@
 <th>幻影读</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>未提交读</td>
 <td>×</td>
 <td>×</td>
@@ -286,7 +288,9 @@
 <td>√</td>
 <td>√</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h2><p>MySQL的InnoDB存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。</p>
 <h2 id="Next-Key-Locks"><a href="#Next-Key-Locks" class="headerlink" title="Next-Key Locks"></a>Next-Key Locks</h2><p>MySQL的InnoDB存储引擎的一种锁实现。</p>
 <ul>
@@ -508,6 +512,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   

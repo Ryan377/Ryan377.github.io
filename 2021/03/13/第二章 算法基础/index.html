@@ -211,7 +211,6 @@
 
       
         <h2 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> j &lt;- <span class="number">2</span> to length[A]</span><br><span class="line">	<span class="keyword">do</span> key &lt;- A[j]</span><br><span class="line">    <span class="comment">//将A[j]插入A[1...j-1]</span></span><br><span class="line">    i = j - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &gt; <span class="number">0</span> and A[i] &gt; key</span><br><span class="line">         A[i + <span class="number">1</span>] &lt;- A[i]</span><br><span class="line">         i &lt;- i - <span class="number">1</span></span><br><span class="line">    A[i + <span class="number">1</span>] &lt;- key</span><br></pre></td></tr></table></figure>
-
 <p>正确性证明：循环不变式A[1…j-1]</p>
 <ol>
 <li>初始化：循环第一次迭代前为真</li>
@@ -415,6 +414,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   
