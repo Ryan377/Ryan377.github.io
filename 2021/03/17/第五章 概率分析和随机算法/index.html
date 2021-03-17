@@ -20,25 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="事务概念：满足ACID特性的一组操作，Commit提交，Rollback回滚 ACID：  原子性  一致性  隔离性  持久性    MySQL默认采用自动提交模式，每个查询操作都会被当做一个事务并自动提交 并发一致性问题产生原因：并发环境下，事务的隔离性很难保证  丢失修改 读脏数据 不可重复读 幻影读  封锁锁开销和并发程度的平衡 行级锁和表级锁 类型  读写锁：互斥锁（X）&#x2F;共享锁（S）">
+  <meta name="description" content="5.1 雇佣问题1234567HIRE-ASSISTANT(n)best &#x3D; 0for i &#x3D; 0 to n	interview candidate i	if candidate is better than candidate best		best &#x3D; i		hire candidate i 最坏情形分析 应聘者质量按出现的次序严格递增 如何求平均情况？ 随机算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库系统原理">
-<meta property="og:url" content="http://example.com/2021/03/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="第五章 概率分析和随机算法">
+<meta property="og:url" content="http://example.com/2021/03/17/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="R Blog">
-<meta property="og:description" content="事务概念：满足ACID特性的一组操作，Commit提交，Rollback回滚 ACID：  原子性  一致性  隔离性  持久性    MySQL默认采用自动提交模式，每个查询操作都会被当做一个事务并自动提交 并发一致性问题产生原因：并发环境下，事务的隔离性很难保证  丢失修改 读脏数据 不可重复读 幻影读  封锁锁开销和并发程度的平衡 行级锁和表级锁 类型  读写锁：互斥锁（X）&#x2F;共享锁（S）">
+<meta property="og:description" content="5.1 雇佣问题1234567HIRE-ASSISTANT(n)best &#x3D; 0for i &#x3D; 0 to n	interview candidate i	if candidate is better than candidate best		best &#x3D; i		hire candidate i 最坏情形分析 应聘者质量按出现的次序严格递增 如何求平均情况？ 随机算法">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311221928.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160721.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160757.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160905.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160840.png">
-<meta property="article:published_time" content="2021-03-14T08:10:08.289Z">
-<meta property="article:modified_time" content="2021-03-14T08:10:43.760Z">
+<meta property="article:published_time" content="2021-03-17T12:54:17.973Z">
+<meta property="article:modified_time" content="2021-03-17T12:55:03.683Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311221928.png">
 
-<link rel="canonical" href="http://example.com/2021/03/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">
+<link rel="canonical" href="http://example.com/2021/03/17/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -51,7 +45,7 @@
   };
 </script>
 
-  <title>数据库系统原理 | R Blog</title>
+  <title>第五章 概率分析和随机算法 | R Blog</title>
   
 
 
@@ -166,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +173,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据库系统原理
+          第五章 概率分析和随机算法
         </h1>
 
         <div class="post-meta">
@@ -190,7 +184,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-14 16:10:08 / 修改时间：16:10:43" itemprop="dateCreated datePublished" datetime="2021-03-14T16:10:08+08:00">2021-03-14</time>
+              <time title="创建时间：2021-03-17 20:54:17 / 修改时间：20:55:03" itemprop="dateCreated datePublished" datetime="2021-03-17T20:54:17+08:00">2021-03-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -198,7 +192,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -220,125 +214,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>概念：满足ACID特性的一组操作，Commit提交，Rollback回滚</p>
-<p>ACID：</p>
-<ol>
-<li><p>原子性</p>
-</li>
-<li><p>一致性</p>
-</li>
-<li><p>隔离性</p>
-</li>
-<li><p>持久性</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311221928.png" alt="image-20210311221928533"></p>
-</li>
-</ol>
-<p>MySQL默认采用自动提交模式，每个查询操作都会被当做一个事务并自动提交</p>
-<h2 id="并发一致性问题"><a href="#并发一致性问题" class="headerlink" title="并发一致性问题"></a>并发一致性问题</h2><p>产生原因：并发环境下，事务的隔离性很难保证</p>
-<ul>
-<li>丢失修改</li>
-<li>读脏数据</li>
-<li>不可重复读</li>
-<li>幻影读</li>
-</ul>
-<h2 id="封锁"><a href="#封锁" class="headerlink" title="封锁"></a>封锁</h2><p>锁开销和并发程度的平衡</p>
-<p>行级锁和表级锁</p>
-<p>类型</p>
-<ol>
-<li>读写锁：互斥锁（X）/共享锁（S） （行级锁）</li>
-<li>意向锁：增加IX/IS（表级锁）</li>
-</ol>
-<p>封锁协议</p>
-<ol>
-<li>三级封锁协议</li>
-<li>两段锁协议</li>
-</ol>
-<h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><ul>
-<li>未提交读</li>
-<li>提交读</li>
-<li>可重复读</li>
-<li>可串行化</li>
-</ul>
-<p>隔离级别能解决的并发一致性问题</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻影读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>未提交读</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-<tr>
-<td>提交读</td>
-<td>√</td>
-<td>×</td>
-<td>×</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>√</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>可串行化</td>
-<td>√</td>
-<td>√</td>
-<td>√</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h2><p>MySQL的InnoDB存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。</p>
-<h2 id="Next-Key-Locks"><a href="#Next-Key-Locks" class="headerlink" title="Next-Key Locks"></a>Next-Key Locks</h2><p>MySQL的InnoDB存储引擎的一种锁实现。</p>
-<ul>
-<li>Record Locks</li>
-<li>Gap Locks</li>
-<li>Next-Key Locks</li>
-</ul>
-<h2 id="关系数据库设计理论"><a href="#关系数据库设计理论" class="headerlink" title="关系数据库设计理论"></a>关系数据库设计理论</h2><ul>
-<li>函数依赖：B函数依赖于A A-&gt;B</li>
-<li>异常<ul>
-<li>冗余数据</li>
-<li>修改异常</li>
-<li>删除异常</li>
-<li>插入异常</li>
-</ul>
-</li>
-<li>范式：用于解决异常<ul>
-<li>第一范式：属性不可分</li>
-<li>第二范式：每个非主属性完全依赖与键码</li>
-<li>第三范式：非主属性不传递函数依赖于键码</li>
-</ul>
-</li>
-</ul>
-<h2 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h2><p>Entity-Relationship</p>
-<p>实体、属性、联系</p>
-<p>实体联系</p>
-<ul>
-<li><p>一对一</p>
-</li>
-<li><p>一对多</p>
-</li>
-<li><p>多对多</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160721.png" alt="image-20210314160714021"></p>
-</li>
-</ul>
-<p>多次出现的关系</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160757.png" alt="image-20210314160757908"></p>
-<p>多向的联系</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160905.png" alt="image-20210314160905040"></p>
-<p>子类</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210314160840.png" alt="image-20210314160840089"></p>
+        <h2 id="5-1-雇佣问题"><a href="#5-1-雇佣问题" class="headerlink" title="5.1 雇佣问题"></a>5.1 雇佣问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best &#x3D; 0</span><br><span class="line">for i &#x3D; 0 to n</span><br><span class="line">	interview candidate i</span><br><span class="line">	if candidate is better than candidate best</span><br><span class="line">		best &#x3D; i</span><br><span class="line">		hire candidate i</span><br></pre></td></tr></table></figure>
+<p><strong>最坏情形分析</strong></p>
+<p>应聘者质量按出现的次序严格递增</p>
+<p>如何求平均情况？</p>
+<p><strong>随机算法</strong></p>
+<h2 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h2><p>定义：</p>
+<script type="math/tex; mode=display">
+I\lbrace A\rbrace=\begin{cases} 1\quad如果A发生\\
+0\quad如果A不发生\end{cases}</script><p>A发生的概率$Pr\lbrace A\rbrace$，期望 $E[X_A]$</p>
+<p>引理：给定一个样本空间S和S中的一个事件A，设$X_A=I\lbrace A\rbrace$，那么$E[X_A]=Pr\lbrace A\rbrace$</p>
+<p><strong>用指示器随机变量分析雇佣问题</strong></p>
+<script type="math/tex; mode=display">
+X_i=I\lbrace 应聘者i被雇佣\rbrace = \begin{cases} 1\quad如果应聘者i被雇佣 \\ 0\quad如果应聘者i不被雇佣  \end{cases}</script><p>以及</p>
+<script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_n</script><p>根据引理</p>
+<script type="math/tex; mode=display">
+E[X_i]=Pr\lbrace 应聘者i被雇佣\rbrace</script><p>应聘者比应聘者1到i-1更有资格的概率是1/i，因此</p>
+<script type="math/tex; mode=display">
+E[X_i]=1/i</script><p>计算得</p>
+<script type="math/tex; mode=display">
+E[X]=\ln n+O(1)</script><p>因此尽管面试了n个人，实际上大约只雇佣他们之中的$\ln n$个人</p>
+<h2 id="5-3-随机算法"><a href="#5-3-随机算法" class="headerlink" title="5.3 随机算法"></a>5.3 随机算法</h2><p>先对应聘者进行排列，然后确定最佳应聘者的随机算法。此时建立的算法的性能和假设应聘者以随即次序出现所得的结果是匹配的。</p>
+<p><strong>随机排列数组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PERMUTE-BY-SORTING(A)</span><br><span class="line">n&#x3D;A.length</span><br><span class="line">let P[1...n] be a new array</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	P[i] &#x3D; RANDOM(1, n^3)</span><br><span class="line">sort A, using P as sort keys</span><br></pre></td></tr></table></figure>
+<p>引理：假设所有优先级都不同，则过程PERMUTE-BY-SORTING产生输入的均匀随机排列</p>
+<p>另一个方法：原址排列给定数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZE-IN-PLACE(A)</span><br><span class="line">n &#x3D; A.length</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	swap A[i] with A[RANDOM(i, n)]</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -354,13 +256,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/03/14/%E7%AC%AC1%E7%AB%A0%20%E9%87%8F%E5%8C%96%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" rel="prev" title="第1章 量化设计与分析基础">
-      <i class="fa fa-chevron-left"></i> 第1章 量化设计与分析基础
+    <a href="/2021/03/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%20%E7%AC%AC1%E7%AB%A0%20%E6%A6%82%E8%AE%BA/" rel="prev" title="软件工程 第1章 概论">
+      <i class="fa fa-chevron-left"></i> 软件工程 第1章 概论
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/03/14/SQL%E8%AF%AD%E6%B3%95/" rel="next" title="SQL语法">
-      SQL语法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -419,7 +318,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">并发一致性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">封锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">多版本并发控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next-Key-Locks"><span class="nav-number">6.</span> <span class="nav-text">Next-Key Locks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%90%86%E8%AE%BA"><span class="nav-number">7.</span> <span class="nav-text">关系数据库设计理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ER%E5%9B%BE"><span class="nav-number">8.</span> <span class="nav-text">ER图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E9%9B%87%E4%BD%A3%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">5.1 雇佣问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E6%8C%87%E7%A4%BA%E5%99%A8%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">5.2 指示器随机变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">5.3 随机算法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -563,6 +462,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
