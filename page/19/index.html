@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" class="post-title-link" itemprop="url">第三章 函数的增长</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">第二章 算法基础</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 21:16:54 / 修改时间：21:17:49" itemprop="dateCreated datePublished" datetime="2021-03-13T21:16:54+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:16:54 / 修改时间：21:17:21" itemprop="dateCreated datePublished" datetime="2021-03-13T21:16:54+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -203,20 +203,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="渐进记号"><a href="#渐进记号" class="headerlink" title="渐进记号"></a>渐进记号</h2><ul>
-<li>Θ记号：等于（即f(n) = Θ(g(n))，f(n) = g(n)，下同）</li>
-<li>O记号：小于等于、最坏情况，时间复杂度上界</li>
-<li>Ω记号：大于等于</li>
-<li>o记号：小于</li>
-<li>ω记号：大于</li>
+          <h2 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> j &lt;- <span class="number">2</span> to length[A]</span><br><span class="line">	<span class="keyword">do</span> key &lt;- A[j]</span><br><span class="line">    <span class="comment">//将A[j]插入A[1...j-1]</span></span><br><span class="line">    i = j - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &gt; <span class="number">0</span> and A[i] &gt; key</span><br><span class="line">         A[i + <span class="number">1</span>] &lt;- A[i]</span><br><span class="line">         i &lt;- i - <span class="number">1</span></span><br><span class="line">    A[i + <span class="number">1</span>] &lt;- key</span><br></pre></td></tr></table></figure>
+<p>正确性证明：循环不变式A[1…j-1]</p>
+<ol>
+<li>初始化：循环第一次迭代前为真</li>
+<li>保持：若循环的某次迭代前为真，那么下次迭代前它仍然为真</li>
+<li>终止：在循环终止时，不变式提供一个性质，该性质有助于证明算法正确性</li>
+</ol>
+<h2 id="2-2-分析算法"><a href="#2-2-分析算法" class="headerlink" title="2.2 分析算法"></a>2.2 分析算法</h2><ul>
+<li><p>描述算法所用资源及其代价的模型：随机访问机RAM模型</p>
+</li>
+<li><p>最坏情况与平均情况分析：往往考虑最坏情况（例如输入数组是反向排好序的）</p>
+</li>
+<li><p>增长量级：只考虑运行时间公式中最重要的项，如Θ(n^2)</p>
+</li>
 </ul>
-<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
-<li>多项式</li>
-<li>指数</li>
-<li>对数</li>
-<li>阶乘</li>
-<li>多重函数（多重对数函数lg*n）</li>
-<li>斐波那契数</li>
+<h2 id="2-3-算法设计"><a href="#2-3-算法设计" class="headerlink" title="2.3 算法设计"></a>2.3 算法设计</h2><ul>
+<li><p>分治法（Divide Conquer Combine）</p>
+<p>归并排序</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308152734.png" alt="image-20210308152734063"></p>
+</li>
+<li><p>归并排序的分析：递归树</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210308153637.png" alt="image-20210308153637122"></p>
+</li>
 </ul>
 
       
@@ -236,7 +245,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -302,7 +311,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
