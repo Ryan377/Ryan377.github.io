@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CER%E6%A8%A1%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CER%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">数据库引论 第五章 数据库设计和ER模型</a>
+            <a href="/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第六章 堆排序</a>
         </h2>
 
         <div class="post-meta">
@@ -178,23 +178,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-03-23 18:30:21" itemprop="dateCreated datePublished" datetime="2021-03-23T18:30:21+08:00">2021-03-23</time>
+              <time title="创建时间：2021-03-24 13:24:59 / 修改时间：15:48:53" itemprop="dateCreated datePublished" datetime="2021-03-24T13:24:59+08:00">2021-03-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-24 13:18:36" itemprop="dateModified" datetime="2021-03-24T13:18:36+08:00">2021-03-24</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -209,60 +203,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="数据库设计概论"><a href="#数据库设计概论" class="headerlink" title="数据库设计概论"></a>数据库设计概论</h2><p>数据库生存期：</p>
-<p>规划、需求分析、概念设计、逻辑设计、物理设计、实现、运行和维护</p>
-<h2 id="数据库设计全过程"><a href="#数据库设计全过程" class="headerlink" title="数据库设计全过程"></a>数据库设计全过程</h2><p><strong>规划</strong></p>
-<p>系统调查、可行性分析、确定数据库系统的总目标和制定项目开发计划</p>
-<p><strong>需求分析</strong></p>
+          <p>堆排序时间复杂度：$O(n\lg n)$，和归并排序一样</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>一个近似完全的二叉树</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210324140442.png" alt="image-20210324140441665"></p>
 <ul>
-<li>分析用户活动产生，产生业务流程图（TFD）</li>
-<li>确定系统范围，产生系统范围图</li>
-<li>分析用户活动涉及的数据，产生数据流图（DFD）</li>
-<li>分析系统数据，产生数据字典</li>
+<li>根节点A[1]</li>
+<li>A[i]的父节点A[$\lfloor i/2 \rfloor$]</li>
+<li>A[i]左子节点A[2i]</li>
+<li>A[i]右子节点A[2i+1]</li>
 </ul>
-<p><strong>概念设计</strong></p>
-<p>从每个用户的角度出发定义ER图，然后合并</p>
-<p><strong>逻辑设计</strong></p>
-<p>根据概念模式转换成逻辑模式、模式评价、修正</p>
-<p><strong>物理设计</strong></p>
+<p>最大堆：子节点小于等于父节点，根节点最大，用于堆排序</p>
+<p>(一个叶子节点本身是一个最大堆)</p>
+<p>最小堆：子节点大于等于父节点，根节点最小，用于构造优先级队列</p>
+<p>n个节点的堆的高度 $\lfloor \lg n \rfloor$</p>
+<h2 id="维护堆的性质"><a href="#维护堆的性质" class="headerlink" title="维护堆的性质"></a>维护堆的性质</h2><p>最大堆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MAX-HEAPIFY(A,i) &#x2F;&#x2F; Sub-tree rooted at node i</span><br><span class="line">	l &#x3D; LEFT(i)</span><br><span class="line">	r &#x3D; RIGHT(i)</span><br><span class="line">	if l &lt; heap-size[A] and A[l] &gt; A[i]</span><br><span class="line">		then largest &#x3D; l</span><br><span class="line">		else largest &#x3D; i</span><br><span class="line">    if r &lt;&#x3D; heap-size[A] and A[r] &gt; A[largest]</span><br><span class="line">    	then largest &#x3D; r</span><br><span class="line">    if largest !&#x3D; i</span><br><span class="line">    	then exchange A[i] and A[largest]</span><br><span class="line">    		MAX-HEAPIFY(A,largest)</span><br></pre></td></tr></table></figure>
+<h2 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line"> heap-size[A] &#x3D; length[A]</span><br><span class="line"> for i &#x3D; length[A]&#x2F;2 downto 1</span><br><span class="line">  do MAX-HEAPIFY(A,i)</span><br></pre></td></tr></table></figure>
+<p>时间代价 $O(n\lg n)$</p>
+<h2 id="堆排序算法"><a href="#堆排序算法" class="headerlink" title="堆排序算法"></a>堆排序算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HEAPSORT(A)</span><br><span class="line">	BUILD-MAX-HEAP(A)</span><br><span class="line">	for i &#x3D; length[A] downto 2</span><br><span class="line">		do exchange A[1] and A[i]</span><br><span class="line">			heap-size[A] &#x3D; heap-size[A] - 1</span><br><span class="line">			MAX-HEAPIFY(A,1)</span><br></pre></td></tr></table></figure>
+<p>时间代价 $O(n\lg n)$</p>
+<h2 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h2><p>一种用来维护一组元素构成的集合S的数据结构，其中每个元素有一个关键字key。</p>
+<p>支持的操作：</p>
 <ul>
-<li>存储记录结构设计</li>
-<li>确定数据存放位置</li>
-<li>存取方法的设计</li>
-<li>完整性和安全性考虑</li>
-<li>程序设计</li>
+<li>INSERT(S, x)，把元素x插入集合S中</li>
+<li>MAXINUM(S)，返回S中具有最大键字的元素</li>
+<li>EXTRACT-MAX(S)，去掉并返回S中具有最大键字的元素</li>
+<li>INCREASE-KEYS(S, x, k)，将元素x的关键字增加到k（比原来大）</li>
 </ul>
-<p><strong>数据库实现</strong></p>
-<ul>
-<li>用DDL定义数据库结构</li>
-<li>组织数据入库</li>
-<li>编制与调试应用程序</li>
-<li>数据库试运行<ul>
-<li>功能测试</li>
-<li>性能测试（时空代价）</li>
-</ul>
-</li>
-</ul>
-<p><strong>数据库的运行与维护工作</strong></p>
-<ul>
-<li>数据库的转储和恢复</li>
-<li>数据库安全性、完整性控制</li>
-<li>数据库性能的监督、分析和改进</li>
-<li>数据库的重组织和重构造</li>
-</ul>
-<h2 id="ER模型"><a href="#ER模型" class="headerlink" title="ER模型"></a>ER模型</h2><p><strong>基本元素</strong>：实体、联系、属性、例子</p>
-<h2 id="ER模型到关系模型的转换"><a href="#ER模型到关系模型的转换" class="headerlink" title="ER模型到关系模型的转换"></a>ER模型到关系模型的转换</h2><p>将每个实体类型转换成一个关系模式，实体的属性即为关系模式的属性，实体标识符即为关系模式的键。</p>
-<p>二元联系关系的转换：</p>
-<ul>
-<li>实体联系1：1 …</li>
-<li>实体联系1：N …</li>
-<li>实体联系M：N …</li>
-</ul>
-<h2 id="ER模型实例分析"><a href="#ER模型实例分析" class="headerlink" title="ER模型实例分析"></a>ER模型实例分析</h2><p>略</p>
-<h2 id="ER模型的扩充"><a href="#ER模型的扩充" class="headerlink" title="ER模型的扩充"></a>ER模型的扩充</h2><p><strong>弱实体</strong></p>
-<p>例如：职工的亲属的关系依附于职工，是弱实体</p>
-<p><strong>子类实体与超类实体</strong></p>
-<p>继承性、子类本身比超类具有更多属性、子类和超类有相同的标识符</p>
 
       
     </div>
@@ -281,7 +248,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -347,7 +314,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -477,6 +444,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
