@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/09/%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">软件工程 第5章 结构化分析与设计</a>
+            <a href="/2021/04/09/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">数据库</a>
         </h2>
 
         <div class="post-meta">
@@ -178,17 +178,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-01 20:12:27 / 修改时间：20:11:59" itemprop="dateCreated datePublished" datetime="2021-04-01T20:12:27+08:00">2021-04-01</time>
+              <time title="创建时间：2021-04-09 08:00:26" itemprop="dateCreated datePublished" datetime="2021-04-09T08:00:26+08:00">2021-04-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-08 21:10:13" itemprop="dateModified" datetime="2021-04-08T21:10:13+08:00">2021-04-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
                 </span>
             </span>
 
@@ -203,131 +209,157 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="结构化分析方法的概述"><a href="#结构化分析方法的概述" class="headerlink" title="结构化分析方法的概述"></a>结构化分析方法的概述</h2><ol>
-<li><p>抽象（自底向上）和分解（自顶向下）</p>
-</li>
-<li><p>结构化分析的过程</p>
+          <p><em>mysql存储引擎 MyISAM和InnoDB的区别？</em></p>
+<p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。</p>
+<p>一般情况下都选用后者。</p>
+<p><em>mysql索引？</em></p>
+<p>MySQL索引使用的数据结构主要有<strong>BTree索引</strong> 和 <strong>哈希索引</strong> 。对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能最快；其余大部分场景，建议选择BTree索引。</p>
+<p>MySQL的BTree索引使用的是B树中的B+Tree，但对于主要的两种存储引擎的实现方式是不同的。</p>
+<p><em>查询缓存的使用？</em></p>
+<p>执行查询语句的时候，会先查询缓存。不过，MySQL 8.0 版本后移除，因为这个功能不太实用。</p>
+<p><em>事务？</em></p>
+<p>逻辑上的一组操作，要么都执行，要么都不执行。</p>
+<p>四大特性（ACID）</p>
 <ol>
-<li>理解当前的现实环境，获得当前系统的具体模型</li>
-<li>从当前系统的具体模型抽象出当前系统的逻辑模型</li>
-<li>分析目标系统与当前系统逻辑上的差别，建立目标系统的逻辑模型</li>
-<li>为目标系统的逻辑模型作补充</li>
+<li><strong>原子性（Atomicity）：</strong> 事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li><strong>一致性（Consistency）：</strong> 执行事务后，数据库从一个正确的状态变化到另一个正确的状态；</li>
+<li><strong>隔离性（Isolation）：</strong> 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li><strong>持久性（Durability）：</strong> 一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
 </ol>
-</li>
-<li><p>结构化分析模型的描述形式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401160457.png" alt="image-20210401160457326"></p>
-</li>
-</ol>
-<h2 id="数据流图（DFD）"><a href="#数据流图（DFD）" class="headerlink" title="数据流图（DFD）"></a>数据流图（DFD）</h2><p>描述输入数据流到输出数据流的变换（即加工），用于对系统的功能建模</p>
-<p><strong>数据流图的图形表示</strong></p>
+<p><em>并发事务带来的问题？</em></p>
+<p>脏读、丢失修改、不可重复读、幻影读。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192348.png" alt="image-20210408192348236"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192408.png" alt="image-20210408192408423"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192500.png" alt="image-20210408192500356"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192522.png" alt="image-20210408192522582"></p>
+<p><em>事务的隔离级别？</em></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻影读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ-UNCOMMITTED 读取未提交</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ-COMMITTED 读取已提交</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE-READ 可重复读</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE 可串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>InnoDB默认的是可重复读，与 SQL 标准不同的地方在于 InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下使用的是Next-Key Lock 锁算法，因此可以避免幻读的产生。</p>
+<p><em>锁机制？</em></p>
+<ul>
+<li>MyISAM采用表级锁(table-level locking)。</li>
+<li>InnoDB支持行级锁(row-level locking)和表级锁,默认为行级锁。</li>
+</ul>
+<p>表级锁对整张表上锁，实现简单，资源消耗少，不会死锁，但并发度低。</p>
+<p>行级锁只对当前进行操作的行上锁，能大大减少数据库操作的冲突，并发度高。</p>
+<p><strong>InnoDB存储引擎的锁的算法有三种：</strong></p>
+<ul>
+<li>Record lock：单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li>Next-key lock：record+gap 锁定一个范围，包含记录本身</li>
+</ul>
+<p><em>大表优化？</em></p>
+<p>限定数据范围、读写分离、垂直分区、水平分区。</p>
+<p><em>数据库连接池？</em></p>
+<p>池化思想就是每次预设初始资源，减少每次获取资源的消耗。</p>
+<p>数据库连接本质就是一个 socket 的连接。数据库服务端还要维护一些缓存和用户权限信息之类的 所以占用了一些内存。我们可以把数据库连接池是看做是维护的数据库连接的缓存，以便将来需要对数据库的请求时可以重用这些连接。为每个用户打开和维护数据库连接，尤其是对动态数据库驱动的网站应用程序的请求，既昂贵又浪费资源。<strong>在连接池中，创建连接后，将其放置在池中，并再次使用它，因此不必建立新的连接。如果使用了所有连接，则会建立一个新连接并将其添加到池中</strong>。 连接池还减少了用户必须等待建立与数据库的连接的时间。</p>
+<p><em>分库分表后，id主键如何处理？</em></p>
+<ul>
+<li><strong>UUID</strong>：不适合作为主键，因为太长了，并且无序不可读，查询效率低。比较适合用于生成唯一的名字的标示比如文件的名字。</li>
+<li><strong>数据库自增 id</strong> : 两台数据库分别设置不同步长，生成不重复ID的策略来实现高可用。这种方式生成的 id 有序，但是需要独立部署数据库实例，成本高，还会有性能瓶颈。</li>
+<li><strong>利用 redis 生成 id :</strong> 性能比较好，灵活方便，不依赖于数据库。但是，引入了新的组件造成系统更加复杂，可用性降低，编码更加复杂，增加了系统成本。</li>
+<li><strong>Twitter的snowflake算法</strong> </li>
+<li><strong>美团的<a target="_blank" rel="noopener" href="https://tech.meituan.com/2017/04/21/mt-leaf.html">Leaf</a>分布式ID生成系统</strong> ：Leaf 是美团开源的分布式ID生成器，能保证全局唯一性、趋势递增、单调递增、信息安全，里面也提到了几种分布式方案的对比，但也需要依赖关系数据库、Zookeeper等中间件。</li>
+</ul>
+<p><em>介绍Redis?</em></p>
+<p>Redis是一个使用C语言开发的数据库，不过于传统数据库不同的是Redis数据是存在内存中的，所以读写非常快，因此Redis被广泛应用于缓存方向。</p>
+<p><em>分布式缓存，Redis和Memecache？</em></p>
 <ol>
-<li>基本图形元素</li>
+<li>Redis 支持更丰富的数据类型（支持更复杂的应用场景）。Redis 不仅仅支持简单的 k/v 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储。Memcached 只支持最简单的 k/v 数据类型。</li>
+<li>Redis 支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用,而 Memecache 把数据全部存在内存之中。</li>
+<li>Redis 有灾难恢复机制。因为可以把缓存中的数据持久化到磁盘上。</li>
+<li>Redis 在服务器内存使用完之后，可以将不用的数据放到磁盘上。但是，Memcached 在服务器内存使用完之后，就会直接报异常。</li>
+<li>Memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；但是 Redis 目前是原生支持 cluster 模式的。</li>
+<li>Memcached 是多线程，非阻塞 IO 复用的网络模型；Redis 使用单线程的多路 IO 复用模型。（Redis 6.0 引入了多线程 IO ）</li>
+<li>Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。</li>
+<li>Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。</li>
 </ol>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161352.png" alt="image-20210401161352705"></p>
-<p>例：图书馆订购系统的DFD</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161621.png" alt="image-20210401161621374"></p>
+<p><em>缓存的处理流程？</em></p>
 <ol>
-<li><p>扩充符号</p>
+<li>如果用户请求的数据在缓存中就直接返回。</li>
+<li>缓存中不存在的话就看数据库中是否存在。</li>
+<li>数据库中存在的话就更新缓存中的数据。</li>
+<li>数据库中不存在的话就返回空数据。</li>
+</ol>
+<p><em>为什么用Redis？</em></p>
+<p>高性能角度：</p>
+<p>假如用户第一次访问数据库中的某些数据的话，这个过程是比较慢，毕竟是从硬盘中读取的。但是，如果说，用户访问的数据属于高频数据并且不会经常改变的话，那么我们就可以很放心地将该用户访问的数据存在缓存中。</p>
+<p><strong>这样有什么好处呢？</strong> 那就是保证用户下一次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。</p>
+<p>不过，要保持数据库和缓存中的数据的一致性。 如果数据库中的对应数据改变的之后，同步改变缓存中相应的数据即可！</p>
+<p>高并发：</p>
+<p>一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。</p>
+<p>所以，直接操作缓存能够承受的数据库请求数量是远远大于直接访问数据库的，所以我们可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库。进而，我们也就提高的系统整体的并发。</p>
+<p><em>Redis过期机制？</em></p>
+<p>缓解内存消耗，Redis使用过期字典来保存。</p>
+<p><em>Redis持久化机制？</em></p>
+<p>快照持久化（默认）：</p>
+<p>Redis 可以通过创建快照来获得存储在内存里面的数据在某个时间点上的副本。Redis 创建快照之后，可以对快照进行备份，可以将快照复制到其他服务器从而创建具有相同数据的服务器副本（Redis 主从结构，主要用来提高 Redis 性能），还可以将快照留在原地以便重启服务器的时候使用。</p>
+<p>AOF（append-only file）机制</p>
+<p>AOF 持久化后每执行一条会更改 Redis 中的数据的命令，Redis 就会将该命令写入硬盘中的 AOF 文件。AOF 文件的保存位置和 RDB 文件的位置相同，都是通过 dir 参数设置的，默认的文件名是 appendonly.aof。</p>
+<p>注意：Redis事务提供了一种将多个命令请求打包的功能。然后，再按顺序执行打包的所有命令，并且不会被中途打断。但不满足原子性。</p>
+<p><em>缓存穿透？</em></p>
+<p>大量请求的 key 根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。</p>
+<p>解决方法：</p>
+<p>参数校验，不合法的参数请求直接抛出异常。</p>
+<p>布隆过滤器：布隆过滤器是一个非常神奇的数据结构，通过它我们可以非常方便地判断一个给定数据是否存在于海量数据中。我们需要的就是判断 key 是否合法。</p>
+<p>具体是这样做的：把所有可能存在的请求的值都存放在布隆过滤器中，当用户请求过来，先判断用户发来的请求的值是否存在于布隆过滤器中。不存在的话，直接返回请求参数错误信息给客户端，存在的话才会走下面的流程。</p>
+<p>但可能会误判，因为可能有哈希碰撞。</p>
+<p><em>缓存雪崩？</em></p>
+<p>实际上，缓存雪崩描述的就是这样一个简单的场景：缓存在同一时间大面积的失效，后面的请求都直接落到了数据库上，造成数据库短时间内承受大量请求。系统的缓存模块出了问题比如宕机导致不可用。造成系统的所有访问，都要走数据库。</p>
+<p>还有一种缓存雪崩的场景是：有一些被大量访问数据（热点缓存）在某一时刻大面积失效，导致对应的请求直接落到了数据库上。</p>
+<ul>
+<li>针对 Redis 服务不可用的情况：</li>
+</ul>
 <ol>
-<li>星号 * ：表示数据流之间存在”与“关系</li>
-<li>加号 + ：表示数据流之间存在”或“关系</li>
-<li>异或 $\bigoplus$：表示数据流之间存在”异或“（互斥）关系</li>
+<li>采用 Redis 集群，避免单机出现问题整个缓存服务都没办法使用。</li>
+<li>限流，避免同时处理大量的请求。</li>
 </ol>
-</li>
-<li><p>层次结构</p>
-<p>每张图的加工数控制在 7$\pm$2</p>
-</li>
-</ol>
-<p><strong>分层数据流的画法</strong></p>
+<ul>
+<li>针对热点缓存失效的情况：</li>
+</ul>
 <ol>
-<li>画出系统的输入和输出</li>
-<li>画出系统内部</li>
-<li>画出加工内部</li>
-<li>重复第三步，直至每个尚未分解的加工都足够简单</li>
+<li>设置不同的失效时间比如随机设置缓存的失效时间。</li>
+<li>缓存永不失效。</li>
 </ol>
-<h2 id="分层数据流图的审查"><a href="#分层数据流图的审查" class="headerlink" title="分层数据流图的审查"></a>分层数据流图的审查</h2><p><strong>一致性和完整性</strong></p>
-<p><em>一致性</em></p>
-<ol>
-<li>父图与子图平衡</li>
-<li>数据守恒</li>
-<li>局部文件</li>
-<li>一个加工的输出数据流不能与该加工的输入数据流同名</li>
-</ol>
-<p><em>完整性</em></p>
-<ol>
-<li>每个加工至少有一个输入数据流和一个输出数据流</li>
-<li>在整套分层数据流图中，每个文件至少有一个加工该读文件，有另一个加工写该文件</li>
-<li><p>分层数据流图中的每个数据流和文件都必须命名（除了流入或流出文件的数据流），并保持与数据字典一致</p>
-</li>
-<li><p>分层DFD中的每个基本加工都应该有一个加工规约</p>
-</li>
-</ol>
-<p><strong>构造分层DFD时需要注意的问题</strong></p>
-<ol>
-<li>适当命名</li>
-<li>画数据流而不是画控制流</li>
-<li>避免一个加工有过多的数据流</li>
-<li>分解尽可能均匀</li>
-<li>先考虑稳定状态，忽略琐碎的枝节</li>
-<li>随时准备重画</li>
-</ol>
-<p><strong>分解程度</strong></p>
-<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>数据流图 + 数据字典 = 软件逻辑模型</p>
-<p><em>字典条目的种类</em></p>
-<p>数据流、文件、数据项、加工、源或宿</p>
-<p><em>字典数据中使用的描述符号</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401185616.png" alt="image-20210401185616134"></p>
-<p><strong>字典条目</strong></p>
-<p>DFD中的每个元素都对应一个数据字典条目的描述，不同种类的有不同的描述内容。</p>
-<ol>
-<li>数据流条目</li>
-<li>文件条目</li>
-<li>数据项条目</li>
-<li>加工条目</li>
-<li>源或宿条目</li>
-<li>别名条目</li>
-</ol>
-<h2 id="描述基本加工的小说明"><a href="#描述基本加工的小说明" class="headerlink" title="描述基本加工的小说明"></a>描述基本加工的小说明</h2><p>DFD每个基本加工都用一条小说明进行描述，小说明就是基本加工的加工规约。</p>
-<p>加工逻辑的描述方法有结构化语言、判定表和判定树。</p>
-<h2 id="结构化设计概述"><a href="#结构化设计概述" class="headerlink" title="结构化设计概述"></a>结构化设计概述</h2><p>结构化设计（SD）是将结构化分析得到的数据流图映射成软件体系结构的一种设计方法，SD强调模块化、自顶向下逐步求精、信息隐蔽、高内聚低耦合等设计准则。</p>
-<p><strong>结构图</strong></p>
-<p>结构化设计方法中用结构图描述软件系统的体系结构，指出一个软件系统由哪些模块组成，以及模块之间的调用关系</p>
-<p><strong>启发式设计策略</strong></p>
-<ol>
-<li>改造程序结构图，降低耦合度，提高内聚度</li>
-<li>避免高扇出，并随着深度的增加，力求高扇入</li>
-<li>模块的影响范围应限制在该模块的控制范围内</li>
-<li>降低模块结构的复杂程度和冗余程度，提高一致性</li>
-<li>模块的功能应是可预测的，避免对模块施加过多的限制</li>
-<li>尽可能设计单入口和单出口的模块</li>
-</ol>
-<p><strong>结构化设计的步骤</strong></p>
-<ol>
-<li>建立初始结构图</li>
-<li>对结构图的改进</li>
-<li>书写设计文档</li>
-<li>设计评审</li>
-</ol>
-<h2 id="数据流图到软件体系结构的映射"><a href="#数据流图到软件体系结构的映射" class="headerlink" title="数据流图到软件体系结构的映射"></a>数据流图到软件体系结构的映射</h2><p>结构化设计是将结构化分析的结果（数据流图）映射成软件的体系结构（结构图）。根据信息流的特点，可将数据流图分为数据流图和事务型数据流图，其对应的映射分别成为变化分析和事务分析。</p>
-<p><strong>信息流</strong>：变换流和事务流</p>
-<p><strong>数据流图映射到结构图的步骤</strong></p>
-<ol>
-<li>复审和精细数据流图</li>
-<li>确定数据流图类型</li>
-<li>将DFD映射成初始结构图</li>
-<li>改进初始结构图</li>
-</ol>
-<p><strong>变换分析</strong></p>
-<p>将变换型的DFD映射成初始的结构图</p>
-<ol>
-<li>划定输入流和输出流的边界，确定变换中心</li>
-<li>进行第一级分解</li>
-<li>进行第二级分解</li>
-<li>标注输入输出信息</li>
-</ol>
-<p><strong>事务分析</strong>：确定事务中心、将DFD映射成事务性的结构图、分解每条动作路径的结构图</p>
-<p><strong>分层DFD的映射</strong></p>
-<h2 id="初始结构图的改进"><a href="#初始结构图的改进" class="headerlink" title="初始结构图的改进"></a>初始结构图的改进</h2><p>技巧：减少模块间的耦合度、消除重复功能、消除”管道模块“、模块大小适中、避免高扇出、考虑全局</p>
+<p><em>缓存和数据库数据的一致性？</em></p>
+<p>旁路缓存模式，遇到写请求更新 DB，然后直接删除 cache 。</p>
 
       
     </div>
@@ -346,7 +378,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -412,7 +444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

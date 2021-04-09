@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80-SQL/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%AD%E8%A8%80-SQL/" class="post-title-link" itemprop="url">数据库引论 第三章 关系数据库语言-SQL</a>
+            <a href="/2021/03/17/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">第五章 概率分析和随机算法</a>
         </h2>
 
         <div class="post-meta">
@@ -178,23 +178,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-03-16 21:09:53" itemprop="dateCreated datePublished" datetime="2021-03-16T21:09:53+08:00">2021-03-16</time>
+              <time title="创建时间：2021-03-17 20:54:17 / 修改时间：20:55:03" itemprop="dateCreated datePublished" datetime="2021-03-17T20:54:17+08:00">2021-03-17</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-17 16:54:24" itemprop="dateModified" datetime="2021-03-17T16:54:24+08:00">2021-03-17</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -209,150 +203,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="SQL体系结构："><a href="#SQL体系结构：" class="headerlink" title="SQL体系结构："></a>SQL体系结构：</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210309194458.png" alt=""></p>
-<h2 id="SQL的数据定义"><a href="#SQL的数据定义" class="headerlink" title="SQL的数据定义"></a>SQL的数据定义</h2><p><strong>SQL模式的创建和撤销</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> SCHEMA <span class="operator">&lt;</span>模式名<span class="operator">&gt;</span> <span class="keyword">AUTHORIZATION</span> <span class="operator">&lt;</span>用户名<span class="operator">&gt;</span> <span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">DROP</span> SCHEMA <span class="operator">&lt;</span>模式名<span class="operator">&gt;</span> [CASCADE<span class="operator">|</span>RESTRICT] <span class="operator">/</span><span class="operator">/</span>删除</span><br></pre></td></tr></table></figure>
-<p>CASCADE级联式，直接删除；RESTRICT约束式，若模式下面有其他模式，则提示</p>
-<p>SQL基本数据类型：数值型、字符串型、位串型、时间型</p>
-<p><strong>基本表的创建</strong>、<strong>修改和撤销</strong>：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">TABLE</span>  S</span><br><span class="line">			(S#	    <span class="type">CHAR</span>(<span class="number">4</span>)  <span class="keyword">NOT</span>  <span class="keyword">NULL</span>,</span><br><span class="line">			 SNAME  <span class="type">CHAR</span>(<span class="number">8</span>)  <span class="keyword">NOT</span>  <span class="keyword">NULL</span>,</span><br><span class="line">			 AGE	<span class="type">CHAR</span>(<span class="number">1</span>),</span><br><span class="line">			 SEX    <span class="type">CHAR</span>(<span class="number">1</span>),</span><br><span class="line">  		 <span class="keyword">PRIMARY</span>  KEY(S#));</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>修改</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span> <span class="keyword">ADD</span> <span class="operator">&lt;</span>列名<span class="operator">&gt;</span> <span class="operator">&lt;</span>类型<span class="operator">&gt;</span> </span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>删除</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span> <span class="keyword">DROP</span> <span class="operator">&lt;</span>列名<span class="operator">&gt;</span>［CASCADE│RESTRICT］</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>修改某个列</span><br><span class="line"><span class="keyword">ALTER</span>  <span class="keyword">TABLE</span>  S  MODIFY  S#  <span class="type">CHAR</span>(<span class="number">6</span>)</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>删除表</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span>［CASCADE│RESTRICT］</span><br></pre></td></tr></table></figure>
-<ul>
-<li>CASCADE表示删除时自动删除该列的视图和约束，RESTRICT则拒绝删除</li>
-<li>CAHR提前给一个固定的地址大小，VARCHAR根据实际情况调整大小（在范围内）</li>
-</ul>
-<p><strong>索引的创建和撤销</strong>：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">CREATE</span> ［<span class="keyword">UNIQUE</span>］ INDEX  <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span> <span class="keyword">ON</span>  <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span>(列名表) </span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>撤销</span><br><span class="line"><span class="keyword">DROP</span>  INDEX  <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="SQL的数据查询"><a href="#SQL的数据查询" class="headerlink" title="SQL的数据查询"></a>SQL的数据查询</h2><p><strong>SELECT查询语句</strong></p>
-<ul>
-<li>SELECT-FROM-WHERE句型</li>
-<li>WHERE子句的条件表达式可用的运算符<ul>
-<li>算数比较 &lt;…</li>
-<li>逻辑 AND…</li>
-<li>集合成员资格 IN…</li>
-<li>谓词 EXISTS…</li>
-<li>聚合函数 AVG…</li>
-<li>另一个SELECT语句嵌套</li>
-<li>集合 UNION…</li>
-</ul>
-</li>
-</ul>
-<p><strong>SLECT语句的图示化</strong></p>
-<p>（C2是常量，P是要打印的数据）</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210316183159.png" alt="image-20210316183152291"></p>
-<p><strong>聚合函数</strong></p>
-<ul>
-<li>COUNT(*) 计算元组个数  </li>
-<li>COUNT(列名) 对一列中的值计算个数</li>
-<li>SUM(列名) 对某一列的值的总和</li>
-<li>AVG</li>
-<li>MAX</li>
-<li>MIN</li>
-<li>…</li>
-</ul>
-<p><strong>其他</strong></p>
-<ul>
-<li>*表示所有的列</li>
-<li>DISTINCT取出不同的</li>
-</ul>
-<p><strong>SELECT完整语句</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标表的列名或列表达式序列</span><br><span class="line"><span class="keyword">FROM</span> 基本表名和（或）视图序列</span><br><span class="line">[<span class="keyword">WHERE</span> 行条件表达式]</span><br><span class="line"> [<span class="keyword">GROUP</span> <span class="keyword">BY</span> 列名序列 ]</span><br><span class="line">   [<span class="keyword">HAVING</span> 组条件表达式 ]</span><br><span class="line"> [<span class="keyword">ORDER</span> <span class="keyword">BY</span> 列名[<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]，…]</span><br></pre></td></tr></table></figure>
-<p><strong>基本表的连接</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>连接类型</th>
-<th>连接条件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>INNER JOIN 内连接</td>
-<td>NATURAL</td>
-</tr>
-<tr>
-<td>LEFT OUTER JOIN 左外连接</td>
-<td>ON 等值连接条件</td>
-</tr>
-<tr>
-<td>RIGHT OUTER JOIN 右外连接</td>
-<td>USING(A1,A2,…,An)</td>
-</tr>
-<tr>
-<td>FULL OUTER JOIN 完全外连接</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>递归查询</strong></p>
-<p>假设课程有先修与后继的联系</p>
-<p>COURSE(C#,CNAME,PC#)</p>
-<p>设临时关系W（C#，PC#）的属性表示课程号、直接或间接先修课的课程号。求W，可以利用这样两个规则：</p>
-<p><strong>① W(x,y)← COURSE(x,u,y)</strong></p>
-<p><strong>② W(x,y)← COURSE(x,u,z)∧ W(z,y)</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> W(C#, PC#) <span class="keyword">AS</span></span><br><span class="line">		(<span class="keyword">SELECT</span> C#, PC# <span class="keyword">FROM</span> COURSE)</span><br><span class="line">    <span class="keyword">UNION</span></span><br><span class="line">        (<span class="keyword">SELECT</span> W1.C#, W2.PC#</span><br><span class="line">        <span class="keyword">FROM</span> COURSE <span class="keyword">AS</span> W1, W <span class="keyword">AS</span> W2</span><br><span class="line">        <span class="keyword">WHERE</span> W1.PC#<span class="operator">=</span>W2.C#)</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> W;</span><br></pre></td></tr></table></figure>
-<h2 id="数据更新"><a href="#数据更新" class="headerlink" title="数据更新"></a>数据更新</h2><p><strong>数据插入</strong></p>
-<ul>
-<li><p>单元组插入</p>
-<p> INSERT INTO基本表名[(列名表)] VALUES(元组值)</p>
-</li>
-<li><p>多元组插入</p>
-<p>INSERT INTO 基本表名 [(列名表)]</p>
-<p>VALUES (元组值),(元组值)，……，(元组值)</p>
-</li>
-<li><p>查询结果插入</p>
-<p>INSERT INTO 基本表名 [(列名表)]<SELECT查询语句></p>
-</li>
-<li><p>表的插入</p>
-<p>INSERT INTO 基本表名1[(列名表)]TABLE 基本表名2</p>
-</li>
-</ul>
-<p><strong>数据删除</strong></p>
-<p>DELETE FROM 基本表名</p>
-<p>[WHERE 条件表达式]</p>
-<p><strong>数据修改</strong></p>
-<p>UPDATE</p>
-<h2 id="视图的定义和对视图的操作"><a href="#视图的定义和对视图的操作" class="headerlink" title="视图的定义和对视图的操作"></a>视图的定义和对视图的操作</h2><p><strong>视图的创建和撤销</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> <span class="operator">&lt;</span>视图名<span class="operator">&gt;</span>（列表名）</span><br><span class="line"></span><br><span class="line"><span class="keyword">AS</span> <span class="operator">&lt;</span><span class="keyword">SELECT</span> 查询语句<span class="operator">&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>视图实际上对应一个查询语句</p>
-<p>DROP VIEW</p>
-<p><strong>对视图的更新操作</strong></p>
-<p>如果视图是从单个基本表只使用选择、投影操作导出的，并且包含了基本表的主键，那么这样的视图称为<em>行列子集视图</em>，并且可以被执行更新操作。</p>
-<p><strong>视图的优点</strong></p>
-<ol>
-<li>视图提供了逻辑数据独立性</li>
-<li>简化了用户观点</li>
-<li>数据的安全保护功能</li>
-</ol>
-<h2 id="嵌入式SQL"><a href="#嵌入式SQL" class="headerlink" title="嵌入式SQL"></a>嵌入式SQL</h2><p>SQL的两种使用方式：</p>
-<ol>
-<li>终端交互方式下使用：交互式SQL</li>
-<li>嵌入高级语言的程序中使用：嵌入式SQL</li>
-</ol>
-<p><strong>SQL的运行环境</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210316202532.png" alt="image-20210316202531831"></p>
-<p><strong>嵌入式SQL的使用规定</strong></p>
-<p>允许嵌入的SQL语句引用宿主语言的程序变量（称为共享变量）</p>
-<ul>
-<li>游标定义语句 DECLARE</li>
-<li>游标打开语句 OPEN</li>
-<li>游标推进语句 FETCH</li>
-<li>游标关闭语句 CLOSE</li>
-</ul>
-<p><strong>嵌入式SQL的使用技术</strong></p>
-<ol>
-<li>不涉及游标的SQL DML语句</li>
-<li>设计游标的SQL DML语句</li>
-<li>卷游标的定义和推进</li>
-</ol>
-<p><strong>动态SQL语句</strong></p>
-<p>EXEC SQL PREPARE &lt;动态SQL语句名&gt;</p>
-<p>FROM &lt;共享变量或字符串&gt;</p>
-<p>这个语句可以在程序运行时由用户输入才组合起来</p>
-<p><strong>ODBC</strong></p>
-<p>公共接口API</p>
-<p>ODBC程序的基本流程</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210316205638.png" alt="image-20210316205638625"></p>
+          <h2 id="5-1-雇佣问题"><a href="#5-1-雇佣问题" class="headerlink" title="5.1 雇佣问题"></a>5.1 雇佣问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best &#x3D; 0</span><br><span class="line">for i &#x3D; 0 to n</span><br><span class="line">	interview candidate i</span><br><span class="line">	if candidate is better than candidate best</span><br><span class="line">		best &#x3D; i</span><br><span class="line">		hire candidate i</span><br></pre></td></tr></table></figure>
+<p><strong>最坏情形分析</strong></p>
+<p>应聘者质量按出现的次序严格递增</p>
+<p>如何求平均情况？</p>
+<p><strong>随机算法</strong></p>
+<h2 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h2><p>定义：</p>
+<script type="math/tex; mode=display">
+I\lbrace A\rbrace=\begin{cases} 1\quad如果A发生\\
+0\quad如果A不发生\end{cases}</script><p>A发生的概率$Pr\lbrace A\rbrace$，期望 $E[X_A]$</p>
+<p>引理：给定一个样本空间S和S中的一个事件A，设$X_A=I\lbrace A\rbrace$，那么$E[X_A]=Pr\lbrace A\rbrace$</p>
+<p><strong>用指示器随机变量分析雇佣问题</strong></p>
+<script type="math/tex; mode=display">
+X_i=I\lbrace 应聘者i被雇佣\rbrace = \begin{cases} 1\quad如果应聘者i被雇佣 \\ 0\quad如果应聘者i不被雇佣  \end{cases}</script><p>以及</p>
+<script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_n</script><p>根据引理</p>
+<script type="math/tex; mode=display">
+E[X_i]=Pr\lbrace 应聘者i被雇佣\rbrace</script><p>应聘者比应聘者1到i-1更有资格的概率是1/i，因此</p>
+<script type="math/tex; mode=display">
+E[X_i]=1/i</script><p>计算得</p>
+<script type="math/tex; mode=display">
+E[X]=\ln n+O(1)</script><p>因此尽管面试了n个人，实际上大约只雇佣他们之中的$\ln n$个人</p>
+<h2 id="5-3-随机算法"><a href="#5-3-随机算法" class="headerlink" title="5.3 随机算法"></a>5.3 随机算法</h2><p>先对应聘者进行排列，然后确定最佳应聘者的随机算法。此时建立的算法的性能和假设应聘者以随即次序出现所得的结果是匹配的。</p>
+<p><strong>随机排列数组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PERMUTE-BY-SORTING(A)</span><br><span class="line">n&#x3D;A.length</span><br><span class="line">let P[1...n] be a new array</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	P[i] &#x3D; RANDOM(1, n^3)</span><br><span class="line">sort A, using P as sort keys</span><br></pre></td></tr></table></figure>
+<p>引理：假设所有优先级都不同，则过程PERMUTE-BY-SORTING产生输入的均匀随机排列</p>
+<p>另一个方法：原址排列给定数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZE-IN-PLACE(A)</span><br><span class="line">n &#x3D; A.length</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	swap A[i] with A[RANDOM(i, n)]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -371,7 +248,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -437,7 +314,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -567,6 +444,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

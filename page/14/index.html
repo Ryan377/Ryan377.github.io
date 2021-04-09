@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AC%AC3%E7%AB%A0%20%E6%B5%81%E6%B0%B4%E7%BA%BF/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/17/%E7%AC%AC3%E7%AB%A0%20%E6%B5%81%E6%B0%B4%E7%BA%BF/" class="post-title-link" itemprop="url">第3章 流水线</a>
+            <a href="/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第六章 堆排序</a>
         </h2>
 
         <div class="post-meta">
@@ -178,23 +178,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-03-17 21:23:15" itemprop="dateCreated datePublished" datetime="2021-03-17T21:23:15+08:00">2021-03-17</time>
+              <time title="创建时间：2021-03-24 13:24:59 / 修改时间：15:48:53" itemprop="dateCreated datePublished" datetime="2021-03-24T13:24:59+08:00">2021-03-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-02 10:34:19" itemprop="dateModified" datetime="2021-04-02T10:34:19+08:00">2021-04-02</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">计算机体系结构</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -209,122 +203,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="流水线基础知识"><a href="#流水线基础知识" class="headerlink" title="流水线基础知识"></a>流水线基础知识</h2><ul>
-<li>把一个重复的过程分解为若干个子过程， 每个子过程由专门的功能部件来实现。（并行进行）</li>
-<li>每个子过程及其功能部件：流水级/段；段数：流水线的深度</li>
-</ul>
-<p>例：</p>
-<p>指令流水线</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083341.png" alt="image-20210326083341631"></p>
-<p>浮点加法流水线</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083424.png" alt="image-20210326083424707"></p>
-<p><strong>时空图</strong></p>
-<p>横轴时间、纵轴各个段</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083526.png" alt="image-20210326083525954"></p>
-<p><strong>特点</strong></p>
+          <p>堆排序时间复杂度：$O(n\lg n)$，和归并排序一样</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>一个近似完全的二叉树</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210324140442.png" alt="image-20210324140441665"></p>
 <ul>
-<li>各段时间应该尽量相等，时间长的段将成为流水线的瓶颈</li>
-<li>每个功能部件后面要有一个缓冲寄存器（流水寄存器），用于在相邻两段之间传送数据</li>
-<li>通过时间和排空时间</li>
+<li>根节点A[1]</li>
+<li>A[i]的父节点A[$\lfloor i/2 \rfloor$]</li>
+<li>A[i]左子节点A[2i]</li>
+<li>A[i]右子节点A[2i+1]</li>
 </ul>
-<h3 id="流水线的分类"><a href="#流水线的分类" class="headerlink" title="流水线的分类"></a>流水线的分类</h3><ol>
-<li>单功能与多功能流水线</li>
-<li>静态与动态流水线：按同一时间能否执行多种功能对多功能流水线的分类</li>
-<li>线性与非线性流水线：前者没有反馈回路、穿行连接，后者有反馈回路</li>
-<li>顺序流水线和乱序流水线：前者流入流出顺序相同，后者可以后进的先完成</li>
-</ol>
-<h3 id="流水线的性能指标"><a href="#流水线的性能指标" class="headerlink" title="流水线的性能指标"></a>流水线的性能指标</h3><p>k段流水线，n个任务、$\Delta{t}$表示执行时间</p>
-<p><strong>吞吐率</strong></p>
-<p>单位时间内流水线所完成的任务/输出结果数量</p>
-<p>$TP=\frac{n}{T_k}$</p>
-<p>各段时间相等：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326090245.png" alt="image-20210326090245212"></p>
-<script type="math/tex; mode=display">
-TP=\frac{n}{(k+n-1)\Delta{t}}</script><p>最大吞吐率</p>
-<script type="math/tex; mode=display">
-TP_{max}=\lim_{n\rightarrow+\infty}\frac{n}{(k+n-1)\Delta{t}}=\frac{1}{\Delta{t}}</script><p>各段时间不完全相等：</p>
-<p>最长的叫瓶颈段</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326091005.png" alt="image-20210326091005492"></p>
-<script type="math/tex; mode=display">
-TP=\frac{n}{\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p>最大吞吐率</p>
-<script type="math/tex; mode=display">
-TP_{max}=\frac{1}{max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p>解决瓶颈问题：细分瓶颈段、重新设置瓶颈段</p>
-<p><strong>加速比</strong></p>
-<p>同一批任务，使用和不使用流水线时间比</p>
-<script type="math/tex; mode=display">
-S=\frac{T_s}{T_k}</script><p>各段时间相等：</p>
-<script type="math/tex; mode=display">
-S=\frac{nk}{k+n-1}</script><p>不完全相等：</p>
-<script type="math/tex; mode=display">
-S=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p><strong>效率</strong></p>
-<p>设备利用率</p>
-<p>各段时间相等</p>
-<script type="math/tex; mode=display">
-E=\frac{n}{k+n-1}</script><script type="math/tex; mode=display">
-E_{max}=1</script><p>各段不相等</p>
-<script type="math/tex; mode=display">
-E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})]}</script><h3 id="一个经典的5段流水线"><a href="#一个经典的5段流水线" class="headerlink" title="一个经典的5段流水线"></a>一个经典的5段流水线</h3><p>非流水情况下，一条指令的执行过程分为以下5个周期</p>
-<ol>
-<li>取指令周期（IF）</li>
-<li>指令译码/读寄存器周期（ID）</li>
-<li>执行/有效地址计算周期（EX）</li>
-<li>存储器访问/分支完成周期（MEM）</li>
-<li>写回周期（WB）</li>
-</ol>
-<p>改为流水线实现：</p>
+<p>最大堆：子节点小于等于父节点，根节点最大，用于堆排序</p>
+<p>(一个叶子节点本身是一个最大堆)</p>
+<p>最小堆：子节点大于等于父节点，根节点最小，用于构造优先级队列</p>
+<p>n个节点的堆的高度 $\lfloor \lg n \rfloor$</p>
+<h2 id="维护堆的性质"><a href="#维护堆的性质" class="headerlink" title="维护堆的性质"></a>维护堆的性质</h2><p>最大堆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MAX-HEAPIFY(A,i) &#x2F;&#x2F; Sub-tree rooted at node i</span><br><span class="line">	l &#x3D; LEFT(i)</span><br><span class="line">	r &#x3D; RIGHT(i)</span><br><span class="line">	if l &lt; heap-size[A] and A[l] &gt; A[i]</span><br><span class="line">		then largest &#x3D; l</span><br><span class="line">		else largest &#x3D; i</span><br><span class="line">    if r &lt;&#x3D; heap-size[A] and A[r] &gt; A[largest]</span><br><span class="line">    	then largest &#x3D; r</span><br><span class="line">    if largest !&#x3D; i</span><br><span class="line">    	then exchange A[i] and A[largest]</span><br><span class="line">    		MAX-HEAPIFY(A,largest)</span><br></pre></td></tr></table></figure>
+<h2 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line"> heap-size[A] &#x3D; length[A]</span><br><span class="line"> for i &#x3D; length[A]&#x2F;2 downto 1</span><br><span class="line">  do MAX-HEAPIFY(A,i)</span><br></pre></td></tr></table></figure>
+<p>时间代价 $O(n\lg n)$</p>
+<h2 id="堆排序算法"><a href="#堆排序算法" class="headerlink" title="堆排序算法"></a>堆排序算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HEAPSORT(A)</span><br><span class="line">	BUILD-MAX-HEAP(A)</span><br><span class="line">	for i &#x3D; length[A] downto 2</span><br><span class="line">		do exchange A[1] and A[i]</span><br><span class="line">			heap-size[A] &#x3D; heap-size[A] - 1</span><br><span class="line">			MAX-HEAPIFY(A,1)</span><br></pre></td></tr></table></figure>
+<p>时间代价 $O(n\lg n)$</p>
+<h2 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h2><p>一种用来维护一组元素构成的集合S的数据结构，其中每个元素有一个关键字key。</p>
+<p>支持的操作：</p>
 <ul>
-<li>每个周期作为一个流水段</li>
-<li>各段之间加上锁存器</li>
+<li>INSERT(S, x)，把元素x插入集合S中</li>
+<li>MAXINUM(S)，返回S中具有最大键字的元素</li>
+<li>EXTRACT-MAX(S)，去掉并返回S中具有最大键字的元素</li>
+<li>INCREASE-KEYS(S, x, k)，将元素x的关键字增加到k（比原来大）</li>
 </ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326102646.png" alt="image-20210326102646310"></p>
-<h2 id="流水线冒险"><a href="#流水线冒险" class="headerlink" title="流水线冒险"></a>流水线冒险</h2><p>流水线冒险会阻止指令流中下一条指令不能在指定的时钟周期执行</p>
-<ul>
-<li>结构冒险：因硬件资源满足不了指令重叠执行的要求而出现资源冲突，导致结构冒险</li>
-<li>数据冒险：当指令在流水线中重叠执行时，因需要用到前面指令的执行结果，导致数据冒险</li>
-<li>控制冒险：流水线遇到分支指令和其他会改变PC值的指令，导致控制冒险</li>
-</ul>
-<h3 id="带有停顿的流水线性能"><a href="#带有停顿的流水线性能" class="headerlink" title="带有停顿的流水线性能"></a>带有停顿的流水线性能</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402083346.png" alt="image-20210402083338983"></p>
-<h3 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h3><p>常见原因：功能部件不是完全流水、资源份数不够</p>
-<p>解决办法：插入暂停周期（“气泡”）、设置相互独立的指令存储器和数据存储器或设置相互独立的指令Cache和数据Cache</p>
-<h3 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h3><p>当相关的指令靠得足够近时，它们在流水线中的重叠执行或者重新排序会改变指令读写操作数的顺序，使之不同于它们非流水实现时的顺序，则发生了数据冒险。</p>
-<ul>
-<li><p>通过转发技术（旁路/短路）减少数据冒险引起的停顿</p>
-</li>
-<li><p>增加流水线互锁硬件、插入“停顿”（或气泡）</p>
-</li>
-</ul>
-<h3 id="分支冒险"><a href="#分支冒险" class="headerlink" title="分支冒险"></a>分支冒险</h3><ul>
-<li><em>降低流水线分支代价</em></li>
-</ul>
-<p>处理分支指令最简单的方法：“冻结”流水线，保留或删除分支之后的所有指令，直到直到分支目标地址。</p>
-<ul>
-<li><p><em>预测未选中（预测分支失败）</em></p>
-</li>
-<li><p><em>预测选中（预测分支成功）</em></p>
-</li>
-</ul>
-<p><em>分支延迟指令的调度</em></p>
-<p>在延迟槽中放入有用的指令，由编译器完成，能否带来好处取决于编译器能否把有用的指令调度到延迟槽中。</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402102005.png" alt="image-20210402102005229"></p>
-<h3 id="分支预测"><a href="#分支预测" class="headerlink" title="分支预测"></a>分支预测</h3><p>通过预测降低分支成本</p>
-<ul>
-<li>静态分支预测：利用编译时可用信息的低成本静态机制</li>
-<li>动态分支预测：根据程序特性对分支进行动态预测的策略</li>
-</ul>
-<h2 id="实现流水化"><a href="#实现流水化" class="headerlink" title="实现流水化"></a>实现流水化</h2><h3 id="MIPS的简单实现"><a href="#MIPS的简单实现" class="headerlink" title="MIPS的简单实现"></a>MIPS的简单实现</h3><p>一条MIPS指令最多需要以下5个时钟周期</p>
-<p><em>取指令周期（IF）</em></p>
-<p><em>指令译码/读寄存器周期（ID）</em></p>
-<p><em>执行/有效地址计算周期（EX）</em></p>
-<p><em>存储器访问/分支完成周期（MEM）</em></p>
-<p><em>写回周期（WB）</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402102601.png" alt="image-20210402102601455"></p>
-<h3 id="MIPS基本流水线"><a href="#MIPS基本流水线" class="headerlink" title="MIPS基本流水线"></a>MIPS基本流水线</h3><p>每一个时钟周期完成的工作看作是流水线的一段，每个时钟周期启动一条新的指令。</p>
-<p>段和段之间设置流水寄存器，命名：用其相邻的两个段的名称拼合而成</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103054.png" alt="image-20210402103053923"></p>
-<h3 id="MIPS流水线的控制"><a href="#MIPS流水线的控制" class="headerlink" title="MIPS流水线的控制"></a>MIPS流水线的控制</h3><p><em>控制四个多路选择器</em></p>
-<p><em>解决数据冒险的问题</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103316.png" alt="image-20210402103316278"></p>
-<h3 id="处理流水线中的分支"><a href="#处理流水线中的分支" class="headerlink" title="处理流水线中的分支"></a>处理流水线中的分支</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103408.png" alt="image-20210402103408763"></p>
 
       
     </div>
@@ -343,7 +248,7 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -409,7 +314,7 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
