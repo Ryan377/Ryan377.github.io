@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">数据库引论 第四章 关系数据库的规范化设计</a>
+            <a href="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">软件工程 第5章 结构化分析与设计</a>
         </h2>
 
         <div class="post-meta">
@@ -178,27 +178,35 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-03-30 18:27:49" itemprop="dateCreated datePublished" datetime="2021-03-30T18:27:49+08:00">2021-03-30</time>
+              <time title="创建时间：2021-04-01 20:12:27 / 修改时间：20:11:59" itemprop="dateCreated datePublished" datetime="2021-04-01T20:12:27+08:00">2021-04-01</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-06 18:32:44" itemprop="dateModified" datetime="2021-04-06T18:32:44+08:00">2021-04-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
                 </span>
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -209,108 +217,131 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="4-1-关系模式的设计问题"><a href="#4-1-关系模式的设计问题" class="headerlink" title="4.1 关系模式的设计问题"></a>4.1 关系模式的设计问题</h2><p><strong>关系模型的外延和内涵</strong></p>
-<ul>
-<li>外延：关系、表或当前值</li>
-<li>内涵：对数据的定义以及数据完整性约束（静态约束和动态约束）的定义</li>
-</ul>
-<p><strong>模式冗余和异常问题</strong></p>
-<p>数据的冗余可能会引起操作异常</p>
-<p><strong>关系模式的非形式化设计准则</strong></p>
+          <h2 id="结构化分析方法的概述"><a href="#结构化分析方法的概述" class="headerlink" title="结构化分析方法的概述"></a>结构化分析方法的概述</h2><ol>
+<li><p>抽象（自底向上）和分解（自顶向下）</p>
+</li>
+<li><p>结构化分析的过程</p>
 <ol>
-<li>应尽可能只包含有直接联系的属性</li>
-<li>应尽可能使得相关关系中不出现插入、删除和修改操作异常现象</li>
-<li>应尽可能使得相应关系中避免放置尽可能为空值的属性</li>
-<li>尽可能使得关系的等值连接在主键和外键属性上</li>
+<li>理解当前的现实环境，获得当前系统的具体模型</li>
+<li>从当前系统的具体模型抽象出当前系统的逻辑模型</li>
+<li>分析目标系统与当前系统逻辑上的差别，建立目标系统的逻辑模型</li>
+<li>为目标系统的逻辑模型作补充</li>
 </ol>
-<p><strong>符号规定</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210330184809.png" alt="image-20210330184801036"></p>
-<h2 id="4-2-函数依赖"><a href="#4-2-函数依赖" class="headerlink" title="4.2 函数依赖"></a>4.2 函数依赖</h2><p><strong>函数依赖（FD）的定义</strong></p>
-<p>关系模式R（U），X和Y是属性集U的子集，函数依赖是形为X-&gt;Y的一个命题，只要r是R的当前关系，对r中任意两个元组t和s，都有t[X] = s[X]蕴含t[Y] = s[Y]，那么称FD X -&gt; Y在关系模式R（U）中成立</p>
-<p><strong>FD的逻辑蕴含</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125442.png" alt="image-20210402125442774"></p>
-<p><strong>FD的推理规则</strong></p>
-<p>U是关系模式R中的属性集，F是R上成立的只涉及U中属性的函数依赖集，FD的推理规则有以下三条：</p>
-<p>A1 自反性 $若Y\subseteq X \subseteq U,则X\rightarrow Y在R上成立$</p>
-<p>A2 增广性 $若X\rightarrow Y,且Z\subseteq U,则XZ\rightarrow YZ在R上成立$</p>
-<p>A3 传递性 $若X \rightarrow Y,Y \rightarrow Z,则 X\rightarrow Z在R上成立$</p>
-<p>其他五条规则</p>
-<p>A4 合并性  $\lbrace X\rightarrow Y,X \rightarrow Z \rbrace \models X \rightarrow YZ $</p>
-<p>A5 分解性 $\lbrace X \rightarrow Y,Z \subseteq Y \rbrace \models X \rightarrow Z$</p>
-<p>A6 伪传递性 $\lbrace X \rightarrow Y, WY \rightarrow Z \rbrace \models WX \rightarrow Z$</p>
-<p>A7 复合性 $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models XW \rightarrow YZ$</p>
-<p>A8  $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models X\bigcup (W - Y) \rightarrow YZ$</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125908.png" alt="image-20210402125908142"></p>
-<p><strong>FD和关键码的联系</strong></p>
-<p><em>超键和候选键</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151448.png" alt="image-20210402151448761"></p>
-<p><strong>属性集的闭包</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151645.png" alt="image-20210402151645328"></p>
-<p><strong>FD推理规则的完备性</strong></p>
-<p><em>正确性</em>：从FD集F使用推理规则集推出的FD必定在F+中</p>
-<p><em>完备性</em>：F+中的FD都能从F集使用推理规则导出</p>
-<p>FD推理规则{A1,A2,A3}是完备的</p>
-<p><strong>FD集的最小依赖集</strong></p>
-<p>若F+=G+，则称F和G是等价的函数依赖集</p>
-<p><em>最小依赖集Fmin</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151940.png" alt="image-20210402151940110"></p>
-<h2 id="4-3-模式的分解特性"><a href="#4-3-模式的分解特性" class="headerlink" title="4.3 模式的分解特性"></a>4.3 模式的分解特性</h2><p><strong>模式分解问题</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402155820.png" alt="image-20210402155820123"></p>
-<p><em>泛关系模式</em></p>
-<p>现实问题的所有属性组成的关系模式（包括属性集和属性集上的数据完整性约束）称为泛关系模式，关系r是关系模式的当前值，是元组的集合，称为泛关系</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160117.png" alt="image-20210402160117469"></p>
-<p><strong>无损分解</strong></p>
-<p>r和$\sigma$是否等价</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160225.png" alt="image-20210402160224973"></p>
-<p><em>幂等性</em></p>
-<p><strong>无损分解的测试方法</strong></p>
-<p><em>算法如下：</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404124444.png" alt="image-20210404124437456"></p>
-<script type="math/tex; mode=display">
-定理:设\rho=\{R1,R2\}是关系模式R的一个分解，F是R上成立的FD集，那么分解\rho相对于F是无损分解的充分条件是\\(R1\bigcap R2)\rightarrow (R1-R2)(或(R2-R1))</script><script type="math/tex; mode=display">
-定理:如果FD\,X\rightarrow Y在模式R上成立，且X\bigcap Y=\varphi，\\
-那么R分解成\rho=\{R-Y,XY\}是无损分解</script><p><strong>保持函数依赖的分解</strong></p>
-<p>F和{F1,F2,…,Fn}是否等价</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404131605.png" alt="image-20210404131605106"></p>
-<p><strong>模式分解与模式等价问题</strong></p>
-<p>两个数据库的等价包括数据等价和依赖等价两个方面</p>
-<ul>
-<li>数据等价指两个数据库实例应标识同样的信息内容，用“无损分解”衡量。如果是无损分解，那么对泛关系反复的投影和连接都不会丢失信息。</li>
-<li>依赖等价是指两个数据库模式有相同的依赖集闭包。在依赖集闭包相等的情况下，数据的语义是不会出差错的。</li>
-</ul>
-<h2 id="4-4-关系模式的范式"><a href="#4-4-关系模式的范式" class="headerlink" title="4.4 关系模式的范式"></a>4.4 关系模式的范式</h2><p><strong>第一范式 1NF</strong></p>
-<p>定义：如果关系模式R的每个关系r的属性值都是不可分的原子值，那么称R是第一范式的模式</p>
-<p>满足1NF的称为规范化关系，否则称为非规范化关系</p>
-<p><strong>第二范式</strong></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132729.png" alt="image-20210404132729028"></p>
-<p>分解成2NF模式集的算法</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132814.png" alt="image-20210404132814460"></p>
-<p><strong>第三范式</strong></p>
-<p>定义：如果$X\rightarrow Y,Y\rightarrow A$，且$Y\nrightarrow X$ 和$A\notin Y$，那么称$X\rightarrow A$是传递依赖（A传递依赖于X）</p>
-<p>定义：如果关系模式R是1NF，且每个非主属性都不传递于R的候选键，那么称R是第三范式（3NF）的模式，如果数据库模式种每个关系模式都是3NF，则称其为3NF的数据库模式。</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134254.png" alt="image-20210404134254589"></p>
-<p>定理：如果R是3NF模式，那么R也是2NF模式</p>
-<p>定理：设关系模式R，当R上每一个FD X-&gt;A都满足下列三个条件之一时</p>
+</li>
+<li><p>结构化分析模型的描述形式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401160457.png" alt="image-20210401160457326"></p>
+</li>
+</ol>
+<h2 id="数据流图（DFD）"><a href="#数据流图（DFD）" class="headerlink" title="数据流图（DFD）"></a>数据流图（DFD）</h2><p>描述输入数据流到输出数据流的变换（即加工），用于对系统的功能建模</p>
+<p><strong>数据流图的图形表示</strong></p>
 <ol>
-<li>A∈X</li>
-<li>X是R的超键</li>
-<li>A是主属性</li>
+<li>基本图形元素</li>
 </ol>
-<p>则关系模式R就是3NF模式</p>
-<p><strong>BCNF</strong></p>
-<p>定义：如果关系模式R是1NF，且每个属性都不传递依赖于R的候选键，那么称R是BCNF模式。如果数据库模式中每个关系模式都是BCNF，则称为BCNF的数据库模式。</p>
-<p>定理：如果R是BCNF模式，那么R也是3NF模式</p>
-<p>定义：设F是关系模式R的FD集，如果对F中每个非平凡的FD X-&gt;Y，都有X是R的超键，那么称R是BCNF的模式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134912.png" alt="image-20210404134912083"></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134944.png" alt="image-20210404134944537"></p>
-<p><strong>模式设计方法的原则</strong></p>
-<ul>
-<li>数据库设计者在进行关系数据库的设计时，应作权衡，尽可能使数据库保持最好的特性。一般尽可能设计成BCNF模式集。如果设计成BCNF模式集时达不到FD的特点，那么只能降低要求，设计成3NF模式集，以求达到保持FD和无损分解的特点。</li>
-<li>模式分解并不单指把泛关系模式分解成数据库模式，也可以把数据库模式转换成另一个数据库模式，分解和转换的关键是要“等价”地分解。一个好的模式设计方法应符合三条原则：表达性、分离性和最小冗余性。</li>
-</ul>
-<h2 id="4-5-模式的进一步规范化处理"><a href="#4-5-模式的进一步规范化处理" class="headerlink" title="4.5 模式的进一步规范化处理"></a>4.5 模式的进一步规范化处理</h2><p>FD还不足以描绘现实世界中数据之间的全部联系，有些联系就要用其他数据来刻画，例如多值依赖或连接依赖。</p>
-<p><em>第四范式</em></p>
-<p>（是4NF的模式肯定是BCNF模式）</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161352.png" alt="image-20210401161352705"></p>
+<p>例：图书馆订购系统的DFD</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161621.png" alt="image-20210401161621374"></p>
+<ol>
+<li><p>扩充符号</p>
+<ol>
+<li>星号 * ：表示数据流之间存在”与“关系</li>
+<li>加号 + ：表示数据流之间存在”或“关系</li>
+<li>异或 $\bigoplus$：表示数据流之间存在”异或“（互斥）关系</li>
+</ol>
+</li>
+<li><p>层次结构</p>
+<p>每张图的加工数控制在 7$\pm$2</p>
+</li>
+</ol>
+<p><strong>分层数据流的画法</strong></p>
+<ol>
+<li>画出系统的输入和输出</li>
+<li>画出系统内部</li>
+<li>画出加工内部</li>
+<li>重复第三步，直至每个尚未分解的加工都足够简单</li>
+</ol>
+<h2 id="分层数据流图的审查"><a href="#分层数据流图的审查" class="headerlink" title="分层数据流图的审查"></a>分层数据流图的审查</h2><p><strong>一致性和完整性</strong></p>
+<p><em>一致性</em></p>
+<ol>
+<li>父图与子图平衡</li>
+<li>数据守恒</li>
+<li>局部文件</li>
+<li>一个加工的输出数据流不能与该加工的输入数据流同名</li>
+</ol>
+<p><em>完整性</em></p>
+<ol>
+<li>每个加工至少有一个输入数据流和一个输出数据流</li>
+<li>在整套分层数据流图中，每个文件至少有一个加工该读文件，有另一个加工写该文件</li>
+<li><p>分层数据流图中的每个数据流和文件都必须命名（除了流入或流出文件的数据流），并保持与数据字典一致</p>
+</li>
+<li><p>分层DFD中的每个基本加工都应该有一个加工规约</p>
+</li>
+</ol>
+<p><strong>构造分层DFD时需要注意的问题</strong></p>
+<ol>
+<li>适当命名</li>
+<li>画数据流而不是画控制流</li>
+<li>避免一个加工有过多的数据流</li>
+<li>分解尽可能均匀</li>
+<li>先考虑稳定状态，忽略琐碎的枝节</li>
+<li>随时准备重画</li>
+</ol>
+<p><strong>分解程度</strong></p>
+<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>数据流图 + 数据字典 = 软件逻辑模型</p>
+<p><em>字典条目的种类</em></p>
+<p>数据流、文件、数据项、加工、源或宿</p>
+<p><em>字典数据中使用的描述符号</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401185616.png" alt="image-20210401185616134"></p>
+<p><strong>字典条目</strong></p>
+<p>DFD中的每个元素都对应一个数据字典条目的描述，不同种类的有不同的描述内容。</p>
+<ol>
+<li>数据流条目</li>
+<li>文件条目</li>
+<li>数据项条目</li>
+<li>加工条目</li>
+<li>源或宿条目</li>
+<li>别名条目</li>
+</ol>
+<h2 id="描述基本加工的小说明"><a href="#描述基本加工的小说明" class="headerlink" title="描述基本加工的小说明"></a>描述基本加工的小说明</h2><p>DFD每个基本加工都用一条小说明进行描述，小说明就是基本加工的加工规约。</p>
+<p>加工逻辑的描述方法有结构化语言、判定表和判定树。</p>
+<h2 id="结构化设计概述"><a href="#结构化设计概述" class="headerlink" title="结构化设计概述"></a>结构化设计概述</h2><p>结构化设计（SD）是将结构化分析得到的数据流图映射成软件体系结构的一种设计方法，SD强调模块化、自顶向下逐步求精、信息隐蔽、高内聚低耦合等设计准则。</p>
+<p><strong>结构图</strong></p>
+<p>结构化设计方法中用结构图描述软件系统的体系结构，指出一个软件系统由哪些模块组成，以及模块之间的调用关系</p>
+<p><strong>启发式设计策略</strong></p>
+<ol>
+<li>改造程序结构图，降低耦合度，提高内聚度</li>
+<li>避免高扇出，并随着深度的增加，力求高扇入</li>
+<li>模块的影响范围应限制在该模块的控制范围内</li>
+<li>降低模块结构的复杂程度和冗余程度，提高一致性</li>
+<li>模块的功能应是可预测的，避免对模块施加过多的限制</li>
+<li>尽可能设计单入口和单出口的模块</li>
+</ol>
+<p><strong>结构化设计的步骤</strong></p>
+<ol>
+<li>建立初始结构图</li>
+<li>对结构图的改进</li>
+<li>书写设计文档</li>
+<li>设计评审</li>
+</ol>
+<h2 id="数据流图到软件体系结构的映射"><a href="#数据流图到软件体系结构的映射" class="headerlink" title="数据流图到软件体系结构的映射"></a>数据流图到软件体系结构的映射</h2><p>结构化设计是将结构化分析的结果（数据流图）映射成软件的体系结构（结构图）。根据信息流的特点，可将数据流图分为数据流图和事务型数据流图，其对应的映射分别成为变化分析和事务分析。</p>
+<p><strong>信息流</strong>：变换流和事务流</p>
+<p><strong>数据流图映射到结构图的步骤</strong></p>
+<ol>
+<li>复审和精细数据流图</li>
+<li>确定数据流图类型</li>
+<li>将DFD映射成初始结构图</li>
+<li>改进初始结构图</li>
+</ol>
+<p><strong>变换分析</strong></p>
+<p>将变换型的DFD映射成初始的结构图</p>
+<ol>
+<li>划定输入流和输出流的边界，确定变换中心</li>
+<li>进行第一级分解</li>
+<li>进行第二级分解</li>
+<li>标注输入输出信息</li>
+</ol>
+<p><strong>事务分析</strong>：确定事务中心、将DFD映射成事务性的结构图、分解每条动作路径的结构图</p>
+<p><strong>分层DFD的映射</strong></p>
+<h2 id="初始结构图的改进"><a href="#初始结构图的改进" class="headerlink" title="初始结构图的改进"></a>初始结构图的改进</h2><p>技巧：减少模块间的耦合度、消除重复功能、消除”管道模块“、模块大小适中、避免高扇出、考虑全局</p>
 
       
     </div>
@@ -329,7 +360,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -395,7 +426,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -525,61 +556,37 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

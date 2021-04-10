@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/JVM/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/JVM/" class="post-title-link" itemprop="url">JVM</a>
+            <a href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">计算机网络 知识点整理</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:09:06" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:15:44 / 修改时间：21:16:19" itemprop="dateCreated datePublished" datetime="2021-03-13T21:15:44+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,11 +188,25 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
                 </span>
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -203,132 +217,103 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
-<ul>
-<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
-<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
-<li>本地方法栈：为本地方法服务</li>
-</ul>
-<ul>
-<li>堆：对象分配的内存</li>
-<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
-<li>运行常量池：方法区的一部分</li>
-<li>直接内存</li>
-</ul>
-<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
-<li><p>判断一个对象是否可回收</p>
-<ol>
-<li>引用计数法</li>
-<li>可达性分析法</li>
-<li>方法区的回收</li>
-<li>finalize()</li>
-</ol>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li><p>ISP：互联网服务提供商，多层次结构</p>
 </li>
-<li><p>引用类型</p>
-<ol>
-<li>强引用：不会被回收</li>
-<li>软引用：内存不够会回收</li>
-<li>弱引用：一定会回收</li>
-<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
-</ol>
+<li><p>通信方式：客户-服务器（C/S），对等（P2P）</p>
 </li>
-<li><p>垃圾收集算法</p>
-<ol>
-<li><p>标记-清除</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
+<li><p>电路交换和分组交换（时延=排队时延+处理时延+传输时延+传播时延）</p>
 </li>
-<li><p>标记-整理</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
-</li>
-<li><p>复制</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
-</li>
-<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
-</li>
-</ol>
-</li>
-<li><p>垃圾收集器</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
-<ol>
-<li>Serial收集器</li>
-<li>ParNew收集器</li>
-<li>Parallel Scavenge收集器</li>
-</ol>
+<li><p>OSI（七层协议）、五层协议、TCP/IP（四层）</p>
 </li>
 </ul>
-<ol>
-<li><p>Serial Old收集器</p>
-<ol>
-<li><p>Parallel Old收集器</p>
+<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><ul>
+<li><p>单工通信、半双工通信和全双工通信</p>
 </li>
-<li><p>CMS收集器</p>
+<li><p>带通调制：数字信号（离散）-&gt; 模拟信号（连续）</p>
 </li>
-<li>G1收集器</li>
-</ol>
+</ul>
+<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>封装成帧：给网络层的分组（IP数据报）添加首部和尾部</li>
+<li>透明传输：给数据中和首部尾部相同的内容加转义字符（透明）</li>
+<li>差错检测：主要使用循环冗余码CRC</li>
+</ul>
+<h3 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h3><ul>
+<li>分类：广播信道（用信道复用技术和CSMA/CD协议控制）和点对点信道（用PPP协议控制）</li>
+<li>信道复用技术：频分复用、时分复用、统计时分复用、波分复用、码分复用（码片正交）</li>
+<li>CSMA/CD协议：每个主机都不停监听信道，如果在发送过程中其他主机正在发送，说明发生了碰撞（因为有传播时延），等待一段时间在发送（用截断二进制指数退避法确定时间）</li>
+<li>争用期：传播时延的两倍</li>
+<li>PPP协议：用户计算机和ISP之间的链路层协议</li>
+</ul>
+<h3 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h3><ul>
+<li>MAC地址：6字节，用于唯一标识网络适配器（网卡）</li>
+<li>局域网：一种典型的广播信道，主要以太网（星型）等</li>
+<li>交换机：存储MAC地址到接口的映射</li>
+<li>虚拟局域网：用于建立和物理位置无关的逻辑组</li>
+</ul>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
+<li><p>数据报格式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307211309.jpg" alt="IP former"></p>
 </li>
-</ol>
-<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
-<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
-<ul>
-<li><p>内存分配策略</p>
-<ol>
-<li><p>对象优先在Eden分配</p>
+<li><p>编址方式：网络号+子网号+主机号、CIDR记法（无分类，网络前缀号+主机号）</p>
 </li>
-<li><p>大对象直接进入老年代</p>
-</li>
-<li><p>长期存活的对象进入老年代</p>
-</li>
-<li><p>动态对象年龄判定</p>
-</li>
-<li>空间分配担保</li>
-</ol>
-</li>
-<li><p>Full GC的触发条件</p>
-<ol>
-<li>调用System.gc()</li>
-<li>老年代空间不足</li>
-<li>空间分配担保失败</li>
-<li>JDK1.7及以前的永久代空间不足</li>
-<li>Concurrent Mode Failure</li>
+</ul>
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
+<li>地址解析协议ARP：<br>实现由IP地址得到MAC地址，每个主机上有一个ARP高速缓存，保存本地局域网上的各主机和路由器的IP地址到MAC地址到映射表。若没有映射会发送广播请求。</li>
+<li>网际控制报文协议ICMP<br>更有效地转发IP数据报和提高交付成功的机会。<br>Ping：用来测试两台主机之间的联通性。<br>Traceroute：用来跟踪一个分组从源点到终点的路径。</li>
+</ul>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
+<li>路由器<br>功能：路由转发和分组转发<br>组成：交换结构、一组输入端口和一组输出端口</li>
+<li>分组转发流程</li>
+<li>路由选择协议<ol>
+<li>内部网关协议RIP</li>
+<li>内部网关协议OSPF</li>
+<li>外部网关协议BGP</li>
 </ol>
 </li>
 </ul>
-<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
-<li>类的生命周期</li>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>虚拟专用网VPN（机构内使用仅在本机有效的专用地址块，有三个）</li>
+<li>网络地址转换NAT：将专用网内部的主机使用的本地IP转换成全球IP</li>
 </ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
-<ul>
-<li>类加载过程<ol>
-<li>加载：<ul>
-<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
-<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
-<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
-</ul>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><ul>
+<li><p>格式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307213854.png" alt="image-20210307213853892"></p>
 </li>
-<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
-<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
-<li>解析：将常量池的符号引用替换为直接引用的过程</li>
-<li>初始化：真正执行类中定义的Java程序的代码</li>
-</ol>
+<li><p>三次握手</p>
 </li>
-<li>类初始化时机<ol>
-<li>主动引用：五个场景，必须对类初始化<ol>
-<li>遇到new、getstatic、putstatic、invokestatic</li>
-<li>使用java.lang.reflect进行反射调用</li>
-<li>要初始化类，但父类还没初始化</li>
-<li>执行主类（包含main()）</li>
-<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
-</ol>
+<li><p>四次挥手</p>
 </li>
-<li>被动引用：不会触发初始化的引用</li>
+<li><p>可靠传输：采用超时重传机制</p>
+</li>
+<li><p>滑动窗口和流量控制</p>
+</li>
+<li><p>拥塞控制</p>
+<ol>
+<li>慢开始和拥塞避免</li>
+<li>快重传与快恢复</li>
 </ol>
 </li>
 </ul>
-<p>类和类加载器</p>
-<ul>
-<li>分类：启动类加载器/其他类加载器</li>
-<li>双亲委派模型</li>
-<li>自定义类加载器实现</li>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>格式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307214238.png" alt="image-20210307214238091" style="zoom:50%;" /></p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>提供主机名和IP地址之间的相互转换</p>
+<h3 id="Web页面请求过程"><a href="#Web页面请求过程" class="headerlink" title="Web页面请求过程"></a>Web页面请求过程</h3><ol>
+<li>DHCP配置主机信息</li>
+<li>ARP解析MAC地址</li>
+<li>DNS解析域名</li>
+<li>HTTP请求页面</li>
+<li>浏览器渲染</li>
+</ol>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><ul>
+<li>方法、状态码、首部字段</li>
+<li>HTTPS、HTTP1.1特性</li>
+</ul>
+<h3 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h3><ul>
+<li>FTP文件传输协议</li>
+<li>DHCP动态主机配置协议</li>
+<li>TELNET远程登录协议</li>
+<li>电子邮件协议SMTP和POP3/IMAP</li>
 </ul>
 
       
@@ -348,7 +333,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/35/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/37/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/35/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/37/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -414,7 +399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -546,6 +531,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
