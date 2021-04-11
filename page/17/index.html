@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第六章 堆排序</a>
+            <a href="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">数据库引论 第四章 关系数据库的规范化设计</a>
         </h2>
 
         <div class="post-meta">
@@ -178,17 +178,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-24 13:24:59 / 修改时间：15:48:53" itemprop="dateCreated datePublished" datetime="2021-03-24T13:24:59+08:00">2021-03-24</time>
+              <time title="创建时间：2021-03-30 18:27:49" itemprop="dateCreated datePublished" datetime="2021-03-30T18:27:49+08:00">2021-03-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-06 18:32:44" itemprop="dateModified" datetime="2021-04-06T18:32:44+08:00">2021-04-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -201,8 +207,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/24/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -217,33 +223,108 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>堆排序时间复杂度：$O(n\lg n)$，和归并排序一样</p>
-<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>一个近似完全的二叉树</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210324140442.png" alt="image-20210324140441665"></p>
+          <h2 id="4-1-关系模式的设计问题"><a href="#4-1-关系模式的设计问题" class="headerlink" title="4.1 关系模式的设计问题"></a>4.1 关系模式的设计问题</h2><p><strong>关系模型的外延和内涵</strong></p>
 <ul>
-<li>根节点A[1]</li>
-<li>A[i]的父节点A[$\lfloor i/2 \rfloor$]</li>
-<li>A[i]左子节点A[2i]</li>
-<li>A[i]右子节点A[2i+1]</li>
+<li>外延：关系、表或当前值</li>
+<li>内涵：对数据的定义以及数据完整性约束（静态约束和动态约束）的定义</li>
 </ul>
-<p>最大堆：子节点小于等于父节点，根节点最大，用于堆排序</p>
-<p>(一个叶子节点本身是一个最大堆)</p>
-<p>最小堆：子节点大于等于父节点，根节点最小，用于构造优先级队列</p>
-<p>n个节点的堆的高度 $\lfloor \lg n \rfloor$</p>
-<h2 id="维护堆的性质"><a href="#维护堆的性质" class="headerlink" title="维护堆的性质"></a>维护堆的性质</h2><p>最大堆</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MAX-HEAPIFY(A,i) &#x2F;&#x2F; Sub-tree rooted at node i</span><br><span class="line">	l &#x3D; LEFT(i)</span><br><span class="line">	r &#x3D; RIGHT(i)</span><br><span class="line">	if l &lt; heap-size[A] and A[l] &gt; A[i]</span><br><span class="line">		then largest &#x3D; l</span><br><span class="line">		else largest &#x3D; i</span><br><span class="line">    if r &lt;&#x3D; heap-size[A] and A[r] &gt; A[largest]</span><br><span class="line">    	then largest &#x3D; r</span><br><span class="line">    if largest !&#x3D; i</span><br><span class="line">    	then exchange A[i] and A[largest]</span><br><span class="line">    		MAX-HEAPIFY(A,largest)</span><br></pre></td></tr></table></figure>
-<h2 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line"> heap-size[A] &#x3D; length[A]</span><br><span class="line"> for i &#x3D; length[A]&#x2F;2 downto 1</span><br><span class="line">  do MAX-HEAPIFY(A,i)</span><br></pre></td></tr></table></figure>
-<p>时间代价 $O(n\lg n)$</p>
-<h2 id="堆排序算法"><a href="#堆排序算法" class="headerlink" title="堆排序算法"></a>堆排序算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HEAPSORT(A)</span><br><span class="line">	BUILD-MAX-HEAP(A)</span><br><span class="line">	for i &#x3D; length[A] downto 2</span><br><span class="line">		do exchange A[1] and A[i]</span><br><span class="line">			heap-size[A] &#x3D; heap-size[A] - 1</span><br><span class="line">			MAX-HEAPIFY(A,1)</span><br></pre></td></tr></table></figure>
-<p>时间代价 $O(n\lg n)$</p>
-<h2 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h2><p>一种用来维护一组元素构成的集合S的数据结构，其中每个元素有一个关键字key。</p>
-<p>支持的操作：</p>
+<p><strong>模式冗余和异常问题</strong></p>
+<p>数据的冗余可能会引起操作异常</p>
+<p><strong>关系模式的非形式化设计准则</strong></p>
+<ol>
+<li>应尽可能只包含有直接联系的属性</li>
+<li>应尽可能使得相关关系中不出现插入、删除和修改操作异常现象</li>
+<li>应尽可能使得相应关系中避免放置尽可能为空值的属性</li>
+<li>尽可能使得关系的等值连接在主键和外键属性上</li>
+</ol>
+<p><strong>符号规定</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210330184809.png" alt="image-20210330184801036"></p>
+<h2 id="4-2-函数依赖"><a href="#4-2-函数依赖" class="headerlink" title="4.2 函数依赖"></a>4.2 函数依赖</h2><p><strong>函数依赖（FD）的定义</strong></p>
+<p>关系模式R（U），X和Y是属性集U的子集，函数依赖是形为X-&gt;Y的一个命题，只要r是R的当前关系，对r中任意两个元组t和s，都有t[X] = s[X]蕴含t[Y] = s[Y]，那么称FD X -&gt; Y在关系模式R（U）中成立</p>
+<p><strong>FD的逻辑蕴含</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125442.png" alt="image-20210402125442774"></p>
+<p><strong>FD的推理规则</strong></p>
+<p>U是关系模式R中的属性集，F是R上成立的只涉及U中属性的函数依赖集，FD的推理规则有以下三条：</p>
+<p>A1 自反性 $若Y\subseteq X \subseteq U,则X\rightarrow Y在R上成立$</p>
+<p>A2 增广性 $若X\rightarrow Y,且Z\subseteq U,则XZ\rightarrow YZ在R上成立$</p>
+<p>A3 传递性 $若X \rightarrow Y,Y \rightarrow Z,则 X\rightarrow Z在R上成立$</p>
+<p>其他五条规则</p>
+<p>A4 合并性  $\lbrace X\rightarrow Y,X \rightarrow Z \rbrace \models X \rightarrow YZ $</p>
+<p>A5 分解性 $\lbrace X \rightarrow Y,Z \subseteq Y \rbrace \models X \rightarrow Z$</p>
+<p>A6 伪传递性 $\lbrace X \rightarrow Y, WY \rightarrow Z \rbrace \models WX \rightarrow Z$</p>
+<p>A7 复合性 $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models XW \rightarrow YZ$</p>
+<p>A8  $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models X\bigcup (W - Y) \rightarrow YZ$</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125908.png" alt="image-20210402125908142"></p>
+<p><strong>FD和关键码的联系</strong></p>
+<p><em>超键和候选键</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151448.png" alt="image-20210402151448761"></p>
+<p><strong>属性集的闭包</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151645.png" alt="image-20210402151645328"></p>
+<p><strong>FD推理规则的完备性</strong></p>
+<p><em>正确性</em>：从FD集F使用推理规则集推出的FD必定在F+中</p>
+<p><em>完备性</em>：F+中的FD都能从F集使用推理规则导出</p>
+<p>FD推理规则{A1,A2,A3}是完备的</p>
+<p><strong>FD集的最小依赖集</strong></p>
+<p>若F+=G+，则称F和G是等价的函数依赖集</p>
+<p><em>最小依赖集Fmin</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151940.png" alt="image-20210402151940110"></p>
+<h2 id="4-3-模式的分解特性"><a href="#4-3-模式的分解特性" class="headerlink" title="4.3 模式的分解特性"></a>4.3 模式的分解特性</h2><p><strong>模式分解问题</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402155820.png" alt="image-20210402155820123"></p>
+<p><em>泛关系模式</em></p>
+<p>现实问题的所有属性组成的关系模式（包括属性集和属性集上的数据完整性约束）称为泛关系模式，关系r是关系模式的当前值，是元组的集合，称为泛关系</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160117.png" alt="image-20210402160117469"></p>
+<p><strong>无损分解</strong></p>
+<p>r和$\sigma$是否等价</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160225.png" alt="image-20210402160224973"></p>
+<p><em>幂等性</em></p>
+<p><strong>无损分解的测试方法</strong></p>
+<p><em>算法如下：</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404124444.png" alt="image-20210404124437456"></p>
+<script type="math/tex; mode=display">
+定理:设\rho=\{R1,R2\}是关系模式R的一个分解，F是R上成立的FD集，那么分解\rho相对于F是无损分解的充分条件是\\(R1\bigcap R2)\rightarrow (R1-R2)(或(R2-R1))</script><script type="math/tex; mode=display">
+定理:如果FD\,X\rightarrow Y在模式R上成立，且X\bigcap Y=\varphi，\\
+那么R分解成\rho=\{R-Y,XY\}是无损分解</script><p><strong>保持函数依赖的分解</strong></p>
+<p>F和{F1,F2,…,Fn}是否等价</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404131605.png" alt="image-20210404131605106"></p>
+<p><strong>模式分解与模式等价问题</strong></p>
+<p>两个数据库的等价包括数据等价和依赖等价两个方面</p>
 <ul>
-<li>INSERT(S, x)，把元素x插入集合S中</li>
-<li>MAXINUM(S)，返回S中具有最大键字的元素</li>
-<li>EXTRACT-MAX(S)，去掉并返回S中具有最大键字的元素</li>
-<li>INCREASE-KEYS(S, x, k)，将元素x的关键字增加到k（比原来大）</li>
+<li>数据等价指两个数据库实例应标识同样的信息内容，用“无损分解”衡量。如果是无损分解，那么对泛关系反复的投影和连接都不会丢失信息。</li>
+<li>依赖等价是指两个数据库模式有相同的依赖集闭包。在依赖集闭包相等的情况下，数据的语义是不会出差错的。</li>
 </ul>
+<h2 id="4-4-关系模式的范式"><a href="#4-4-关系模式的范式" class="headerlink" title="4.4 关系模式的范式"></a>4.4 关系模式的范式</h2><p><strong>第一范式 1NF</strong></p>
+<p>定义：如果关系模式R的每个关系r的属性值都是不可分的原子值，那么称R是第一范式的模式</p>
+<p>满足1NF的称为规范化关系，否则称为非规范化关系</p>
+<p><strong>第二范式</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132729.png" alt="image-20210404132729028"></p>
+<p>分解成2NF模式集的算法</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132814.png" alt="image-20210404132814460"></p>
+<p><strong>第三范式</strong></p>
+<p>定义：如果$X\rightarrow Y,Y\rightarrow A$，且$Y\nrightarrow X$ 和$A\notin Y$，那么称$X\rightarrow A$是传递依赖（A传递依赖于X）</p>
+<p>定义：如果关系模式R是1NF，且每个非主属性都不传递于R的候选键，那么称R是第三范式（3NF）的模式，如果数据库模式种每个关系模式都是3NF，则称其为3NF的数据库模式。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134254.png" alt="image-20210404134254589"></p>
+<p>定理：如果R是3NF模式，那么R也是2NF模式</p>
+<p>定理：设关系模式R，当R上每一个FD X-&gt;A都满足下列三个条件之一时</p>
+<ol>
+<li>A∈X</li>
+<li>X是R的超键</li>
+<li>A是主属性</li>
+</ol>
+<p>则关系模式R就是3NF模式</p>
+<p><strong>BCNF</strong></p>
+<p>定义：如果关系模式R是1NF，且每个属性都不传递依赖于R的候选键，那么称R是BCNF模式。如果数据库模式中每个关系模式都是BCNF，则称为BCNF的数据库模式。</p>
+<p>定理：如果R是BCNF模式，那么R也是3NF模式</p>
+<p>定义：设F是关系模式R的FD集，如果对F中每个非平凡的FD X-&gt;Y，都有X是R的超键，那么称R是BCNF的模式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134912.png" alt="image-20210404134912083"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134944.png" alt="image-20210404134944537"></p>
+<p><strong>模式设计方法的原则</strong></p>
+<ul>
+<li>数据库设计者在进行关系数据库的设计时，应作权衡，尽可能使数据库保持最好的特性。一般尽可能设计成BCNF模式集。如果设计成BCNF模式集时达不到FD的特点，那么只能降低要求，设计成3NF模式集，以求达到保持FD和无损分解的特点。</li>
+<li>模式分解并不单指把泛关系模式分解成数据库模式，也可以把数据库模式转换成另一个数据库模式，分解和转换的关键是要“等价”地分解。一个好的模式设计方法应符合三条原则：表达性、分离性和最小冗余性。</li>
+</ul>
+<h2 id="4-5-模式的进一步规范化处理"><a href="#4-5-模式的进一步规范化处理" class="headerlink" title="4.5 模式的进一步规范化处理"></a>4.5 模式的进一步规范化处理</h2><p>FD还不足以描绘现实世界中数据之间的全部联系，有些联系就要用其他数据来刻画，例如多值依赖或连接依赖。</p>
+<p><em>第四范式</em></p>
+<p>（是4NF的模式肯定是BCNF模式）</p>
 
       
     </div>
@@ -262,7 +343,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -328,14 +409,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java%E5%B9%B6%E5%8F%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java%E5%AE%B9%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/" class="post-title-link" itemprop="url">Java并发</a>
+            <a href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">Java容器</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:08:33" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:08:58" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,8 +201,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/Java%E5%B9%B6%E5%8F%91/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/Java%E5%B9%B6%E5%8F%91/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/13/Java%E5%AE%B9%E5%99%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/Java%E5%AE%B9%E5%99%A8/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -217,123 +217,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="使用线程"><a href="#使用线程" class="headerlink" title="使用线程"></a>使用线程</h2><ul>
-<li>实现Runnable接口</li>
-<li>实现Callable接口</li>
-<li>继承Thread类</li>
-<li>优先使用实现接口的方法，实现接口的方法只是一个可以在线程中运行的任务，任务是通过线程驱动执行的。</li>
-</ul>
-<h2 id="基础线程机制"><a href="#基础线程机制" class="headerlink" title="基础线程机制"></a>基础线程机制</h2><ul>
-<li>Executor：用于管理多个异步任务<ul>
-<li>CachedThreadPool：一个任务创建一个线程</li>
-<li>FixedThreadPool：所有任务只能使用固定大小的线程</li>
-<li>SingleThreadExecutor：相当于大小为1的FixedThreadPool</li>
-</ul>
-</li>
-<li>Daemon：守护线程</li>
-<li>sleep()：休眠当前正在执行的线程</li>
-<li>yield()：声明当前线程已经完成主要任务，建议切换</li>
-</ul>
-<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><ul>
-<li>InterruptedException：中断时如果该线程处于阻塞、限期等待或无限期等待状态会抛出的异常，提前结束线程，但I/O阻塞和synchronized阻塞不能中断</li>
-<li>Interrupted()</li>
-<li>Executor的中断操作：shutdown()和shutdownNow()方法</li>
-</ul>
-<h2 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h2><ul>
-<li>Synchronized：JVM提供，可以用来同步一个代码块/方法/类/静态方法</li>
-<li>ReentrantLock：java.util.concurrent包中的锁（JDK实现的）</li>
-<li>除非使用后者的高级功能，否则优先使用synchronized，不会产生死锁问题，JVM会确保锁的释放</li>
-</ul>
-<h2 id="线程之间的协作"><a href="#线程之间的协作" class="headerlink" title="线程之间的协作"></a>线程之间的协作</h2><ul>
-<li>join()：在一个线程中调用另一个线程的join()方法，会挂起当前线程，直到目标线程结束</li>
-<li>wait() notify() notifyAll()：调用 wait() 使得线程等待某个条件满足，线程在等待时会被挂起，当其他线程的运行使得这个条件满足时，其它线程会调用 notify() 或者 notifyAll() 来唤醒挂起的线程。（Object中的方法）</li>
-<li>Await() signal() signalAll()：java.util.concurrent 类库中提供了 Condition 类来实现线程之间的协调，可以在 Condition 上调用 await() 方法使线程等待，其它线程调用 signal() 或 signalAll() 方法唤醒等待的线程。</li>
-</ul>
-<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
-<li>new 新建</li>
-<li>Runnable 可运行</li>
-<li>Blocked 阻塞（被动）</li>
-<li>Waiting 无限期等待（主动）</li>
-<li>Timed_waiting 限期等待（一定时间后被系统自动唤醒）</li>
-<li>Terminated 死亡</li>
-</ul>
-<h2 id="J-U-C-AQS"><a href="#J-U-C-AQS" class="headerlink" title="J.U.C-AQS"></a>J.U.C-AQS</h2><ul>
-<li>CountDownLatch：用来控制一个或多个线程等待多个线程</li>
-<li>CyclicBarrier：用来控制多个线程互相等待，只有多个线程都到达了，线程才会继续执行</li>
-<li>Semaphore：类似操作系统信号量，控制对互斥资源的访问</li>
-</ul>
-<h2 id="J-U-C-其他组件"><a href="#J-U-C-其他组件" class="headerlink" title="J.U.C-其他组件"></a>J.U.C-其他组件</h2><ul>
-<li>FutureTask：可以异步获取执行结果或取消执行任务的场景</li>
-<li>BlockingQueue：提供FIFO和优先级的阻塞队列实现方法，可以用于实现生产者消费者问题</li>
-<li>ForkJoin：用于并行计算，类似于MapReduce</li>
-</ul>
-<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><ul>
-<li><p>主内存与工作内存</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194849.png" alt="image-20210311194849104"></p>
-<p>所有变量都存储在主内存中</p>
-</li>
-<li><p>内存间交互操作：8个操作实现主内存和工作内存的交互</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194952.png" alt="image-20210311194952576"></p>
-</li>
-<li><p>内存模型三大特性</p>
-<ul>
-<li>原子性：上述8个操作具有原子性</li>
-<li>可见性：一个线程修改共享变量的值，其他线程能够立刻得知修改（实现方式有volatile、synchronized、final）</li>
-<li>有序性：本线程内观察，所有操作都是有序的；在一个线程内观察另一个线程，所有操作都是无序的</li>
-</ul>
-</li>
-<li><p>先行发生原则：让一个操作无需控制就能先于另一个操作完成</p>
+          <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
 <ol>
-<li>单一线程原则</li>
-<li>管程锁定原则</li>
-<li>volatile变量规则</li>
-<li>线程启动规则</li>
-<li>线程加入规则</li>
-<li>线程中断规则</li>
-<li>对象终结规则</li>
-<li>传递性</li>
+<li>Set：TreeSet HashSet LinkedHashSet</li>
+<li>List：ArrayList Vector(线程安全) LinkedList</li>
+<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
 </ol>
-</li>
-</ul>
-<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><ul>
-<li>不可变：一定线程安全，有final、String、枚举类型、Number部分子类</li>
-<li>互斥同步：sychronized和ReentrantLock（阻塞同步）</li>
-<li>非阻塞同步：乐观的并发策略，先执行，有冲突再补偿<ul>
-<li>CAS乐观锁</li>
-<li>AtomicInteger</li>
-<li>ABA</li>
-</ul>
-</li>
-<li>无同步方案：当方法不涉及共享数据时，就不用同步措施<ul>
-<li>栈封闭</li>
-<li>线程本地存储</li>
-<li>可重入代码</li>
-</ul>
-</li>
-</ul>
-<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>主要指JVM对synchronized的优化</p>
+<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
 <ul>
-<li>自旋锁：让一个线程在请求一个共享数据的锁时忙循环一段时间，若能获得锁，则可以避免阻塞状态</li>
-<li>锁消除：对于检测出不可能存在竞争的共享数据的锁进行消除</li>
-<li>锁粗化：若频繁对一个对象加锁解锁，则将加锁范围扩展到整个操作序列的外部</li>
-<li>轻量级锁和偏向锁：JDK1.6引入</li>
+<li>支持快速随机访问、默认大小为10</li>
+<li>基于动态数组实现，具有动态扩容性</li>
 </ul>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol>
-<li><p>给线程起有意义的名字</p>
+<p>Vector</p>
+<ul>
+<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
+<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
+</ul>
+<p>CopyOnWriteArrayList</p>
+<ul>
+<li>读写分离，适用读多写少的情况</li>
+</ul>
+<p>LinkedList</p>
+<ul>
+<li>基于双向链表实现</li>
+<li><p>不支持随机访问但插入删除效率高</p>
 </li>
-<li><p>缩小同步范围</p>
+<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
 </li>
-<li><p>多用同步工具少用wait()和notify()</p>
+<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
 </li>
-<li><p>使用BlockingQueue实现生产者消费者问题</p>
+<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
 </li>
-<li><p>多用并发集合少用同步集合</p>
-</li>
-<li><p>使用本地变量和不可变类来保证安全</p>
-</li>
-<li><p>使用线程池而不是直接创建线程</p>
-</li>
-</ol>
+<li>Collection（只需要存放元素）：需要唯一用Set，否则用List</li>
+</ul>
 
       
     </div>
@@ -352,7 +269,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/41/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><a class="page-number" href="/page/44/">44</a><a class="extend next" rel="next" href="/page/43/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/41/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><span class="page-number current">42</span><a class="page-number" href="/page/43/">43</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/43/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -418,14 +335,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
