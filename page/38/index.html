@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +99,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -128,11 +129,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -155,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">计算机网络 知识点整理</a>
+            <a href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" class="post-title-link" itemprop="url">第三章 函数的增长</a>
         </h2>
 
         <div class="post-meta">
@@ -180,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 21:15:44 / 修改时间：21:16:19" itemprop="dateCreated datePublished" datetime="2021-03-13T21:15:44+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:16:54 / 修改时间：21:17:49" itemprop="dateCreated datePublished" datetime="2021-03-13T21:16:54+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -201,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -217,103 +245,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li><p>ISP：互联网服务提供商，多层次结构</p>
-</li>
-<li><p>通信方式：客户-服务器（C/S），对等（P2P）</p>
-</li>
-<li><p>电路交换和分组交换（时延=排队时延+处理时延+传输时延+传播时延）</p>
-</li>
-<li><p>OSI（七层协议）、五层协议、TCP/IP（四层）</p>
-</li>
+          <h2 id="渐进记号"><a href="#渐进记号" class="headerlink" title="渐进记号"></a>渐进记号</h2><ul>
+<li>Θ记号：等于（即f(n) = Θ(g(n))，f(n) = g(n)，下同）</li>
+<li>O记号：小于等于、最坏情况，时间复杂度上界</li>
+<li>Ω记号：大于等于</li>
+<li>o记号：小于</li>
+<li>ω记号：大于</li>
 </ul>
-<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><ul>
-<li><p>单工通信、半双工通信和全双工通信</p>
-</li>
-<li><p>带通调制：数字信号（离散）-&gt; 模拟信号（连续）</p>
-</li>
-</ul>
-<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
-<li>封装成帧：给网络层的分组（IP数据报）添加首部和尾部</li>
-<li>透明传输：给数据中和首部尾部相同的内容加转义字符（透明）</li>
-<li>差错检测：主要使用循环冗余码CRC</li>
-</ul>
-<h3 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h3><ul>
-<li>分类：广播信道（用信道复用技术和CSMA/CD协议控制）和点对点信道（用PPP协议控制）</li>
-<li>信道复用技术：频分复用、时分复用、统计时分复用、波分复用、码分复用（码片正交）</li>
-<li>CSMA/CD协议：每个主机都不停监听信道，如果在发送过程中其他主机正在发送，说明发生了碰撞（因为有传播时延），等待一段时间在发送（用截断二进制指数退避法确定时间）</li>
-<li>争用期：传播时延的两倍</li>
-<li>PPP协议：用户计算机和ISP之间的链路层协议</li>
-</ul>
-<h3 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h3><ul>
-<li>MAC地址：6字节，用于唯一标识网络适配器（网卡）</li>
-<li>局域网：一种典型的广播信道，主要以太网（星型）等</li>
-<li>交换机：存储MAC地址到接口的映射</li>
-<li>虚拟局域网：用于建立和物理位置无关的逻辑组</li>
-</ul>
-<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
-<li><p>数据报格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307211309.jpg" alt="IP former"></p>
-</li>
-<li><p>编址方式：网络号+子网号+主机号、CIDR记法（无分类，网络前缀号+主机号）</p>
-</li>
-</ul>
-<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
-<li>地址解析协议ARP：<br>实现由IP地址得到MAC地址，每个主机上有一个ARP高速缓存，保存本地局域网上的各主机和路由器的IP地址到MAC地址到映射表。若没有映射会发送广播请求。</li>
-<li>网际控制报文协议ICMP<br>更有效地转发IP数据报和提高交付成功的机会。<br>Ping：用来测试两台主机之间的联通性。<br>Traceroute：用来跟踪一个分组从源点到终点的路径。</li>
-</ul>
-<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
-<li>路由器<br>功能：路由转发和分组转发<br>组成：交换结构、一组输入端口和一组输出端口</li>
-<li>分组转发流程</li>
-<li>路由选择协议<ol>
-<li>内部网关协议RIP</li>
-<li>内部网关协议OSPF</li>
-<li>外部网关协议BGP</li>
-</ol>
-</li>
-</ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
-<li>虚拟专用网VPN（机构内使用仅在本机有效的专用地址块，有三个）</li>
-<li>网络地址转换NAT：将专用网内部的主机使用的本地IP转换成全球IP</li>
-</ul>
-<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><ul>
-<li><p>格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307213854.png" alt="image-20210307213853892"></p>
-</li>
-<li><p>三次握手</p>
-</li>
-<li><p>四次挥手</p>
-</li>
-<li><p>可靠传输：采用超时重传机制</p>
-</li>
-<li><p>滑动窗口和流量控制</p>
-</li>
-<li><p>拥塞控制</p>
-<ol>
-<li>慢开始和拥塞避免</li>
-<li>快重传与快恢复</li>
-</ol>
-</li>
-</ul>
-<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307214238.png" alt="image-20210307214238091" style="zoom:50%;" /></p>
-<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>提供主机名和IP地址之间的相互转换</p>
-<h3 id="Web页面请求过程"><a href="#Web页面请求过程" class="headerlink" title="Web页面请求过程"></a>Web页面请求过程</h3><ol>
-<li>DHCP配置主机信息</li>
-<li>ARP解析MAC地址</li>
-<li>DNS解析域名</li>
-<li>HTTP请求页面</li>
-<li>浏览器渲染</li>
-</ol>
-<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><ul>
-<li>方法、状态码、首部字段</li>
-<li>HTTPS、HTTP1.1特性</li>
-</ul>
-<h3 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h3><ul>
-<li>FTP文件传输协议</li>
-<li>DHCP动态主机配置协议</li>
-<li>TELNET远程登录协议</li>
-<li>电子邮件协议SMTP和POP3/IMAP</li>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
+<li>多项式</li>
+<li>指数</li>
+<li>对数</li>
+<li>阶乘</li>
+<li>多重函数（多重对数函数lg*n）</li>
+<li>斐波那契数</li>
 </ul>
 
       
@@ -333,7 +278,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -399,7 +344,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -513,6 +458,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
