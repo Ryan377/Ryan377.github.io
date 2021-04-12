@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">软件工程 第8章 面向对象建模</a>
+            <a href="/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">数据库</a>
         </h2>
 
         <div class="post-meta">
@@ -206,17 +206,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-03 21:48:19 / 修改时间：21:47:33" itemprop="dateCreated datePublished" datetime="2021-04-03T21:48:19+08:00">2021-04-03</time>
+              <time title="创建时间：2021-04-09 08:00:26" itemprop="dateCreated datePublished" datetime="2021-04-09T08:00:26+08:00">2021-04-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-12 21:46:27" itemprop="dateModified" datetime="2021-04-12T21:46:27+08:00">2021-04-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
                 </span>
             </span>
 
@@ -229,8 +235,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,77 +251,140 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="用况建模"><a href="#用况建模" class="headerlink" title="用况建模"></a>用况建模</h2><p>用况建模时用于描述一个系统应该做什么的建模技术。</p>
-<p><strong>用况建模步骤</strong></p>
+          <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><h3 id="mysql存储引擎-MyISAM和InnoDB的区别？"><a href="#mysql存储引擎-MyISAM和InnoDB的区别？" class="headerlink" title="mysql存储引擎 MyISAM和InnoDB的区别？"></a><em>mysql存储引擎 MyISAM和InnoDB的区别？</em></h3><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。</p>
+<p>一般情况下都选用后者。</p>
+<h3 id="mysql索引？"><a href="#mysql索引？" class="headerlink" title="mysql索引？"></a><em>mysql索引？</em></h3><p>MySQL索引使用的数据结构主要有<strong>BTree索引</strong> 和 <strong>哈希索引</strong> 。</p>
+<ul>
+<li><p>对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能最快；其余大部分场景，建议选择BTree索引。</p>
+</li>
+<li><p>MySQL的BTree索引使用的是B树中的B+Tree，但对于主要的两种存储引擎的实现方式是不同的。</p>
+</li>
+</ul>
+<h3 id="事务？"><a href="#事务？" class="headerlink" title="事务？"></a><em>事务？</em></h3><p>逻辑上的一组操作，要么都执行，要么都不执行。</p>
+<p>四大特性（ACID）</p>
 <ol>
-<li>定义系统</li>
-<li>确定执行者</li>
-<li>确定用况</li>
-<li>描述用况</li>
-<li>确定用况间的关系</li>
-<li>确认模型</li>
+<li><strong>原子性（Atomicity）：</strong> 事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li><strong>一致性（Consistency）：</strong> 执行事务后，数据库从一个正确的状态变化到另一个正确的状态；</li>
+<li><strong>隔离性（Isolation）：</strong> 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li><strong>持久性（Durability）：</strong> 一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
 </ol>
-<h2 id="静态建模"><a href="#静态建模" class="headerlink" title="静态建模"></a>静态建模</h2><p>静态建模描述系统中包含的类以及类之间的关系，展示了软件系统的静态结构。</p>
-<p><em>CRC技术</em></p>
-<p>类-责任-协作者技术，一组表示类的索引卡片，每张卡片分成三个部分，分别描述类、类的责任和类的协作者</p>
-<p><em>类之间的关系</em></p>
-<div class="table-container">
+<h3 id="并发事务带来的问题？"><a href="#并发事务带来的问题？" class="headerlink" title="并发事务带来的问题？"></a><em>并发事务带来的问题？</em></h3><p>脏读、丢失修改、不可重复读、幻影读。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192348.png" alt="image-20210408192348236"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192408.png" alt="image-20210408192408423"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192500.png" alt="image-20210408192500356"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210408192522.png" alt="image-20210408192522582"></p>
+<h3 id="事务的隔离级别？"><a href="#事务的隔离级别？" class="headerlink" title="事务的隔离级别？"></a><em>事务的隔离级别？</em></h3><div class="table-container">
 <table>
 <thead>
 <tr>
-<th>关系</th>
-<th>功能</th>
-<th>符号</th>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻影读</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>关联</td>
-<td>类实例间连接的描述</td>
-<td>——</td>
+<td>READ-UNCOMMITTED 读取未提交</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
 </tr>
 <tr>
-<td>依赖</td>
-<td>二个模型元素之间的一种关系</td>
-<td>——-&gt;</td>
+<td>READ-COMMITTED 读取已提交</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
 </tr>
 <tr>
-<td>泛化</td>
-<td>更特殊描述与更一般描述之间的一种关系，用于继承和多态性类型声明</td>
-<td>——$\vartriangleright$</td>
+<td>REPEATABLE-READ 可重复读</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
 </tr>
 <tr>
-<td>实现</td>
-<td>规约（specification）与它的实现之间的关系</td>
-<td>———$\vartriangleright$</td>
+<td>SERIALIZABLE 可串行化</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h2 id="动态建模"><a href="#动态建模" class="headerlink" title="动态建模"></a>动态建模</h2><p>动态建模用来描述系统的动态行为，显示对象在运行期间不同时刻的动态交互。UML中用状态机图、活动图、顺序图、通信图和协作图来建立动态模型。</p>
-<p><em>状态机图</em></p>
-<p>画状态机图的步骤：</p>
-<ol>
-<li>列出对象具有的所有状态</li>
-<li>标识导致状态转换的事件</li>
-<li>为状态和迁移定义状态变量和动作</li>
+<p>InnoDB默认的是可重复读，与 SQL 标准不同的地方在于 InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下使用的是Next-Key Lock 锁算法，因此可以避免幻读的产生。</p>
+<h3 id="锁机制？"><a href="#锁机制？" class="headerlink" title="锁机制？"></a><em>锁机制？</em></h3><p>MyISAM采用表级锁(table-level locking)。</p>
+<p>InnoDB支持行级锁(row-level locking)和表级锁,默认为行级锁。</p>
+<p>表级锁对整张表上锁，实现简单，资源消耗少，不会死锁，但并发度低。</p>
+<p>行级锁只对当前进行操作的行上锁，能大大减少数据库操作的冲突，并发度高。</p>
+<p>InnoDB存储引擎的锁的算法有三种：</p>
+<ul>
+<li>Record lock：单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li>Next-key lock：record+gap 锁定一个范围，包含记录本身</li>
+</ul>
+<h3 id="大表优化？"><a href="#大表优化？" class="headerlink" title="大表优化？"></a><em>大表优化？</em></h3><p>限定数据范围、读写分离、垂直分区、水平分区。</p>
+<h3 id="数据库连接池？"><a href="#数据库连接池？" class="headerlink" title="数据库连接池？"></a><em>数据库连接池？</em></h3><p>池化思想就是每次预设初始资源，减少每次获取资源的消耗。</p>
+<p>数据库连接本质就是一个 socket 的连接。数据库服务端还要维护一些缓存和用户权限信息之类的 所以占用了一些内存。我们可以把数据库连接池是看做是维护的数据库连接的缓存，以便将来需要对数据库的请求时可以重用这些连接。为每个用户打开和维护数据库连接，尤其是对动态数据库驱动的网站应用程序的请求，既昂贵又浪费资源。<strong>在连接池中，创建连接后，将其放置在池中，并再次使用它，因此不必建立新的连接。如果使用了所有连接，则会建立一个新连接并将其添加到池中</strong>。 连接池还减少了用户必须等待建立与数据库的连接的时间。</p>
+<h3 id="分库分表后，id主键如何处理？"><a href="#分库分表后，id主键如何处理？" class="headerlink" title="分库分表后，id主键如何处理？"></a><em>分库分表后，id主键如何处理？</em></h3><ul>
+<li><strong>UUID</strong>：不适合作为主键，因为太长了，并且无序不可读，查询效率低。比较适合用于生成唯一的名字的标示比如文件的名字。</li>
+<li><strong>数据库自增 id</strong> : 两台数据库分别设置不同步长，生成不重复ID的策略来实现高可用。这种方式生成的 id 有序，但是需要独立部署数据库实例，成本高，还会有性能瓶颈。</li>
+<li><strong>利用 redis 生成 id :</strong> 性能比较好，灵活方便，不依赖于数据库。但是，引入了新的组件造成系统更加复杂，可用性降低，编码更加复杂，增加了系统成本。</li>
+<li><strong>Twitter的snowflake算法</strong> </li>
+<li><strong>美团的<a target="_blank" rel="noopener" href="https://tech.meituan.com/2017/04/21/mt-leaf.html">Leaf</a>分布式ID生成系统</strong> ：Leaf 是美团开源的分布式ID生成器，能保证全局唯一性、趋势递增、单调递增、信息安全，里面也提到了几种分布式方案的对比，但也需要依赖关系数据库、Zookeeper等中间件。</li>
+</ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><h3 id="介绍Redis"><a href="#介绍Redis" class="headerlink" title="介绍Redis?"></a><em>介绍Redis?</em></h3><p>Redis是一个使用C语言开发的数据库，不过于传统数据库不同的是Redis数据是存在内存中的，所以读写非常快，因此Redis被广泛应用于缓存方向。</p>
+<h3 id="分布式缓存，Redis和Memecache？"><a href="#分布式缓存，Redis和Memecache？" class="headerlink" title="分布式缓存，Redis和Memecache？"></a><em>分布式缓存，Redis和Memecache？</em></h3><ol>
+<li>Redis 支持更丰富的数据类型（支持更复杂的应用场景）。Redis 不仅仅支持简单的 k/v 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储。Memcached 只支持最简单的 k/v 数据类型。</li>
+<li>Redis 支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用,而 Memecache 把数据全部存在内存之中。</li>
+<li>Redis 有灾难恢复机制。因为可以把缓存中的数据持久化到磁盘上。</li>
+<li>Redis 在服务器内存使用完之后，可以将不用的数据放到磁盘上。但是，Memcached 在服务器内存使用完之后，就会直接报异常。</li>
+<li>Memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据；但是 Redis 目前是原生支持 cluster 模式的。</li>
+<li>Memcached 是多线程，非阻塞 IO 复用的网络模型；Redis 使用单线程的多路 IO 复用模型。（Redis 6.0 引入了多线程 IO ）</li>
+<li>Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。</li>
+<li>Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。</li>
 </ol>
-<p><em>活动图</em></p>
-<p><em>顺序图</em></p>
-<p><em>通信图</em></p>
-<p><em>协作图</em></p>
-<h2 id="物理体系结构建模"><a href="#物理体系结构建模" class="headerlink" title="物理体系结构建模"></a>物理体系结构建模</h2><p>系统的体系结构用来描述系统各部分的结构、接口以及它们用于通信的机制。</p>
-<p>物理体系结构涉及系统的详细描述（根据系统所包含的硬件和软件），显示了硬件的结构，包括不同的结点以及这些结点之间如何连接，还表示了代码模块的物理结构和依赖关系，并展示了对进程、程序、构建等软件在运行时的物理分配。</p>
-<p><em>回答的问题</em></p>
-<ol>
-<li>类和对象物理上位于哪个程序或进程？</li>
-<li>程序和进程在哪台计算机上执行？</li>
-<li>系统中有哪些计算机和其他硬件设备？它们如何相互连接？</li>
-<li>不同的代码文件之间有什么依赖关系？如果一个指定文件被改变，那么那些其他文件需要重新编译？</li>
+<h3 id="缓存的处理流程？"><a href="#缓存的处理流程？" class="headerlink" title="缓存的处理流程？"></a><em>缓存的处理流程？</em></h3><ol>
+<li>如果用户请求的数据在缓存中就直接返回。</li>
+<li>缓存中不存在的话就看数据库中是否存在。</li>
+<li>数据库中存在的话就更新缓存中的数据。</li>
+<li>数据库中不存在的话就返回空数据。</li>
 </ol>
-<p>UML使用中物理体系结构用构件图、内部结构图和部署图来描述</p>
-<p><em>构件图</em>：显示构件类型定义、内部结构和依赖。</p>
-<p><em>部署图</em>：部署图展示了运行时处理结点和在结点上生存的制品的配置。</p>
+<h3 id="为什么用Redis？"><a href="#为什么用Redis？" class="headerlink" title="为什么用Redis？"></a><em>为什么用Redis？</em></h3><p><strong>高性能角度</strong>：</p>
+<p>假如用户第一次访问数据库中的某些数据的话，这个过程是比较慢，毕竟是从硬盘中读取的。但是，如果说，用户访问的数据属于高频数据并且不会经常改变的话，那么我们就可以很放心地将该用户访问的数据存在缓存中。</p>
+<p>这样有什么好处呢？ 那就是保证用户下一次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。</p>
+<p>不过，要保持数据库和缓存中的数据的一致性。 如果数据库中的对应数据改变的之后，同步改变缓存中相应的数据即可！</p>
+<p><strong>高并发角度</strong>：</p>
+<p>一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。</p>
+<p>所以，直接操作缓存能够承受的数据库请求数量是远远大于直接访问数据库的，所以我们可以考虑把数据库中的部分数据转移到缓存中去，这样用户的一部分请求会直接到缓存这里而不用经过数据库。进而，我们也就提高的系统整体的并发。</p>
+<h3 id="Redis过期机制？"><a href="#Redis过期机制？" class="headerlink" title="Redis过期机制？"></a><em>Redis过期机制？</em></h3><p>缓解内存消耗，Redis使用过期字典来保存。</p>
+<h3 id="Redis持久化机制？"><a href="#Redis持久化机制？" class="headerlink" title="Redis持久化机制？"></a><em>Redis持久化机制？</em></h3><p>快照持久化（默认）：</p>
+<p>Redis 可以通过创建快照来获得存储在内存里面的数据在某个时间点上的副本。Redis 创建快照之后，可以对快照进行备份，可以将快照复制到其他服务器从而创建具有相同数据的服务器副本（Redis 主从结构，主要用来提高 Redis 性能），还可以将快照留在原地以便重启服务器的时候使用。</p>
+<p>AOF（append-only file）机制</p>
+<p>AOF 持久化后每执行一条会更改 Redis 中的数据的命令，Redis 就会将该命令写入硬盘中的 AOF 文件。AOF 文件的保存位置和 RDB 文件的位置相同，都是通过 dir 参数设置的，默认的文件名是 appendonly.aof。</p>
+<p>注意：Redis事务提供了一种将多个命令请求打包的功能。然后，再按顺序执行打包的所有命令，并且不会被中途打断。但不满足原子性。</p>
+<h3 id="缓存穿透？"><a href="#缓存穿透？" class="headerlink" title="缓存穿透？"></a><em>缓存穿透？</em></h3><p>大量请求的 key 根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。</p>
+<p>解决方法：</p>
+<p>参数校验，不合法的参数请求直接抛出异常。</p>
+<p>布隆过滤器：布隆过滤器是一个非常神奇的数据结构，通过它我们可以非常方便地判断一个给定数据是否存在于海量数据中。我们需要的就是判断 key 是否合法。</p>
+<p>具体是这样做的：把所有可能存在的请求的值都存放在布隆过滤器中，当用户请求过来，先判断用户发来的请求的值是否存在于布隆过滤器中。不存在的话，直接返回请求参数错误信息给客户端，存在的话才会走下面的流程。</p>
+<p>但可能会误判，因为可能有哈希碰撞。</p>
+<h3 id="缓存雪崩？"><a href="#缓存雪崩？" class="headerlink" title="缓存雪崩？"></a><em>缓存雪崩？</em></h3><p>实际上，缓存雪崩描述的就是这样一个简单的场景：缓存在同一时间大面积的失效，后面的请求都直接落到了数据库上，造成数据库短时间内承受大量请求。系统的缓存模块出了问题比如宕机导致不可用。造成系统的所有访问，都要走数据库。</p>
+<p>还有一种缓存雪崩的场景是：有一些被大量访问数据（热点缓存）在某一时刻大面积失效，导致对应的请求直接落到了数据库上。</p>
+<ul>
+<li>针对 Redis 服务不可用的情况：</li>
+</ul>
+<ol>
+<li>采用 Redis 集群，避免单机出现问题整个缓存服务都没办法使用。</li>
+<li>限流，避免同时处理大量的请求。</li>
+</ol>
+<ul>
+<li>针对热点缓存失效的情况：</li>
+</ul>
+<ol>
+<li>设置不同的失效时间比如随机设置缓存的失效时间。</li>
+<li>缓存永不失效。</li>
+</ol>
+<h3 id="缓存和数据库数据的一致性？"><a href="#缓存和数据库数据的一致性？" class="headerlink" title="缓存和数据库数据的一致性？"></a><em>缓存和数据库数据的一致性？</em></h3><p>旁路缓存模式，遇到写请求更新 DB，然后直接删除 cache 。</p>
 
       
     </div>
@@ -334,7 +403,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -400,7 +469,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -534,59 +603,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
