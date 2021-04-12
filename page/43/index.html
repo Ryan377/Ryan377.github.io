@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/" class="post-title-link" itemprop="url">操作系统 概论</a>
+            <a href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">操作系统 知识点总结</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 21:13:57 / 修改时间：21:14:43" itemprop="dateCreated datePublished" datetime="2021-03-13T21:13:57+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:13:57 / 修改时间：21:15:25" itemprop="dateCreated datePublished" datetime="2021-03-13T21:13:57+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,51 +245,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="OS"><a href="#OS" class="headerlink" title="OS:"></a>OS:</h2><ol>
-<li>管理计算机硬件和软件资源的程序</li>
-<li>屏蔽了硬件层的复杂性</li>
-<li>操作系统内核是核心，负责内存、硬件、文件系统和应用程序的管理。</li>
-<li>操作系统的位数：根据CPU位数设计的</li>
-<li>特征</li>
+          <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li>进程是资源分配的单位。</li>
+<li>线程是独立调度的基本单位，是进程内部的一个执行序列。是进程划分的更小的运行单位。</li>
+<li>线程共享进程的堆和方法区（元空间），每个线程有自己的程序计数器、虚拟机栈和本地方法栈。</li>
+</ul>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>5种状态：new, ready, running, waiting, terminated.</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>7种常见方式：管道/匿名管道（父子进程或兄弟进程间）、有名管道（实现本机任意两个进程通信）、信号、消息队列（消息的列表，存放在内核，克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺陷）、信号量、共享内存、套接字（客户端和服务器之间）。</p>
+<h3 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h3><ul>
+<li>先到先服务</li>
+<li>短作业优先</li>
+<li>时间片轮转</li>
+<li>多级反馈队列调度</li>
+<li>优先级调度</li>
+</ul>
+<h3 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h3><ul>
+<li>概念：临界区、同步与互斥</li>
+<li>信号量解决同步问题</li>
+<li>管程：把同步互斥问题的代码独立出来</li>
+<li>经典问题：哲学家进餐、读者写者</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li>孤儿进程（父进程退出，子进程还在，没有危害），僵尸进程（子进程退出，父进程没有释放子进程信息，可能因为没有可用进程号导致不能产生新进程）</li>
+<li>线程同步：互斥量、信号量、事件</li>
+<li>实时系统（硬实时和软实时）</li>
 </ol>
-<ul>
-<li><p>并发：宏观</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li><p>必要条件：互斥、占有等待、不可抢占、环路等待</p>
 </li>
-<li><p>共享：互斥和同时</p>
-</li>
-<li><p>虚拟：时分复用/空分复用</p>
-</li>
-<li><p>异步</p>
+<li><p>处理方法</p>
 </li>
 </ul>
-<h2 id="系统调用："><a href="#系统调用：" class="headerlink" title="系统调用："></a>系统调用：</h2><ol>
-<li>用户态和系统态</li>
-<li>程序需要使用系统级的功能 -&gt; 系统调用</li>
+<ol>
+<li>鸵鸟策略：Unix,Linux,Windows都采用</li>
+<li>死锁检测和恢复</li>
+<li>死多预防（破坏必要条件）</li>
+<li>死锁避免：安全状态、银行家算法</li>
 </ol>
-<ul>
-<li><p>设备管理</p>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>内存管理主要负责内存的分配和回收以及地址转换。</p>
+<h3 id="内存管理机制"><a href="#内存管理机制" class="headerlink" title="内存管理机制"></a>内存管理机制</h3><ul>
+<li><p>虚拟内存：让物理内存扩充成更大的逻辑内存，MMU管理地址空间和物理内存的转换</p>
 </li>
-<li><p>文件管理</p>
+<li><p>连续：块式</p>
 </li>
-<li><p>进程控制</p>
-</li>
-<li><p>进程通信</p>
-</li>
-<li><p>内存管理</p>
+<li><p>非连续</p>
 </li>
 </ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
-<li>宏内核（一个紧密结合整体）和微内核（只有微内核模块运行在内核态，其他在用户态）</li>
-<li>中断分类</li>
+<ol>
+<li>页式：页表（页和页框段映射表），页面号+偏移量。</li>
+<li>段式：一个段构成一个独立地址空间，共享和保护。</li>
+<li>段页式：先分成若干段，每段再分成若干页。</li>
 </ol>
 <ul>
-<li><p>外中断：CPU执行以外的事件（I/O中断等）</p>
+<li><p>快表TLB（加速虚拟地址到物理地址的转换）和多级页表（避免把全部页表一直放在内存中占用过多空间）。</p>
 </li>
-<li><p>异常：CPU执行的内部事件（地址溢出等）</p>
+<li><p>分页大小固定，分段大小不固定，段是逻辑信息的基本单位。分页是一维的，分段是二维的。</p>
 </li>
-<li><p>陷入：系统调用</p>
+<li><p>内部碎片和外部碎片</p>
+</li>
+<li><p>局部性原理：时间局部性和空间局部性</p>
+</li>
+<li><p>页面置换算法</p>
 </li>
 </ul>
+<ol>
+<li>OPT最佳</li>
+<li>FIFO先进先出</li>
+<li>LRU最近最久未使用</li>
+<li>LFU最少使用</li>
+<li>NRU最近未使用</li>
+<li>第二次机会算法</li>
+<li>时钟算法</li>
+</ol>
+<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><ul>
+<li><p>磁盘结构：盘面、磁道、扇区、磁头、制动手臂、主轴。</p>
+</li>
+<li><p>磁盘调度算法：</p>
+</li>
+</ul>
+<ol>
+<li>先来先服务</li>
+<li>最短寻道时间优先（可能饥饿）</li>
+<li>电梯算法</li>
+</ol>
 
       
     </div>
@@ -308,7 +346,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -374,14 +412,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
