@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="运行时数据区域  程序计数器：记录正在执行的虚拟机字节码指令的地址 Java虚拟机栈：局部变量表、操作数栈、常量池引用 本地方法栈：为本地方法服务   堆：对象分配的内存 方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码 运行常量池：方法区的一部分 直接内存  垃圾回收机制 判断一个对象是否可回收  引用计数法 可达性分析法 方法区的回收 finalize()   引用类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM">
+<meta property="og:url" content="http://example.com/2021/03/13/Java/JVM/index.html">
+<meta property="og:site_name" content="R Blog">
+<meta property="og:description" content="运行时数据区域  程序计数器：记录正在执行的虚拟机字节码指令的地址 Java虚拟机栈：局部变量表、操作数栈、常量池引用 本地方法栈：为本地方法服务   堆：对象分配的内存 方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码 运行常量池：方法区的一部分 直接内存  垃圾回收机制 判断一个对象是否可回收  引用计数法 可达性分析法 方法区的回收 finalize()   引用类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png">
+<meta property="article:published_time" content="2021-03-13T08:58:11.596Z">
+<meta property="article:modified_time" content="2021-03-13T13:09:06.116Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png">
+
+<link rel="canonical" href="http://example.com/2021/03/13/Java/JVM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM | R Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">R Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java/JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:09:06" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/13/Java/JVM/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/Java/JVM/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310190456.png" alt="image-20210310190455920"></p>
+<ul>
+<li>程序计数器：记录正在执行的虚拟机字节码指令的地址</li>
+<li>Java虚拟机栈：局部变量表、操作数栈、常量池引用</li>
+<li>本地方法栈：为本地方法服务</li>
+</ul>
+<ul>
+<li>堆：对象分配的内存</li>
+<li>方法区：用于存放已被加载的类信息、常量、静态变量、即使编译器编译后的代码</li>
+<li>运行常量池：方法区的一部分</li>
+<li>直接内存</li>
+</ul>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><ul>
+<li><p>判断一个对象是否可回收</p>
+<ol>
+<li>引用计数法</li>
+<li>可达性分析法</li>
+<li>方法区的回收</li>
+<li>finalize()</li>
+</ol>
+</li>
+<li><p>引用类型</p>
+<ol>
+<li>强引用：不会被回收</li>
+<li>软引用：内存不够会回收</li>
+<li>弱引用：一定会回收</li>
+<li>虚引用：唯一目的是能在这个对象被回收时收到一个系统通知</li>
+</ol>
+</li>
+<li><p>垃圾收集算法</p>
+<ol>
+<li><p>标记-清除</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201234.png" alt="image-20210311201234494"></p>
+</li>
+<li><p>标记-整理</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201254.png" alt="image-20210311201254800"></p>
+</li>
+<li><p>复制</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201310.png" alt="image-20210311201310907"></p>
+</li>
+<li><p>分代收集：将堆分为新生代和老年代，新生代用复制算法，老年代用标记-清除/标记-整理算法</p>
+</li>
+</ol>
+</li>
+<li><p>垃圾收集器</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311201436.png" alt="image-20210311201436702"></p>
+<ol>
+<li>Serial收集器</li>
+<li>ParNew收集器</li>
+<li>Parallel Scavenge收集器</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li><p>Serial Old收集器</p>
+<ol>
+<li><p>Parallel Old收集器</p>
+</li>
+<li><p>CMS收集器</p>
+</li>
+<li>G1收集器</li>
+</ol>
+</li>
+</ol>
+<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>Minor GC：回收新生代，执行频繁，速度快</p>
+<p>Full GC：回收老年代和新生代，很少执行，速度慢</p>
+<ul>
+<li><p>内存分配策略</p>
+<ol>
+<li><p>对象优先在Eden分配</p>
+</li>
+<li><p>大对象直接进入老年代</p>
+</li>
+<li><p>长期存活的对象进入老年代</p>
+</li>
+<li><p>动态对象年龄判定</p>
+</li>
+<li>空间分配担保</li>
+</ol>
+</li>
+<li><p>Full GC的触发条件</p>
+<ol>
+<li>调用System.gc()</li>
+<li>老年代空间不足</li>
+<li>空间分配担保失败</li>
+<li>JDK1.7及以前的永久代空间不足</li>
+<li>Concurrent Mode Failure</li>
+</ol>
+</li>
+</ul>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><ul>
+<li>类的生命周期</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210310192647.png" alt="image-20210310192647844"></p>
+<ul>
+<li>类加载过程<ol>
+<li>加载：<ul>
+<li>通过类的完全限定名称获取定义该类的二进制字节流。</li>
+<li>将该字节流表示的静态存储结构转换为方法区的运行时存储结构。</li>
+<li>在内存中生成一个代表该类的 Class 对象，作为方法区中该类各种数据的访问入口。</li>
+</ul>
+</li>
+<li>验证：确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</li>
+<li>准备：为类变量分配内存并设置初始值，使用的是方法区的内存</li>
+<li>解析：将常量池的符号引用替换为直接引用的过程</li>
+<li>初始化：真正执行类中定义的Java程序的代码</li>
+</ol>
+</li>
+<li>类初始化时机<ol>
+<li>主动引用：五个场景，必须对类初始化<ol>
+<li>遇到new、getstatic、putstatic、invokestatic</li>
+<li>使用java.lang.reflect进行反射调用</li>
+<li>要初始化类，但父类还没初始化</li>
+<li>执行主类（包含main()）</li>
+<li>当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄</li>
+</ol>
+</li>
+<li>被动引用：不会触发初始化的引用</li>
+</ol>
+</li>
+</ul>
+<p>类和类加载器</p>
+<ul>
+<li>分类：启动类加载器/其他类加载器</li>
+<li>双亲委派模型</li>
+<li>自定义类加载器实现</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/13/Java/Java%E5%AE%B9%E5%99%A8/" rel="prev" title="Java容器">
+      <i class="fa fa-chevron-left"></i> Java容器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E6%A6%82%E8%AE%BA/" rel="next" title="操作系统 概论">
+      操作系统 概论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="nav-number">1.</span> <span class="nav-text">运行时数据区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">内存分配和回收策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">类加载机制</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
