@@ -8,7 +8,7 @@
       <link href="2021/04/17/%E5%B7%A5%E5%85%B7/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
       <url>2021/04/17/%E5%B7%A5%E5%85%B7/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[<h3 id="maven创建web项目命令："><a href="#maven创建web项目命令：" class="headerlink" title="maven创建web项目命令："></a>maven创建web项目命令：</h3><blockquote><p>mvn archetype:generate -DgroupId=cn.ryan377.项目名称 -DartifactId=项目名称 -Dpackage=cn.ryan377.项目名称 -Dversion=1.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-webapp</p></blockquote><h3 id="项目上传github"><a href="#项目上传github" class="headerlink" title="项目上传github"></a>项目上传github</h3><blockquote><p>git init</p><p>git add .</p><p>git commit -m “first commit”</p><p>git remote add origin <a href="https://github.com/ryan377/reponame.git">https://github.com/ryan377/reponame.git</a></p><p>git push -u origin master</p></blockquote><p>此后在IEDA中更新即可</p>]]></content>
+        <content type="html"><![CDATA[<h3 id="maven创建web项目命令："><a href="#maven创建web项目命令：" class="headerlink" title="maven创建web项目命令："></a>maven创建web项目命令：</h3><blockquote><p>mvn archetype:generate -DgroupId=cn.ryan377.项目名称 -DartifactId=项目名称 -Dpackage=cn.ryan377.项目名称 -Dversion=1.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-webapp</p></blockquote><h3 id="项目上传github"><a href="#项目上传github" class="headerlink" title="项目上传github"></a>项目上传github</h3><blockquote><p>git init</p><p>git add .</p><p>git commit -m “first commit”</p><p>git remote add origin <a href="https://github.com/ryan377/reponame.git">https://github.com/ryan377/reponame.git</a></p><p>git push -u origin master</p></blockquote><p>此后在IDEA中更新即可</p>]]></content>
       
       
       <categories>
