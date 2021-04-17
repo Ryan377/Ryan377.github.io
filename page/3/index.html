@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">存储过程</a>
+            <a href="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/" class="post-title-link" itemprop="url">第13章 红黑树</a>
         </h2>
 
         <div class="post-meta">
@@ -206,9 +206,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-13 18:46:46 / 修改时间：21:02:43" itemprop="dateCreated datePublished" datetime="2021-04-13T18:46:46+08:00">2021-04-13</time>
+              <time title="创建时间：2021-04-16 16:09:03" itemprop="dateCreated datePublished" datetime="2021-04-16T16:09:03+08:00">2021-04-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +215,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -229,8 +228,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,24 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="物理存储介质"><a href="#物理存储介质" class="headerlink" title="物理存储介质"></a>物理存储介质</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210413184802.png" alt="image-20210413184754054"></p>
-<p>存储介质层次</p>
-<p>（CPU）、第一级存储器（高速缓存、内存）、第二级存储器（快闪存、磁盘存储器）、第三级存储器（光存储器、磁带存储器）</p>
-<p>分级存储的原因：</p>
-<ol>
-<li>价格因素：主存是磁盘的100倍</li>
-<li>寻址的问题：32位主存大小小于$2^{32}$</li>
-<li>数据需要永久保存</li>
-</ol>
-<p><strong>磁盘</strong></p>
-<p>磁盘结构对性能的影响</p>
-<p>DBMS在操作时数据在内存中</p>
-<p><strong>RAID磁盘系统</strong></p>
-<p><strong>磁盘空间管理</strong></p>
-<p><strong>缓冲区管理器</strong></p>
-<p><strong>文件和索引</strong></p>
-<p><strong>索引简介</strong></p>
-
+          
       
     </div>
 
@@ -280,7 +262,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -346,7 +328,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

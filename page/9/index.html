@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第八章 线性时间排序</a>
+            <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">同时多线程结构上操作系统的行为分析</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-10 14:02:07 / 修改时间：13:58:03" itemprop="dateCreated datePublished" datetime="2021-04-10T14:02:07+08:00">2021-04-10</time>
+              <time title="创建时间：2021-04-11 20:45:58 / 修改时间：20:45:13" itemprop="dateCreated datePublished" datetime="2021-04-11T20:45:58+08:00">2021-04-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
                 </span>
             </span>
 
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,28 +245,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>归并排序、堆排序、快速排序各元素的次序依赖于它们之间的比较，称为比较排序。</p>
-<h2 id="排序算法的下界"><a href="#排序算法的下界" class="headerlink" title="排序算法的下界"></a>排序算法的下界</h2><p><strong>决策树模型</strong></p>
-<p>一个完全二叉树，可以表示在给定输入规模情况下，某一特定排序算法对所有元素的比较操作</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210331154254.png" alt="image-20210331154245815"></p>
-<p><strong>最坏情况的下界</strong></p>
-<p>在决策树中，从根节点到任意一个可达叶结点之间的最长简单路径长度，表示的是对应的排序算法中最坏情况下的比较次数。</p>
-<p>定理：在最坏情况下，任何比较排序算法都需要做$\Omega(n\lg n)$次比较</p>
-<p>排序的稳定性：相等元素排序前后顺序不变</p>
-<p>稳定：插入排序、归并排序</p>
-<p>不稳定：堆排序、快速排序</p>
-<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><p>n个0到k的输入元素，k=O(n)时，运行时间$\Theta(n)$</p>
-<p>每输入一个元素x，确定小于x的元素个数，从而找到其在输出数组中的位置</p>
-<p>伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">COUNTING-SORT(A,B,k)</span><br><span class="line">	let C[0...k] be a new array</span><br><span class="line">	for i &#x3D; 0 to k</span><br><span class="line">		C[i] &#x3D; 0</span><br><span class="line">    for j &#x3D; 1 to A.length</span><br><span class="line">    	C[A[j]] &#x3D; C[A[j]] + 1</span><br><span class="line">    &#x2F;&#x2F; C[i] now contains the number of elements equal to i</span><br><span class="line">    for i &#x3D; 1 to k</span><br><span class="line">    	C[i] &#x3D; C[i] + C[i-1]</span><br><span class="line">    &#x2F;&#x2F; C[i] now contains the number of elements less or equal to i</span><br><span class="line">    for j &#x3D; A.lenght downto 1</span><br><span class="line">    &#x2F;&#x2F; 这里不太理解为什么要从后往前，从前往后应该不会影响结果</span><br><span class="line">    	B[C[A[j]]] &#x3D; A[j]</span><br><span class="line">    	C[A[j]] &#x3D; C[A[j]] - 1</span><br></pre></td></tr></table></figure>
-<p>java程序及运行结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span>[] A = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">30</span>];</span><br><span class="line">    <span class="keyword">int</span>[] B = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">30</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line">        A[i] = (<span class="keyword">int</span>)(Math.random()*k);</span><br><span class="line">    &#125;</span><br><span class="line">    countingsort(A, B, k);</span><br><span class="line">    System.out.println(Arrays.toString(A));</span><br><span class="line">    System.out.println(Arrays.toString(B));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">countingsort</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span>[] B, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] C = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; A.length; j++) &#123;</span><br><span class="line">        C[A[j]] = C[A[j]] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; k; i++) &#123;</span><br><span class="line">        C[i] += C[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = A.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        B[C[A[i]] - <span class="number">1</span>] = A[i];</span><br><span class="line">        C[A[i]] = C[A[i]] - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210410135122.png" alt="image-20210410135115533"></p>
-<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>一种用在卡片排序机上的算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RADIX-SORT(A,d)</span><br><span class="line">	for i &#x3D; 1 to d</span><br><span class="line">		use a stable sort to sort array A on digit i</span><br></pre></td></tr></table></figure>
-<h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>将[0,1)区间划分为n个相同大小的子区间，或称为桶，然后将n个输入数分别放到各个桶中，然后，将n个输入数分别放到各个桶中。先对各个桶中的数进行排序，然后遍历每个桶，按照次序把各个桶中的元素列出来即可。（需要元素是均匀分布的，防止一个桶里面的元素太多）</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210410135732.png" alt="image-20210410135732520"></p>
+          <p>作者：Joshua A. Redstone, Susan J. Eggers and Henry M. Levy University of Washington</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本论文首次分析了操作系统在同步多线程(SMT)处理器上的执行情况。虽然SMT在过去六年得到了广泛的研究，但这些研究大都集中在用户模式执行上。然而，许多最适合多线程技术的应用程序都将很大一部分时间都花在内核代码上。因此，要完全理解这种工作负载的行为，需要执行和测量操作系统以及应用程序本身。</p>
+<p>为了进行这项研究，我们做了以下工作：<br>1.修改Digital Unix 4.0d操作系统以运行在SMT CPU上<br>2.将我们的SMT Alpha指令集模拟器集成到SimOS模拟器种以提供一个执行环境</p>
+<p>对于操作系统密集型工作负载，我们在SMT上运行多线程Apache Web服务器。我们将Apache的用户模式和内核模式行为与标准SPECInt工作负载进行了比较。总的来说，我们的结果展示了SMT处理器上操作系统密集型工作负载的微架构影响，并提供了对Apache Web服务器操作系统需求的深入了解。SMT处理器与Web和OS软件之间的协同作用产生了比以前检查过了任何工作负载（包括商业数据库和显示并行程序）上更大的吞吐量增益。</p>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h1><p>同步多线程（SMT）是一种延迟容忍的CPU体系结构，它在每个周期中从多个线程执行多个指令。SMT的工作原理是将线程级并行转换为指令级并行，有效地将来自不同线程的指令送入大问题、无序超标标量处理器的功能单元。在过去的六年里，SMT得到了广泛的研究。康柏最近宣布Alpha 21464将包括SMT。作为一种通用的吞吐量增强机制。同步多线程特别适合于天生是多线程的应用程序，例如作为数据库和Web服务器，以及多程序和平行的科学工作负载。</p>
+<p>本文首次检查了：<br>1.SMT架构上的操作系统行为<br>2.Web服务器SM应用程序，对于基于服务器的环境，操作系统是工作负载的关键组件。<br>以前的研究表明，数据库系统在内核中花费了30%到40%的执行事件，而我们的测量表明，Apache Web服务器在内核中花费了75%以上的时间。因此，对它们行为的任何分析都应该包括操作系统活动。<br>由于几个原因，操作系统对处理器的要求比典型的用户代码更高。<br>首先，操作系统是巨大的程序，由于代码和数据的大小，它们会淹没缓存和TLB。<br>其次，由于频繁的分支和不频繁的循环，操作系统可能会影响分支预测性能。<br>第三，操作系统的执行通常是短暂的和间歇的，由中断、异常或系统调用调用，并可能导致替换有用的缓存、TLB和分支预测状态，但好处很少或没有。<br>第四，操作系统可能执行自旋等待、显式缓存/TLB失效和其他用户模式代码中不常见的操作。由于这些原因，忽略操作系统（在架构模拟中通常是这样做的）可能会导致对系统级性能的误导性描述。即使对操作系统不密集的应用程序，与操作系统执行的指令数量相比，操作系统的性能影响也可能不成比例地大。<br>对于SMT，功能处理器和操作系统还不存在。相反，我们扩展了SimOS-Alpha基础设施，添加了一个基于alpha的SMT核心作为指令执行引擎。SimOS是一个模拟器，足够详细的引导和执行一个完整的操作系统，在康柏Alpha的情况下，SimOS也执行PAL代码。我们还修改了Digital Unix 4.0d操作系统以支持SMT。这种修改非常简单，因为Digital Unix的目标是在传统的共享内存处理器上运行，因为已经为多线程操作同步了。<br>作为SMT环境中操作系统行为的首次研究，我们的目标是回答几个基本问题<br>1.当操作系统添加到工作负载中时，以前报告的结果会发生什么变化（如果有的话）？特别是，我们希望核实之前研究的IPC结果，看看他们排除OS是否过于乐观。对于这些研究我们使用了一个由多个SPECInt基准组成的多程序工作负载。<br>2.也是更重要的，操作系统密集型工作负载和传统的工作负载都执行SMT在体系结构级别上的主要行为差异是什么？例如，操作系统如何改变微体系结构级别的资源利用率，对于具有细粒度资源共享（如SMT）的处理器，它会导致什么特殊问题（如果有的话）？对于这个问题，我们研究了一个操作系统密集型的应用程序，即广泛使用的Apache Web服务器，它是由SPECWeb基准测试驱动的。我们比较了Apache工作负载和SPECInt工作负载，以研究高操作系统和低操作系统使用的擦会议。<br>3.像Apache这样的Web服务器如何从SMT中获益，从软件的角度看，它将时间花在哪里？这个分析本身就很有趣，因为Web服务器和类似的应用程序越来越重要。因此我们给出了无序超标量和SMT上Apache的结果。<br>总定来说，我们的结果描述了操作系统密集型工作负载的架构行为和关键应用程序（Apache Web服务器）的软件行为（在操作系统内）。<br>本文组织如下。第二节详细介绍了我们的测量方法、模拟环境和我们使用的工作负载。第三节给出了我们在SMT上的两种工作负载（包括操作系统执行）的测量结果。第三节的前半部分介绍了由SPECInt应用程序组成的多编程工作负载，而后半部分主要关注Apache工作负载。第四节描述了以前的工作及其与我们研究的关系。我们在第五节做总结。</p>
+<h1 id="2-方法"><a href="#2-方法" class="headerlink" title="2. 方法"></a>2. 方法</h1><p>本节描述在我们基于模拟的实验中使用的方法。我们首先描述SMT处理器和模拟硬件配置的西结。然后，我们从硬件和软件两个层面描述操作系统仿真环境。最后，我们描述评估的两个工作负载：一个是SPECInt95基准测试的多编程工作负载；另一个是Apache Web服务器。</p>
+<h2 id="2-1-SMT和超标量处理器模型"><a href="#2-1-SMT和超标量处理器模型" class="headerlink" title="2.1 SMT和超标量处理器模型"></a>2.1 SMT和超标量处理器模型</h2><p>SMT是一种延迟容忍的CPU体系结构，它在每个周期中执行来自多个线程的多个指令。通过线程级并行转换为指令级并行，从不同线程发出指令的能力可以更好地利用执行资源。以前的研究已经证实，SMT可以有效地提高各种工作负载上的吞吐量，同时仍然为单线程应用程序提供良好的性能。<br>在硬件层面，SMT是现代无序超标量（如MIPS R10000或Alpha 21264）的直接扩展。SMT复制了一个超标量的寄存器文件、程序计数器、子程序堆栈和内部处理器寄存器，以保存多个线程的转台（我们将包含线程状态的硬件资源集称为上下文）。除了复制线程状态以外，SMT还具有用于管道刷新、指令退出、子例程返回预测和捕获的每上下文机制。康柏估计，对支持SMT所需的无序超标量进行修改，只会使芯片面积增加10%。<br>表一列出了模拟的SMT处理器和存储系统的参数，这些参数使选择作为近期处理器的特性。我们评估的无序超标量提供了与SMT相同的硬件资源，除了它缺少额外的硬件上下文，并且由于它的寄存器文件更小，它有更少的两个流水线阶段。<br><img src="https://img-blog.csdnimg.cn/2020122014505387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70" alt="表一：SMT参数"></p>
+<h2 id="2-2-操作系统执行"><a href="#2-2-操作系统执行" class="headerlink" title="2.2 操作系统执行"></a>2.2 操作系统执行</h2><h3 id="2-2-1-操作系统仿真环境"><a href="#2-2-1-操作系统仿真环境" class="headerlink" title="2.2.1 操作系统仿真环境"></a>2.2.1 操作系统仿真环境</h3><p>在某种程度上，操作系统只是一个大程序；然而，它在访问低级硬件资源时（例如，I/O设备寄存器和内部CPU寄存器）和响应低级硬件事件（例如，异常和中断）方面是独特的。因此，要模拟操作系统，就需要模拟这些资源和事件。在本工作中，我们构建了SimOS-alpha硬件仿真框架。将我们的SMT CPU模拟器集成到SimOS中。这允许我们在模拟器上引导和运行操作系统，并在我们的模拟器中包含将在实际CPU上运行的每条指令，有特权的或无特权的。SimOS环境也执行Alpha PAL代码—存在于操作系统本身之下的一层软件。例如，PAL代码用于响应TLB丢失和处理操作系统内的同步（SETIPL）。我们还对几乎所有影响内存层次结构的操作系统/硬件交互进行建模，比如DMA操作和缓存刷新指令。一个例外是来自网络接口的DMA操作；尽管包含与网络相关的DMA将使Apache工作负载的内存总线事务数加倍（SPECInt工作负载不使用网络），但平均内存总线延迟仍然微不足道，因为它目前每个总线事务只有0.25个周期。<br>我们的研究集中在CPU和内存性能瓶颈上。为了节省模拟时间，我们模拟了一个零延迟磁盘。使用大型、快速磁盘阵列子系统对机器进行建模。但是，将执行所有操作磁盘的操作系统代码，包括磁盘驱动程序和DMA操作。对磁盘绑定及其进行建模可能会改变系统行为，特别是在缓存层次结构中。</p>
+<h3 id="2-2-2-操作系统修改"><a href="#2-2-2-操作系统修改" class="headerlink" title="2.2.2 操作系统修改"></a>2.2.2 操作系统修改</h3><p>我们执行康柏digital Unix 4.0d操作系统，这是一个（共享内存）多处理器感知的操作系统。通过允许SMT在操作系统中显示为共享内存多处理器（SMP），只需在SMT和SMP体系结构不同的地方对操作系统进行更改。在Alpha的情况下，这些差异是SMT的共享TLB和L1缓存，而Alpha SMP的每个处理器的TLB和L1缓存，而Alpha SMP的每个处理器的TLB和L1缓存。在这两种差异中，只有与tlb相关的OS代码需要修改。<br>Alpha TLB在TLB条目上包含一个地址空间号（ASN）标记，它允许多个地址空间共享TLB，并减少上下文切换时的TLB刷新。由于多个线程可以同时访问SMT处理器的共享TLB，操作这些asn需要在上下文切换期间进行适当的互斥。因此，我们对tlb相关的代码做了一些更改。首先，我们修改了ASN分配算法以覆盖多个执行线程。其次，我们在每个上下文基础上复制了用于修改TLB条目的内部处理器寄存器；这样就删除了竞态条件，并允许多个上下文并行处理TLB miss。第三，我们删除了TLB击落代码，这在单处理器SMT中是不必要的。<br>尽管SMT处理器和MP的缓存架构接口不同，但这并不需要对操作系统进行修改。该接口提供了刷新L1指令和数据缓存的命令，在SMT中，这会导致刷新线程共享缓存，而不是线程本地缓存。由于缓存是软状态，因此结果的额外刷新可能是不必要的，但绝对不会是错误的。<br>我们执行的操作系统包含在SMT上运行Digital Unix所需的最小更改集，但没有探索大量的优化机会。例如，操作系统结构（如空闲循环和自旋锁定）是不必要的，会浪费SMT上的资源。（然而，在本文实验中，空闲周期栈稳定状态CPU比例不超过0.7%，旋转锁定在SPECInt工作负载中占不到1.2%，在Apache工作负载中占不到4.5%）。另一个可能的优化是用smt优化的调度器替换MP OS进程调度器。我们计划研究操作系统优化为未来的工作，但令人鼓舞的是，可以直接修改支持smp的操作系统，以便在SMT处理器上工作。</p>
+<h2 id="2-3-模拟工作负载"><a href="#2-3-模拟工作负载" class="headerlink" title="2.3 模拟工作负载"></a>2.3 模拟工作负载</h2><p>在这项研究中，我们检查了两种不同的工作负载。第一个是多程序工作负载，由SPEC95Int的所有8个应用程序组成，我们对该套件模拟了6.5亿条指令。选择SEPCInt95有两个原因，首先，由于它通常用于架构评估，包括SMT的研究，我们希望了解在以前的工作中没有包含OS活动遗漏了什么。其次，由于Apache也是一个interger程序，SPECInt的性能可以作为基线，帮助了解Apache的性能。<br>第二个工作负载是Apache（版本1.3.4），这是一个流行的公共域Web服务器，由大多数Web站点运行。因为它大量使用OS服务（我们的测量显示75%的执行周期是在内核中度过的），所以它是一个用于检查OS性能的丰富环境（本文中介绍的大多数Apache数据都是基于对超过10亿条指令的模拟，从服务器空闲时开始）。然而，第3.2节中的超标量实验是在大约7亿条指令的模拟上进行的，受到模拟时间的限制。<br>我们使用SPECWeb96驱动Apache，这是一个Web服务器性能基准测试。我们配置Apache64个服务器进行，配置了SPECWeb 128个提供请求的客户端。为了支持使Apache饱和的请求速率。为了支持使Apache饱和所需的请求速率，我们将SPECWeb基准作为两个驱动进程执行，每个驱动程序有64个客户端。如果驱动程序运行在一个本地Alpha，然后网络代码将无法正常运行，消息被TCP丢弃。因此，我们构建了一个框架，在这个框架中，我们在单个Alpha上运行三个SimOS副本。结果是SPECWeb96客户端出现了与Apache完全相同的减速。客户端以Apache可以处理的速度生成数据包，并且双方的OS代码可以正确地管理网络接口和协议。在这三个SimOS环境之间，我们模拟了一个直接的网络连接，该连接传输数据包不存在丢失和延迟。模拟的网卡以10毫秒的时间粒度中断CPU，并且网络模拟器每隔10毫秒强制跨所有机器执行屏障同步。这个屏障使模拟器保持同步运行，并保证我们实验的可重复性的模拟的确定性执行。</p>
+<h3 id="2-3-1-只模拟应用程序代码"><a href="#2-3-1-只模拟应用程序代码" class="headerlink" title="2.3.1 只模拟应用程序代码"></a>2.3.1 只模拟应用程序代码</h3><p>为了更精确地描述操作系统对性能的影响，我们将包含操作系统工作负载模拟与之模拟应用程序代码的工作负载模拟进行了比较。仅用于应用的模拟是通过一个单独的模拟器来完成的，该模拟器源自以前SMT研究中使用的SMT模拟器。仅应用程序模拟器将所有系统调用和内核陷阱建模为立即完成，对硬件状态没有影响。</p>
+<h1 id="3-结果"><a href="#3-结果" class="headerlink" title="3. 结果"></a>3. 结果</h1><p>本节介绍基于simos的操作系统行为测量结果及其对SMT处理器的影响，在3.1节中，我们考虑一个特定的多程序工作负载；第3.2节研究了Apache工作负载，并将其与SPECInt的结果进行了比较。</p>
+<h2 id="3-1-对SPECInt工作负载的评估"><a href="#3-1-对SPECInt工作负载的评估" class="headerlink" title="3.1 对SPECInt工作负载的评估"></a>3.1 对SPECInt工作负载的评估</h2><p>传统上，架构师根据科学和程序开发工作负载的分析来决定处理器和内存子系统的设计，SPECInt基准套件就是典型的例子。然而，大多数这样的分析只检查用户模式代码。在本节中，我们将评估这种做法的适当性，同步多线程上下文中的方法学策略。我们希望特别回答两个问题。首先，在SMT上包括（或不包括）操作系统的影响是什么，即使对于SPECInt基准测试的多编程工作负载也是如此？虽然我们预计SPECInt的操作系统使用率较低，但之前的研究表明，忽略内核代码，即使在这样低操作系统环境中，也会导致对内存系统行为的不良估计。第二，操作系统代码对8-上下文SMT的影响与无序超标量的影响相比如何？SMT的独特之处在于它同时执行内核模式和用户模式指令。也就是说，在一个周期中，来自多个内核例程的指令可以与来自多个用户应用程序的指令一起执行，而所有这些指令都共享一个内存层次结构。相反，超标量可以将来自单个应用程序的用户指令长流与来自单个内核服务的内核指令长流交替使用。在两种体系结构中，这种差异可能会对内存系统性能产生不同的银杏果i昂。在3.2节中，我们将根据Apache（一种操作系统更密集的工作负载）研究类似的问题。</p>
+<h3 id="3-1-1-传统的SPEC-interger工作负载在SMT处理器上执行的OS行为"><a href="#3-1-1-传统的SPEC-interger工作负载在SMT处理器上执行的OS行为" class="headerlink" title="3.1.1 传统的SPEC interger工作负载在SMT处理器上执行的OS行为"></a>3.1.1 传统的SPEC interger工作负载在SMT处理器上执行的OS行为</h3><p>图一显示了多程序SPECInt95基准测试的执行周期百分比，这些基准测试占用用户空间、内核空间，或者在SMT处理器上执行时空闲。在程序启动期间（如图虚线左侧所示），操作系统平均占执行周期的18%，一旦达到稳定状态，它就会下降到相当稳定的5%，在执行过程中至少要维持16亿次循环（图中只显示了一部分）。在程序初始化较高的OS活动主要是由于TLB未处理（占所有 执行周期的12%）和系统调用5%，如图二所示。大多数TLB活动集中在处理TLB在用户空间丢失的数据（大约95%）。TLB错过了对内核内存管理的调用，而页面分配占据了这些调用的大部分，如图三所示。大多数由应用程序发起的系统调用是针对文件系统的；特别是，读取输入文件占用3.5%的执行周期，这与读取源和/或配置文件的应用程序一致。进程创建和控制以及内核前导（识别并分派到特定的系统调用）占用了大部分剩余的系统调用时间。注意，内核活动使Alpha PAL代码的执行相形见绌。<br>一旦达到稳定状态，内核活动将下降到执行周期的5%，但是TLB处理和系统调用时间的比例与启动期间大致相同。唯一重要的变化是文件读取调用的减少，因为程序已经从初始化转向。<br>表2显示了内核中各主要指令类别的指令分布情况；这些值是证书应用程序的典型值，包括SPEC整数基准测试。内核指令与用户指令在三个方面不同，首先，大约一半的内存操作在程序启动时，三分之一的负载和三分之二的存储处于稳定状态，不适用TLB，即TLB。它们直接指定物理地址。其次，内核控制传输包括PAL入口/返回分支。第三，与用户代码相比，稳态内核代码的条件分支占有率只有用户代码的一般。但是，由于内核执行时间很少，所以这些差异的总体影响很小。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201223203038244.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图一 SPECInt95在SMT上执行的执行周期分解，在内核中花费的周期占所有执行周期的百分比在顶部黑色部分"><br><img src="https://img-blog.csdnimg.cn/20201223182106203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图2：SPECInt的内核时间分解"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201223122255824.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图3：内存内核管理代码"><br><img src="https://img-blog.csdnimg.cn/2020122312230790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图4：系统调用占总执行的百分比"><br><img src="https://img-blog.csdnimg.cn/20201223122319240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表2：按指令类型分列的动态指令在SPECInt工作负载中的百分比，内存操作的括号中的百分比表示加载和存储的物理地址的比例。还包括分支指令的百分比细分，对于条件分支，括号中的数字表示所采用的条件分支的百分比"></p>
+<h3 id="3-1-2-为什么要在特定的工作负载上模拟操作系统"><a href="#3-1-2-为什么要在特定的工作负载上模拟操作系统" class="headerlink" title="3.1.2 为什么要在特定的工作负载上模拟操作系统"></a>3.1.2 为什么要在特定的工作负载上模拟操作系统</h3><p>表3上半部分显示了在SMT上模拟SPECInt95和操作系统时，几种硬件数据结构中的未命中率。总的结果反映了其他研究人员在单线程处理器研究中发现的情况，即操作系统表现出的性能比特殊应用程序要差。分支目标缓冲器的内核未命中率特别高，因为两个因素：操作系统执行其实很少，无法建立一个持久的分支目标状态；大多数内核未命中（78%）取代其他内核条目错误是由于重复的变化间跳转的目标地址。<br>表3下半部分的分布结果表明，除指令缓存外，应用程序线程内部或应用程序线程之间的冲突是造成绝大多数缺失的原因。内核引起的冲突缺失仅占BTB缺失的10%，数据缓存缺失的18%，L2缓存缺失的9%和数据TLB缺失的18%，相比之下，大多数指令缓存丢失（60%）是由内核引起的。强制缺失对于所有硬件结构都是微不足道的，除了L2缓存，在L2缓存中内核为应用程序预取数据，因此吸收了许多第一次引用缺失的成本。<br>在较高的层次上，多编程SPECInt工作负载的内核执行频率较低可以改善内核特定于硬件组件的性能，表4通过比较在SMT上有操作系统活动和没有操作系统活动时以稳定状态执行的SPECInt工作负载的几个体系结构度量，说明了这种影响。这些数字表明，指令吞吐量仅略有下降，原因是操作系统，除了少数例外，线程共享硬件资源利用率在包含内核时略有下降。我们观察到性能下降百分比较大的那些硬件组件并没有对性能底线造成很大影响，因为它们最初并没有表现出特别糟糕的行为。<br>最严重的变化是模拟内核造成的，依赖于fetch引擎的两个部分，分支预测硬件和指令缓存之间的交互。转移错误预测增加了15%，指令缓存丢失增加了1.9倍，很大程度上是由于内核执行的干扰。指令丢失主要是由指令页重映射引起的缓存刷新引起的，而不是由特定缓存位置的冲突引起的，指令缺失的增加反过来导致可获取上下文的数量减少的8%，例如，那些不为指令丢失或中断服务的上下文，由于模拟器内核减少了可取上下文的平均数量，因此选择了一个预测错误的上下文来更频繁地获取数据，从而获得更多错误路径指令。<br>令人惊讶的是，内核比SPECInt应用程序有更好的转移预测，尽管它缺乏基于循环的代码（当同时执行这两个操作时，用户代码中的错误率是9.3），内核代码中的大多数条件分支都用于菱形控件，在这种控件中，目标代码执行异常条件。虽然内核BTB漏失率很高，但是对一个漏失的默认预测执行直通代码，因此更多的内核预测往往是正确的。<br>综上所述，尽管内核内存子系统的转移预测漏失率很高，但SMT指令吞吐量仅受到轻微影响，因为SPECInt程序中的内核活动很小，SMT很好地隐藏了延迟，因此，对类似特殊科学应用的SMT基本性能感兴趣的研究人员可以放心地依赖于应用及模拟。然而，如果专注于特定硬件组件（比如数据TLB）的设计，或者特定硬件策略（比如推测何时取数据）的设计，那么包括操作系统的执行时间影响是很重要的。<img src="https://img-blog.csdnimg.cn/20201223122337781.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表3：在SMT上模拟SPECInt95和操作系统时，在几种硬件数据结构种总的缺失率和缺失分布，缺失类别是所有用户内核缺失的百分比。粗体条目表示内核诱导干扰。用户内核冲突是指用户线程与某种类型的内核活动冲突"><br><img src="https://img-blog.csdnimg.cn/20201223122347629.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表4：带有SMT和超标量的操作系统和不带操作系统的SPECInt95的体系结构度量"></p>
+<h3 id="3-1-3-在评估大问题超标量模型时是否应该模拟操作系统？"><a href="#3-1-3-在评估大问题超标量模型时是否应该模拟操作系统？" class="headerlink" title="3.1.3 在评估大问题超标量模型时是否应该模拟操作系统？"></a>3.1.3 在评估大问题超标量模型时是否应该模拟操作系统？</h3><p>就总体执行周期而言，在执行SPECInt基准测试时，操作系统在无序超标量和SMT处理器上的行为类似。超标量处理器只花费稍微大一点的执行部分在操作系统中。对于两个处理器，处于稳定状态的操作系统周期的百分比是相同的。<br>同样，在超标量处理器和SMT处理器，在启动和稳定状态下OS周期的分布都类似。一个例外是超标量处理器数据TLB的内核缺失所花费的较大部分时间。而且，DTLB丢失的内核处理会显示出糟糕的指令缓存行为，这增加了花费在这段代码中的时间。内核指令缓存在超标量上的丢失率是13.8%，其中81%的丢失是由于内核DTLB错误处理代码造成的。<br>在微架构级别上，操作系统在无序超标量上扮演不同的角色。超标量上的指令吞吐量大约是SMT的一半，如表4所示。尽管超标量硬件数据结构中的缺失较少发生，因为一次只执行一个线程，但超标量缺乏SMT隐藏延迟的能力。在过去对非os工作负载的SMT的所有研究中，SMT延迟容错超过了内存子系统和分支硬件中额外的线程间的冲突的补偿，最明显的是操作系统缺乏超标量的延迟隐藏能力，在稳定状态下只能达到0.6IPC，相比之下，用户代码的IPC为3.0。此外，超标量按比例压缩的指令数量大约是SMT的两倍，因为超标量只有一个要获取的指令源。<br>总是，包括操作系统在SPECInt超标量体系结构模拟负载扰动底线性能超过SMT，因为超标量体系结构性能更容易受到指令延迟（在其他硬件组件中，性能下降幅度较小，或者反映了先前性能良好的组件的大幅退化）。这一结果表明，研究人员在评估超标量系统结构时，不应该对忽略操作系统的影响抱有信心。</p>
+<h2 id="3-2-对Apache（一个操作系统密集型工作负载）的评估"><a href="#3-2-对Apache（一个操作系统密集型工作负载）的评估" class="headerlink" title="3.2 对Apache（一个操作系统密集型工作负载）的评估"></a>3.2 对Apache（一个操作系统密集型工作负载）的评估</h2><p>Apache是部署最广泛的Web服务器。它的作用很简单：响应客户端HTTP请求包，通常返回请求的HTML或其他对象。对象存储在面向文件的数据库中，如果没有缓存在服务器的内存中，则从磁盘读取。下面我们将检查基于apache的工作负载。</p>
+<h3 id="3-2-1-操作系统在执行Apache时的作用"><a href="#3-2-1-操作系统在执行Apache时的作用" class="headerlink" title="3.2.1 操作系统在执行Apache时的作用"></a>3.2.1 操作系统在执行Apache时的作用</h3><p>图五展示了Apache工作负载在SMT上执行的内核和用户活动，这些数据在几个方面与SPECInt多道程序工作负载有显著的不同，首先，Apache起步时间短；这不奇怪，因为Apache的启动只是简单地接收第一个传入的请求并唤醒服务器线程。其次，一旦请求到达，我们看到Apache花费超过75%的时间在操作系统上，即，Apache的大部分执行是在操作系统中，而不是在应用程序代码中。<br>图六显示了Apache内核周期的分解，与SPECInt启动期和稳定状态期比较。对Apache来说，其内核时间的大部分都花在了执行系统调用上。也就是说，SPECInt工作负载由隐式操作系统使用主导，而Apache则更显式地使用操作系统。Apache还显示了通过网络中断的重要内核活动—SPECInt工作负载中没有响应活动，Apache花费了34%的内核周期在neister线程中处理中断请求或响应网络中断，neister线程是一组相同的线程，负责代表到达的消息管理网络协议栈。Apache中只有少量的内核活动是由于DTLB失误造成的，相比之下，SPECInt工作负载大部分内核时间与TLB丢失处理有关（稳定状态为82%，启动时为58%）<br>图7显示了Apache系统调用更详细的分解。在左边，我们看到由Apache执行的每个系统调用引起的执行周期的百分比。如果所示，大部分时间花在处理对I/O例程的调用上：例如，Apache在star例程（查询文件信息）中花费了10%的周期，在读/写中花费了19%的周期，在I/O控制操作（如打开）中花费10%的周期，图7的右侧显示了相同数据的不同细分。在这里，我们根据资源类型（网络或文件）以及操作类型限定执行时间。从图中我们可以看出，网络读/写是最大的时间消耗者，大约占所有周期的17%，占Apache内核周期的22%。如上所述，文件查询（star例程）是第二大消耗者，其次是文件控制操作，占所有周期6%，占内核周期的8%。总的来说，花费在网络和文件系统的系统调用上的时间几乎与network相同服务占所有内核周期的21%，文件服务占18%。<br><img src="https://img-blog.csdnimg.cn/20201223122411242.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图五：在SMT上执行的Apache中的内核和用户活动"><br><img src="https://img-blog.csdnimg.cn/20201223122421736.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图六：在SMT上Apache内核活动分解，SPECInt工作负载的启动阶段和稳定阶段被包括进来比较"><br><img src="https://img-blog.csdnimg.cn/20201223122432279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="图7：在SMT处理器上处理内核系统调用所花费的执行时间分解"></p>
+<h3 id="3-2-2-结构性能特点"><a href="#3-2-2-结构性能特点" class="headerlink" title="3.2.2 结构性能特点"></a>3.2.2 结构性能特点</h3><p>表5显示了Apache中内核和用户代码的指令类型细分。总体来说，这类似于相应的SPECInt表。Apache的稳定加载/存储百分比更接近SPECInt的启动加载/存储百分比。因为SPECInt的启动包括各种OS服务，而稳定状态SPECInt工作负载主要由tlb处理条例控制。总的来说，Apache中大约一半的内核内存访问操作绕过TLB，即，它们直接指定物理地址。<br>表6展示了Apache的架构性能特征，并将它们与稳定状态下的SPECInt工作负载进行了比较，该图还显示了运行在超标量上的Apache的统计信息。Apache工作负载在SMT上实现了每个周期4.6条指令的吞吐量（最多为6条），比SPECInt工作负载低18%，性能下降的原因分布在大多数主要硬件组件中，Apache的性能比SPECInt差得多。除了数据TLB之外，内存子系统的所有组件都经历了更多的冲突；例如Apache的L2 miss率是SPECInt的1.5倍，D-cache miss率是2.3倍，I-cache miss率是2.5倍。<br>与SPECInt相比，Apache在fetch单元也表现得更差，Apache的可获取上下文平均比SPECInt少20%，被压缩的指令更多。在充分利用6个缺失插槽的情况下，Apache也减少了33%的周期。然而，尽管内存和获取系统行为有这些巨大的差异，SMT仍然能很好地容忍延迟，通过处理更多的缺失，并与要求更高的工作负载并行（最后三行）。<br>SMT在Apache中隐藏延迟的能力导致平均指令吞吐量为4.6IPC—是标准吞吐量的4.2倍，并且是SMT研究的任何工作负载的最高相对增益。超标量处理器实现的IPC仅为1.1—仅为SPECInt的42%（相比之下，在SMT处理器上Apache的IPC是它为SPECInt实现的82%。）最能说明性能差异的是，超标量在超过60%的周期内无法获取或发出指令，并且由于分支错误预测，它将获得的指令的46%删除了。SMT压缩的指令更少，因为多线程减少了错误预测的分支路径在条件解决之前执行的距离。<br><img src="https://img-blog.csdnimg.cn/20201223122454416.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表5：按指令类型执行Apache时动态指令的百分比"><br><img src="https://img-blog.csdnimg.cn/2020122312250543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表6：比较在SMT上执行的Apache、在SMT上执行的SPECInt95以及在超标量上执行的Apache的体系结构指标"></p>
+<h3 id="3-2-3-线程间的竞争与合作"><a href="#3-2-3-线程间的竞争与合作" class="headerlink" title="3.2.3 线程间的竞争与合作"></a>3.2.3 线程间的竞争与合作</h3><p>如前所述，SMT可以在单个周期中发出来自多个内核线程的指令，这就为线程间冲突创造了新的可能性，表7给出了Apache miss行为了更多细节，重点关注冲突的原因。与SPECInt工作负载相比，最引人注目的是内核/内核和用户/内核冲突，用粗体显示。Apache中缓存丢失的最高原因是内核内部的冲突：65%的L1 Icache丢失，65%的L1 Dcache丢失，以及41%的L2缓存丢失是由于线程内或线程间的内核冲突造成的。除L2缓存之外，这两类缓存中的内核线程缺失几乎是线程内缺失的两倍。用户/内核冲突也是非常重要的：25%的L1 Icache丢失，10%的L1 Dcahce丢失，22%的L2缓存丢失是由于内核和用户代码或数据之间的冲突造成的。<br>在SMT上同时运行多个内核线程的影响还可以通过将其与超标量进行比较来观察，超标量中一次只能活动一个内核线程。在Apache（未显示数据）的超标量执行中，与SMT上的Apache相比，Icache、Dcache和L2缓存中由于内核线程间冲突而导致的丢失百分比分别要低24%、28%和38%<br>在BTB中，内核线程内冲突占主导地位，占所有BTB丢失的68%，而6%的丢失是由用户/引起的内核冲突。相反，用户代码要为两个TLB中的大部分丢失负责（53%的数据TLB丢失和86%的指令TLB丢失是由于用户/用户冲突造成的）。尽管用户代码只占执行周期的22%。<br>虽然上面提到的数据涉及冲突，但同时执行线程也可能导致建设性的线程间行为。具体来说，当一个线程接触到即将被第二个线程访问的数据时，就会发生预取；然后第二个线程将在缓存中找到数据，从而避免丢失数据。比较SMT上这种构造共享的数量和超标量上相同的行为是很有趣的。由于SMT上有更细粒度的并行性，因此这种预取活动有更多机会。表8显示了集中资源由于在Apache中进行建设性共享而避免丢失的百分比。例如，在SMT上，如果不是内核中也在执行的其他线程预加载一个内核线程的指令，L1 Icache的总体缺失率将会更高66%。相比之下，这种共享对运行Apache的超标量的影响只有28%。同样，差异是由于SMT同时执行多个内核线程，或者在比超标量上执行的更短的时间内执行。<br>对于L2缓存来说，内核-内核预取的影响甚至更大，在L2缓存中，避免了额外71%的丢失，12%的内核TLB失误也被避免了。<br><img src="https://img-blog.csdnimg.cn/20201223122518707.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表7：在SMT上模拟Apache和操作系统时，几种硬件数据结构的缺失分布"><br><img src="https://img-blog.csdnimg.cn/20201223122630240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表8：Apache上由于线程间合作而避免缺失的百分比"></p>
+<h3 id="3-2-4-操作系统对硬件的影响"><a href="#3-2-4-操作系统对硬件的影响" class="headerlink" title="3.2.4 操作系统对硬件的影响"></a>3.2.4 操作系统对硬件的影响</h3><p>与前面对SPECInt工作负载的分析类似，我们现在研究操作系统对缓存和转移预测硬件的影响。操作系统增加了所有硬件结构的冲突，从L1数据丢失率增加35%到L1指令丢失率增加超过5倍不等。这些增长大致对应表7的冲突缺失数据，即，由于内核引用的增加，硬件结构中的用户丢失率降低的程度大致与内核冲突导致的用户丢失比例成正比。<br>除了超标量指令缓存丢失率外，操作系统对硬件结构的影响更大，在SPECInt工作负载上执行Apache比在SPECInt工作负载上执行更少。出现这种差异主要是因为操作系统活动主导Apache的执行，但也因为它们更多样化，因此比SPECInt所需的地方更少（Apache工作负载执行各种OS服务，而SPECInt主要使用内存管理）。<br><img src="https://img-blog.csdnimg.cn/20201223122642688.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ2MjMzMzQw,size_16,color_FFFFFF,t_70#pic_center" alt="表9：操作系统对特定硬件结构的影响"></p>
+<h2 id="3-3-结果总结"><a href="#3-3-结果总结" class="headerlink" title="3.3 结果总结"></a>3.3 结果总结</h2><p>在本节中，我们测量和分析了SMT处理器的性能，包括其操作系统对于Apache Web服务器和多程序SPECInt工作负载的性能。我们的结果表明，对于SMT，操作系统的遗漏不会导致SPECInt的性能严重错误预测，尽管对于执行相同工作负载的超标量的影响更为显著。然而，在Apache工作负载上，操作系统负责执行大部分指令。Apache在响应文件系统和内核网络代码中的系统服务上花费了大量时间，大量执行OS代码的结果是增加了更重底层资源的压力，包括缓存和BTB。内核线程也会在这些资源中引起更多的冲突，包括与其他内核线程和用户线程的冲突；另一方面，也有线程间共享的效果。Apache给处理器带来了挑战性，这可以从它在超标量上的极低吞吐量（1.1IPC）看出。SMT能够隐藏Apache的大部分延迟，使其能够实现相对于超标量处理器的4.2倍速的吞吐量改进。</p>
+<h1 id="4-结论"><a href="#4-结论" class="headerlink" title="4 结论"></a>4 结论</h1><p>在这篇文章中，我们报告了在一个同步多线程处理器上执行操作系统的第一次测量。对于这些测量，我们修改了康柏/DEC Unix 4.0d操作系统以在SMT CPU上执行，并通过将SMT指令级模拟器集成到Alpha SimOS环境中来执行操作系统及其应用程序。结果表明<br>1.对于SEPCInt95工作负载，模拟操作系统不会显著影响SMT的总体性能，尽管操作系统的执行会对超标量产生影响。<br>2.Apache大部分时间都花在操作系统内核上，执行文件系统和网络操作。<br>3.Apache os密集型的工作负载对处理器来说压力很大，与SPECInt相比，这会导致缓存丢失率显著增加。<br>4.从我们对冲突缺失的详细分析来看，SMT上的内核线程之间存在显著的干扰，因为SMT可以同时执行来自多个内核线程的指令。另一方面，存在从合作共享中获益的机会，正如我们在线程间预取分析中所展示的那样。<br>5.总的来说，操作系统代码在超标量上导致较差的指令吞吐量，这对Apache Web服务器有很大的影响，它的IPC仅为1.1。<br>6.SMT的延迟容忍能够补偿操作系统代码的许多要求，在执行Apache时，SMT的吞吐量比超标量高了四倍，这是迄今为止SMT工作负载的最高相对收益。<br>最后，我们展示了将支持SMP的操作系统修改为在同步多线程处理器上执行相对简单。未来，我们打算对操作系统结构进行实验，以优化操作系统以适应SMT的特殊特性。</p>
 
       
     </div>
@@ -285,7 +289,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -351,7 +355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -485,59 +489,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

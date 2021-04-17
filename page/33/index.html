@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" class="post-title-link" itemprop="url">第四章 分治策略</a>
+            <a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">第五章 概率分析和随机算法</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-17 11:56:31 / 修改时间：11:57:08" itemprop="dateCreated datePublished" datetime="2021-03-17T11:56:31+08:00">2021-03-17</time>
+              <time title="创建时间：2021-03-17 20:54:17 / 修改时间：20:55:03" itemprop="dateCreated datePublished" datetime="2021-03-17T20:54:17+08:00">2021-03-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,17 +245,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Divide-Conquer-Combine</p>
-<h2 id="4-1-最大子数组问题"><a href="#4-1-最大子数组问题" class="headerlink" title="4.1 最大子数组问题"></a>4.1 最大子数组问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">FIND-MAX-CROSSING-SUBARRAY(A,low,mid,high) </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    接受数组A和下表low,mid,high为输入，</span></span><br><span class="line"><span class="comment">    返回一个下标元组划定跨越种点的最大子数组的边界，并返回最大子数组中值的和</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">left-sum = -∞</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = mid downto low</span><br><span class="line">    sum = sum + A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; left - sum</span><br><span class="line">        left-sum = sum</span><br><span class="line">        max-left = i</span><br><span class="line">right-sum = -∞</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> j = mid + <span class="number">1</span> to high</span><br><span class="line">    sum = sum + A[j]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; right-sum</span><br><span class="line">        right-sum = sum</span><br><span class="line">        max-right = j</span><br><span class="line"><span class="keyword">return</span>(max-left, max-right, left-sum + right-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A,low,high) <span class="comment">//求出A[1...n]的最大子数组</span></span><br><span class="line"><span class="keyword">if</span> high == low</span><br><span class="line">    <span class="keyword">return</span> (low,high,A[low])</span><br><span class="line"><span class="keyword">else</span> mid = (low + high)/<span class="number">2</span></span><br><span class="line">    (left-low, left-high, left-sum) = </span><br><span class="line">    	FIND-MAXIMUM-SUBARRAY(A,low,mid)</span><br><span class="line">    (right-low, right-high, right-sum) = </span><br><span class="line">    	FIND-MAXIMUM-SUBARRAY(A,mid+<span class="number">1</span>,high)</span><br><span class="line">    (cross-low, cross-high, cross-sum) = </span><br><span class="line">    	FIND-MAX-CROSSING-SUBARRAY(A,low,mid,high)</span><br><span class="line">    <span class="keyword">if</span> left-sum &gt;= cross-sum and right-sum &gt;= cross-sum</span><br><span class="line">        <span class="keyword">return</span>(left-low, left-high, left-sum)</span><br><span class="line">    <span class="keyword">else</span> right-sum &gt;= cross-sum and right-sum &gt;= cross-sum</span><br><span class="line">        <span class="keyword">return</span>(right-low, right-high, right-sum)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span>(cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="4-2-矩阵乘法的Strassen算法"><a href="#4-2-矩阵乘法的Strassen算法" class="headerlink" title="4.2 矩阵乘法的Strassen算法"></a>4.2 矩阵乘法的Strassen算法</h2><p>常规算法花费Θ(n^3)，Strassen算法花费Θ(n^lg7)≈Θ(n^2.81)</p>
-<p>基本思想：减少多余的乘法，把乘法变成乘法+加法</p>
-<h2 id="4-3-代入法求解递归式"><a href="#4-3-代入法求解递归式" class="headerlink" title="4.3 代入法求解递归式"></a>4.3 代入法求解递归式</h2><p><strong>步骤</strong></p>
-<ol>
-<li>猜测解的形式</li>
-<li>用数学归纳法求出解种的常数，并证明解是正确的</li>
-</ol>
-<h2 id="4-4-递归树方法求解递归式"><a href="#4-4-递归树方法求解递归式" class="headerlink" title="4.4 递归树方法求解递归式"></a>4.4 递归树方法求解递归式</h2><p>将递归式转换成一棵树，其节点表示不同层次的递归调用产生的代价。然后采用边界和技巧来求解递归式。</p>
-<h2 id="4-5-主方法求解递归式"><a href="#4-5-主方法求解递归式" class="headerlink" title="4.5 主方法求解递归式"></a>4.5 主方法求解递归式</h2><p>求解形式如 $T(n)=aT(n/b)+f(n)$递归式的界</p>
+          <h2 id="5-1-雇佣问题"><a href="#5-1-雇佣问题" class="headerlink" title="5.1 雇佣问题"></a>5.1 雇佣问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best &#x3D; 0</span><br><span class="line">for i &#x3D; 0 to n</span><br><span class="line">	interview candidate i</span><br><span class="line">	if candidate is better than candidate best</span><br><span class="line">		best &#x3D; i</span><br><span class="line">		hire candidate i</span><br></pre></td></tr></table></figure>
+<p><strong>最坏情形分析</strong></p>
+<p>应聘者质量按出现的次序严格递增</p>
+<p>如何求平均情况？</p>
+<p><strong>随机算法</strong></p>
+<h2 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h2><p>定义：</p>
+<script type="math/tex; mode=display">
+I\lbrace A\rbrace=\begin{cases} 1\quad如果A发生\\
+0\quad如果A不发生\end{cases}</script><p>A发生的概率$Pr\lbrace A\rbrace$，期望 $E[X_A]$</p>
+<p>引理：给定一个样本空间S和S中的一个事件A，设$X_A=I\lbrace A\rbrace$，那么$E[X_A]=Pr\lbrace A\rbrace$</p>
+<p><strong>用指示器随机变量分析雇佣问题</strong></p>
+<script type="math/tex; mode=display">
+X_i=I\lbrace 应聘者i被雇佣\rbrace = \begin{cases} 1\quad如果应聘者i被雇佣 \\ 0\quad如果应聘者i不被雇佣  \end{cases}</script><p>以及</p>
+<script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_n</script><p>根据引理</p>
+<script type="math/tex; mode=display">
+E[X_i]=Pr\lbrace 应聘者i被雇佣\rbrace</script><p>应聘者比应聘者1到i-1更有资格的概率是1/i，因此</p>
+<script type="math/tex; mode=display">
+E[X_i]=1/i</script><p>计算得</p>
+<script type="math/tex; mode=display">
+E[X]=\ln n+O(1)</script><p>因此尽管面试了n个人，实际上大约只雇佣他们之中的$\ln n$个人</p>
+<h2 id="5-3-随机算法"><a href="#5-3-随机算法" class="headerlink" title="5.3 随机算法"></a>5.3 随机算法</h2><p>先对应聘者进行排列，然后确定最佳应聘者的随机算法。此时建立的算法的性能和假设应聘者以随即次序出现所得的结果是匹配的。</p>
+<p><strong>随机排列数组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PERMUTE-BY-SORTING(A)</span><br><span class="line">n&#x3D;A.length</span><br><span class="line">let P[1...n] be a new array</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	P[i] &#x3D; RANDOM(1, n^3)</span><br><span class="line">sort A, using P as sort keys</span><br></pre></td></tr></table></figure>
+<p>引理：假设所有优先级都不同，则过程PERMUTE-BY-SORTING产生输入的均匀随机排列</p>
+<p>另一个方法：原址排列给定数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZE-IN-PLACE(A)</span><br><span class="line">n &#x3D; A.length</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	swap A[i] with A[RANDOM(i, n)]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -274,7 +290,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -340,7 +356,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

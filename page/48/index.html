@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java/Java%E5%AE%B9%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/Java/Java%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">Java容器</a>
+            <a href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">操作系统 知识点总结</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:08:58" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 21:13:57 / 修改时间：21:15:25" itemprop="dateCreated datePublished" datetime="2021-03-13T21:13:57+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
                 </span>
             </span>
 
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/Java/Java%E5%AE%B9%E5%99%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/Java/Java%E5%AE%B9%E5%99%A8/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/OS/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,40 +245,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Collection</p>
-<ol>
-<li>Set：TreeSet HashSet LinkedHashSet</li>
-<li>List：ArrayList Vector(线程安全) LinkedList</li>
-<li>Queue：LinkedList PriorityQueue(基于堆结构实现，可以实现优先级队列，构造大顶堆/小顶堆)</li>
+          <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li>进程是资源分配的单位。</li>
+<li>线程是独立调度的基本单位，是进程内部的一个执行序列。是进程划分的更小的运行单位。</li>
+<li>线程共享进程的堆和方法区（元空间），每个线程有自己的程序计数器、虚拟机栈和本地方法栈。</li>
+</ul>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>5种状态：new, ready, running, waiting, terminated.</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>7种常见方式：管道/匿名管道（父子进程或兄弟进程间）、有名管道（实现本机任意两个进程通信）、信号、消息队列（消息的列表，存放在内核，克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺陷）、信号量、共享内存、套接字（客户端和服务器之间）。</p>
+<h3 id="进程调度算法"><a href="#进程调度算法" class="headerlink" title="进程调度算法"></a>进程调度算法</h3><ul>
+<li>先到先服务</li>
+<li>短作业优先</li>
+<li>时间片轮转</li>
+<li>多级反馈队列调度</li>
+<li>优先级调度</li>
+</ul>
+<h3 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h3><ul>
+<li>概念：临界区、同步与互斥</li>
+<li>信号量解决同步问题</li>
+<li>管程：把同步互斥问题的代码独立出来</li>
+<li>经典问题：哲学家进餐、读者写者</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li>孤儿进程（父进程退出，子进程还在，没有危害），僵尸进程（子进程退出，父进程没有释放子进程信息，可能因为没有可用进程号导致不能产生新进程）</li>
+<li>线程同步：互斥量、信号量、事件</li>
+<li>实时系统（硬实时和软实时）</li>
 </ol>
-<p>Map：TreeMap HashMap HashTable(线程安全，但应该使用ConcurrentHashMap，其引入了分段锁，效率更高) LinkedHashMap</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>ArrayList</p>
-<ul>
-<li>支持快速随机访问、默认大小为10</li>
-<li>基于动态数组实现，具有动态扩容性</li>
-</ul>
-<p>Vector</p>
-<ul>
-<li>和ArrayList类似，但用了synchronized进行同步，是线程安全的</li>
-<li>可以用Collections.synchronizedList()得到线程安全的ArrayList代替</li>
-</ul>
-<p>CopyOnWriteArrayList</p>
-<ul>
-<li>读写分离，适用读多写少的情况</li>
-</ul>
-<p>LinkedList</p>
-<ul>
-<li>基于双向链表实现</li>
-<li><p>不支持随机访问但插入删除效率高</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><ul>
+<li><p>必要条件：互斥、占有等待、不可抢占、环路等待</p>
 </li>
-<li><p>HashSet基于HashMap实现（都是哈希表），LinkedHashSet是HashSet的子类，内部通过LinkedHashMap实现。</p>
+<li><p>处理方法</p>
 </li>
-<li><p>TreeSet/TreeMap有序且唯一，基于红黑树实现</p>
-</li>
-<li><p>Map（需要键值存储时）：需要排序使用TreeMap，不需要排序使用HashMap，需要保证线程安全时用ConcurrentHashMap</p>
-</li>
-<li>Collection（只需要存放元素）：需要唯一用Set，否则用List</li>
 </ul>
+<ol>
+<li>鸵鸟策略：Unix,Linux,Windows都采用</li>
+<li>死锁检测和恢复</li>
+<li>死多预防（破坏必要条件）</li>
+<li>死锁避免：安全状态、银行家算法</li>
+</ol>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><p>内存管理主要负责内存的分配和回收以及地址转换。</p>
+<h3 id="内存管理机制"><a href="#内存管理机制" class="headerlink" title="内存管理机制"></a>内存管理机制</h3><ul>
+<li><p>虚拟内存：让物理内存扩充成更大的逻辑内存，MMU管理地址空间和物理内存的转换</p>
+</li>
+<li><p>连续：块式</p>
+</li>
+<li><p>非连续</p>
+</li>
+</ul>
+<ol>
+<li>页式：页表（页和页框段映射表），页面号+偏移量。</li>
+<li>段式：一个段构成一个独立地址空间，共享和保护。</li>
+<li>段页式：先分成若干段，每段再分成若干页。</li>
+</ol>
+<ul>
+<li><p>快表TLB（加速虚拟地址到物理地址的转换）和多级页表（避免把全部页表一直放在内存中占用过多空间）。</p>
+</li>
+<li><p>分页大小固定，分段大小不固定，段是逻辑信息的基本单位。分页是一维的，分段是二维的。</p>
+</li>
+<li><p>内部碎片和外部碎片</p>
+</li>
+<li><p>局部性原理：时间局部性和空间局部性</p>
+</li>
+<li><p>页面置换算法</p>
+</li>
+</ul>
+<ol>
+<li>OPT最佳</li>
+<li>FIFO先进先出</li>
+<li>LRU最近最久未使用</li>
+<li>LFU最少使用</li>
+<li>NRU最近未使用</li>
+<li>第二次机会算法</li>
+<li>时钟算法</li>
+</ol>
+<h2 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h2><ul>
+<li><p>磁盘结构：盘面、磁道、扇区、磁头、制动手臂、主轴。</p>
+</li>
+<li><p>磁盘调度算法：</p>
+</li>
+</ul>
+<ol>
+<li>先来先服务</li>
+<li>最短寻道时间优先（可能饥饿）</li>
+<li>电梯算法</li>
+</ol>
 
       
     </div>
@@ -297,7 +346,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -363,7 +412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
