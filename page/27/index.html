@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第六章 堆排序</a>
+            <a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">第五章 概率分析和随机算法</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-24 13:24:59 / 修改时间：15:48:53" itemprop="dateCreated datePublished" datetime="2021-03-24T13:24:59+08:00">2021-03-24</time>
+              <time title="创建时间：2021-03-17 20:54:17 / 修改时间：20:55:03" itemprop="dateCreated datePublished" datetime="2021-03-17T20:54:17+08:00">2021-03-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%A0%86%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%A6%82%E7%8E%87%E5%88%86%E6%9E%90%E5%92%8C%E9%9A%8F%E6%9C%BA%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,33 +245,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>堆排序时间复杂度：$O(n\lg n)$，和归并排序一样</p>
-<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>一个近似完全的二叉树</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210324140442.png" alt="image-20210324140441665"></p>
-<ul>
-<li>根节点A[1]</li>
-<li>A[i]的父节点A[$\lfloor i/2 \rfloor$]</li>
-<li>A[i]左子节点A[2i]</li>
-<li>A[i]右子节点A[2i+1]</li>
-</ul>
-<p>最大堆：子节点小于等于父节点，根节点最大，用于堆排序</p>
-<p>(一个叶子节点本身是一个最大堆)</p>
-<p>最小堆：子节点大于等于父节点，根节点最小，用于构造优先级队列</p>
-<p>n个节点的堆的高度 $\lfloor \lg n \rfloor$</p>
-<h2 id="维护堆的性质"><a href="#维护堆的性质" class="headerlink" title="维护堆的性质"></a>维护堆的性质</h2><p>最大堆</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MAX-HEAPIFY(A,i) &#x2F;&#x2F; Sub-tree rooted at node i</span><br><span class="line">	l &#x3D; LEFT(i)</span><br><span class="line">	r &#x3D; RIGHT(i)</span><br><span class="line">	if l &lt; heap-size[A] and A[l] &gt; A[i]</span><br><span class="line">		then largest &#x3D; l</span><br><span class="line">		else largest &#x3D; i</span><br><span class="line">    if r &lt;&#x3D; heap-size[A] and A[r] &gt; A[largest]</span><br><span class="line">    	then largest &#x3D; r</span><br><span class="line">    if largest !&#x3D; i</span><br><span class="line">    	then exchange A[i] and A[largest]</span><br><span class="line">    		MAX-HEAPIFY(A,largest)</span><br></pre></td></tr></table></figure>
-<h2 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line"> heap-size[A] &#x3D; length[A]</span><br><span class="line"> for i &#x3D; length[A]&#x2F;2 downto 1</span><br><span class="line">  do MAX-HEAPIFY(A,i)</span><br></pre></td></tr></table></figure>
-<p>时间代价 $O(n\lg n)$</p>
-<h2 id="堆排序算法"><a href="#堆排序算法" class="headerlink" title="堆排序算法"></a>堆排序算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HEAPSORT(A)</span><br><span class="line">	BUILD-MAX-HEAP(A)</span><br><span class="line">	for i &#x3D; length[A] downto 2</span><br><span class="line">		do exchange A[1] and A[i]</span><br><span class="line">			heap-size[A] &#x3D; heap-size[A] - 1</span><br><span class="line">			MAX-HEAPIFY(A,1)</span><br></pre></td></tr></table></figure>
-<p>时间代价 $O(n\lg n)$</p>
-<h2 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h2><p>一种用来维护一组元素构成的集合S的数据结构，其中每个元素有一个关键字key。</p>
-<p>支持的操作：</p>
-<ul>
-<li>INSERT(S, x)，把元素x插入集合S中</li>
-<li>MAXINUM(S)，返回S中具有最大键字的元素</li>
-<li>EXTRACT-MAX(S)，去掉并返回S中具有最大键字的元素</li>
-<li>INCREASE-KEYS(S, x, k)，将元素x的关键字增加到k（比原来大）</li>
-</ul>
+          <h2 id="5-1-雇佣问题"><a href="#5-1-雇佣问题" class="headerlink" title="5.1 雇佣问题"></a>5.1 雇佣问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HIRE-ASSISTANT(n)</span><br><span class="line">best &#x3D; 0</span><br><span class="line">for i &#x3D; 0 to n</span><br><span class="line">	interview candidate i</span><br><span class="line">	if candidate is better than candidate best</span><br><span class="line">		best &#x3D; i</span><br><span class="line">		hire candidate i</span><br></pre></td></tr></table></figure>
+<p><strong>最坏情形分析</strong></p>
+<p>应聘者质量按出现的次序严格递增</p>
+<p>如何求平均情况？</p>
+<p><strong>随机算法</strong></p>
+<h2 id="5-2-指示器随机变量"><a href="#5-2-指示器随机变量" class="headerlink" title="5.2 指示器随机变量"></a>5.2 指示器随机变量</h2><p>定义：</p>
+<script type="math/tex; mode=display">
+I\lbrace A\rbrace=\begin{cases} 1\quad如果A发生\\
+0\quad如果A不发生\end{cases}</script><p>A发生的概率$Pr\lbrace A\rbrace$，期望 $E[X_A]$</p>
+<p>引理：给定一个样本空间S和S中的一个事件A，设$X_A=I\lbrace A\rbrace$，那么$E[X_A]=Pr\lbrace A\rbrace$</p>
+<p><strong>用指示器随机变量分析雇佣问题</strong></p>
+<script type="math/tex; mode=display">
+X_i=I\lbrace 应聘者i被雇佣\rbrace = \begin{cases} 1\quad如果应聘者i被雇佣 \\ 0\quad如果应聘者i不被雇佣  \end{cases}</script><p>以及</p>
+<script type="math/tex; mode=display">
+X=X_1+X_2+\cdots+X_n</script><p>根据引理</p>
+<script type="math/tex; mode=display">
+E[X_i]=Pr\lbrace 应聘者i被雇佣\rbrace</script><p>应聘者比应聘者1到i-1更有资格的概率是1/i，因此</p>
+<script type="math/tex; mode=display">
+E[X_i]=1/i</script><p>计算得</p>
+<script type="math/tex; mode=display">
+E[X]=\ln n+O(1)</script><p>因此尽管面试了n个人，实际上大约只雇佣他们之中的$\ln n$个人</p>
+<h2 id="5-3-随机算法"><a href="#5-3-随机算法" class="headerlink" title="5.3 随机算法"></a>5.3 随机算法</h2><p>先对应聘者进行排列，然后确定最佳应聘者的随机算法。此时建立的算法的性能和假设应聘者以随即次序出现所得的结果是匹配的。</p>
+<p><strong>随机排列数组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PERMUTE-BY-SORTING(A)</span><br><span class="line">n&#x3D;A.length</span><br><span class="line">let P[1...n] be a new array</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	P[i] &#x3D; RANDOM(1, n^3)</span><br><span class="line">sort A, using P as sort keys</span><br></pre></td></tr></table></figure>
+<p>引理：假设所有优先级都不同，则过程PERMUTE-BY-SORTING产生输入的均匀随机排列</p>
+<p>另一个方法：原址排列给定数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZE-IN-PLACE(A)</span><br><span class="line">n &#x3D; A.length</span><br><span class="line">for i &#x3D; 1 to n</span><br><span class="line">	swap A[i] with A[RANDOM(i, n)]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -290,7 +290,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -356,14 +356,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

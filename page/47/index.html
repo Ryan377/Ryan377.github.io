@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/Java/Java%E5%B9%B6%E5%8F%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" class="post-title-link" itemprop="url">计算机网络 知识点整理</a>
+            <a href="/2021/03/13/Java/Java%E5%B9%B6%E5%8F%91/" class="post-title-link" itemprop="url">Java并发</a>
         </h2>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-13 21:15:44 / 修改时间：21:16:19" itemprop="dateCreated datePublished" datetime="2021-03-13T21:15:44+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 16:58:11 / 修改时间：21:08:33" itemprop="dateCreated datePublished" datetime="2021-03-13T16:58:11+08:00">2021-03-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +216,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/13/Java/Java%E5%B9%B6%E5%8F%91/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/Java/Java%E5%B9%B6%E5%8F%91/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,104 +245,123 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li><p>ISP：互联网服务提供商，多层次结构</p>
-</li>
-<li><p>通信方式：客户-服务器（C/S），对等（P2P）</p>
-</li>
-<li><p>电路交换和分组交换（时延=排队时延+处理时延+传输时延+传播时延）</p>
-</li>
-<li><p>OSI（七层协议）、五层协议、TCP/IP（四层）</p>
-</li>
+          <h2 id="使用线程"><a href="#使用线程" class="headerlink" title="使用线程"></a>使用线程</h2><ul>
+<li>实现Runnable接口</li>
+<li>实现Callable接口</li>
+<li>继承Thread类</li>
+<li>优先使用实现接口的方法，实现接口的方法只是一个可以在线程中运行的任务，任务是通过线程驱动执行的。</li>
 </ul>
-<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><ul>
-<li><p>单工通信、半双工通信和全双工通信</p>
-</li>
-<li><p>带通调制：数字信号（离散）-&gt; 模拟信号（连续）</p>
-</li>
+<h2 id="基础线程机制"><a href="#基础线程机制" class="headerlink" title="基础线程机制"></a>基础线程机制</h2><ul>
+<li>Executor：用于管理多个异步任务<ul>
+<li>CachedThreadPool：一个任务创建一个线程</li>
+<li>FixedThreadPool：所有任务只能使用固定大小的线程</li>
+<li>SingleThreadExecutor：相当于大小为1的FixedThreadPool</li>
 </ul>
-<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
-<li>封装成帧：给网络层的分组（IP数据报）添加首部和尾部</li>
-<li>透明传输：给数据中和首部尾部相同的内容加转义字符（透明）</li>
-<li>差错检测：主要使用循环冗余码CRC</li>
+</li>
+<li>Daemon：守护线程</li>
+<li>sleep()：休眠当前正在执行的线程</li>
+<li>yield()：声明当前线程已经完成主要任务，建议切换</li>
 </ul>
-<h3 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h3><ul>
-<li>分类：广播信道（用信道复用技术和CSMA/CD协议控制）和点对点信道（用PPP协议控制）</li>
-<li>信道复用技术：频分复用、时分复用、统计时分复用、波分复用、码分复用（码片正交）</li>
-<li>CSMA/CD协议：每个主机都不停监听信道，如果在发送过程中其他主机正在发送，说明发生了碰撞（因为有传播时延），等待一段时间在发送（用截断二进制指数退避法确定时间）</li>
-<li>争用期：传播时延的两倍</li>
-<li>PPP协议：用户计算机和ISP之间的链路层协议</li>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><ul>
+<li>InterruptedException：中断时如果该线程处于阻塞、限期等待或无限期等待状态会抛出的异常，提前结束线程，但I/O阻塞和synchronized阻塞不能中断</li>
+<li>Interrupted()</li>
+<li>Executor的中断操作：shutdown()和shutdownNow()方法</li>
 </ul>
-<h3 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h3><ul>
-<li>MAC地址：6字节，用于唯一标识网络适配器（网卡）</li>
-<li>局域网：一种典型的广播信道，主要以太网（星型）等</li>
-<li>交换机：存储MAC地址到接口的映射</li>
-<li>虚拟局域网：用于建立和物理位置无关的逻辑组</li>
+<h2 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h2><ul>
+<li>Synchronized：JVM提供，可以用来同步一个代码块/方法/类/静态方法</li>
+<li>ReentrantLock：java.util.concurrent包中的锁（JDK实现的）</li>
+<li>除非使用后者的高级功能，否则优先使用synchronized，不会产生死锁问题，JVM会确保锁的释放</li>
 </ul>
-<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><ul>
-<li><p>数据报格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307211309.jpg" alt="IP former"></p>
-</li>
-<li><p>编址方式：网络号+子网号+主机号、CIDR记法（无分类，网络前缀号+主机号）</p>
-</li>
+<h2 id="线程之间的协作"><a href="#线程之间的协作" class="headerlink" title="线程之间的协作"></a>线程之间的协作</h2><ul>
+<li>join()：在一个线程中调用另一个线程的join()方法，会挂起当前线程，直到目标线程结束</li>
+<li>wait() notify() notifyAll()：调用 wait() 使得线程等待某个条件满足，线程在等待时会被挂起，当其他线程的运行使得这个条件满足时，其它线程会调用 notify() 或者 notifyAll() 来唤醒挂起的线程。（Object中的方法）</li>
+<li>Await() signal() signalAll()：java.util.concurrent 类库中提供了 Condition 类来实现线程之间的协调，可以在 Condition 上调用 await() 方法使线程等待，其它线程调用 signal() 或 signalAll() 方法唤醒等待的线程。</li>
 </ul>
-<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><ul>
-<li>地址解析协议ARP：<br>实现由IP地址得到MAC地址，每个主机上有一个ARP高速缓存，保存本地局域网上的各主机和路由器的IP地址到MAC地址到映射表。若没有映射会发送广播请求。</li>
-<li>网际控制报文协议ICMP<br>更有效地转发IP数据报和提高交付成功的机会。<br>Ping：用来测试两台主机之间的联通性。<br>Traceroute：用来跟踪一个分组从源点到终点的路径。</li>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
+<li>new 新建</li>
+<li>Runnable 可运行</li>
+<li>Blocked 阻塞（被动）</li>
+<li>Waiting 无限期等待（主动）</li>
+<li>Timed_waiting 限期等待（一定时间后被系统自动唤醒）</li>
+<li>Terminated 死亡</li>
 </ul>
-<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
-<li>路由器<br>功能：路由转发和分组转发<br>组成：交换结构、一组输入端口和一组输出端口</li>
-<li>分组转发流程</li>
-<li>路由选择协议<ol>
-<li>内部网关协议RIP</li>
-<li>内部网关协议OSPF</li>
-<li>外部网关协议BGP</li>
-</ol>
-</li>
+<h2 id="J-U-C-AQS"><a href="#J-U-C-AQS" class="headerlink" title="J.U.C-AQS"></a>J.U.C-AQS</h2><ul>
+<li>CountDownLatch：用来控制一个或多个线程等待多个线程</li>
+<li>CyclicBarrier：用来控制多个线程互相等待，只有多个线程都到达了，线程才会继续执行</li>
+<li>Semaphore：类似操作系统信号量，控制对互斥资源的访问</li>
 </ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
-<li>虚拟专用网VPN（机构内使用仅在本机有效的专用地址块，有三个）</li>
-<li>网络地址转换NAT：将专用网内部的主机使用的本地IP转换成全球IP</li>
+<h2 id="J-U-C-其他组件"><a href="#J-U-C-其他组件" class="headerlink" title="J.U.C-其他组件"></a>J.U.C-其他组件</h2><ul>
+<li>FutureTask：可以异步获取执行结果或取消执行任务的场景</li>
+<li>BlockingQueue：提供FIFO和优先级的阻塞队列实现方法，可以用于实现生产者消费者问题</li>
+<li>ForkJoin：用于并行计算，类似于MapReduce</li>
 </ul>
-<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><ul>
-<li><p>格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307213854.png" alt="image-20210307213853892"></p>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><ul>
+<li><p>主内存与工作内存</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194849.png" alt="image-20210311194849104"></p>
+<p>所有变量都存储在主内存中</p>
 </li>
-<li><p>三次握手</p>
+<li><p>内存间交互操作：8个操作实现主内存和工作内存的交互</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210311194952.png" alt="image-20210311194952576"></p>
 </li>
-<li><p>四次挥手</p>
+<li><p>内存模型三大特性</p>
+<ul>
+<li>原子性：上述8个操作具有原子性</li>
+<li>可见性：一个线程修改共享变量的值，其他线程能够立刻得知修改（实现方式有volatile、synchronized、final）</li>
+<li>有序性：本线程内观察，所有操作都是有序的；在一个线程内观察另一个线程，所有操作都是无序的</li>
+</ul>
 </li>
-<li><p>可靠传输：采用超时重传机制</p>
-</li>
-<li><p>滑动窗口和流量控制</p>
-</li>
-<li><p>拥塞控制</p>
+<li><p>先行发生原则：让一个操作无需控制就能先于另一个操作完成</p>
 <ol>
-<li>慢开始和拥塞避免</li>
-<li>快重传与快恢复</li>
+<li>单一线程原则</li>
+<li>管程锁定原则</li>
+<li>volatile变量规则</li>
+<li>线程启动规则</li>
+<li>线程加入规则</li>
+<li>线程中断规则</li>
+<li>对象终结规则</li>
+<li>传递性</li>
 </ol>
 </li>
 </ul>
-<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>格式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210307214238.png" alt="image-20210307214238091" style="zoom:50%;" /></p>
-<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>提供主机名和IP地址之间的相互转换</p>
-<h3 id="Web页面请求过程"><a href="#Web页面请求过程" class="headerlink" title="Web页面请求过程"></a>Web页面请求过程</h3><ol>
-<li>DHCP配置主机信息</li>
-<li>ARP解析MAC地址</li>
-<li>DNS解析域名</li>
-<li>HTTP请求页面</li>
-<li>浏览器渲染</li>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><ul>
+<li>不可变：一定线程安全，有final、String、枚举类型、Number部分子类</li>
+<li>互斥同步：sychronized和ReentrantLock（阻塞同步）</li>
+<li>非阻塞同步：乐观的并发策略，先执行，有冲突再补偿<ul>
+<li>CAS乐观锁</li>
+<li>AtomicInteger</li>
+<li>ABA</li>
+</ul>
+</li>
+<li>无同步方案：当方法不涉及共享数据时，就不用同步措施<ul>
+<li>栈封闭</li>
+<li>线程本地存储</li>
+<li>可重入代码</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>主要指JVM对synchronized的优化</p>
+<ul>
+<li>自旋锁：让一个线程在请求一个共享数据的锁时忙循环一段时间，若能获得锁，则可以避免阻塞状态</li>
+<li>锁消除：对于检测出不可能存在竞争的共享数据的锁进行消除</li>
+<li>锁粗化：若频繁对一个对象加锁解锁，则将加锁范围扩展到整个操作序列的外部</li>
+<li>轻量级锁和偏向锁：JDK1.6引入</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol>
+<li><p>给线程起有意义的名字</p>
+</li>
+<li><p>缩小同步范围</p>
+</li>
+<li><p>多用同步工具少用wait()和notify()</p>
+</li>
+<li><p>使用BlockingQueue实现生产者消费者问题</p>
+</li>
+<li><p>多用并发集合少用同步集合</p>
+</li>
+<li><p>使用本地变量和不可变类来保证安全</p>
+</li>
+<li><p>使用线程池而不是直接创建线程</p>
+</li>
 </ol>
-<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><ul>
-<li>方法、状态码、首部字段</li>
-<li>HTTPS、HTTP1.1特性</li>
-</ul>
-<h3 id="其他协议"><a href="#其他协议" class="headerlink" title="其他协议"></a>其他协议</h3><ul>
-<li>FTP文件传输协议</li>
-<li>DHCP动态主机配置协议</li>
-<li>TELNET远程登录协议</li>
-<li>电子邮件协议SMTP和POP3/IMAP</li>
-</ul>
 
       
     </div>
@@ -361,7 +380,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span><a class="page-number" href="/page/48/">48</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/48/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span><a class="page-number" href="/page/48/">48</a><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/48/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -427,14 +446,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

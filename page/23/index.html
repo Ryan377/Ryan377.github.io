@@ -183,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -197,7 +197,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">软件工程 第5章 结构化分析与设计</a>
+            <a href="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">32位ALU设计</a>
         </h2>
 
         <div class="post-meta">
@@ -206,9 +206,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-01 20:12:27 / 修改时间：20:11:59" itemprop="dateCreated datePublished" datetime="2021-04-01T20:12:27+08:00">2021-04-01</time>
+              <time title="创建时间：2021-03-18 08:17:01" itemprop="dateCreated datePublished" datetime="2021-03-18T08:17:01+08:00">2021-03-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +215,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                  <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">体系结构实验</span></a>
                 </span>
             </span>
 
@@ -229,8 +228,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/01/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC5%E7%AB%A0-%E7%BB%93%E6%9E%84%E5%8C%96%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,131 +244,193 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="结构化分析方法的概述"><a href="#结构化分析方法的概述" class="headerlink" title="结构化分析方法的概述"></a>结构化分析方法的概述</h2><ol>
-<li><p>抽象（自底向上）和分解（自顶向下）</p>
-</li>
-<li><p>结构化分析的过程</p>
-<ol>
-<li>理解当前的现实环境，获得当前系统的具体模型</li>
-<li>从当前系统的具体模型抽象出当前系统的逻辑模型</li>
-<li>分析目标系统与当前系统逻辑上的差别，建立目标系统的逻辑模型</li>
-<li>为目标系统的逻辑模型作补充</li>
-</ol>
-</li>
-<li><p>结构化分析模型的描述形式</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401160457.png" alt="image-20210401160457326"></p>
-</li>
-</ol>
-<h2 id="数据流图（DFD）"><a href="#数据流图（DFD）" class="headerlink" title="数据流图（DFD）"></a>数据流图（DFD）</h2><p>描述输入数据流到输出数据流的变换（即加工），用于对系统的功能建模</p>
-<p><strong>数据流图的图形表示</strong></p>
-<ol>
-<li>基本图形元素</li>
-</ol>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161352.png" alt="image-20210401161352705"></p>
-<p>例：图书馆订购系统的DFD</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401161621.png" alt="image-20210401161621374"></p>
-<ol>
-<li><p>扩充符号</p>
-<ol>
-<li>星号 * ：表示数据流之间存在”与“关系</li>
-<li>加号 + ：表示数据流之间存在”或“关系</li>
-<li>异或 $\bigoplus$：表示数据流之间存在”异或“（互斥）关系</li>
-</ol>
-</li>
-<li><p>层次结构</p>
-<p>每张图的加工数控制在 7$\pm$2</p>
-</li>
-</ol>
-<p><strong>分层数据流的画法</strong></p>
-<ol>
-<li>画出系统的输入和输出</li>
-<li>画出系统内部</li>
-<li>画出加工内部</li>
-<li>重复第三步，直至每个尚未分解的加工都足够简单</li>
-</ol>
-<h2 id="分层数据流图的审查"><a href="#分层数据流图的审查" class="headerlink" title="分层数据流图的审查"></a>分层数据流图的审查</h2><p><strong>一致性和完整性</strong></p>
-<p><em>一致性</em></p>
-<ol>
-<li>父图与子图平衡</li>
-<li>数据守恒</li>
-<li>局部文件</li>
-<li>一个加工的输出数据流不能与该加工的输入数据流同名</li>
-</ol>
-<p><em>完整性</em></p>
-<ol>
-<li>每个加工至少有一个输入数据流和一个输出数据流</li>
-<li>在整套分层数据流图中，每个文件至少有一个加工该读文件，有另一个加工写该文件</li>
-<li><p>分层数据流图中的每个数据流和文件都必须命名（除了流入或流出文件的数据流），并保持与数据字典一致</p>
-</li>
-<li><p>分层DFD中的每个基本加工都应该有一个加工规约</p>
-</li>
-</ol>
-<p><strong>构造分层DFD时需要注意的问题</strong></p>
-<ol>
-<li>适当命名</li>
-<li>画数据流而不是画控制流</li>
-<li>避免一个加工有过多的数据流</li>
-<li>分解尽可能均匀</li>
-<li>先考虑稳定状态，忽略琐碎的枝节</li>
-<li>随时准备重画</li>
-</ol>
-<p><strong>分解程度</strong></p>
-<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>数据流图 + 数据字典 = 软件逻辑模型</p>
-<p><em>字典条目的种类</em></p>
-<p>数据流、文件、数据项、加工、源或宿</p>
-<p><em>字典数据中使用的描述符号</em></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210401185616.png" alt="image-20210401185616134"></p>
-<p><strong>字典条目</strong></p>
-<p>DFD中的每个元素都对应一个数据字典条目的描述，不同种类的有不同的描述内容。</p>
-<ol>
-<li>数据流条目</li>
-<li>文件条目</li>
-<li>数据项条目</li>
-<li>加工条目</li>
-<li>源或宿条目</li>
-<li>别名条目</li>
-</ol>
-<h2 id="描述基本加工的小说明"><a href="#描述基本加工的小说明" class="headerlink" title="描述基本加工的小说明"></a>描述基本加工的小说明</h2><p>DFD每个基本加工都用一条小说明进行描述，小说明就是基本加工的加工规约。</p>
-<p>加工逻辑的描述方法有结构化语言、判定表和判定树。</p>
-<h2 id="结构化设计概述"><a href="#结构化设计概述" class="headerlink" title="结构化设计概述"></a>结构化设计概述</h2><p>结构化设计（SD）是将结构化分析得到的数据流图映射成软件体系结构的一种设计方法，SD强调模块化、自顶向下逐步求精、信息隐蔽、高内聚低耦合等设计准则。</p>
-<p><strong>结构图</strong></p>
-<p>结构化设计方法中用结构图描述软件系统的体系结构，指出一个软件系统由哪些模块组成，以及模块之间的调用关系</p>
-<p><strong>启发式设计策略</strong></p>
-<ol>
-<li>改造程序结构图，降低耦合度，提高内聚度</li>
-<li>避免高扇出，并随着深度的增加，力求高扇入</li>
-<li>模块的影响范围应限制在该模块的控制范围内</li>
-<li>降低模块结构的复杂程度和冗余程度，提高一致性</li>
-<li>模块的功能应是可预测的，避免对模块施加过多的限制</li>
-<li>尽可能设计单入口和单出口的模块</li>
-</ol>
-<p><strong>结构化设计的步骤</strong></p>
-<ol>
-<li>建立初始结构图</li>
-<li>对结构图的改进</li>
-<li>书写设计文档</li>
-<li>设计评审</li>
-</ol>
-<h2 id="数据流图到软件体系结构的映射"><a href="#数据流图到软件体系结构的映射" class="headerlink" title="数据流图到软件体系结构的映射"></a>数据流图到软件体系结构的映射</h2><p>结构化设计是将结构化分析的结果（数据流图）映射成软件的体系结构（结构图）。根据信息流的特点，可将数据流图分为数据流图和事务型数据流图，其对应的映射分别成为变化分析和事务分析。</p>
-<p><strong>信息流</strong>：变换流和事务流</p>
-<p><strong>数据流图映射到结构图的步骤</strong></p>
-<ol>
-<li>复审和精细数据流图</li>
-<li>确定数据流图类型</li>
-<li>将DFD映射成初始结构图</li>
-<li>改进初始结构图</li>
-</ol>
-<p><strong>变换分析</strong></p>
-<p>将变换型的DFD映射成初始的结构图</p>
-<ol>
-<li>划定输入流和输出流的边界，确定变换中心</li>
-<li>进行第一级分解</li>
-<li>进行第二级分解</li>
-<li>标注输入输出信息</li>
-</ol>
-<p><strong>事务分析</strong>：确定事务中心、将DFD映射成事务性的结构图、分解每条动作路径的结构图</p>
-<p><strong>分层DFD的映射</strong></p>
-<h2 id="初始结构图的改进"><a href="#初始结构图的改进" class="headerlink" title="初始结构图的改进"></a>初始结构图的改进</h2><p>技巧：减少模块间的耦合度、消除重复功能、消除”管道模块“、模块大小适中、避免高扇出、考虑全局</p>
+          <h2 id="设计思路及代码"><a href="#设计思路及代码" class="headerlink" title="设计思路及代码"></a>设计思路及代码</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ALU32(</span><br><span class="line">ALUcont,A,B,</span><br><span class="line">zero,result</span><br><span class="line">	);</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] A,B;</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">2</span>:<span class="number">0</span>] ALUcont;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> zero;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">always</span>@(*)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">case</span>(ALUcont)</span><br><span class="line">        <span class="comment">//AND</span></span><br><span class="line">        <span class="number">3&#x27;b000</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A&amp;B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//OR</span></span><br><span class="line">        <span class="number">3&#x27;b001</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A|B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//+</span></span><br><span class="line">        <span class="number">3&#x27;b010</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A+B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//not used</span></span><br><span class="line">        <span class="comment">//3&#x27;b011:</span></span><br><span class="line">        <span class="comment">//AND !</span></span><br><span class="line">        <span class="number">3&#x27;b100</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">         	result=A&amp;(~B);</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//OR !</span></span><br><span class="line">        <span class="number">3&#x27;b101</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A|(~B);</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//-</span></span><br><span class="line">        <span class="number">3&#x27;b110</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A-B;</span><br><span class="line">            zero=(A==B)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//SLT</span></span><br><span class="line">        <span class="number">3&#x27;b111</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(A[<span class="number">31</span>]==<span class="number">1</span>&amp;&amp;B[<span class="number">31</span>]==<span class="number">0</span>)</span><br><span class="line">                    result=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(A[<span class="number">31</span>]==<span class="number">0</span>&amp;&amp;B[<span class="number">31</span>]==<span class="number">0</span>)</span><br><span class="line">                    result=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                    result=(A&lt;B)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">                zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span>        </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="测试代码及表格补全"><a href="#测试代码及表格补全" class="headerlink" title="测试代码及表格补全"></a>测试代码及表格补全</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>ALUcont</th>
+<th>A</th>
+<th>B</th>
+<th>result</th>
+<th>zero</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADD 0+0</td>
+<td>2</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ADD 0+(-1)</td>
+<td>2</td>
+<td>00000000</td>
+<td>FFFFFFFF</td>
+<td>FFFFFFFF</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADD 1+(-1)</td>
+<td>2</td>
+<td>00000001</td>
+<td>FFFFFFFF</td>
+<td>00000000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ADD FF+1</td>
+<td>2</td>
+<td>000000FF</td>
+<td>00000001</td>
+<td><u>00000100</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>SUB 0-0</td>
+<td>6</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>SUB 0-(-1)</td>
+<td>6</td>
+<td>00000000</td>
+<td>FFFFFFFF</td>
+<td>00000001</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SUB 1-1</td>
+<td>6</td>
+<td>00000001</td>
+<td><u>00000001</u></td>
+<td><u>00000000</u></td>
+<td><u>1</u></td>
+</tr>
+<tr>
+<td>SUB 100-1</td>
+<td>6</td>
+<td>00000100</td>
+<td><u>00000001</u></td>
+<td><u>000000ff</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>SLT 0,0</td>
+<td>7</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>00000000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>SLT 0,1</td>
+<td>7</td>
+<td>00000000</td>
+<td><u>00000001</u></td>
+<td>00000001</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SLT 0,-1</td>
+<td>7</td>
+<td>00000000</td>
+<td><u>FFFFFFFF</u></td>
+<td><u>00000000</u></td>
+<td><u>1</u></td>
+</tr>
+<tr>
+<td>SLT 1,0</td>
+<td>7</td>
+<td>00000001</td>
+<td><u>00000000</u></td>
+<td><u>00000000</u></td>
+<td><u>1</u></td>
+</tr>
+<tr>
+<td>SLT -1,0</td>
+<td>7</td>
+<td>FFFFFFFF</td>
+<td><u>00000000</u></td>
+<td><u>00000001</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>AND FFFFFFFF,FFFFFFFF</td>
+<td><u>0</u></td>
+<td>FFFFFFFF</td>
+<td>FFFFFFFF</td>
+<td><u>FFFFFFFF</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>AND FFFFFFFF,12345678</td>
+<td><u>0</u></td>
+<td>FFFFFFFF</td>
+<td>12345678</td>
+<td>12345678</td>
+<td>0</td>
+</tr>
+<tr>
+<td>AND 12345678,87654321</td>
+<td><u>0</u></td>
+<td>12345678</td>
+<td>87654321</td>
+<td><u>02244220</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>AND 00000000,FFFFFFFF</td>
+<td><u>0</u></td>
+<td>00000000</td>
+<td>FFFFFFFF</td>
+<td><u>00000000</u></td>
+<td><u>1</u></td>
+</tr>
+<tr>
+<td>OR FFFFFFFF,FFFFFFFF</td>
+<td><u>1</u></td>
+<td>FFFFFFFF</td>
+<td>FFFFFFFF</td>
+<td><u>FFFFFFFF</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>OR 12345678,87654321</td>
+<td><u>1</u></td>
+<td>12345678</td>
+<td>87654321</td>
+<td><u>97755779</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>OR 00000000,FFFFFFFF</td>
+<td><u>1</u></td>
+<td>00000000</td>
+<td>FFFFFFFF</td>
+<td><u>FFFFFFFF</u></td>
+<td><u>0</u></td>
+</tr>
+<tr>
+<td>OR 00000000,00000000</td>
+<td><u>1</u></td>
+<td>00000000</td>
+<td>00000000</td>
+<td><u>00000000</u></td>
+<td><u>1</u></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ALU32_test(</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] ALUcont;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] A,B;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line">    <span class="keyword">wire</span> zero;</span><br><span class="line">    ALU32 alu(ALUcont,A,B,zero,result); </span><br><span class="line">    <span class="keyword">initial</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    <span class="comment">//add</span></span><br><span class="line">        ALUcont=<span class="number">3&#x27;b010</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h000000ff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    <span class="comment">//sub</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b110</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000100</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    <span class="comment">//slt</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b111</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    <span class="comment">//and</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b000</span>;</span><br><span class="line">        A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h87654321</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    <span class="comment">//or</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b001</span>;</span><br><span class="line">        A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h87654321</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<h2 id="仿真波形图"><a href="#仿真波形图" class="headerlink" title="仿真波形图"></a>仿真波形图</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210318081405.png" alt="image-20210318081357819"></p>
 
       
     </div>
@@ -388,7 +449,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/55/">55</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -454,14 +515,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
