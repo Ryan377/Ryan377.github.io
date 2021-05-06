@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>多周期CPU设计</title>
+      <link href="2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/"/>
+      <url>2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="多周期处理器"><a href="#多周期处理器" class="headerlink" title="多周期处理器"></a>多周期处理器</h2><p>多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。</p><h2 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h2><ol><li>书上的指令：add、sub、and、or、slt、sw、lw、beq、addi、j</li><li></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 体系结构实验 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第26章 最大流</title>
       <link href="2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/"/>
       <url>2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/</url>
@@ -218,25 +237,6 @@
       <url>2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC9%E7%AB%A0-%E5%9F%BA%E4%BA%8E%E6%9E%84%E4%BB%B6%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/</url>
       
         <content type="html"><![CDATA[<h2 id="基于构件的软件开发概述"><a href="#基于构件的软件开发概述" class="headerlink" title="基于构件的软件开发概述"></a>基于构件的软件开发概述</h2><p>构件的要素：规格说明、一个或多个实现、受约束的构件标准、包装方法、部署方法</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 软件工程 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>软件工程 设计模式</title>
-      <link href="2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-      <url>2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
       
       <categories>
