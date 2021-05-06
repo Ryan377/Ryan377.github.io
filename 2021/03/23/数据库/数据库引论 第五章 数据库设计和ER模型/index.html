@@ -17,14 +17,14 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="数据库设计概论数据库生存期： 规划、需求分析、概念设计、逻辑设计、物理设计、实现、运行和维护 数据库设计全过程规划 系统调查、可行性分析、确定数据库系统的总目标和制定项目开发计划 需求分析  分析用户活动产生，产生业务流程图（TFD） 确定系统范围，产生系统范围图 分析用户活动涉及的数据，产生数据流图（DFD） 分析系统数据，产生数据字典  概念设计 从每个用户的角度出发定义ER图，然后合并 逻辑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库引论 第五章 数据库设计和ER模型">
 <meta property="og:url" content="http://example.com/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E8%AE%BA%20%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8CER%E6%A8%A1%E5%9E%8B/index.html">
-<meta property="og:site_name" content="R Blog">
+<meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="数据库设计概论数据库生存期： 规划、需求分析、概念设计、逻辑设计、物理设计、实现、运行和维护 数据库设计全过程规划 系统调查、可行性分析、确定数据库系统的总目标和制定项目开发计划 需求分析  分析用户活动产生，产生业务流程图（TFD） 确定系统范围，产生系统范围图 分析用户活动涉及的数据，产生数据流图（DFD） 分析系统数据，产生数据字典  概念设计 从每个用户的角度出发定义ER图，然后合并 逻辑">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210425155527.png">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>数据库引论 第五章 数据库设计和ER模型 | R Blog</title>
+  <title>数据库引论 第五章 数据库设计和ER模型 | My Blog</title>
   
 
 
@@ -100,7 +100,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">R Blog</h1>
+      <h1 class="site-title">My Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -197,11 +197,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
       <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R Blog">
+      <meta itemprop="name" content="My Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -418,7 +418,7 @@
     <img class="site-author-image" itemprop="image" alt="chenrui"
       src="/images/avatar_1.gif">
   <p class="site-author-name" itemprop="name">chenrui</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -482,7 +482,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">chenrui</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
@@ -528,7 +528,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

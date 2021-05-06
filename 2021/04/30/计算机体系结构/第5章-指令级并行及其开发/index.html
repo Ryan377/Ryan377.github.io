@@ -17,14 +17,14 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="指令级并行的基本概念什么是指令级并行指令级并行：指令之间可以实现重叠执行 两种开发方法：  依靠硬件来实现动态发现和开发并行 依靠软件技术在编译时静态发现并行  $CPI_{流水线}&#x3D;CPI_{理想}+停顿_{结构冲突}+停顿_{数据冲突}+停顿_{控制冲突}$ 理想CPI是衡量流水线最高性能的一个指标 基本程序块：一个程序块，除了出口和入口不包含其他分支 循环级并行：使一个循环中的不同循环体并行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第5章 指令级并行及其开发">
 <meta property="og:url" content="http://example.com/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/index.html">
-<meta property="og:site_name" content="R Blog">
+<meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="指令级并行的基本概念什么是指令级并行指令级并行：指令之间可以实现重叠执行 两种开发方法：  依靠硬件来实现动态发现和开发并行 依靠软件技术在编译时静态发现并行  $CPI_{流水线}&#x3D;CPI_{理想}+停顿_{结构冲突}+停顿_{数据冲突}+停顿_{控制冲突}$ 理想CPI是衡量流水线最高性能的一个指标 基本程序块：一个程序块，除了出口和入口不包含其他分支 循环级并行：使一个循环中的不同循环体并行">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-30T00:39:00.607Z">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>第5章 指令级并行及其开发 | R Blog</title>
+  <title>第5章 指令级并行及其开发 | My Blog</title>
   
 
 
@@ -96,7 +96,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">R Blog</h1>
+      <h1 class="site-title">My Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -193,11 +193,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
       <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R Blog">
+      <meta itemprop="name" content="My Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -405,7 +405,7 @@
     <img class="site-author-image" itemprop="image" alt="chenrui"
       src="/images/avatar_1.gif">
   <p class="site-author-name" itemprop="name">chenrui</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -469,7 +469,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">chenrui</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
         
@@ -515,7 +515,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
