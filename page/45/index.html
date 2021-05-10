@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/13/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/13/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">上车问题</a>
+            <a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" class="post-title-link" itemprop="url">第四章 分治策略</a>
         </h2>
 
         <div class="post-meta">
@@ -208,17 +208,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-13 15:02:46 / 修改时间：21:09:37" itemprop="dateCreated datePublished" datetime="2021-03-13T15:02:46+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-17 11:56:31" itemprop="dateCreated datePublished" datetime="2021-03-17T11:56:31+08:00">2021-03-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-23 09:06:35" itemprop="dateModified" datetime="2021-04-23T09:06:35+08:00">2021-04-23</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">算法题解</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -231,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/13/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/13/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E4%B8%8A%E8%BD%A6%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,87 +253,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>问题描述：火车从始发站（第 1站）开出，在始发站上车的人数为 a，然后到达第 2 站，在第 2 站有人上、下车，但上、下车的人数相同，因此在第 2 站开出时车上的人数保持为 a 人。从第 3 站起，上、下车的人数有如下规律：上车的人数都是前两站上车人数之和，而下车人数等于上一站上车人数，一直到终点站的前一站。已知：共有 n 个车站，始发站上车的人数为 a ，终点站全部下车的人数是 m。试问 第x 站开出时车上的人数是多少？程序运行时，先输入四个整数：始发站上车人数 a，车站数 n，终点站下车人数 m 和所求的站点编号 x。要求输出从 x 站开出时车上的人数。</p>
-<p>根据题意列出上车下车人数的表格：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>车站</th>
-<th>进站前人数</th>
-<th>上车人数</th>
-<th>下车人数</th>
-<th>出站人数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>a</td>
-<td>0</td>
-<td>a</td>
-</tr>
-<tr>
-<td>2</td>
-<td>a</td>
-<td>b</td>
-<td>b</td>
-<td>a</td>
-</tr>
-<tr>
-<td>3</td>
-<td>a</td>
-<td>a+b</td>
-<td>b</td>
-<td>2a</td>
-</tr>
-<tr>
-<td>4</td>
-<td>2a</td>
-<td>a+2b</td>
-<td>a+b</td>
-<td>2a+b</td>
-</tr>
-<tr>
-<td>5</td>
-<td>2a+b</td>
-<td>2a+3b</td>
-<td>a+2b</td>
-<td>3a+2b</td>
-</tr>
-<tr>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-</tr>
-<tr>
-<td>n-1</td>
-<td>?</td>
-<td>?</td>
-<td>?</td>
-<td>m</td>
-</tr>
-<tr>
-<td>n</td>
-<td>m</td>
-<td>0</td>
-<td>m</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>根据表格本题的关键在于根据m求出b</p>
-<p><em>m=f(n-1)a+g(n-1)b</em></p>
-<p>求出f和g即可</p>
-<p>而出站人数=进站人数 + 上车人数 - 下车人数</p>
-<p>每站的上车人数和下车人数可以根据题意递推求得</p>
-<p>据此可解决问题</p>
-<p>C++代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站上了多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upa</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upa(n<span class="number">-1</span>) + upa(n<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站上了多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upb</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upb(n<span class="number">-1</span>) + upb(n<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站下了多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">downa</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> upa(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站下了多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">downb</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upb(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站出的时候有多少a</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (upa(n) - downa(n)) + f(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每一站出的时候有多少b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (upb(n) - downb(n)) + g(n<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a, n, m, x;</span><br><span class="line">    <span class="keyword">int</span> b; <span class="comment">//b表示第二站上车人数</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;输入始发站上车人数，车站数，终点站下车人数和所求的站点编号：&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>; </span><br><span class="line">	</span><br><span class="line">    <span class="comment">//根据定义m=f(n-1)+g(n-1)，据此求出b</span></span><br><span class="line">	b = (m-(f(n<span class="number">-1</span>) * a)) / g(n<span class="number">-1</span>);</span><br><span class="line">    <span class="comment">//计算第x站出站后人数</span></span><br><span class="line">	ans = (f(x)*a) + (g(x)*b);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;<span class="string">&quot;第&quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;x;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;<span class="string">&quot;站开出时车上的人数是:&quot;</span>; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>Divide-Conquer-Combine</p>
+<h2 id="4-1-最大子数组问题"><a href="#4-1-最大子数组问题" class="headerlink" title="4.1 最大子数组问题"></a>4.1 最大子数组问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">FIND-MAX-CROSSING-SUBARRAY(A,low,mid,high) </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    接受数组A和下表low,mid,high为输入，</span></span><br><span class="line"><span class="comment">    返回一个下标元组划定跨越种点的最大子数组的边界，并返回最大子数组中值的和</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">left-sum = -∞</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = mid downto low</span><br><span class="line">    sum = sum + A[i]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; left - sum</span><br><span class="line">        left-sum = sum</span><br><span class="line">        max-left = i</span><br><span class="line">right-sum = -∞</span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> j = mid + <span class="number">1</span> to high</span><br><span class="line">    sum = sum + A[j]</span><br><span class="line">    <span class="keyword">if</span> sum &gt; right-sum</span><br><span class="line">        right-sum = sum</span><br><span class="line">        max-right = j</span><br><span class="line"><span class="keyword">return</span>(max-left, max-right, left-sum + right-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A,low,high) <span class="comment">//求出A[1...n]的最大子数组</span></span><br><span class="line"><span class="keyword">if</span> high == low</span><br><span class="line">    <span class="keyword">return</span> (low,high,A[low])</span><br><span class="line"><span class="keyword">else</span> mid = (low + high)/<span class="number">2</span></span><br><span class="line">    (left-low, left-high, left-sum) = </span><br><span class="line">    	FIND-MAXIMUM-SUBARRAY(A,low,mid)</span><br><span class="line">    (right-low, right-high, right-sum) = </span><br><span class="line">    	FIND-MAXIMUM-SUBARRAY(A,mid+<span class="number">1</span>,high)</span><br><span class="line">    (cross-low, cross-high, cross-sum) = </span><br><span class="line">    	FIND-MAX-CROSSING-SUBARRAY(A,low,mid,high)</span><br><span class="line">    <span class="keyword">if</span> left-sum &gt;= cross-sum and right-sum &gt;= cross-sum</span><br><span class="line">        <span class="keyword">return</span>(left-low, left-high, left-sum)</span><br><span class="line">    <span class="keyword">else</span> right-sum &gt;= cross-sum and right-sum &gt;= cross-sum</span><br><span class="line">        <span class="keyword">return</span>(right-low, right-high, right-sum)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span>(cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-矩阵乘法的Strassen算法"><a href="#4-2-矩阵乘法的Strassen算法" class="headerlink" title="4.2 矩阵乘法的Strassen算法"></a>4.2 矩阵乘法的Strassen算法</h2><p>常规算法花费Θ(n^3)，Strassen算法花费Θ(n^lg7)≈Θ(n^2.81)</p>
+<p>基本思想：减少多余的乘法，把乘法变成乘法+加法</p>
+<h2 id="4-3-代入法求解递归式"><a href="#4-3-代入法求解递归式" class="headerlink" title="4.3 代入法求解递归式"></a>4.3 代入法求解递归式</h2><p><strong>步骤</strong></p>
+<ol>
+<li>猜测解的形式</li>
+<li>用数学归纳法求出解中的常数，并证明解是正确的</li>
+</ol>
+<h2 id="4-4-递归树方法求解递归式"><a href="#4-4-递归树方法求解递归式" class="headerlink" title="4.4 递归树方法求解递归式"></a>4.4 递归树方法求解递归式</h2><p>将递归式转换成一棵树，其节点表示不同层次的递归调用产生的代价。然后采用边界和技巧来求解递归式。</p>
+<p>例：$T(n)=3T(\lfloor n/4\rfloor)+\Theta(n^2)$</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210423082640.png" alt="image-20210423082632784"></p>
+<h2 id="4-5-主方法求解递归式"><a href="#4-5-主方法求解递归式" class="headerlink" title="4.5 主方法求解递归式"></a>4.5 主方法求解递归式</h2><p>求解形式如 $T(n)=aT(n/b)+f(n)$递归式的界</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&主定理：令a\geq 1和b>1是常数，f(n)是一个函数，T(n)是定义在非负整数上的递归式：\\
+&T(n)=aT(n/b)+f(n)\\
+&其中n/b解释为\lfloor n/b\rfloor或\lceil n/b\rceil，那么T(n)有如下渐进界：\\
+&1.若对某个常数\varepsilon >0，有f(n)=O(n^{log_b{a-\varepsilon}})，则T(n)=\Theta(n^{log_ba}).\\
+&2.若f(n)=\Theta(n^{log_ba})，则T(n)=\Theta(n^{log_ba}lgn).\\
+&3.若对某个常数\varepsilon>0有f(n)=\Omega(n^{log_b{a+\varepsilon}})，且对某个常数c<1和所有足够大的n有af(n/b)\leq cf(n)，则T(n)=\Theta(f(n))
+\end{align}</script><p>基本思想，把f(n)和$\Theta(n^{log_ba})$比较，两函数较大者决定了递归式的解。</p>
 
       
     </div>
@@ -346,7 +293,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -414,14 +361,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -548,6 +495,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="动态规划通常用于求解最优化问题  刻画一个最优解的结构特征 递归定义最优解的值 计算最优解的值，通常采用自底向上的方法 利用计算出的信息构造一个最优解  钢条切割矩阵链乘法动态规划原理最长公共子序列最优二叉搜索树">
+  <meta name="description" content="动态规划通常用于求解最优化问题  刻画一个最优解的结构特征 递归定义最优解的值 计算最优解的值，通常采用自底向上的方法 利用计算出的信息构造一个最优解  钢条切割寻找最优切割方案 矩阵链乘法完全括号化的矩阵乘积链 求完全括号化方案使得所需标量乘法次数最少 动态规划原理最优子结构和子问题重叠 如果一个问题的最优解包含其子问题的最优解，称此问题为具有最优子结构性质  证明问题最优解的第一个组成部分是做">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第15章 动态规划">
 <meta property="og:url" content="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="动态规划通常用于求解最优化问题  刻画一个最优解的结构特征 递归定义最优解的值 计算最优解的值，通常采用自底向上的方法 利用计算出的信息构造一个最优解  钢条切割矩阵链乘法动态规划原理最长公共子序列最优二叉搜索树">
+<meta property="og:description" content="动态规划通常用于求解最优化问题  刻画一个最优解的结构特征 递归定义最优解的值 计算最优解的值，通常采用自底向上的方法 利用计算出的信息构造一个最优解  钢条切割寻找最优切割方案 矩阵链乘法完全括号化的矩阵乘积链 求完全括号化方案使得所需标量乘法次数最少 动态规划原理最优子结构和子问题重叠 如果一个问题的最优解包含其子问题的最优解，称此问题为具有最优子结构性质  证明问题最优解的第一个组成部分是做">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-05T05:16:59.163Z">
-<meta property="article:modified_time" content="2021-05-08T07:24:01.402Z">
+<meta property="article:modified_time" content="2021-05-10T11:22:44.643Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-08 15:24:01" itemprop="dateModified" datetime="2021-05-08T15:24:01+08:00">2021-05-08</time>
+                <time title="修改时间：2021-05-10 19:22:44" itemprop="dateModified" datetime="2021-05-10T19:22:44+08:00">2021-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,7 +269,21 @@
 <li>计算最优解的值，通常采用自底向上的方法</li>
 <li>利用计算出的信息构造一个最优解</li>
 </ol>
-<h2 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h2><h2 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h2><h2 id="动态规划原理"><a href="#动态规划原理" class="headerlink" title="动态规划原理"></a>动态规划原理</h2><h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><h2 id="最优二叉搜索树"><a href="#最优二叉搜索树" class="headerlink" title="最优二叉搜索树"></a>最优二叉搜索树</h2>
+<h2 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h2><p>寻找最优切割方案</p>
+<h2 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h2><p>完全括号化的矩阵乘积链</p>
+<p>求完全括号化方案使得所需标量乘法次数最少</p>
+<h2 id="动态规划原理"><a href="#动态规划原理" class="headerlink" title="动态规划原理"></a>动态规划原理</h2><p>最优子结构和子问题重叠</p>
+<p>如果一个问题的最优解包含其子问题的最优解，称此问题为具有最优子结构性质</p>
+<ol>
+<li>证明问题最优解的第一个组成部分是做出一个选择。</li>
+<li>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解。</li>
+<li>给定可能最优解的选择后 ，你确定这次选择会产生哪些子问题，以及如何更好地刻画子问题空间。</li>
+<li>证明最为构成原问题的最优解的组成部分，每个子问题的解就是它本身的最优解。</li>
+</ol>
+<p>对于重叠子问题，对每个子问题求解一次，将解存入一个表中，当再次需要这个子问题时直接查表，每次查表的代价为常量时间。（备忘）</p>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><p>给定两个序列，求X和Y长度最长的公共子序列</p>
+<h2 id="最优二叉搜索树"><a href="#最优二叉搜索树" class="headerlink" title="最优二叉搜索树"></a>最优二叉搜索树</h2><p>对于每个关键字，都有一个搜索频率，如何构造一个二叉搜索树使得所有搜索操作访问的结点总数最少</p>
+
     </div>
 
     
@@ -366,14 +380,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
