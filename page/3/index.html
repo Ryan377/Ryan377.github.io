@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/" class="post-title-link" itemprop="url">第26章 最大流</a>
+            <a href="/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">多周期CPU设计</a>
         </h2>
 
         <div class="post-meta">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-05 13:21:26 / 修改时间：15:42:33" itemprop="dateCreated datePublished" datetime="2021-05-05T13:21:26+08:00">2021-05-05</time>
+              <time title="创建时间：2021-05-06 08:04:03 / 修改时间：09:34:30" itemprop="dateCreated datePublished" datetime="2021-05-06T08:04:03+08:00">2021-05-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,7 +218,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">体系结构实验</span></a>
                 </span>
             </span>
 
@@ -231,8 +231,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,7 +247,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="流网络"><a href="#流网络" class="headerlink" title="流网络"></a>流网络</h2><h2 id="ford-fulkerson算法"><a href="#ford-fulkerson算法" class="headerlink" title="ford-fulkerson算法"></a>ford-fulkerson算法</h2><h2 id="最大二分匹配"><a href="#最大二分匹配" class="headerlink" title="最大二分匹配"></a>最大二分匹配</h2><h2 id="推送重贴标签算法"><a href="#推送重贴标签算法" class="headerlink" title="推送重贴标签算法"></a>推送重贴标签算法</h2><h2 id="前置重贴标签算法"><a href="#前置重贴标签算法" class="headerlink" title="前置重贴标签算法"></a>前置重贴标签算法</h2>
+          <h2 id="多周期处理器"><a href="#多周期处理器" class="headerlink" title="多周期处理器"></a>多周期处理器</h2><p>多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。</p>
+<h2 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h2><ol>
+<li>书上的指令：add、sub、and、or、slt、sw、lw、beq、addi、j</li>
+<li></li>
+</ol>
+
       
     </div>
 
@@ -265,7 +270,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -333,14 +338,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

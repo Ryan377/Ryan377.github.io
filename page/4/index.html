@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC24%E7%AB%A0-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC24%E7%AB%A0-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">第24章 单源最短路径</a>
+            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/" class="post-title-link" itemprop="url">第26章 最大流</a>
         </h2>
 
         <div class="post-meta">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-05 13:21:02 / 修改时间：15:41:06" itemprop="dateCreated datePublished" datetime="2021-05-05T13:21:02+08:00">2021-05-05</time>
+              <time title="创建时间：2021-05-05 13:21:26 / 修改时间：15:42:33" itemprop="dateCreated datePublished" datetime="2021-05-05T13:21:26+08:00">2021-05-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,8 +231,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC24%E7%AB%A0-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC24%E7%AB%A0-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="bellman-ford算法"><a href="#bellman-ford算法" class="headerlink" title="bellman-ford算法"></a>bellman-ford算法</h2><h2 id="有向无环图中的单源最短路径问题"><a href="#有向无环图中的单源最短路径问题" class="headerlink" title="有向无环图中的单源最短路径问题"></a>有向无环图中的单源最短路径问题</h2><h2 id="dijkstra算法"><a href="#dijkstra算法" class="headerlink" title="dijkstra算法"></a>dijkstra算法</h2><h2 id="差分约束和最短路径"><a href="#差分约束和最短路径" class="headerlink" title="差分约束和最短路径"></a>差分约束和最短路径</h2><h2 id="最短路径性质的证明"><a href="#最短路径性质的证明" class="headerlink" title="最短路径性质的证明"></a>最短路径性质的证明</h2>
+          <h2 id="流网络"><a href="#流网络" class="headerlink" title="流网络"></a>流网络</h2><h2 id="ford-fulkerson算法"><a href="#ford-fulkerson算法" class="headerlink" title="ford-fulkerson算法"></a>ford-fulkerson算法</h2><h2 id="最大二分匹配"><a href="#最大二分匹配" class="headerlink" title="最大二分匹配"></a>最大二分匹配</h2><h2 id="推送重贴标签算法"><a href="#推送重贴标签算法" class="headerlink" title="推送重贴标签算法"></a>推送重贴标签算法</h2><h2 id="前置重贴标签算法"><a href="#前置重贴标签算法" class="headerlink" title="前置重贴标签算法"></a>前置重贴标签算法</h2>
       
     </div>
 
@@ -265,7 +265,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -333,14 +333,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>

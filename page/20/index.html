@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/14/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC12%E7%AB%A0-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">存储过程</a>
+            <a href="/2021/04/14/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC12%E7%AB%A0-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="post-title-link" itemprop="url">第12章 二叉搜索树</a>
         </h2>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-13 18:46:46" itemprop="dateCreated datePublished" datetime="2021-04-13T18:46:46+08:00">2021-04-13</time>
+              <time title="创建时间：2021-04-14 12:56:38" itemprop="dateCreated datePublished" datetime="2021-04-14T12:56:38+08:00">2021-04-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 11:26:02" itemprop="dateModified" datetime="2021-05-11T11:26:02+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-12 15:19:05" itemprop="dateModified" datetime="2021-05-12T15:19:05+08:00">2021-05-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/14/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC12%E7%AB%A0-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/14/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC12%E7%AB%A0-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,199 +253,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="存储层次"><a href="#存储层次" class="headerlink" title="存储层次"></a>存储层次</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210413184802.png" alt="image-20210413184754054"></p>
-<p>存储介质层次</p>
-<p>（CPU）、第一级存储器（高速缓存、内存）、第二级存储器（快闪存、磁盘存储器）、第三级存储器（光存储器、磁带存储器）</p>
-<p>分级存储的原因：</p>
-<ol>
-<li>价格因素：主存是磁盘的100倍</li>
-<li>寻址的问题：32位主存大小小于$2^{32}$</li>
-<li>数据需要永久保存</li>
-</ol>
-<p><strong>磁盘</strong></p>
-<p>基本概念</p>
-<ul>
-<li><p>硬件上的最小单位是sector，是硬件的不可变属性</p>
-</li>
-<li><p>Block是数据存储的最小单元，由若干sector组成</p>
-</li>
-<li>磁盘上的同心圆构成track</li>
-<li>相同半径的同心圆构成Cylinder</li>
-<li>存放数据的盘片为Platter</li>
-<li>每个面有一个读头，通过磁盘臂进行移动</li>
-<li>磁盘转动，读头不动</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510213551.png" alt="image-20210510213544527"></p>
-<p>数据由柱面号、磁头号、盘块号定位</p>
-<p>性能指标：容量、存取时间、传输速度、可靠性</p>
-<p><strong>第三级存储器</strong></p>
-<p>光盘：CD DVD WORM</p>
-<p>磁带：价格便宜，存储量大，顺序读取</p>
-<p>胶片</p>
-<h3 id="RAID磁盘系统"><a href="#RAID磁盘系统" class="headerlink" title="RAID磁盘系统"></a>RAID磁盘系统</h3><p>磁盘是数据库管理系统提高性能的瓶颈</p>
-<p>磁盘阵列：通过数据条带组织，提高性能（提高并行性和可靠性）</p>
-<p>数据条带：数据分成等长区域，分布在多个盘上，每个分区的大小为一个条带单元</p>
-<p>通过增加数据冗余check disk提高数据可靠性</p>
-<p>海明码</p>
-<p><strong>RAID LEVEL</strong></p>
-<p>RAID：将磁盘分成组，每个组有若干数据盘和一些校验盘构成，校验盘的个数由RAID Level决定</p>
-<p>LEVEL 0：没有冗余数据、可靠性差、写性能最优，读性能不是最优、空间利用率100%</p>
-<p>LEVEL 1：最昂贵，每个磁盘都进行一个备份，每次写两遍，同一块数据可并行读，空间利用率50%</p>
-<p>LEVEL 1+0：以1为基础，增加数据分布条带化</p>
-<p>LEVEL 2    LEVEL 3    LEVEL 4    LEVEL 5（性能最好）    LEVEL 6</p>
-<p>选择</p>
-<ul>
-<li>0代价最小</li>
-<li>0 + 1适合小型系统或大量写系统</li>
-<li>3适合大规模连续读写，优于2</li>
-<li>5各项性能均不错，优于4</li>
-<li>6适合高可靠性系统</li>
-</ul>
-<h3 id="磁盘空间管理"><a href="#磁盘空间管理" class="headerlink" title="磁盘空间管理"></a>磁盘空间管理</h3><ul>
-<li><p>DBMS结构最底层</p>
-</li>
-<li><p>以页为单位组织数据，主要操作包括读、写、申请、释放</p>
-</li>
-<li><p>经常访问的数据可放在连续空间中</p>
-</li>
-<li><p>隔离上层模块和底层的软、硬平台</p>
-</li>
-</ul>
-<p>管理空闲块：空间块链表或空闲块位图</p>
-<p>实现：操作系统文件系统管理或者自己实现</p>
-<h3 id="缓冲区管理"><a href="#缓冲区管理" class="headerlink" title="缓冲区管理"></a>缓冲区管理</h3><p>缓冲区管理器：负责将磁盘上的数据读入内存并写回磁盘的软件层</p>
-<ul>
-<li>管理的内存空间叫Buffer Pool</li>
-<li>每个页叫Frame，有替换策略</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510215250.png" alt="image-20210510215250219"></p>
-<p>frame数据结构：</p>
-<ul>
-<li>pin_count：正在访问该frame的事务个数</li>
-<li>dirty：已经被修改过的frame</li>
-</ul>
-<p>替换策略：LRU、Clock</p>
-<p>BufferPool和virtual memory的区别在于Buffer Pool能够发现页访问模式</p>
-<h3 id="文件和索引"><a href="#文件和索引" class="headerlink" title="文件和索引"></a>文件和索引</h3><p>每个页有若干记录，每个文件有若干页，每个记录有唯一标识符rid</p>
-<p><strong>堆文件</strong></p>
-<ul>
-<li>数据在文件中以记录为单位无序存储</li>
-<li>提供创建、删除文件、插入、删除记录</li>
-<li>用页的链表或页字典维护文件空闲区域位置</li>
-</ul>
-<p><strong>顺序文件</strong></p>
-<ul>
-<li>根据查找键的值的顺序存储记录的文件</li>
-<li>每个记录有一个指针，按键值大小创建链表</li>
-<li>通过自由空间管理，管理空闲空间</li>
-</ul>
-<p><strong>聚集文件</strong></p>
-<ul>
-<li>一个文件中存储多个关系中的元组</li>
-<li>根据键属性进行数据组织</li>
-</ul>
-<p><strong>代价模型</strong></p>
-<p>用于估算不同的查询操作的代价</p>
-<p><strong>三种文件组织方式</strong></p>
-<p>堆文件、排序文件、Hash文件（后两者有Search Key）</p>
-<h3 id="页格式"><a href="#页格式" class="headerlink" title="页格式"></a>页格式</h3><p>页由一系列记录构成，每个记录为一个Slot，记录的id为(page id,slot number)</p>
-<h3 id="记录格式"><a href="#记录格式" class="headerlink" title="记录格式"></a>记录格式</h3><p>定长记录：每条记录的长度是固定的，即便没有变长字段，一个页存放记录的数量和位置也是确定的</p>
-<p>变长记录：记录中包含变长字段，记录长度可变</p>
-<h2 id="文件组织和索引"><a href="#文件组织和索引" class="headerlink" title="文件组织和索引"></a>文件组织和索引</h2><p>文件组织是当前文件存储在磁盘上时在文件中组织记录的方法，索引是查询操作的性能的工具。</p>
-<h3 id="索引简介"><a href="#索引简介" class="headerlink" title="索引简介"></a>索引简介</h3><p>索引是加速查询操作的辅助文件结构，包括树形索引和Hash索引，一个索引可认为是一个data entry的集合， 通过它可快速地找到相应的记录所在的位置</p>
-<p>考虑的问题</p>
-<ol>
-<li>为了方便查询如何组织data entry</li>
-<li>data entry的构成</li>
-<li>如何适应存储介质的特点</li>
-</ol>
-<p>三种data entry</p>
-<ul>
-<li>k*：包含整个记录</li>
-<li><k, rid>search key为k的记录</li>
-<li><k, rid-list>search key为k的记录集合</li>
-</ul>
-<h3 id="索引特性"><a href="#索引特性" class="headerlink" title="索引特性"></a>索引特性</h3><ul>
-<li><p><strong>聚集索引和非聚集索引</strong>：如果文件中记录顺序同索引中data entry顺序相同，则这个索引是Clustered（聚集/聚簇）的</p>
-</li>
-<li><p><strong>密集索引和稀疏索引</strong>：如果表在该属性上出现的所有值在索引文件中至少有一个data entry与之相对应则为dense（密集）索引，sparse（稀疏）索引每个页只有一个data entry</p>
-</li>
-<li><p><strong>pirmary and secondary indexes</strong>：索引建在包含primary key的属性上则为primary key，其它的为secondary index</p>
-</li>
-<li><p><strong>composite search key索引</strong>：包含多个属性的索引是composite search key索引</p>
-</li>
-</ul>
-<h2 id="树结构索引"><a href="#树结构索引" class="headerlink" title="树结构索引"></a>树结构索引</h2><h3 id="索引序列访问方法（ISAM）"><a href="#索引序列访问方法（ISAM）" class="headerlink" title="索引序列访问方法（ISAM）"></a>索引序列访问方法（ISAM）</h3><p>一种静态索引结构，适用于数据库变化不大的情况</p>
-<p>创建一个二级文件作为索引，记录每一页的起始记录的属性值，索引中元素的格式为（页中第一个键，指向页的指针）</p>
-<p><strong>ISAM</strong></p>
-<p>对每一层二级文件均建立相应二级文件结构</p>
-<p>构造方法：</p>
-<ul>
-<li>在最底层使用溢出链表</li>
-<li>索引中一结点的大小同一个物理页的大小相同</li>
-<li>关系中所有数据均存放在叶子结点</li>
-<li>也可以在实际数据上层增加一个第二种类型的data entry</li>
-<li>树结构静态，只有叶结点中溢出结点会变化</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511110725.png" alt="image-20210511110724884"></p>
-<p>操作</p>
-<ul>
-<li>搜索：复杂度$\log_F{N}$，F是每个结点中data entry数量，N为关系中记录数</li>
-<li>插入、删除：只对叶子层的数据起作用</li>
-</ul>
-<h3 id="B-树：一种动态索引结构"><a href="#B-树：一种动态索引结构" class="headerlink" title="B+树：一种动态索引结构"></a>B+树：一种动态索引结构</h3><p>一种动态结构，适用于各种情况</p>
-<p><strong>M阶B+树</strong></p>
-<ul>
-<li>每个结点之多有m棵子树，至少有[m/2]棵子树</li>
-<li>根节点或为叶结点，或至少有两个子树</li>
-<li>在insert、delete操作中树保持平衡</li>
-<li>搜索时只需要访问树的高层次</li>
-<li>所有叶结点在同一层次，data entry层用双向链表连接，便于访问</li>
-</ul>
-<p>B+树结构：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111010.png" alt="image-20210511111009926"></p>
-<p>B+树索引结点的结构：</p>
-<ol>
-<li>每个结点由n个数值和n+1个指针构成</li>
-<li>pi指向子树上的结点的值k，有ki&lt;=k&lt;=ki+1</li>
-<li>通常用第二种或第三种data entry</li>
-<li>data entry本身可以看成为是记录的文件，如果data entry包含整个记录，则文件就是数据本身，否则是一个单独的文件</li>
-</ol>
-<p><strong>操作</strong></p>
-<ul>
-<li>搜索</li>
-<li>插入</li>
-<li>删除</li>
-</ul>
-<h2 id="基于Hash的索引结构"><a href="#基于Hash的索引结构" class="headerlink" title="基于Hash的索引结构"></a>基于Hash的索引结构</h2><p>基于Hash的索引结构适用于相等查询操作，基本想法是将数据映射成一个bucket，bucket对应相应数据的存储位置，有各种不同的基于Hash的索引结构，不适合区间查询。</p>
-<h3 id="静态Hash"><a href="#静态Hash" class="headerlink" title="静态Hash"></a>静态Hash</h3><p>包含数据的页构成一系列的bucket，每个bucket由一个primary bucket page和一串overflow page构成，overflow page中的数据可以进行排序</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111855.png" alt="image-20210511111855580"></p>
-<h3 id="可扩充的Hash"><a href="#可扩充的Hash" class="headerlink" title="可扩充的Hash"></a>可扩充的Hash</h3><ul>
-<li><p>通过一个directory来记录每个bucket所处的位置，随着数据的增加，bucket将分解，而不是增加overflow页</p>
-</li>
-<li><p>随着bucket的分解，相应的directory会增长</p>
-</li>
-<li><p>利用Hash函数结果最后若干位作为确定bucket的依据</p>
-</li>
-<li>在directory和bucket上分别标有global depth和local depth作为判断的长度</li>
-</ul>
-<h3 id="线性Hash"><a href="#线性Hash" class="headerlink" title="线性Hash"></a>线性Hash</h3><ul>
-<li>一种动态Hashing</li>
-<li>由一个bucket序列构成</li>
-<li>每个bucket还附带一串overflow page</li>
-<li>克服可扩充Hashing在数据倾斜情况下过于频繁的特点</li>
-<li>没有directory</li>
-<li>每次只对一个bucket进行分解，激发分解的条件是数据库中有一个bucket进行了分解或增加了新的bucket page</li>
-</ul>
-<h3 id="可扩充Hash和线性Hash的比较"><a href="#可扩充Hash和线性Hash的比较" class="headerlink" title="可扩充Hash和线性Hash的比较"></a>可扩充Hash和线性Hash的比较</h3><ul>
-<li>两者都依赖于Hash函数的好坏</li>
-<li>当Hash函数比较均衡的时候，两者相差不大，线性Hash少了一次读取directory的时间</li>
-<li>不均衡时<ul>
-<li>线性的primary bucket增长较慢，由于overflow串较长，所以查询性能较差，但空间少</li>
-<li>可扩展的Hashing的primary bucket增长较快，由于overflow串较短，所以查询性能好，但占用空间大</li>
-</ul>
-</li>
-</ul>
+          <h2 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h2><p>中序遍历递增，执行一次中序遍历耗费的时间是O(n)</p>
+<h2 id="查询二叉搜索树"><a href="#查询二叉搜索树" class="headerlink" title="查询二叉搜索树"></a>查询二叉搜索树</h2><p><em>查找</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TREE-SEARCH(x,k)</span><br><span class="line">	<span class="keyword">if</span> x == NIL or k == x.key</span><br><span class="line">		<span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">if</span> k &lt; x.key</span><br><span class="line">    	<span class="keyword">return</span> TREE-SEARCH(x.left, k)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> TREE-SEARCH(x.right, k)</span><br></pre></td></tr></table></figure>
+<p><em>最大关键字元素和最小关键字元素</em></p>
+<p>见后文</p>
+<p><em>后继和前驱</em></p>
+<p>见后文</p>
+<p>以上操作在高度为h的二叉树上都能在O(h)的时间内完成</p>
+<h2 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h2><p><em>插入</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TREE-INSERT(T,z)</span><br><span class="line">	y &#x3D; NIL</span><br><span class="line">	x &#x3D; T.root</span><br><span class="line">	while x !&#x3D; NIL</span><br><span class="line">		y &#x3D; x</span><br><span class="line"> 		if z.key &lt; x.key</span><br><span class="line"> 			x &#x3D; x.left</span><br><span class="line">        else x &#x3D; x.right</span><br><span class="line">    z.p &#x3D; y</span><br><span class="line">    if y &#x3D;&#x3D; NIL</span><br><span class="line">    	T.root &#x3D; x &#x2F;&#x2F; 空树</span><br><span class="line">    elseif z.key &lt; y.key</span><br><span class="line">    	y.left &#x3D; z</span><br><span class="line">    else y.right &#x3D; z</span><br></pre></td></tr></table></figure>
+<p>运行时间同样为O(h)，因为这些操作都是在二叉搜索树上从上往下进行一次遍历</p>
+<p><em>删除</em></p>
+<p>首先定义一个子过程TRANSPLANT，用另一棵子树替换一棵子树并成为其双亲的孩子节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BST</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Node root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BST</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.root = root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeWalk</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TreeWalk(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">TreeWalk</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x != <span class="keyword">null</span>) &#123;</span><br><span class="line">            TreeWalk(x.left);</span><br><span class="line">            System.out.println(x.key);</span><br><span class="line">            TreeWalk(x.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeSearch</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeSearch(root, k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">TreeSearch</span><span class="params">(Node x, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( x == <span class="keyword">null</span> || k == x.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k &lt; x.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeSearch(x.left, k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeSearch(x.right, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMinimum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeMinimum(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMinimum</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        Node y = x;</span><br><span class="line">        <span class="keyword">while</span> (y.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = y.left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMaximum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeMaximum(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">TreeMaximum</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        Node y = x;</span><br><span class="line">        <span class="keyword">while</span> (y.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = y.right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeSuccessor</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeMinimum(x.right);</span><br><span class="line">        &#125;</span><br><span class="line">        Node y = x.p;</span><br><span class="line">        <span class="keyword">while</span> (y != <span class="keyword">null</span> &amp;&amp; x == y.right) &#123;</span><br><span class="line">            x = y;</span><br><span class="line">            y = y.p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreePreDecessor</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeMaximum(x.left);</span><br><span class="line">        &#125;</span><br><span class="line">        Node y = x.p;</span><br><span class="line">        <span class="keyword">while</span> (y != <span class="keyword">null</span> &amp;&amp; x == y.left) &#123;</span><br><span class="line">            x = y;</span><br><span class="line">            y = y.p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeInsert</span><span class="params">(Node z)</span> </span>&#123;</span><br><span class="line">        Node y = <span class="keyword">null</span>;</span><br><span class="line">        Node x = root;</span><br><span class="line">        <span class="comment">// x占据的位置就是z要插入的位置</span></span><br><span class="line">        <span class="keyword">while</span> (x != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = x;</span><br><span class="line">            <span class="keyword">if</span> (z.key &lt; x.key) &#123;</span><br><span class="line">                x = x.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                x = x.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        z.p = y;</span><br><span class="line">        <span class="keyword">if</span> (y == <span class="keyword">null</span>) &#123;</span><br><span class="line">            root = z;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (z.key &lt; y.key) &#123;</span><br><span class="line">            y.left = z;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            y.right = z;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除</span></span><br><span class="line">    <span class="comment">// 1.没有孩子节点直接删除，修改其父节点的孩子节点为null</span></span><br><span class="line">    <span class="comment">// 2.只有一个孩子，将孩子换到它原来的位置，并修改其父节点</span></span><br><span class="line">    <span class="comment">// 3.有两个孩子，用其后继占据其位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    r</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">     null r</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    l</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">      l  null</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    y</span></span><br><span class="line"><span class="comment">       / \         / \</span></span><br><span class="line"><span class="comment">      l   y       l   x</span></span><br><span class="line"><span class="comment">         / \</span></span><br><span class="line"><span class="comment">       null x</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q               q</span></span><br><span class="line"><span class="comment">        |           |               |</span></span><br><span class="line"><span class="comment">        z     -&gt;    z    y   -&gt;     y</span></span><br><span class="line"><span class="comment">       / \         /    / \        / \</span></span><br><span class="line"><span class="comment">      l   r       l  null  r      l   r</span></span><br><span class="line"><span class="comment">         / \              / \        / \</span></span><br><span class="line"><span class="comment">        y   ...          x  ...     x  ...</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">    null  x</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把v换到u的位置上，同时修改u的父节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TransPlant</span><span class="params">(Node u, Node v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (u.p == <span class="keyword">null</span>)</span><br><span class="line">            root = v;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (u == u.p.left)</span><br><span class="line">            u.p.left = v;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            u.p.right = v;</span><br><span class="line">        <span class="keyword">if</span> (v != <span class="keyword">null</span>)</span><br><span class="line">            v.p = u.p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeDelete</span><span class="params">(Node z)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (z.left == <span class="keyword">null</span>)</span><br><span class="line">            TransPlant(z, z.right);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (z.right == <span class="keyword">null</span>)</span><br><span class="line">            TransPlant(z, z.left);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Node y = TreeMaximum(z.right);</span><br><span class="line">            <span class="keyword">if</span> (y.p != z) &#123;</span><br><span class="line">                TransPlant(y, y.right);</span><br><span class="line">                y.right = z.right;</span><br><span class="line">                y.right.p = y;</span><br><span class="line">            &#125;</span><br><span class="line">            TransPlant(z, y);</span><br><span class="line">            y.left = z.left;</span><br><span class="line">            y.left.p = y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -464,7 +285,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -532,14 +353,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -666,59 +487,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
