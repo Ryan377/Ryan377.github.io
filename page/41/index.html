@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">单周期CPU设计</a>
+            <a href="/2021/03/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%AE%BA/" class="post-title-link" itemprop="url">软件工程 第1章 概论</a>
         </h2>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-17 21:24:21" itemprop="dateCreated datePublished" datetime="2021-03-17T21:24:21+08:00">2021-03-17</time>
+              <time title="创建时间：2021-03-17 13:49:11" itemprop="dateCreated datePublished" datetime="2021-03-17T13:49:11+08:00">2021-03-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-29 21:37:10" itemprop="dateModified" datetime="2021-04-29T21:37:10+08:00">2021-04-29</time>
+                <time title="修改时间：2021-05-17 21:46:33" itemprop="dateModified" datetime="2021-05-17T21:46:33+08:00">2021-05-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">体系结构实验</span></a>
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
                 </span>
             </span>
 
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%AE%BA/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC1%E7%AB%A0-%E6%A6%82%E8%AE%BA/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,34 +253,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="基本设计情况"><a href="#基本设计情况" class="headerlink" title="基本设计情况"></a>基本设计情况</h2><h3 id="单周期MIPS处理器"><a href="#单周期MIPS处理器" class="headerlink" title="单周期MIPS处理器"></a>单周期MIPS处理器</h3><ul>
-<li>在一个周期内执行一条完整的指令</li>
-<li>数据通路：由操作元件和状态元件通过分散方式或总线方式连接而成，进行数据存储、处理、传送的路径</li>
-<li>一个执行周期<ul>
-<li>step1: 从指令存储器中取出指令</li>
-<li>step2: 从寄存器文件中读出源操作数</li>
-<li>step3: 符号扩展立即数</li>
-<li>step4: 计算存储器地址</li>
-<li>step5: 向寄存器文件写入数据</li>
-<li>step6: 确定PC的下一个指令地址</li>
+          <h2 id="计算机软件"><a href="#计算机软件" class="headerlink" title="计算机软件"></a>计算机软件</h2><p>计算机软件指计算机系统中的程序及其文档。</p>
+<p><strong>软件的发展</strong></p>
+<ul>
+<li>1946~1956 第一个程序的出现到高级语言出现</li>
+<li>1956~1986 高级语言出现到软件工程出现</li>
+<li>1968至今</li>
 </ul>
+<p><strong>软件的特点</strong></p>
+<p>一种逻辑实体、被开发或设计、不会老化，但需要修复。</p>
+<p><strong>软件的分类</strong></p>
+<ul>
+<li><p>系统软件：编译程序、操作系统等</p>
+</li>
+<li><p>支撑软件：数据库管理系统等</p>
+</li>
+<li><p>应用软件：Web应用软件等</p>
 </li>
 </ul>
-<h3 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h3><ol>
-<li><p>书上的指令集：add、sub、and、or、slt、addi、sw、lw、beq、addi、j</p>
-</li>
-<li><p>添加的指令：andi（and一个立即数）、bne（条件转移指令，当两个寄存器中内容不等时转移发生）、ori（or一个立即数）</p>
-</li>
-</ol>
-<h3 id="IO接口设计"><a href="#IO接口设计" class="headerlink" title="IO接口设计"></a>IO接口设计</h3><ul>
-<li>16位开关输入、8个LEDs7段数码管输出</li>
-<li>按下BTNR：开关位置已经拨号，可以输入新数据</li>
-<li>按下BTNL：LEDs已经准备好，可以输出新数据</li>
+<p><strong>软件语言</strong></p>
+<h2 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h2><p><strong>软件工程定义</strong></p>
+<p>软件工程是应用计算机科学、数学及管理科学等原理，开发软件的工程。</p>
+<p><strong>软件工程框架</strong></p>
+<p>可概括为目标、过程和原则。</p>
+<p><strong>软件的生存周期</strong></p>
+<p>计算机系统工程-&gt;需求分析-&gt;设计-&gt;编码-&gt;测试-&gt;运行和维护</p>
+<h2 id="软件过程"><a href="#软件过程" class="headerlink" title="软件过程"></a>软件过程</h2><p><strong>软件生存周期过程</strong></p>
+<p><strong>能力成熟度模型CMM</strong></p>
+<p>提供一种评价软件承接方能力的方法</p>
+<p><strong>能力成熟度模型集成CMMI</strong></p>
+<p>若干过程模型的综合和改进，是支持多个工程学科和领域的系统的、一致的过程改进框架，能适应现代工程的特点和需要，能提高过程的质量和工作效率</p>
+<h2 id="软件过程模型"><a href="#软件过程模型" class="headerlink" title="软件过程模型"></a>软件过程模型</h2><ul>
+<li>瀑布模型</li>
+<li>演化模型</li>
+<li>增量模型</li>
+<li>原型模型</li>
+<li>螺旋模型</li>
+<li>喷泉模型</li>
+<li>基于构件的开发模型</li>
+<li>形式化方法模型</li>
 </ul>
-<h2 id="演示效果（已验收）"><a href="#演示效果（已验收）" class="headerlink" title="演示效果（已验收）"></a>演示效果（已验收）</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210428202625.png" alt=""></p>
-<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210429203127.png" alt="image-20210429203127618"></p>
-<p>controller和datapath：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210429203205.png" alt="image-20210429203205150"></p>
+<h2 id="敏捷软件开发"><a href="#敏捷软件开发" class="headerlink" title="敏捷软件开发"></a>敏捷软件开发</h2><p><strong>敏捷软件开发的价值观及开发原则</strong></p>
+<ul>
+<li>个人和交互高于过程和工具</li>
+<li>可运行软件高于详尽的文档</li>
+<li>与客户协作高于合同谈判</li>
+<li>对变更及时作出反应高于遵循计划</li>
+</ul>
+<p><strong>XP方法</strong></p>
+<p>极限编程</p>
 
       
     </div>
@@ -299,7 +320,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/40/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/page/42/">42</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="extend next" rel="next" href="/page/42/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/40/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><span class="page-number current">41</span><a class="page-number" href="/page/42/">42</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/42/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -367,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
