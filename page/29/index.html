@@ -216,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-17 22:04:29" itemprop="dateModified" datetime="2021-05-17T22:04:29+08:00">2021-05-17</time>
+                <time title="修改时间：2021-05-18 11:02:23" itemprop="dateModified" datetime="2021-05-18T11:02:23+08:00">2021-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,7 +253,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="结构化分析方法的概述"><a href="#结构化分析方法的概述" class="headerlink" title="结构化分析方法的概述"></a>结构化分析方法的概述</h2><p>以数据流为中心构建软件的分析模型和设计模型</p>
+          <p>结构化分析（SA）、结构化设计（SD）、结构化程序设计（SP）构成了完整的结构化方法</p>
+<h2 id="结构化分析方法的概述"><a href="#结构化分析方法的概述" class="headerlink" title="结构化分析方法的概述"></a>结构化分析方法的概述</h2><p>以数据流为中心构建软件的分析模型和设计模型</p>
 <p>抽象、分解</p>
 <p>结构化分析的过程：</p>
 <ol>
@@ -265,19 +266,47 @@
 <p>描述形式：</p>
 <p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210517220415.png" alt="结构化分析模型的描述形式"></p>
 <h2 id="数据流图（DFD）"><a href="#数据流图（DFD）" class="headerlink" title="数据流图（DFD）"></a>数据流图（DFD）</h2><p><strong>数据流图的图形表示</strong></p>
+<p>基本元素：数据流、加工、文件、源或宿</p>
+<p>扩充符号：与、或、异或</p>
+<p>层次结构：一张图5~9个加工</p>
 <p><strong>分层数据流的画法</strong></p>
+<ol>
+<li>画出系统输入输出</li>
+<li>画出系统内部</li>
+<li>画出加工内部</li>
+<li>重复3，直到每个尚未分解的加工都足够简单</li>
+</ol>
 <h2 id="分层数据流图的审查"><a href="#分层数据流图的审查" class="headerlink" title="分层数据流图的审查"></a>分层数据流图的审查</h2><p><strong>分层数据流图的一致性和完整性</strong></p>
 <p><strong>构造分层DFD时需要注意的问题</strong></p>
 <p><strong>分解的程度</strong></p>
-<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p><strong>字典条目的种类及描述符号</strong></p>
+<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>数据流图和数据字典结合起来构成软件的逻辑模型（分析模型）</p>
+<p><strong>字典条目的种类及描述符号</strong></p>
 <p><strong>字典条目</strong></p>
+<p>DFD中每个元素对应一个数据字典的描述</p>
 <p><strong>字典条目实例</strong></p>
-<h2 id="描述基本加工的小说明"><a href="#描述基本加工的小说明" class="headerlink" title="描述基本加工的小说明"></a>描述基本加工的小说明</h2><p><strong>结构化语言</strong></p>
+<h2 id="描述基本加工的小说明"><a href="#描述基本加工的小说明" class="headerlink" title="描述基本加工的小说明"></a>描述基本加工的小说明</h2><p>DFD的每个基本加工都用一条小说明进行描述，小说明就是基本加工的加工规约</p>
+<p><strong>结构化语言</strong></p>
+<p>一种介于自然语言和形式语言之间的一种半形式语言。</p>
 <p><strong>判定表</strong></p>
-<h2 id="结构化设计概述"><a href="#结构化设计概述" class="headerlink" title="结构化设计概述"></a>结构化设计概述</h2><p><strong>结构图</strong></p>
+<p>描述加工逻辑包含多个条件，而不同的条件组合需做不同的动作。</p>
+<p><strong>判定树</strong></p>
+<p>判定表的变种</p>
+<h2 id="结构化设计概述"><a href="#结构化设计概述" class="headerlink" title="结构化设计概述"></a>结构化设计概述</h2><p>结构化设计是将结构化分析得到的数据流图映射成软件体系结构的一种设计方法。</p>
+<p>概要设计是对软件系统的总体设计，采用结构化设计方法；</p>
+<p>详细设计是对模块实现细节的设计，采用结构化程序设计方法。</p>
+<p><strong>结构图</strong></p>
+<p>描述软件系统的体系结构，指出一个软件系统由哪些模块组成，以及模块之间的调用关系。</p>
 <p><strong>启发式设计策略</strong></p>
 <p><strong>结构化设计的步骤</strong></p>
-<h2 id="数据流图到软件体系结构的映射"><a href="#数据流图到软件体系结构的映射" class="headerlink" title="数据流图到软件体系结构的映射"></a>数据流图到软件体系结构的映射</h2><p><strong>信息流</strong></p>
+<ol>
+<li>建立初始结构图</li>
+<li>对结构图改进</li>
+<li>书写设计文档</li>
+<li>设计评审</li>
+</ol>
+<h2 id="数据流图到软件体系结构的映射"><a href="#数据流图到软件体系结构的映射" class="headerlink" title="数据流图到软件体系结构的映射"></a>数据流图到软件体系结构的映射</h2><p>结构化设计是将结构化分析的结果（数据流图）映射成软件的体系结构（结构图）。</p>
+<p><strong>信息流</strong></p>
+<p>变换流和事务流</p>
 <p><strong>数据流图映射到结构图的步骤</strong></p>
 <p><strong>变换分析</strong></p>
 <p><strong>事务分析</strong></p>
