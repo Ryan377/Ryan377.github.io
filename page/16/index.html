@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">查询处理</a>
+            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">第15章 动态规划</a>
         </h2>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-25 18:16:15" itemprop="dateCreated datePublished" datetime="2021-04-25T18:16:15+08:00">2021-04-25</time>
+              <time title="创建时间：2021-05-05 13:16:59" itemprop="dateCreated datePublished" datetime="2021-05-05T13:16:59+08:00">2021-05-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 20:43:04" itemprop="dateModified" datetime="2021-05-11T20:43:04+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-15 11:35:25" itemprop="dateModified" datetime="2021-05-15T11:35:25+08:00">2021-05-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
                 </span>
             </span>
 
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,179 +253,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h2><p>排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序</p>
-<h3 id="简单的两路Merge排序"><a href="#简单的两路Merge排序" class="headerlink" title="简单的两路Merge排序"></a><strong>简单的两路Merge排序</strong></h3><ul>
-<li>使用三个页的内存排序</li>
-<li>基本思想<ul>
-<li>将大的文件转换成小的块</li>
-<li>对这些块进行排序</li>
-<li>使用最小空间进行Merge排序</li>
-</ul>
-</li>
-<li>每个排过序的小文件为一个run</li>
-<li>在内存中可以用各种排序算法</li>
-</ul>
-<p>总开销为：$2N*(\lceil log_2{N}\rceil + 1)$</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png" alt="image-20210511113138096"></p>
-<h3 id="外部Merge排序"><a href="#外部Merge排序" class="headerlink" title="外部Merge排序"></a><strong>外部Merge排序</strong></h3><p>若有B个page</p>
-<ul>
-<li>在page0一次性读入B个页的数据进行排序</li>
-<li>在page1,2…一次性读入B个页的数据进行排序，利用B-1个Buffer页作为输入，将最后一个Buffer页作为输出的缓冲区，进行B-1路的Merge排序</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113346.png" alt="image-20210511113346036"></p>
-<h3 id="提高性能的几点考虑"><a href="#提高性能的几点考虑" class="headerlink" title="提高性能的几点考虑"></a><strong>提高性能的几点考虑</strong></h3><ul>
-<li><p>如何减少run的次数</p>
-</li>
-<li><p>减少I/O代价的优化</p>
-</li>
-<li>双缓冲区</li>
-</ul>
-<h3 id="利用B-树排序"><a href="#利用B-树排序" class="headerlink" title="利用B+树排序"></a><strong>利用B+树排序</strong></h3><ul>
-<li>聚集索引：由于磁盘上的数据已经排序，而且上层有一个索引结构，所以查询和排序操作性能均很高</li>
-<li>非聚集索引：Data entry中的数据是排序的，但数据在磁盘上的存储层次是杂乱无章的，计算量为(f+p)*N</li>
-</ul>
-<h2 id="关系操作的执行"><a href="#关系操作的执行" class="headerlink" title="关系操作的执行"></a>关系操作的执行</h2><p>查询操作是查询执行的基本组成部分，包括选择、投影、连接，查询优化根据数据库的实际情况选择查询操作的执行方法</p>
-<h3 id="查询过程简介"><a href="#查询过程简介" class="headerlink" title="查询过程简介"></a><strong>查询过程简介</strong></h3><p>影响因素：数据库表的大小、索引、排序情况、缓冲区大小和置换策略</p>
-<p>各个操作实现时常用的基本技术：</p>
+          <p>动态规划通常用于求解最优化问题</p>
 <ol>
-<li>Iteration</li>
-<li>Indexing</li>
-<li>Partitioning</li>
+<li>刻画一个最优解的结构特征</li>
+<li>递归定义最优解的值</li>
+<li>计算最优解的值，通常采用自底向上的方法</li>
+<li>利用计算出的信息构造一个最优解</li>
 </ol>
-<p><strong>访问路径</strong></p>
-<ul>
-<li>各路从关系表中访问记录的方法</li>
-<li>方式<ul>
-<li>文件扫描</li>
-<li>索引加上选择匹配条件</li>
-</ul>
-</li>
-</ul>
-<h3 id="选择操作"><a href="#选择操作" class="headerlink" title="选择操作"></a><strong>选择操作</strong></h3><ul>
-<li>没有索引、数据不排序：需要扫描全表，选择率差，代价大</li>
-<li>没有索引、数据排序：折半查找</li>
-<li>B+索引：先找到约束数据所在位置，从相应的data entry开始向后逐个检测知道找到所有满足条件的data entry，根据data entry找到相应的元组</li>
-<li>Hash索引、相等选择：先找到相应的bucket，在bucket中数据进行检测，从数据文件中找到对应的元组</li>
-</ul>
-<h3 id="General-Selection操作"><a href="#General-Selection操作" class="headerlink" title="General Selection操作"></a><strong>General Selection操作</strong></h3><p>一般的查询条件是一个逻辑表达式，通过逻辑连接符连接的项表达式</p>
-<p>CNF（conjunctive normal form）</p>
-<p><strong>不包括disjunction的选择操作的执行</strong></p>
-<p>可以进行文件扫描，或先对选择率最高的primary conjuncts通过索引进行查询，然后利用非primary key对结果进行筛选</p>
-<p><strong>包括disjunction的选择操作的执行</strong></p>
-<p>如果有一个项需要对整个文件进行扫描，则需要对整个文件进行扫描</p>
-<h3 id="投影操作"><a href="#投影操作" class="headerlink" title="投影操作"></a><strong>投影操作</strong></h3><p>主要功能：去除不需要的属性、删除重复元组</p>
-<p><strong>基于排序的投影方法</strong></p>
-<p>基本思路：扫描关系R，生成只包含需要属性的数据集，对数据集进行排序，扫描排好序的结果，通过前后比较去除重复元组</p>
-<p>改进：</p>
+<h2 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h2><p>寻找最优切割方案</p>
+<p>暴力递归求解复杂度高，因为求解了很多重复子问题</p>
+<p>采用动态规划的思想，并用一个数组保存中间结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自顶向下递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">cutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> q = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        q = Math.max(q, p[i] + cutRod(p, n - i - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态规划，自顶向下带备忘录</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">memoCutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i] = Integer.MIN_VALUE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memoCutRodAux(p, n, dp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">memoCutRodAux</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n, <span class="keyword">int</span>[] dp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[n] &gt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    <span class="keyword">int</span> ans;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">        ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ans = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            ans = Math.max(ans, p[i] + memoCutRodAux(p, n - i - <span class="number">1</span>, dp));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[n] = ans;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自底向上版本</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bottomUpCutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">            ans = Math.max(ans, p[j - <span class="number">1</span>] + dp[i - j]);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i] = ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h2><p>完全括号化的矩阵乘积链</p>
+<p>求完全括号化方案使得所需标量乘法次数最少</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MatrixChainMultiplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] p = &#123;<span class="number">30</span>, <span class="number">35</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">25</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] m = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>][<span class="number">7</span>];</span><br><span class="line">        <span class="keyword">int</span>[][] s = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>][<span class="number">7</span>];</span><br><span class="line">        Matrix_Chain(p, <span class="number">6</span>, m, s);</span><br><span class="line">        print_optimal_parens(s, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Matrix_Chain</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n, <span class="keyword">int</span>[][] m, <span class="keyword">int</span>[][] s)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//①将对角线上的值先赋值为0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            m[i][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>; <span class="comment">//l为矩阵链的长度</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//m[i][j]的第一个参数</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//m[i][j]的第二个参数</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//②以长度L为划分，L从2开始到n</span></span><br><span class="line">        <span class="keyword">for</span> (l = <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//循环第一个参数，因为l的长度至少为2，所以i和j在这个循环里面肯定不相等</span></span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n - l + <span class="number">1</span>; i++) &#123;</span><br><span class="line">                <span class="comment">//因为j-i+1=l，所以j=l+i-1</span></span><br><span class="line">                j = i + l - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//给m[i][j]赋初值，这里要寻找m[i][j]的最小值，本来应当给m[i][j]赋值一个正无穷，但是这里直接赋一个i=j时候的特值也可以</span></span><br><span class="line">                m[i][j] = m[i][i] + m[i + <span class="number">1</span>][j] + p[i - <span class="number">1</span>] * p[i] * p[j];</span><br><span class="line">                s[i][j] = i;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//对于每个特定的i和j的组合，遍历此时所有的合适k值，k大于等于i小于j</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = i + <span class="number">1</span>; k &lt; j; k++) &#123; <span class="comment">//这里k不能等于j，因为后面要m[k+1][j]，不然k+1就比j大了</span></span><br><span class="line"></span><br><span class="line">                    tmp = m[i][k] + m[k + <span class="number">1</span>][j] + p[i - <span class="number">1</span>] * p[k] * p[j];</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (tmp &lt; m[i][j]) &#123;</span><br><span class="line">                        m[i][j] = tmp;</span><br><span class="line">                        s[i][j] = k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print_optimal_parens</span><span class="params">(<span class="keyword">int</span>[][] s, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;A&quot;</span> + i);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">            print_optimal_parens(s, i, s[i][j]);</span><br><span class="line">            print_optimal_parens(s, s[i][j] + <span class="number">1</span>, j);</span><br><span class="line">            System.out.print(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="动态规划原理"><a href="#动态规划原理" class="headerlink" title="动态规划原理"></a>动态规划原理</h2><p>最优子结构和子问题重叠</p>
+<p>如果一个问题的最优解包含其子问题的最优解，称此问题为具有最优子结构性质</p>
 <ol>
-<li>将第一步同排序操作的pass 0结合在一起</li>
-<li>每次做merge的时候去除重复元组</li>
+<li>证明问题最优解的第一个组成部分是做出一个选择。</li>
+<li>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解。</li>
+<li>给定可能最优解的选择后 ，你确定这次选择会产生哪些子问题，以及如何更好地刻画子问题空间。</li>
+<li>证明最为构成原问题的最优解的组成部分，每个子问题的解就是它本身的最优解。</li>
 </ol>
-<p><strong>基于Hashing的投影方法</strong></p>
-<p>主要思路：</p>
-<ul>
-<li>分区阶段</li>
-<li>重复数据删除</li>
-</ul>
-<p>两种方法的比较：基于排序的方法总体性能比较好，产生的结果是排序的，特别适合内存比较小和数据分布不均匀的情况，一般排序和重复元组删除两部分是分开的；基于Hashing的方法当B&gt;$T^{1/2}$的时候两者性能相差不大。</p>
-<h3 id="Join操作"><a href="#Join操作" class="headerlink" title="Join操作"></a><strong>Join操作</strong></h3><p>相当于一个叉乘操作加上一个选择和投影操作，所以Join操作的结果一般比叉乘操作的结果小</p>
-<p>实现方法</p>
-<ul>
-<li>需要扫描整表<ul>
-<li>嵌套循环join</li>
-<li>块嵌套循环join</li>
-</ul>
-</li>
-<li>不需要扫描整表<ul>
-<li>Sort-merge join方法</li>
-<li>Hash join方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a><strong>集合操作</strong></h3><p>$R\bigcap S，R\bigcup S，R \times S， R - S$</p>
-<p>$R\bigcap S,R \times S$ 可以认为是特殊的join操作</p>
-<p>$R\bigcup S,R-S$ 原理类似，均是发现两个关系中相同的元组，实现</p>
-<ul>
-<li>通过排序</li>
-<li>通过Hash</li>
-</ul>
-<h3 id="聚集操作"><a href="#聚集操作" class="headerlink" title="聚集操作"></a><strong>聚集操作</strong></h3><p>AVG MIN MAX SUM COUNT</p>
-<p>基本实现方法是对整个表进行扫描，对每个元组将所需要的信息收集起来</p>
-<p>GROUP BY，需要对rating属性进行分组</p>
-<h3 id="缓冲区的影响"><a href="#缓冲区的影响" class="headerlink" title="缓冲区的影响"></a><strong>缓冲区的影响</strong></h3><p>如果几个操作并行执行，则每个操作占用的空间将减少，如果索引是非簇聚的，则通过data entry访问物理页时，需要多次从磁盘调用数据，缓冲区将很快就被装满，需要有好的调度策略。</p>
-<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>每个查询均有多种实现方法，DBMS需要选出其中最好的访问方法查询优化器用于解决这个问题</p>
-<h3 id="查询优化概述"><a href="#查询优化概述" class="headerlink" title="查询优化概述"></a><strong>查询优化概述</strong></h3><p>查询处理过程</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511183245.png" alt="image-20210511183245435"></p>
-<p>查询优化包括两步：</p>
-<ol>
-<li>列出表达式的各种执行方案（一般只列出一部分）</li>
-<li>计算每种代价，选择代价最小的</li>
-</ol>
-<p>查询访问计划：由一颗扩充的关系代数树构成，在每个节点将注明对关系的访问方法和关系操作的执行方法。</p>
-<p>Piplined Evaluation：如果一个查询操作的结果直接传入下一个操作，而不生成一个中间表，则称为Piplined的方式，标为on-the-fly，如果一个查询的结果先生成一个中间表，则称为物化的。</p>
-<p><strong>System R的优化器</strong></p>
-<p>第一个数据库管理系统，其查询优化器具有指导意义，主要特点为：</p>
-<ol>
-<li>使用数据库中数据对象的统计信息估测查询的代价</li>
-<li>只考虑两个关系的Join，其中inner关系为原始表，用启发式方法减少可能的访问计划数量</li>
-<li>不考虑嵌套查询的优化</li>
-<li>投影操作中一般不进行重复元组的删除</li>
-<li>代价模型同时考虑CPU和IO的代价</li>
-</ol>
-<h3 id="关系数据库关系系统中的数据字典"><a href="#关系数据库关系系统中的数据字典" class="headerlink" title="关系数据库关系系统中的数据字典"></a><strong>关系数据库关系系统中的数据字典</strong></h3><p>数据字典提供对数据库中各种对象的描述，称为System catalog，catalog或数据字典，这些数据存储在很多表中称为Catalog表</p>
-<ul>
-<li><p>对每个关系，系统信息包括：关系名、属性名、属性类型、索引名、约束描述</p>
-</li>
-<li><p>对每个索引</p>
-</li>
-<li>对每个视图</li>
-<li>关系和索引的统计信息也存放在系统中</li>
-<li>这些数据字典本身也存成为数据库表的形式</li>
-</ul>
-<h3 id="各种访问方法"><a href="#各种访问方法" class="headerlink" title="各种访问方法"></a><strong>各种访问方法</strong></h3><p>使用索引提高查询性能</p>
-<p>少量查询结果的处理</p>
-<h2 id="一个典型的关系查询优化器"><a href="#一个典型的关系查询优化器" class="headerlink" title="一个典型的关系查询优化器"></a>一个典型的关系查询优化器</h2><ul>
-<li>一个查询被分成若干个块，每个块被翻译成一个查询代数表达式</li>
-<li>查询代数表达式的优化包括：<ul>
-<li>列出查询代数表达式对应的各种访问计划</li>
-<li>对每个计划估算其执行代价，从中选出最好的访问计划</li>
-<li>估算时要考虑每个查询操作的执行代价和操作执行结果的特性</li>
-</ul>
-</li>
-</ul>
-<h3 id="SQL查询到代数表达式的转换"><a href="#SQL查询到代数表达式的转换" class="headerlink" title="SQL查询到代数表达式的转换"></a><strong>SQL查询到代数表达式的转换</strong></h3><p>首先将查询分解为块，然后将每一块转换成查询代数，再进行后续的转换</p>
-<p><strong>查询块</strong></p>
-<p>定义：一个没有嵌套的查询语句，有唯一的Select、From、Where、Group和Having子句</p>
-<p>例子：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511202815.png" alt="image-20210511202815536"></p>
-<h3 id="访问计划的代价估计"><a href="#访问计划的代价估计" class="headerlink" title="访问计划的代价估计"></a><strong>访问计划的代价估计</strong></h3><p>一个查询块的访问计划的代价估算包括</p>
-<ul>
-<li>估算每个操作的代价，代价应该包括查询结果是Pipelining的方式输入还是用临时表的方式。这两点有较大的差距</li>
-<li>估算每个操作产生的结果长度，是否排序，这对其父节点的实现有影响</li>
-<li>这些估算利用的信息记录在数据库管理系统的数据字典中</li>
-</ul>
-<p><strong>结果大小的估算</strong></p>
-<p>包括两个因素：返回属性的类型长度和返回元组的个数（其数目由Where带来的Reduction Factor决定）</p>
-<h3 id="查询代数的等价变换"><a href="#查询代数的等价变换" class="headerlink" title="查询代数的等价变换"></a><strong>查询代数的等价变换</strong></h3><p>依据查询代数表达式间的等价关系进行变换，两个查询代数表达式是等价的当且仅当它们产生的结果是相同的</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203419.png" alt="image-20210511203418961"></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203506.png" alt="image-20210511203506511"></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203538.png" alt="image-20210511203538060"></p>
-<h3 id="生成各种访问计划"><a href="#生成各种访问计划" class="headerlink" title="生成各种访问计划"></a><strong>生成各种访问计划</strong></h3><p>将利用前面提到的代数表达式对查询的代数表达式进行变换得到各种访问计划，但不是利用所有的变换，否则优化时间会过长</p>
-<p><strong>单个关系查询</strong></p>
-<p>关键在于索引的使用和选择、投影算法实现方法的选择</p>
-<p><strong>多个关系的查询</strong></p>
-<p>最主要的问题是如何在一定的时间内找到好的联接次序</p>
-<p>两种联接树</p>
-<p>Left-deep tree和bushy tree</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203917.png" alt="image-20210511203917589"></p>
-<h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a><strong>嵌套子查询</strong></h3><p>实际的关系数据库管理系统中均提供了对嵌套查询的处理方法</p>
-<h3 id="其他查询优化方法"><a href="#其他查询优化方法" class="headerlink" title="其他查询优化方法"></a><strong>其他查询优化方法</strong></h3><p>启发式的方法最大的问题是在关系比较多的情况下，搜索空间太大，为此出现了一些新的方法</p>
-<ul>
-<li>基于规则的方法</li>
-<li>随机访问计划生成方法</li>
-<li>带参数的查询优化</li>
-<li>多查询优化</li>
-</ul>
+<p>对于重叠子问题，对每个子问题求解一次，将解存入一个表中，当再次需要这个子问题时直接查表，每次查表的代价为常量时间。（备忘）</p>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><p>给定两个序列，求X和Y长度最长的公共子序列</p>
+<p>定义c[i, j]表示$X_i和Y_j$的LCS长度，则</p>
+<script type="math/tex; mode=display">
+c[i,j]=
+\begin{cases}
+0,若i=0或j=0\\
+c[i-1,j-1]+1,若i,j>0且x_i=y_i\\
+max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
+\end{cases}</script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LCS</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] X = &#123;<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">char</span>[] Y = &#123;<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;A&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[X.length + <span class="number">1</span>][Y.length + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[][] b = <span class="keyword">new</span> <span class="keyword">int</span>[X.length + <span class="number">1</span>][Y.length + <span class="number">1</span>];</span><br><span class="line">        LCS(X, Y, c, b);</span><br><span class="line">        printLCS(b, X, X.length, Y.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">char</span>[] x, <span class="keyword">char</span>[] y, <span class="keyword">int</span>[][] c, <span class="keyword">int</span>[][] b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = x.length;</span><br><span class="line">        <span class="keyword">int</span> n = y.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            c[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            c[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x[i - <span class="number">1</span>] == y[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                    b[i][j] = <span class="number">2</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] &gt;= c[i][j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    c[i][j] = c[i - <span class="number">1</span>][j];</span><br><span class="line">                    b[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    c[i][j] = c[i][j - <span class="number">1</span>];</span><br><span class="line">                    b[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printLCS</span><span class="params">(<span class="keyword">int</span>[][] b, <span class="keyword">char</span>[] X, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (b[i][j] == <span class="number">2</span>) &#123;</span><br><span class="line">            printLCS(b, X, i - <span class="number">1</span>, j - <span class="number">1</span>);</span><br><span class="line">            System.out.print(X[i - <span class="number">1</span>] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">            printLCS(b, X, i - <span class="number">1</span>, j);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            printLCS(b, X, i, j - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最优二叉搜索树"><a href="#最优二叉搜索树" class="headerlink" title="最优二叉搜索树"></a>最优二叉搜索树</h2><p>对于每个关键字，都有一个搜索频率，如何构造一个二叉搜索树使得所有搜索操作访问的结点总数最少</p>
+<p>e[i,j]表示在包含关键字$k_i,…,k_j$进行一次搜索的的期望代价，最终希望计算出e[1,n]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OptimalBST</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[] p;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[] q;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[][] e;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[][] w;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        OptimalBST sample=<span class="keyword">new</span> OptimalBST();</span><br><span class="line">        sample.getInputInfo();</span><br><span class="line">        sample.optimalBST();</span><br><span class="line">        sample.constructOptimalBST(sample.root, <span class="number">1</span>, sample.n);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getInputInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;输入关键字的个数&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">this</span>.n=in.nextInt();</span><br><span class="line">        p=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">1</span>];</span><br><span class="line">        q=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">1</span>];</span><br><span class="line">        System.out.println(<span class="string">&quot;依次输入&quot;</span>+<span class="keyword">this</span>.n+<span class="string">&quot;个关键字的概率p&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            p[i+<span class="number">1</span>]=in.nextDouble();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;依次输入&quot;</span>+(<span class="keyword">this</span>.n+<span class="number">1</span>)+<span class="string">&quot;个非关键字的概率q&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            q[i]=in.nextDouble();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">optimalBST</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        e=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">2</span>][n+<span class="number">1</span>];</span><br><span class="line">        w=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">2</span>][n+<span class="number">1</span>];</span><br><span class="line">        root=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n+<span class="number">2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            e[i][i-<span class="number">1</span>]=q[i-<span class="number">1</span>];</span><br><span class="line">            w[i][i-<span class="number">1</span>]=q[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l=<span class="number">1</span>;l&lt;=n;l++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n-l+<span class="number">1</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j=i+l-<span class="number">1</span>;</span><br><span class="line">                e[i][j]=Double.MAX_VALUE;</span><br><span class="line">                w[i][j]=w[i][j-<span class="number">1</span>]+p[j]+q[j];</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> r=i;r&lt;=j;r++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">double</span> t=e[i][r-<span class="number">1</span>]+e[r+<span class="number">1</span>][j]+w[i][j];</span><br><span class="line">                    <span class="keyword">if</span>(t&lt;e[i][j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        e[i][j]=t;</span><br><span class="line">                        root[i][j]=r;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">constructOptimalBST</span><span class="params">(<span class="keyword">int</span>[][] root,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r=root[i][j];</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">1</span>&amp;&amp;j==<span class="keyword">this</span>.n)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+r+<span class="string">&quot;是根&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(r-<span class="number">1</span>&lt;i)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;d&quot;</span>+(r-<span class="number">1</span>)+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的左子树&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+root[i][r-<span class="number">1</span>]+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的左子树&quot;</span>);</span><br><span class="line">            constructOptimalBST(root,i,r-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(j&lt;r+<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;d&quot;</span>+j+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的右子树&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+root[r+<span class="number">1</span>][j]+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的右子树&quot;</span>);</span><br><span class="line">            constructOptimalBST(root,r+<span class="number">1</span>,j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -444,7 +306,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -512,7 +374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">软件工程 第8章 面向对象建模</a>
+            <a href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">大数运算</a>
         </h2>
 
         <div class="post-meta">
@@ -208,23 +208,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-04-03 21:48:19" itemprop="dateCreated datePublished" datetime="2021-04-03T21:48:19+08:00">2021-04-03</time>
+              <time title="创建时间：2021-04-11 20:38:37 / 修改时间：20:38:15" itemprop="dateCreated datePublished" datetime="2021-04-11T20:38:37+08:00">2021-04-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-18 11:34:18" itemprop="dateModified" datetime="2021-05-18T11:34:18+08:00">2021-05-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">算法题解</span></a>
                 </span>
             </span>
 
@@ -237,8 +231,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,56 +247,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>面向对象方法已经成为主流的软件开发方法，UML也成为主流的面向对象建模语言。在面向对象的开发过程中会从不同的视角建立多种不同的模型。</p>
-<h2 id="用况建模"><a href="#用况建模" class="headerlink" title="用况建模"></a>用况建模</h2><p>用况建模是用于描述一个系统应该做什么的建模技术，用况建模不仅用新系统的需求来获取，还可用于已有系统的升级。</p>
-<p>主要目标：</p>
-<ul>
-<li>确定和描述系统的功能要求</li>
-<li>给出清晰和一致的关于系统做什么的描述</li>
-<li>为验证系统所需要的测试提供基准</li>
-<li>提供从功能需求到系统的实际类和操作的跟踪能力</li>
-</ul>
-<p><strong>用况建模步骤</strong></p>
-<ol>
-<li>确定执行者</li>
-<li>确定用况</li>
-<li>描述用况</li>
-<li>定义用况之间的关系</li>
-<li>确认模型</li>
-</ol>
-<p><strong>确定执行者</strong></p>
-<p><strong>确定用况</strong></p>
-<p><strong>用况描述</strong></p>
-<p><strong>用况图中的关系</strong></p>
-<p><strong>案例说明</strong></p>
-<p><strong>用况建模实例</strong></p>
-<h2 id="静态建模"><a href="#静态建模" class="headerlink" title="静态建模"></a>静态建模</h2><p>静态模型描述系统中包含的类以及类之间的关系，展示了软件系统的静态结构。可以用UML类图和对象图描述。</p>
-<p><strong>类图和对象图</strong></p>
-<p><strong>CRC技术</strong></p>
-<p>一种标识类的技术，类-责任-协作者技术，一组表示类的索引卡片。</p>
-<p><strong>类之间的关系</strong></p>
-<ul>
-<li>关联</li>
-<li>依赖</li>
-<li>泛化</li>
-<li>实现</li>
-</ul>
-<p><strong>静态建模实例</strong></p>
-<h2 id="动态建模"><a href="#动态建模" class="headerlink" title="动态建模"></a>动态建模</h2><p>动态建模用来描述系统的动态行为，显示对象在系统运行期间不同时刻的动态交互，UML中用状态机图、活动图、顺序图、通信图和协作图来建立动态模型。</p>
-<p><strong>状态机图</strong></p>
-<p>通常是对类描述的补充，说明该类的对象所有可能状态，以及哪些事件将导致状态改变。</p>
-<p><strong>活动图</strong></p>
-<p>展示整个计算步骤控制流的结点和流程的图。</p>
-<p><strong>顺序图</strong></p>
-<p>描述对象之间的交互行为。</p>
-<p><strong>通信图</strong></p>
-<p>展示了围绕着组合结构的各个部分或协作的各角色而组织的一种交互。顺序图清晰地展示了是时间顺序，通信图清晰地展示了对象间的关系。</p>
-<p><strong>动态建模实例</strong></p>
-<h2 id="物理体系结构建模"><a href="#物理体系结构建模" class="headerlink" title="物理体系结构建模"></a>物理体系结构建模</h2><p>物理体系结构涉及系统的详细描述（根据系统所包含的硬件和软件），显示了硬件的结构，包括不同的结点和结点之间如何连接，还表示了代码模块的物理结构和依赖关系，并展示了对进程、程序、构件等软件在运行时的物理分配。</p>
-<p><strong>构件图</strong></p>
-<p>显示构件类型的定义、内部结构和依赖。</p>
-<p><strong>部署图</strong></p>
-<p>展示了运行时处理结点和在结点上生存的制品的配置。</p>
+          <p>高精度整数：使用vector/数组存储每一位数字</p>
+<p>高精度加法/乘法：模拟加法和乘法的过程</p>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加法</span></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">add</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n.size() &lt; m.size()) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp = n;</span><br><span class="line">        n = m;</span><br><span class="line">        m = temp;</span><br><span class="line">        temp.clear();</span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type i = <span class="number">0</span>; i != m.size(); i++) &#123;</span><br><span class="line">        n[i] += m[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type i = <span class="number">0</span>; i != n.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (n[i] &gt; <span class="number">9</span>) &#123;</span><br><span class="line">            n[i] %= <span class="number">10</span>;</span><br><span class="line">            n[i + <span class="number">1</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n[n.size() - <span class="number">1</span>] &gt; <span class="number">9</span>) &#123;</span><br><span class="line">        n[n.size() - <span class="number">1</span>] %= <span class="number">10</span>;</span><br><span class="line">        n.push_back(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    m.clear();</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -321,7 +269,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -389,7 +337,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -523,59 +471,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 

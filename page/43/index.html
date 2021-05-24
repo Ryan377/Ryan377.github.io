@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Hexo报错</a>
+            <a href="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">单周期CPU设计</a>
         </h2>
 
         <div class="post-meta">
@@ -208,17 +208,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-17 12:59:00 / 修改时间：13:20:40" itemprop="dateCreated datePublished" datetime="2021-03-17T12:59:00+08:00">2021-03-17</time>
+              <time title="创建时间：2021-03-17 21:24:21" itemprop="dateCreated datePublished" datetime="2021-03-17T21:24:21+08:00">2021-03-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 21:37:10" itemprop="dateModified" datetime="2021-04-29T21:37:10+08:00">2021-04-29</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                  <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">体系结构实验</span></a>
                 </span>
             </span>
 
@@ -231,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/17/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E5%8D%95%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,17 +253,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>今天在使用hexo博客运行 hexo d 出现报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OpenSSL SSL_connect: Connection was reset in connection to github.com:443</span><br></pre></td></tr></table></figure>
-<p> 查询了很多方案后，发现是代理的问题，如果你使用了VPN，需要设置一下http.proxy，先查看端口号</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210317125202.png" alt="image-20210317125154852"></p>
-<p>我的端口号是2802，设置http.proxy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:2802</span><br><span class="line">git config --global https.proxy 127.0.0.1:2802</span><br></pre></td></tr></table></figure>
-<p>如果之前已经有过设置，先取消</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br></pre></td></tr></table></figure>
-<p>设置好之后再hexo d，部署成功</p>
-<p>附上我的报错和解决截图</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210317125426.png" alt="image-20210317125426084"></p>
+          <h2 id="基本设计情况"><a href="#基本设计情况" class="headerlink" title="基本设计情况"></a>基本设计情况</h2><h3 id="单周期MIPS处理器"><a href="#单周期MIPS处理器" class="headerlink" title="单周期MIPS处理器"></a>单周期MIPS处理器</h3><ul>
+<li>在一个周期内执行一条完整的指令</li>
+<li>数据通路：由操作元件和状态元件通过分散方式或总线方式连接而成，进行数据存储、处理、传送的路径</li>
+<li>一个执行周期<ul>
+<li>step1: 从指令存储器中取出指令</li>
+<li>step2: 从寄存器文件中读出源操作数</li>
+<li>step3: 符号扩展立即数</li>
+<li>step4: 计算存储器地址</li>
+<li>step5: 向寄存器文件写入数据</li>
+<li>step6: 确定PC的下一个指令地址</li>
+</ul>
+</li>
+</ul>
+<h3 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h3><ol>
+<li><p>书上的指令集：add、sub、and、or、slt、addi、sw、lw、beq、addi、j</p>
+</li>
+<li><p>添加的指令：andi（and一个立即数）、bne（条件转移指令，当两个寄存器中内容不等时转移发生）、ori（or一个立即数）</p>
+</li>
+</ol>
+<h3 id="IO接口设计"><a href="#IO接口设计" class="headerlink" title="IO接口设计"></a>IO接口设计</h3><ul>
+<li>16位开关输入、8个LEDs7段数码管输出</li>
+<li>按下BTNR：开关位置已经拨号，可以输入新数据</li>
+<li>按下BTNL：LEDs已经准备好，可以输出新数据</li>
+</ul>
+<h2 id="演示效果（已验收）"><a href="#演示效果（已验收）" class="headerlink" title="演示效果（已验收）"></a>演示效果（已验收）</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210428202625.png" alt=""></p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210429203127.png" alt="image-20210429203127618"></p>
+<p>controller和datapath：</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210429203205.png" alt="image-20210429203205150"></p>
 
       
     </div>
@@ -276,7 +299,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/42/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/42/">42</a><span class="page-number current">43</span><a class="page-number" href="/page/44/">44</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/44/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -344,7 +367,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

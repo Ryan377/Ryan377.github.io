@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC13%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/" class="post-title-link" itemprop="url">第13章 红黑树</a>
+            <a href="/2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC13%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">软件工程 第13章 软件测试</a>
         </h2>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-16 16:09:03" itemprop="dateCreated datePublished" datetime="2021-04-16T16:09:03+08:00">2021-04-16</time>
+              <time title="创建时间：2021-04-26 10:14:35" itemprop="dateCreated datePublished" datetime="2021-04-26T10:14:35+08:00">2021-04-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-23 10:28:18" itemprop="dateModified" datetime="2021-04-23T10:28:18+08:00">2021-04-23</time>
+                <time title="修改时间：2021-05-17 22:37:33" itemprop="dateModified" datetime="2021-05-17T22:37:33+08:00">2021-05-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
                 </span>
             </span>
 
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC13%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC13%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,25 +253,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="红黑树的性质"><a href="#红黑树的性质" class="headerlink" title="红黑树的性质"></a>红黑树的性质</h2><p>在二叉搜索树的基础上增加一位表示结点是红色或黑色。</p>
-<p>定义：红黑树是满足下列条件的二叉搜索树</p>
-<ol>
-<li>每个结点是红色或者黑色</li>
-<li>根节点是黑色</li>
-<li>每个叶子节点（NIL）是黑色</li>
-<li>如果一个结点是红色，则其两个子节点是黑色</li>
-<li>对每个结点，从该结点到其所有后代结点的简单路径上，均包含相同数目的黑色节点</li>
-</ol>
-<p><em>设置一个哨兵结点代表NIL，所有指向NIL的指针都用哨兵结点替换</em></p>
-<p>黑高bh(x)：从某个结点出发到叶结点的任意一条简单路径上，黑色结点个数，红黑树的黑高定义为根节点的黑高</p>
-<p>引理：一颗有n个内部节点的红黑树高度至多为$2\lg(n+1)$</p>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>进行插入和删除操作可能会破坏红黑树的性质，需要旋转操作来维护。</p>
-<p><img src="C:\Users\87670\AppData\Roaming\Typora\typora-user-images\image-20210421135539585.png" alt="image-20210421135539585"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LEFT-ROTATE(T, x)</span><br><span class="line">	y &#x3D; x.right</span><br><span class="line">	x.right &#x3D; y.left</span><br><span class="line">	if y.left !&#x3D; T.nil</span><br><span class="line">		y.left.p &#x3D; x</span><br><span class="line">    y.p &#x3D; x.p</span><br><span class="line">    if x.p &#x3D;&#x3D; T.nil</span><br><span class="line">    	T.root &#x3D; y</span><br><span class="line">    else x &#x3D;&#x3D; x.p.left</span><br><span class="line">    	x.p.left &#x3D; y</span><br><span class="line">    else x.p.right &#x3D; y</span><br><span class="line">    y.left &#x3D; x</span><br><span class="line">    x.p &#x3D; y</span><br></pre></td></tr></table></figure>
-<p>右旋转和左旋转对称，时间复杂度都为$O(1)$</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210421135908.png" alt="image-20210421135908430"></p>
-<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>先按照二叉搜索树的INSERT方式把结点插入并着为红色，然后调用辅助程序RB-INSERT-FIXUP对结点重新着色并旋转。</p>
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2>
+          <h2 id="软件测试基础"><a href="#软件测试基础" class="headerlink" title="软件测试基础"></a>软件测试基础</h2><p><strong>软件测试的目的</strong></p>
+<ul>
+<li>测试是一个为了发现错误而执行程序的过程</li>
+<li>一个好的测试用例是指很可能找到迄今为止尚未发现的错位的测试用例</li>
+<li>一个成功的测试是指揭示了迄今为止尚未发现的错误的测试</li>
+</ul>
+<p><strong>软件测试的基本原则</strong></p>
+<p><strong>白盒测试和黑盒测试</strong></p>
+<p>白盒测试又称结构测试，检查程序中的所有逻辑路径是否都按照预定的要求正确地工作；</p>
+<p>黑盒测试又称行为测试，只依据程序的需求规格说明书，检查程序的功能是否符合它的功能需求</p>
+<h2 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h2><p><strong>逻辑覆盖测试</strong></p>
+<p>主要考察使用测试数据运行被测试程序时对程序逻辑的覆盖程度</p>
+<p>包括语句覆盖、判定覆盖、条件覆盖、判定/条件覆盖、条件组合覆盖、路径覆盖</p>
+<p><strong>逻辑表达式错误敏感的测试</strong></p>
+<p>当逻辑变量比较多的时候，对发现逻辑表达式错误比较敏感的组合条件进行测试，以较少的测试用例来发现逻辑表达式中的绝大多数错误。</p>
+<p><strong>基本路径测试</strong></p>
+<p>根据程序或设计图画出控制流图，并计算其区域数，然后确定一组独立的程序执行路径（称为基本路径），最后为每一条基本路径设计一个测试用例。</p>
+<p><strong>数据流测试</strong></p>
+<p>根据程序中变量的定义（即赋值）和引用位置来设计测试用例，以发现变量赋值和引用方面的错误。</p>
+<p><strong>循环测试</strong></p>
+<p>包括简单循环、嵌套循环、串接循环、非结构循环</p>
+<h2 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h2><p><strong>等价类划分</strong></p>
+<p>将所有可能的输入数据划分成若干个等价类，然后在每个等价类中选取一个代表性的数据作为测试数据。</p>
+<p><strong>边界值分析</strong></p>
+<p>利用程序在输入或输出范围的边界情况时出错可能性较大的性质设计测试用例。</p>
+<p><strong>比较测试</strong></p>
+<p>比较两个版本结果是否相同。</p>
+<p><strong>错误猜测</strong></p>
+<p>凭借直觉和经验推断可能存在的错误。</p>
+<p><strong>因果图</strong></p>
+<p>一种帮助人们系统地选择一组高效测试用例的方法，既考虑了输入条件的组合关系，又考虑了输出条件对输入条件的依赖关系，即因果关系。</p>
+<h2 id="测试策略"><a href="#测试策略" class="headerlink" title="测试策略"></a>测试策略</h2><p>软件测试策略把软件测试用例的设计方法集成到一系列经周密计划的步骤中去，从而使得软件的测试得以成功地完成。</p>
+<p><strong>V模型</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210517222749.png" alt="V模型"></p>
+<p><strong>单元测试</strong></p>
+<p>又称模块测试，着重对软件设计的最小单元——软件构件或模块进行测试。</p>
+<p><strong>集成测试</strong></p>
+<p>又称组装测试，经单元测试后的模块须集成为软件系统，集成测试是对集成后的软件系统进行测试，主要用来揭示设计阶段产生的错误。</p>
+<p><strong>确认测试</strong></p>
+<p>经集成测试后的软件需经过确认测试方能交付使用，确认测试通常采用黑盒测试。</p>
+<p><strong>系统测试</strong></p>
+<p>将软件与计算机系统的其他元素集成起来，检查它是否符合系统工程中对软件的要求，能否与计算机系统中的其他元素协调地工作。</p>
+<h2 id="面向对象测试"><a href="#面向对象测试" class="headerlink" title="面向对象测试"></a>面向对象测试</h2><p>面向对象软件的性质改变了测试的策略和测试战术。</p>
+<p><strong>面向对象测语境对测试的影响</strong></p>
+<p>主要是封装、继承、多态性和基于消息通信这些性质带来的影响。</p>
+<p><strong>面向对象测试策略</strong></p>
+<p>把类看成单元</p>
+<p><strong>面向对象测试用例设计</strong></p>
+<h2 id="测试完成标准"><a href="#测试完成标准" class="headerlink" title="测试完成标准"></a>测试完成标准</h2><p>一种方法是观察测试过程中单位时间内发现错误数目的软件</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>测试的目的是发现错误，当测试发现错误后需要进行调试，确定错误的原因和位置，并加以纠正。</p>
+<p><strong>调试过程</strong></p>
+<p><strong>调试方法</strong></p>
+<ul>
+<li>蛮力法</li>
+<li>回溯法</li>
+<li>原因排除法</li>
+</ul>
+<p><strong>纠正错误</strong></p>
+
       
     </div>
 
@@ -289,7 +329,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -357,7 +397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -491,59 +531,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
