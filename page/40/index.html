@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/ER%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">32位ALU设计</a>
+            <a href="/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/ER%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">ER模型</a>
         </h2>
 
         <div class="post-meta">
@@ -209,15 +209,22 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-18 08:17:01" itemprop="dateCreated datePublished" datetime="2021-03-18T08:17:01+08:00">2021-03-18</time>
+              <time title="创建时间：2021-03-23 18:30:21" itemprop="dateCreated datePublished" datetime="2021-03-23T18:30:21+08:00">2021-03-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-18 17:51:34" itemprop="dateModified" datetime="2021-05-18T17:51:34+08:00">2021-05-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">体系结构实验</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -230,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/32%E4%BD%8DALU%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/ER%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/ER%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,193 +253,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="设计思路及代码"><a href="#设计思路及代码" class="headerlink" title="设计思路及代码"></a>设计思路及代码</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ALU32(</span><br><span class="line">ALUcont,A,B,</span><br><span class="line">zero,result</span><br><span class="line">	);</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] A,B;</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">2</span>:<span class="number">0</span>] ALUcont;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span> zero;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">always</span>@(*)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">case</span>(ALUcont)</span><br><span class="line">        <span class="comment">//AND</span></span><br><span class="line">        <span class="number">3&#x27;b000</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A&amp;B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//OR</span></span><br><span class="line">        <span class="number">3&#x27;b001</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A|B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//+</span></span><br><span class="line">        <span class="number">3&#x27;b010</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A+B;</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//not used</span></span><br><span class="line">        <span class="comment">//3&#x27;b011:</span></span><br><span class="line">        <span class="comment">//AND !</span></span><br><span class="line">        <span class="number">3&#x27;b100</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">         	result=A&amp;(~B);</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//OR !</span></span><br><span class="line">        <span class="number">3&#x27;b101</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A|(~B);</span><br><span class="line">            zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//-</span></span><br><span class="line">        <span class="number">3&#x27;b110</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">            result=A-B;</span><br><span class="line">            zero=(A==B)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="comment">//SLT</span></span><br><span class="line">        <span class="number">3&#x27;b111</span>:</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(A[<span class="number">31</span>]==<span class="number">1</span>&amp;&amp;B[<span class="number">31</span>]==<span class="number">0</span>)</span><br><span class="line">                    result=<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(A[<span class="number">31</span>]==<span class="number">0</span>&amp;&amp;B[<span class="number">31</span>]==<span class="number">0</span>)</span><br><span class="line">                    result=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                    result=(A&lt;B)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">                zero=(result==<span class="number">0</span>)?<span class="number">1</span>:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span>        </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="测试代码及表格补全"><a href="#测试代码及表格补全" class="headerlink" title="测试代码及表格补全"></a>测试代码及表格补全</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Test</th>
-<th>ALUcont</th>
-<th>A</th>
-<th>B</th>
-<th>result</th>
-<th>zero</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ADD 0+0</td>
-<td>2</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>1</td>
-</tr>
-<tr>
-<td>ADD 0+(-1)</td>
-<td>2</td>
-<td>00000000</td>
-<td>FFFFFFFF</td>
-<td>FFFFFFFF</td>
-<td>0</td>
-</tr>
-<tr>
-<td>ADD 1+(-1)</td>
-<td>2</td>
-<td>00000001</td>
-<td>FFFFFFFF</td>
-<td>00000000</td>
-<td>1</td>
-</tr>
-<tr>
-<td>ADD FF+1</td>
-<td>2</td>
-<td>000000FF</td>
-<td>00000001</td>
-<td><u>00000100</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>SUB 0-0</td>
-<td>6</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>1</td>
-</tr>
-<tr>
-<td>SUB 0-(-1)</td>
-<td>6</td>
-<td>00000000</td>
-<td>FFFFFFFF</td>
-<td>00000001</td>
-<td>0</td>
-</tr>
-<tr>
-<td>SUB 1-1</td>
-<td>6</td>
-<td>00000001</td>
-<td><u>00000001</u></td>
-<td><u>00000000</u></td>
-<td><u>1</u></td>
-</tr>
-<tr>
-<td>SUB 100-1</td>
-<td>6</td>
-<td>00000100</td>
-<td><u>00000001</u></td>
-<td><u>000000ff</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>SLT 0,0</td>
-<td>7</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>00000000</td>
-<td>1</td>
-</tr>
-<tr>
-<td>SLT 0,1</td>
-<td>7</td>
-<td>00000000</td>
-<td><u>00000001</u></td>
-<td>00000001</td>
-<td>0</td>
-</tr>
-<tr>
-<td>SLT 0,-1</td>
-<td>7</td>
-<td>00000000</td>
-<td><u>FFFFFFFF</u></td>
-<td><u>00000000</u></td>
-<td><u>1</u></td>
-</tr>
-<tr>
-<td>SLT 1,0</td>
-<td>7</td>
-<td>00000001</td>
-<td><u>00000000</u></td>
-<td><u>00000000</u></td>
-<td><u>1</u></td>
-</tr>
-<tr>
-<td>SLT -1,0</td>
-<td>7</td>
-<td>FFFFFFFF</td>
-<td><u>00000000</u></td>
-<td><u>00000001</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>AND FFFFFFFF,FFFFFFFF</td>
-<td><u>0</u></td>
-<td>FFFFFFFF</td>
-<td>FFFFFFFF</td>
-<td><u>FFFFFFFF</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>AND FFFFFFFF,12345678</td>
-<td><u>0</u></td>
-<td>FFFFFFFF</td>
-<td>12345678</td>
-<td>12345678</td>
-<td>0</td>
-</tr>
-<tr>
-<td>AND 12345678,87654321</td>
-<td><u>0</u></td>
-<td>12345678</td>
-<td>87654321</td>
-<td><u>02244220</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>AND 00000000,FFFFFFFF</td>
-<td><u>0</u></td>
-<td>00000000</td>
-<td>FFFFFFFF</td>
-<td><u>00000000</u></td>
-<td><u>1</u></td>
-</tr>
-<tr>
-<td>OR FFFFFFFF,FFFFFFFF</td>
-<td><u>1</u></td>
-<td>FFFFFFFF</td>
-<td>FFFFFFFF</td>
-<td><u>FFFFFFFF</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>OR 12345678,87654321</td>
-<td><u>1</u></td>
-<td>12345678</td>
-<td>87654321</td>
-<td><u>97755779</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>OR 00000000,FFFFFFFF</td>
-<td><u>1</u></td>
-<td>00000000</td>
-<td>FFFFFFFF</td>
-<td><u>FFFFFFFF</u></td>
-<td><u>0</u></td>
-</tr>
-<tr>
-<td>OR 00000000,00000000</td>
-<td><u>1</u></td>
-<td>00000000</td>
-<td>00000000</td>
-<td><u>00000000</u></td>
-<td><u>1</u></td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> ALU32_test(</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] ALUcont;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] A,B;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] result;</span><br><span class="line">    <span class="keyword">wire</span> zero;</span><br><span class="line">    ALU32 alu(ALUcont,A,B,zero,result); </span><br><span class="line">    <span class="keyword">initial</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    <span class="comment">//add</span></span><br><span class="line">        ALUcont=<span class="number">3&#x27;b010</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h000000ff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    <span class="comment">//sub</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b110</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000100</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    <span class="comment">//slt</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b111</span>;</span><br><span class="line">        A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000001</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    <span class="comment">//and</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b000</span>;</span><br><span class="line">        A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h87654321</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    <span class="comment">//or</span></span><br><span class="line">    #<span class="number">20</span> ALUcont=<span class="number">3&#x27;b001</span>;</span><br><span class="line">        A=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h12345678</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h87654321</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;hffffffff</span>;</span><br><span class="line">    #<span class="number">20</span> A=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">        B=<span class="number">32&#x27;h00000000</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<h2 id="仿真波形图"><a href="#仿真波形图" class="headerlink" title="仿真波形图"></a>仿真波形图</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210318081405.png" alt="image-20210318081357819"></p>
+          <h2 id="数据库设计概论"><a href="#数据库设计概论" class="headerlink" title="数据库设计概论"></a>数据库设计概论</h2><p>数据库生存期：</p>
+<p>规划、需求分析、概念设计、逻辑设计、物理设计、实现、运行和维护</p>
+<h2 id="数据库设计全过程"><a href="#数据库设计全过程" class="headerlink" title="数据库设计全过程"></a>数据库设计全过程</h2><p><strong>规划</strong></p>
+<p>系统调查、可行性分析、确定数据库系统的总目标和制定项目开发计划</p>
+<p><strong>需求分析</strong></p>
+<ul>
+<li>分析用户活动产生，产生业务流程图（TFD）</li>
+<li>确定系统范围，产生系统范围图</li>
+<li>分析用户活动涉及的数据，产生数据流图（DFD）</li>
+<li>分析系统数据，产生数据字典</li>
+</ul>
+<p><strong>概念设计</strong></p>
+<p>从每个用户的角度出发定义ER图，然后合并</p>
+<p><strong>逻辑设计</strong></p>
+<p>根据概念模式转换成逻辑模式、模式评价、修正</p>
+<p><strong>物理设计</strong></p>
+<ul>
+<li>存储记录结构设计</li>
+<li>确定数据存放位置</li>
+<li>存取方法的设计</li>
+<li>完整性和安全性考虑</li>
+<li>程序设计</li>
+</ul>
+<p><strong>数据库实现</strong></p>
+<ul>
+<li>用DDL定义数据库结构</li>
+<li>组织数据入库</li>
+<li>编制与调试应用程序</li>
+<li>数据库试运行<ul>
+<li>功能测试</li>
+<li>性能测试（时空代价）</li>
+</ul>
+</li>
+</ul>
+<p><strong>数据库的运行与维护工作</strong></p>
+<ul>
+<li>数据库的转储和恢复</li>
+<li>数据库安全性、完整性控制</li>
+<li>数据库性能的监督、分析和改进</li>
+<li>数据库的重组织和重构造</li>
+</ul>
+<h2 id="ER模型"><a href="#ER模型" class="headerlink" title="ER模型"></a>ER模型</h2><p><strong>基本元素</strong>：实体、联系、属性、例子</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210425155527.png" alt="image-20210425155527614"></p>
+<p><strong>属性分类</strong></p>
+<p>基本属性和复合属性</p>
+<p>单值属性和多值属性</p>
+<h2 id="ER模型到关系模型的转换"><a href="#ER模型到关系模型的转换" class="headerlink" title="ER模型到关系模型的转换"></a>ER模型到关系模型的转换</h2><p>将每个实体类型转换成一个关系模式，实体的属性即为关系模式的属性，实体标识符即为关系模式的键。</p>
+<p>二元联系关系的转换：</p>
+<ul>
+<li>实体联系1：1：可以在两个实体类型转换成的两个关系模式中任意一个关系模式的属性中加入另一个关系模式的键和联系类型的属性。</li>
+<li>实体联系1：N：在N端实体类型转换成的关系模式中加入1端实体类型的键和联系类型的属性</li>
+<li>实体联系M：N：将联系类型也转换成关系模式，其属性为两端实体类型的键加上联系类型的属性，而键为两端实体键的组合。</li>
+</ul>
+<p>一元联系类型的转换和二元联系相同</p>
+<p>三元联系类型总是将三元联系类型转换成关系模式，其属性为三端实体类型的键加上联系类型的属性，而键为三端实体键的组合。</p>
+<h2 id="ER模型实例分析"><a href="#ER模型实例分析" class="headerlink" title="ER模型实例分析"></a>ER模型实例分析</h2><p>库存销售系统的ER模型及转换</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210425161822.png" alt="image-20210425161822658"></p>
+<h2 id="ER模型的扩充"><a href="#ER模型的扩充" class="headerlink" title="ER模型的扩充"></a>ER模型的扩充</h2><p><strong>弱实体</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210425161933.png" alt="image-20210425161933873"></p>
+<p>例如：职工的亲属的关系依附于职工，是弱实体</p>
+<p><strong>子类实体与超类实体</strong></p>
+<p>继承性、子类本身比超类具有更多属性、子类和超类有相同的标识符</p>
 
       
     </div>

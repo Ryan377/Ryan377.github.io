@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第七章 快速排序</a>
+            <a href="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">关系数据库的规范化设计</a>
         </h2>
 
         <div class="post-meta">
@@ -209,14 +209,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-03-24 15:54:56" itemprop="dateCreated datePublished" datetime="2021-03-24T15:54:56+08:00">2021-03-24</time>
+              <time title="创建时间：2021-03-30 18:27:49" itemprop="dateCreated datePublished" datetime="2021-03-30T18:27:49+08:00">2021-03-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-31 14:57:53" itemprop="dateModified" datetime="2021-03-31T14:57:53+08:00">2021-03-31</time>
+                <time title="修改时间：2021-05-18 17:51:24" itemprop="dateModified" datetime="2021-05-18T17:51:24+08:00">2021-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -237,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/24/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/30/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E8%AE%BE%E8%AE%A1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,36 +253,98 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="快速排序的描述"><a href="#快速排序的描述" class="headerlink" title="快速排序的描述"></a>快速排序的描述</h2><p>使用分治的思想，分成三步</p>
-<ol>
-<li>分解：分成A[p…q-1]和A[q+1…r]，此时A[q]已经被放在了正确的位置，A[q]：pivot</li>
-<li>解决：通过递归调用对子数组排序</li>
-<li>合并：因为子数组已经有序，故不需要合并操作</li>
+          <h2 id="关系模式的设计问题"><a href="#关系模式的设计问题" class="headerlink" title="关系模式的设计问题"></a>关系模式的设计问题</h2><h3 id="关系模型的外延和内涵"><a href="#关系模型的外延和内涵" class="headerlink" title="关系模型的外延和内涵"></a><strong>关系模型的外延和内涵</strong></h3><ul>
+<li>外延：关系、表或当前值</li>
+<li>内涵：对数据的定义以及数据完整性约束（静态约束和动态约束）的定义</li>
+</ul>
+<h3 id="模式冗余和异常问题"><a href="#模式冗余和异常问题" class="headerlink" title="模式冗余和异常问题"></a><strong>模式冗余和异常问题</strong></h3><p>数据的冗余可能会引起操作异常（修改异常、插入异常、删除异常）</p>
+<h3 id="关系模式的非形式化设计准则"><a href="#关系模式的非形式化设计准则" class="headerlink" title="关系模式的非形式化设计准则"></a><strong>关系模式的非形式化设计准则</strong></h3><ol>
+<li>应尽可能只包含有直接联系的属性</li>
+<li>应尽可能使得相关关系中不出现插入、删除和修改操作异常现象</li>
+<li>应尽可能使得相应关系中避免放置尽可能为空值的属性</li>
+<li>尽可能使得关系的等值连接在主键和外键属性上</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">QUICKSORT(A,p,r)</span><br><span class="line">if p &lt; r</span><br><span class="line">	q &#x3D; PARTITION(A,p,r)</span><br><span class="line">	QUICKSORT(A,p,q-1)</span><br><span class="line">	QUICKSORT(A,q+1,r)</span><br><span class="line">	</span><br><span class="line">PARTITION(A,p,r)</span><br><span class="line">x &#x3D; A[r]</span><br><span class="line">i &#x3D; p - 1</span><br><span class="line">for j &#x3D; p to r - 1</span><br><span class="line">	if A[j] &lt;&#x3D; x</span><br><span class="line">		i &#x3D; i + 1</span><br><span class="line">		exchange A[i] with A[j]</span><br><span class="line">exchange A[i+1] with A[r]</span><br><span class="line">return i + 1</span><br></pre></td></tr></table></figure>
-<h2 id="快速排序的性能"><a href="#快速排序的性能" class="headerlink" title="快速排序的性能"></a>快速排序的性能</h2><p>依赖于划分是否平衡，如果平衡，性能近似于归并排序；如果不平衡，性能近似于插入排序</p>
-<ul>
-<li><p>最坏情况划分（完全不平衡）</p>
+<h3 id="符号规定"><a href="#符号规定" class="headerlink" title="符号规定"></a><strong>符号规定</strong></h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210330184809.png" alt="image-20210330184801036"></p>
+<h2 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h2><h3 id="函数依赖（FD）的定义"><a href="#函数依赖（FD）的定义" class="headerlink" title="函数依赖（FD）的定义"></a><strong>函数依赖（FD）的定义</strong></h3><p>关系模式R（U），X和Y是属性集U的子集，函数依赖是形为X-&gt;Y的一个命题，只要r是R的当前关系，对r中任意两个元组t和s，都有t[X] = s[X]蕴含t[Y] = s[Y]，那么称FD X -&gt; Y在关系模式R（U）中成立</p>
+<h3 id="FD的逻辑蕴含"><a href="#FD的逻辑蕴含" class="headerlink" title="FD的逻辑蕴含"></a><strong>FD的逻辑蕴含</strong></h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125442.png" alt="image-20210402125442774"></p>
+<h3 id="FD的推理规则"><a href="#FD的推理规则" class="headerlink" title="FD的推理规则"></a><strong>FD的推理规则</strong></h3><p>U是关系模式R中的属性集，F是R上成立的只涉及U中属性的函数依赖集，FD的推理规则有以下三条：</p>
+<p>A1 自反性 $若Y\subseteq X \subseteq U,则X\rightarrow Y在R上成立$</p>
+<p>A2 增广性 $若X\rightarrow Y,且Z\subseteq U,则XZ\rightarrow YZ在R上成立$</p>
+<p>A3 传递性 $若X \rightarrow Y,Y \rightarrow Z,则 X\rightarrow Z在R上成立$</p>
+<p>其他五条规则</p>
+<p>A4 合并性  $\lbrace X\rightarrow Y,X \rightarrow Z \rbrace \models X \rightarrow YZ $</p>
+<p>A5 分解性 $\lbrace X \rightarrow Y,Z \subseteq Y \rbrace \models X \rightarrow Z$</p>
+<p>A6 伪传递性 $\lbrace X \rightarrow Y, WY \rightarrow Z \rbrace \models WX \rightarrow Z$</p>
+<p>A7 复合性 $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models XW \rightarrow YZ$</p>
+<p>A8  $\lbrace X \rightarrow Y, W \rightarrow Z \rbrace \models X\bigcup (W - Y) \rightarrow YZ$</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402125908.png" alt="image-20210402125908142"></p>
+<h3 id="FD和关键码的联系"><a href="#FD和关键码的联系" class="headerlink" title="FD和关键码的联系"></a><strong>FD和关键码的联系</strong></h3><p><em>超键和候选键</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151448.png" alt="image-20210402151448761"></p>
+<h3 id="属性集的闭包"><a href="#属性集的闭包" class="headerlink" title="属性集的闭包"></a><strong>属性集的闭包</strong></h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151645.png" alt="image-20210402151645328"></p>
+<h3 id="FD推理规则的完备性"><a href="#FD推理规则的完备性" class="headerlink" title="FD推理规则的完备性"></a><strong>FD推理规则的完备性</strong></h3><p><em>正确性</em>：从FD集F使用推理规则集推出的FD必定在F+中</p>
+<p><em>完备性</em>：F+中的FD都能从F集使用推理规则导出</p>
+<p>FD推理规则{A1,A2,A3}是完备的</p>
+<h3 id="FD集的最小依赖集"><a href="#FD集的最小依赖集" class="headerlink" title="FD集的最小依赖集"></a><strong>FD集的最小依赖集</strong></h3><p>若F+=G+，则称F和G是等价的函数依赖集</p>
+<p><em>最小依赖集Fmin</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402151940.png" alt="image-20210402151940110"></p>
+<h2 id="模式的分解特性"><a href="#模式的分解特性" class="headerlink" title="模式的分解特性"></a>模式的分解特性</h2><p><strong>模式分解问题</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402155820.png" alt="image-20210402155820123"></p>
+<p><em>泛关系模式</em></p>
+<p>现实问题的所有属性组成的关系模式（包括属性集和属性集上的数据完整性约束）称为泛关系模式，关系r是关系模式的当前值，是元组的集合，称为泛关系</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160117.png" alt="image-20210402160117469"></p>
+<h3 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a><strong>无损分解</strong></h3><p>r和$\sigma$是否等价</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402160225.png" alt="image-20210402160224973"></p>
+<h3 id="无损分解的测试方法"><a href="#无损分解的测试方法" class="headerlink" title="无损分解的测试方法"></a><strong>无损分解的测试方法</strong></h3><p><em>算法如下：</em></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404124444.png" alt="image-20210404124437456"></p>
 <script type="math/tex; mode=display">
-T(n)=T(n-1)+T(0)+\Theta(n)</script><script type="math/tex; mode=display">
-T(n)=\Theta(n^2)</script></li>
-</ul>
+定理:设\rho=\{R1,R2\}是关系模式R的一个分解，F是R上成立的FD集，那么分解\rho相对于F是无损分解的充分条件是\\(R1\bigcap R2)\rightarrow (R1-R2)(或(R2-R1))</script><script type="math/tex; mode=display">
+定理:如果FD\,X\rightarrow Y在模式R上成立，且X\bigcap Y=\varphi，\\
+那么R分解成\rho=\{R-Y,XY\}是无损分解</script><h3 id="保持函数依赖的分解"><a href="#保持函数依赖的分解" class="headerlink" title="保持函数依赖的分解"></a><strong>保持函数依赖的分解</strong></h3><p>F和{F1,F2,…,Fn}是否等价</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404131605.png" alt="image-20210404131605106"></p>
+<h3 id="模式分解与模式等价问题"><a href="#模式分解与模式等价问题" class="headerlink" title="模式分解与模式等价问题"></a><strong>模式分解与模式等价问题</strong></h3><p>两个数据库的等价包括数据等价和依赖等价两个方面</p>
 <ul>
-<li>最好情况划分（完全平衡）<script type="math/tex; mode=display">
-T(n)=2T(n/2)+\Theta(n)</script></li>
+<li>数据等价指两个数据库实例应标识同样的信息内容，用“无损分解”衡量。如果是无损分解，那么对泛关系反复的投影和连接都不会丢失信息。</li>
+<li>依赖等价是指两个数据库模式有相同的依赖集闭包。在依赖集闭包相等的情况下，数据的语义是不会出差错的。</li>
 </ul>
-<script type="math/tex; mode=display">
-  T(n)=\Theta(n\lg n)</script><ul>
-<li>平均情况的划分：平均情况事实上接近于最好情况（例如数组长度9：1时）</li>
+<h2 id="关系模式的范式"><a href="#关系模式的范式" class="headerlink" title="关系模式的范式"></a>关系模式的范式</h2><h3 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h3><p>定义：如果关系模式R的每个关系r的属性值都是不可分的原子值，那么称R是第一范式的模式</p>
+<p>满足1NF的称为规范化关系，否则称为非规范化关系</p>
+<h3 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a><strong>第二范式</strong></h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132729.png" alt="image-20210404132729028"></p>
+<p>分解成2NF模式集的算法</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404132814.png" alt="image-20210404132814460"></p>
+<h3 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a><strong>第三范式</strong></h3><p>定义：如果$X\rightarrow Y,Y\rightarrow A$，且$Y\nrightarrow X$ 和$A\notin Y$，那么称$X\rightarrow A$是传递依赖（A传递依赖于X）</p>
+<p>定义：如果关系模式R是1NF，且每个非主属性都不传递于R的候选键，那么称R是第三范式（3NF）的模式，如果数据库模式种每个关系模式都是3NF，则称其为3NF的数据库模式。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134254.png" alt="image-20210404134254589"></p>
+<p>定理：如果R是3NF模式，那么R也是2NF模式</p>
+<p>定理：设关系模式R，当R上每一个FD X-&gt;A都满足下列三个条件之一时</p>
+<ol>
+<li>A∈X</li>
+<li>X是R的超键</li>
+<li>A是主属性</li>
+</ol>
+<p>则关系模式R就是3NF模式</p>
+<h3 id="BCNF"><a href="#BCNF" class="headerlink" title="BCNF"></a><strong>BCNF</strong></h3><p>定义：如果关系模式R是1NF，且每个属性都不传递依赖于R的候选键，那么称R是BCNF模式。如果数据库模式中每个关系模式都是BCNF，则称为BCNF的数据库模式。</p>
+<p>定理：如果R是BCNF模式，那么R也是3NF模式</p>
+<p>定义：设F是关系模式R的FD集，如果对F中每个非平凡的FD X-&gt;Y，都有X是R的超键，那么称R是BCNF的模式</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134912.png" alt="image-20210404134912083"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210404134944.png" alt="image-20210404134944537"></p>
+<h3 id="模式设计方法的原则"><a href="#模式设计方法的原则" class="headerlink" title="模式设计方法的原则"></a><strong>模式设计方法的原则</strong></h3><ul>
+<li>数据库设计者在进行关系数据库的设计时，应作权衡，尽可能使数据库保持最好的特性。一般尽可能设计成BCNF模式集。如果设计成BCNF模式集时达不到FD的特点，那么只能降低要求，设计成3NF模式集，以求达到保持FD和无损分解的特点。</li>
+<li>模式分解并不单指把泛关系模式分解成数据库模式，也可以把数据库模式转换成另一个数据库模式，分解和转换的关键是要“等价”地分解。一个好的模式设计方法应符合三条原则：表达性、分离性和最小冗余性。</li>
 </ul>
-<h2 id="快速排序的随机化版本"><a href="#快速排序的随机化版本" class="headerlink" title="快速排序的随机化版本"></a>快速排序的随机化版本</h2><p>显示地对输入进行重新排列，使得算法实现随机化</p>
-<p>在划分前进行一次交换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZED-PARTITION(A,p,r)</span><br><span class="line">i &#x3D; RANDOM(p,r)</span><br><span class="line">exchange A[r] with A[i]</span><br><span class="line">return PARTITION(A,p,r)</span><br></pre></td></tr></table></figure>
-<h2 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h2><p><strong>最坏情况分析</strong></p>
-<p>$O(n^2)$</p>
-<p><strong>期望运行时间</strong></p>
-<p>$O(n\lg n)$</p>
-<p>证明过程略</p>
+<h2 id="模式的进一步规范化处理"><a href="#模式的进一步规范化处理" class="headerlink" title="模式的进一步规范化处理"></a>模式的进一步规范化处理</h2><p>FD还不足以描绘现实世界中数据之间的全部联系，有些联系就要用其他数据来刻画，例如多值依赖或连接依赖。</p>
+<h3 id="多值依赖的定义"><a href="#多值依赖的定义" class="headerlink" title="多值依赖的定义"></a>多值依赖的定义</h3><p>当有简介依赖关系时会产生</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210427142404.png" alt="image-20210427142403778"></p>
+<h3 id="关于FD和MVD的推理规则集"><a href="#关于FD和MVD的推理规则集" class="headerlink" title="关于FD和MVD的推理规则集"></a>关于FD和MVD的推理规则集</h3><p>在有FD和MVD的情况下，也可以用chase规则判断是否无损分解</p>
+<h3 id="第四范式"><a href="#第四范式" class="headerlink" title="第四范式"></a>第四范式</h3><p>设D是关系模式R上成立的FD和MVD集合。如果D中每个非平凡的MVD左部X都是R的超键，那么称R是4NF模式</p>
+<p>4NF肯定是BCNF</p>
+<h3 id="嵌入多值依赖"><a href="#嵌入多值依赖" class="headerlink" title="嵌入多值依赖"></a>嵌入多值依赖</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210427142713.png" alt="image-20210427142713168"></p>
+<h3 id="连接依赖和第五范式"><a href="#连接依赖和第五范式" class="headerlink" title="连接依赖和第五范式"></a>连接依赖和第五范式</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210427142757.png" alt="image-20210427142757383"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>通过模式分解把模式分解成若干较小的关系模式可以消除冗余</li>
+<li>关系模式在分解时应该保持等价，有数据等价和语义等价两种，分别用无损分解和保持依赖衡量</li>
+<li>范式是衡量模式优劣的标准</li>
+<li>分解成BCNF模式集的算法能保持无损分解，但不一定保持FD集，分解成3NF两者都能保持</li>
+</ul>
 
       
     </div>

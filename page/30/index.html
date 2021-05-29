@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/" class="post-title-link" itemprop="url">第9章 中位数和顺序统计量</a>
+            <a href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">存储过程</a>
         </h2>
 
         <div class="post-meta">
@@ -208,17 +208,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-04-10 14:02:07 / 修改时间：14:01:44" itemprop="dateCreated datePublished" datetime="2021-04-10T14:02:07+08:00">2021-04-10</time>
+              <time title="创建时间：2021-04-13 18:46:46" itemprop="dateCreated datePublished" datetime="2021-04-13T18:46:46+08:00">2021-04-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-11 11:26:02" itemprop="dateModified" datetime="2021-05-11T11:26:02+08:00">2021-05-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -231,8 +237,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,19 +253,199 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="最小值和最大值"><a href="#最小值和最大值" class="headerlink" title="最小值和最大值"></a>最小值和最大值</h2><p>为了确定最小值/最大值，必须要进行n-1次比较</p>
-<p>同时找到最大值/最小值，总的比较次数为至多是$3\lfloor n/2\rfloor$</p>
-<p>方法：对输入元素成对处理，大的和最大值比，小的和最小值比</p>
-<h2 id="期望为线性时间的选择算法"><a href="#期望为线性时间的选择算法" class="headerlink" title="期望为线性时间的选择算法"></a>期望为线性时间的选择算法</h2><p>返回数组A[p,r]中第i小的元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZED-SELECT (A,p,r,i)</span><br><span class="line">if p &#x3D;&#x3D; r</span><br><span class="line">	return A[p]</span><br><span class="line">q &#x3D; RANDOMIZED-PARTITION (A,p,r)</span><br><span class="line">k &#x3D; q - p + 1</span><br><span class="line">if i &#x3D;&#x3D; k</span><br><span class="line">	return A[q]</span><br><span class="line">else if i &lt; k</span><br><span class="line">	return RANDOMIZED-SELECT (A,p,q-1,i)</span><br><span class="line">else return RANDOMIZED-SELECT (A,q+1,r,i-k)</span><br></pre></td></tr></table></figure>
-<h2 id="最坏情况为线性时间的选择算法"><a href="#最坏情况为线性时间的选择算法" class="headerlink" title="最坏情况为线性时间的选择算法"></a>最坏情况为线性时间的选择算法</h2><ol>
-<li>将输入数组的n个元素划分为$\lceil n/5\rceil$组，每组5个元素，且至多只有一组由剩下的不足5个元素组成。</li>
-<li>寻找这$\lceil n/5\rceil$组中每一组的中位数，首先对每组元素进行插入排序，然后确定每组有序元素中位数。</li>
-<li>对第2步找出的$\lceil n/5\rceil$个中位数，递归调用SELECT以找出其中位数x（如果有偶数个中位数，为了方便，约定x是较小的数）</li>
-<li>利用修改过的PARTITION版本，递归调用SELECT以找出其中位数x对输入数组进行划分。让k比划分的低区中的元素数目多1，因此x是第k小的元素，并且有n-k个元素在划分的高区。</li>
-<li>如果i=k，则返回x，如果i<k，则在低区递归调用SELECT来找出第i小的元素。如果i>k，则在高区递归查找第i-k小的元素。</li>
+          <h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="存储层次"><a href="#存储层次" class="headerlink" title="存储层次"></a>存储层次</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210413184802.png" alt="image-20210413184754054"></p>
+<p>存储介质层次</p>
+<p>（CPU）、第一级存储器（高速缓存、内存）、第二级存储器（快闪存、磁盘存储器）、第三级存储器（光存储器、磁带存储器）</p>
+<p>分级存储的原因：</p>
+<ol>
+<li>价格因素：主存是磁盘的100倍</li>
+<li>寻址的问题：32位主存大小小于$2^{32}$</li>
+<li>数据需要永久保存</li>
 </ol>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210410140135.png" alt="image-20210410140135127"></p>
+<p><strong>磁盘</strong></p>
+<p>基本概念</p>
+<ul>
+<li><p>硬件上的最小单位是sector，是硬件的不可变属性</p>
+</li>
+<li><p>Block是数据存储的最小单元，由若干sector组成</p>
+</li>
+<li>磁盘上的同心圆构成track</li>
+<li>相同半径的同心圆构成Cylinder</li>
+<li>存放数据的盘片为Platter</li>
+<li>每个面有一个读头，通过磁盘臂进行移动</li>
+<li>磁盘转动，读头不动</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510213551.png" alt="image-20210510213544527"></p>
+<p>数据由柱面号、磁头号、盘块号定位</p>
+<p>性能指标：容量、存取时间、传输速度、可靠性</p>
+<p><strong>第三级存储器</strong></p>
+<p>光盘：CD DVD WORM</p>
+<p>磁带：价格便宜，存储量大，顺序读取</p>
+<p>胶片</p>
+<h3 id="RAID磁盘系统"><a href="#RAID磁盘系统" class="headerlink" title="RAID磁盘系统"></a>RAID磁盘系统</h3><p>磁盘是数据库管理系统提高性能的瓶颈</p>
+<p>磁盘阵列：通过数据条带组织，提高性能（提高并行性和可靠性）</p>
+<p>数据条带：数据分成等长区域，分布在多个盘上，每个分区的大小为一个条带单元</p>
+<p>通过增加数据冗余check disk提高数据可靠性</p>
+<p>海明码</p>
+<p><strong>RAID LEVEL</strong></p>
+<p>RAID：将磁盘分成组，每个组有若干数据盘和一些校验盘构成，校验盘的个数由RAID Level决定</p>
+<p>LEVEL 0：没有冗余数据、可靠性差、写性能最优，读性能不是最优、空间利用率100%</p>
+<p>LEVEL 1：最昂贵，每个磁盘都进行一个备份，每次写两遍，同一块数据可并行读，空间利用率50%</p>
+<p>LEVEL 1+0：以1为基础，增加数据分布条带化</p>
+<p>LEVEL 2    LEVEL 3    LEVEL 4    LEVEL 5（性能最好）    LEVEL 6</p>
+<p>选择</p>
+<ul>
+<li>0代价最小</li>
+<li>0 + 1适合小型系统或大量写系统</li>
+<li>3适合大规模连续读写，优于2</li>
+<li>5各项性能均不错，优于4</li>
+<li>6适合高可靠性系统</li>
+</ul>
+<h3 id="磁盘空间管理"><a href="#磁盘空间管理" class="headerlink" title="磁盘空间管理"></a>磁盘空间管理</h3><ul>
+<li><p>DBMS结构最底层</p>
+</li>
+<li><p>以页为单位组织数据，主要操作包括读、写、申请、释放</p>
+</li>
+<li><p>经常访问的数据可放在连续空间中</p>
+</li>
+<li><p>隔离上层模块和底层的软、硬平台</p>
+</li>
+</ul>
+<p>管理空闲块：空间块链表或空闲块位图</p>
+<p>实现：操作系统文件系统管理或者自己实现</p>
+<h3 id="缓冲区管理"><a href="#缓冲区管理" class="headerlink" title="缓冲区管理"></a>缓冲区管理</h3><p>缓冲区管理器：负责将磁盘上的数据读入内存并写回磁盘的软件层</p>
+<ul>
+<li>管理的内存空间叫Buffer Pool</li>
+<li>每个页叫Frame，有替换策略</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510215250.png" alt="image-20210510215250219"></p>
+<p>frame数据结构：</p>
+<ul>
+<li>pin_count：正在访问该frame的事务个数</li>
+<li>dirty：已经被修改过的frame</li>
+</ul>
+<p>替换策略：LRU、Clock</p>
+<p>BufferPool和virtual memory的区别在于Buffer Pool能够发现页访问模式</p>
+<h3 id="文件和索引"><a href="#文件和索引" class="headerlink" title="文件和索引"></a>文件和索引</h3><p>每个页有若干记录，每个文件有若干页，每个记录有唯一标识符rid</p>
+<p><strong>堆文件</strong></p>
+<ul>
+<li>数据在文件中以记录为单位无序存储</li>
+<li>提供创建、删除文件、插入、删除记录</li>
+<li>用页的链表或页字典维护文件空闲区域位置</li>
+</ul>
+<p><strong>顺序文件</strong></p>
+<ul>
+<li>根据查找键的值的顺序存储记录的文件</li>
+<li>每个记录有一个指针，按键值大小创建链表</li>
+<li>通过自由空间管理，管理空闲空间</li>
+</ul>
+<p><strong>聚集文件</strong></p>
+<ul>
+<li>一个文件中存储多个关系中的元组</li>
+<li>根据键属性进行数据组织</li>
+</ul>
+<p><strong>代价模型</strong></p>
+<p>用于估算不同的查询操作的代价</p>
+<p><strong>三种文件组织方式</strong></p>
+<p>堆文件、排序文件、Hash文件（后两者有Search Key）</p>
+<h3 id="页格式"><a href="#页格式" class="headerlink" title="页格式"></a>页格式</h3><p>页由一系列记录构成，每个记录为一个Slot，记录的id为(page id,slot number)</p>
+<h3 id="记录格式"><a href="#记录格式" class="headerlink" title="记录格式"></a>记录格式</h3><p>定长记录：每条记录的长度是固定的，即便没有变长字段，一个页存放记录的数量和位置也是确定的</p>
+<p>变长记录：记录中包含变长字段，记录长度可变</p>
+<h2 id="文件组织和索引"><a href="#文件组织和索引" class="headerlink" title="文件组织和索引"></a>文件组织和索引</h2><p>文件组织是当前文件存储在磁盘上时在文件中组织记录的方法，索引是查询操作的性能的工具。</p>
+<h3 id="索引简介"><a href="#索引简介" class="headerlink" title="索引简介"></a>索引简介</h3><p>索引是加速查询操作的辅助文件结构，包括树形索引和Hash索引，一个索引可认为是一个data entry的集合， 通过它可快速地找到相应的记录所在的位置</p>
+<p>考虑的问题</p>
+<ol>
+<li>为了方便查询如何组织data entry</li>
+<li>data entry的构成</li>
+<li>如何适应存储介质的特点</li>
+</ol>
+<p>三种data entry</p>
+<ul>
+<li>k*：包含整个记录</li>
+<li><k, rid>search key为k的记录</li>
+<li><k, rid-list>search key为k的记录集合</li>
+</ul>
+<h3 id="索引特性"><a href="#索引特性" class="headerlink" title="索引特性"></a>索引特性</h3><ul>
+<li><p><strong>聚集索引和非聚集索引</strong>：如果文件中记录顺序同索引中data entry顺序相同，则这个索引是Clustered（聚集/聚簇）的</p>
+</li>
+<li><p><strong>密集索引和稀疏索引</strong>：如果表在该属性上出现的所有值在索引文件中至少有一个data entry与之相对应则为dense（密集）索引，sparse（稀疏）索引每个页只有一个data entry</p>
+</li>
+<li><p><strong>pirmary and secondary indexes</strong>：索引建在包含primary key的属性上则为primary key，其它的为secondary index</p>
+</li>
+<li><p><strong>composite search key索引</strong>：包含多个属性的索引是composite search key索引</p>
+</li>
+</ul>
+<h2 id="树结构索引"><a href="#树结构索引" class="headerlink" title="树结构索引"></a>树结构索引</h2><h3 id="索引序列访问方法（ISAM）"><a href="#索引序列访问方法（ISAM）" class="headerlink" title="索引序列访问方法（ISAM）"></a>索引序列访问方法（ISAM）</h3><p>一种静态索引结构，适用于数据库变化不大的情况</p>
+<p>创建一个二级文件作为索引，记录每一页的起始记录的属性值，索引中元素的格式为（页中第一个键，指向页的指针）</p>
+<p><strong>ISAM</strong></p>
+<p>对每一层二级文件均建立相应二级文件结构</p>
+<p>构造方法：</p>
+<ul>
+<li>在最底层使用溢出链表</li>
+<li>索引中一结点的大小同一个物理页的大小相同</li>
+<li>关系中所有数据均存放在叶子结点</li>
+<li>也可以在实际数据上层增加一个第二种类型的data entry</li>
+<li>树结构静态，只有叶结点中溢出结点会变化</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511110725.png" alt="image-20210511110724884"></p>
+<p>操作</p>
+<ul>
+<li>搜索：复杂度$\log_F{N}$，F是每个结点中data entry数量，N为关系中记录数</li>
+<li>插入、删除：只对叶子层的数据起作用</li>
+</ul>
+<h3 id="B-树：一种动态索引结构"><a href="#B-树：一种动态索引结构" class="headerlink" title="B+树：一种动态索引结构"></a>B+树：一种动态索引结构</h3><p>一种动态结构，适用于各种情况</p>
+<p><strong>M阶B+树</strong></p>
+<ul>
+<li>每个结点之多有m棵子树，至少有[m/2]棵子树</li>
+<li>根节点或为叶结点，或至少有两个子树</li>
+<li>在insert、delete操作中树保持平衡</li>
+<li>搜索时只需要访问树的高层次</li>
+<li>所有叶结点在同一层次，data entry层用双向链表连接，便于访问</li>
+</ul>
+<p>B+树结构：</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111010.png" alt="image-20210511111009926"></p>
+<p>B+树索引结点的结构：</p>
+<ol>
+<li>每个结点由n个数值和n+1个指针构成</li>
+<li>pi指向子树上的结点的值k，有ki&lt;=k&lt;=ki+1</li>
+<li>通常用第二种或第三种data entry</li>
+<li>data entry本身可以看成为是记录的文件，如果data entry包含整个记录，则文件就是数据本身，否则是一个单独的文件</li>
+</ol>
+<p><strong>操作</strong></p>
+<ul>
+<li>搜索</li>
+<li>插入</li>
+<li>删除</li>
+</ul>
+<h2 id="基于Hash的索引结构"><a href="#基于Hash的索引结构" class="headerlink" title="基于Hash的索引结构"></a>基于Hash的索引结构</h2><p>基于Hash的索引结构适用于相等查询操作，基本想法是将数据映射成一个bucket，bucket对应相应数据的存储位置，有各种不同的基于Hash的索引结构，不适合区间查询。</p>
+<h3 id="静态Hash"><a href="#静态Hash" class="headerlink" title="静态Hash"></a>静态Hash</h3><p>包含数据的页构成一系列的bucket，每个bucket由一个primary bucket page和一串overflow page构成，overflow page中的数据可以进行排序</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111855.png" alt="image-20210511111855580"></p>
+<h3 id="可扩充的Hash"><a href="#可扩充的Hash" class="headerlink" title="可扩充的Hash"></a>可扩充的Hash</h3><ul>
+<li><p>通过一个directory来记录每个bucket所处的位置，随着数据的增加，bucket将分解，而不是增加overflow页</p>
+</li>
+<li><p>随着bucket的分解，相应的directory会增长</p>
+</li>
+<li><p>利用Hash函数结果最后若干位作为确定bucket的依据</p>
+</li>
+<li>在directory和bucket上分别标有global depth和local depth作为判断的长度</li>
+</ul>
+<h3 id="线性Hash"><a href="#线性Hash" class="headerlink" title="线性Hash"></a>线性Hash</h3><ul>
+<li>一种动态Hashing</li>
+<li>由一个bucket序列构成</li>
+<li>每个bucket还附带一串overflow page</li>
+<li>克服可扩充Hashing在数据倾斜情况下过于频繁的特点</li>
+<li>没有directory</li>
+<li>每次只对一个bucket进行分解，激发分解的条件是数据库中有一个bucket进行了分解或增加了新的bucket page</li>
+</ul>
+<h3 id="可扩充Hash和线性Hash的比较"><a href="#可扩充Hash和线性Hash的比较" class="headerlink" title="可扩充Hash和线性Hash的比较"></a>可扩充Hash和线性Hash的比较</h3><ul>
+<li>两者都依赖于Hash函数的好坏</li>
+<li>当Hash函数比较均衡的时候，两者相差不大，线性Hash少了一次读取directory的时间</li>
+<li>不均衡时<ul>
+<li>线性的primary bucket增长较慢，由于overflow串较长，所以查询性能较差，但空间少</li>
+<li>可扩展的Hashing的primary bucket增长较快，由于overflow串较短，所以查询性能好，但占用空间大</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
