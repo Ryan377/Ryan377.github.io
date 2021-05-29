@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序 简单的两路Merge排序 使用三个页的内存排序 基本思想 将大的文件转换成小的块 对这些块进行排序 使用最小空间进行Merge排序   每个排过序的小文件为一个run 在内存中可以用各种排序算法  总开销为：$2N*(\lceil log_2{N}\rceil + 1)$  外部Merge排序若有B个pa">
+  <meta name="description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="查询处理">
 <meta property="og:url" content="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序 简单的两路Merge排序 使用三个页的内存排序 基本思想 将大的文件转换成小的块 对这些块进行排序 使用最小空间进行Merge排序   每个排过序的小文件为一个run 在内存中可以用各种排序算法  总开销为：$2N*(\lceil log_2{N}\rceil + 1)$  外部Merge排序若有B个pa">
+<meta property="og:description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113346.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203538.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203917.png">
 <meta property="article:published_time" content="2021-04-25T10:16:15.270Z">
-<meta property="article:modified_time" content="2021-05-11T12:43:04.390Z">
+<meta property="article:modified_time" content="2021-05-29T06:17:05.061Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 20:43:04" itemprop="dateModified" datetime="2021-05-11T20:43:04+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-29 14:17:05" itemprop="dateModified" datetime="2021-05-29T14:17:05+08:00">2021-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,6 +272,7 @@
 
       
         <h2 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h2><p>排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序</p>
+<span id="more"></span>
 <h3 id="简单的两路Merge排序"><a href="#简单的两路Merge排序" class="headerlink" title="简单的两路Merge排序"></a><strong>简单的两路Merge排序</strong></h3><ul>
 <li>使用三个页的内存排序</li>
 <li>基本思想<ul>
@@ -541,7 +542,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

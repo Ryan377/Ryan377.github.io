@@ -185,980 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC17%E7%AB%A0-%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC17%E7%AB%A0-%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">第17章 摊还分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-05 13:18:11" itemprop="dateCreated datePublished" datetime="2021-05-05T13:18:11+08:00">2021-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-25 10:22:50" itemprop="dateModified" datetime="2021-05-25T10:22:50+08:00">2021-05-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC17%E7%AB%A0-%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC17%E7%AB%A0-%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用于保证最坏情况下每个操作的平均性能。</p>
-<h2 id="聚合分析"><a href="#聚合分析" class="headerlink" title="聚合分析"></a>聚合分析</h2><p>证明对所有n，一个n操作的序列最坏情况下花费的总时间为T(n)。因此，最坏情况下，每个操作的平均代价或摊还代价为T(n)/n。</p>
-<p><strong>例子：</strong></p>
-<ul>
-<li>栈操作</li>
-<li>二进制计数器递增</li>
-</ul>
-<h2 id="核算法"><a href="#核算法" class="headerlink" title="核算法"></a>核算法</h2><ol>
-<li>对不同操作赋予不同费用，赋予某些操作的费用可能多于或少于其实际代价，我们将赋予一个操作的费用称为它的摊还代价。</li>
-<li>当一个操作的摊还代价超出其实际代价时，我们将差额存入数据结构中的特定对象，存入的差额称为信用。对于后续操作中摊还代价小于实际代价的情况，信用可以用来支付差额。</li>
-<li>我们将一个操作的摊还代价分解为其实际代价和信用（存入的和用掉的），不同操作可能有不同的摊还代价，这种方法不同于聚合分析中所有操作都赋予相同摊还代价的方式。</li>
-</ol>
-<p><strong>例子：</strong></p>
-<ul>
-<li>栈操作</li>
-<li>二进制计数器递增</li>
-</ul>
-<h2 id="势能法"><a href="#势能法" class="headerlink" title="势能法"></a>势能法</h2><ul>
-<li><p>势能法摊还分析并不将预付代价表示为数据结构中特定对象的信用，而是表示为“势能”，将势能释放为即可用未来支付操作的代价。我们将势能与整个数据结构而不是特定对象相关联。</p>
-</li>
-<li><p>势函数$\Phi$将每个数据结构$D_i$映射到一个实函数$\Phi(D_i)$，此值为关联到数据结构$D_i$的势（$D_i$为在数据结构$D_{i-1}$上执行第i个操作的结果数据结构）</p>
-</li>
-<li><p>第i个操作的摊还代价$\hat{c_i}$，$\hat{c_i}=c_i+\Phi(D_i)-\Phi(D_{i-1})$（$c_i$为第i个操作的实际代价）</p>
-</li>
-<li><p>n个操作的总摊还代价为：</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}{\hat{c_i}}=\sum_{i=1}^nc_i+\Phi(D_n)-\Phi(D_0)</script></li>
-</ul>
-<p>例子</p>
-<ul>
-<li>栈操作</li>
-<li>二进制计数器递增</li>
-</ul>
-<h2 id="动态表"><a href="#动态表" class="headerlink" title="动态表"></a>动态表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">TABLE-INSERT(T,x)</span><br><span class="line">	if T.size&#x3D;&#x3D;0</span><br><span class="line">		allocate T.table with 1 slot</span><br><span class="line">    	T.size &#x3D; 1</span><br><span class="line">    if T.num &#x3D;&#x3D; T.size</span><br><span class="line">    	allocate new table with 2*T.size slot</span><br><span class="line">    	insert all items in T.table into new table</span><br><span class="line">    	free T.table</span><br><span class="line">    	T.table &#x3D; new table</span><br><span class="line">    	T.size &#x3D; 2*T.size</span><br><span class="line">    insert x into T.table</span><br><span class="line">    T.num &#x3D; T.num + 1</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC16%E7%AB%A0-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC16%E7%AB%A0-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">第16章 贪心算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-05 13:17:42" itemprop="dateCreated datePublished" datetime="2021-05-05T13:17:42+08:00">2021-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-24 21:58:32" itemprop="dateModified" datetime="2021-05-24T21:58:32+08:00">2021-05-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC16%E7%AB%A0-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC16%E7%AB%A0-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>对于某些最优化问题可以使用更简单，更高效的算法：贪心算法，在每一步都做出当时看起来最佳的选择，从而能导致全局最优解。</p>
-<h2 id="活动选择问题"><a href="#活动选择问题" class="headerlink" title="活动选择问题"></a>活动选择问题</h2><p>选出一个最大兼容活动集</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] s = &#123; <span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">12</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span>[] f = &#123; <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span> &#125;;</span><br><span class="line">    <span class="keyword">boolean</span>[] a = <span class="keyword">new</span> <span class="keyword">boolean</span>[s.length];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> result = greedySelector(s, f, a);</span><br><span class="line">    System.out.println(<span class="string">&quot;Result is: &quot;</span> + result);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= s.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i]) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = i + <span class="number">1</span>;</span><br><span class="line">            System.out.println(<span class="string">&quot;第&quot;</span> + temp + <span class="string">&quot;活动被选中，其开始时间为：&quot;</span> + s[i] + <span class="string">&quot;，结束时间为：&quot;</span> + f[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">greedySelector</span><span class="params">(<span class="keyword">int</span>[] s, <span class="keyword">int</span>[] f, <span class="keyword">boolean</span>[] a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.length - <span class="number">1</span>;</span><br><span class="line">    a[<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] &gt;= f[j]) &#123;</span><br><span class="line">            a[i] = <span class="keyword">true</span>;</span><br><span class="line">            j = i;</span><br><span class="line">            count++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            a[i] = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="贪心算法原理"><a href="#贪心算法原理" class="headerlink" title="贪心算法原理"></a>贪心算法原理</h2><ol>
-<li>将最优化问题转换成这样的形式：对其做出一次选择后，只剩下一个子问题需要求解</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择总是安全的</li>
-<li>证明做出贪心选择后，剩余的子问题满足性质：其最优解与贪心选择组合即可得到原问题的最优解，这样就得到了最优子结构</li>
-</ol>
-<h2 id="赫夫曼编码"><a href="#赫夫曼编码" class="headerlink" title="赫夫曼编码"></a>赫夫曼编码</h2><p>根据每个字符出现的频率，赫夫曼贪心算法构造出字符的最优二进制表示</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210518124804.png" alt="image-20210518124757219"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">第15章 动态规划</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-05 13:16:59" itemprop="dateCreated datePublished" datetime="2021-05-05T13:16:59+08:00">2021-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-15 11:35:25" itemprop="dateModified" datetime="2021-05-15T11:35:25+08:00">2021-05-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>动态规划通常用于求解最优化问题</p>
-<ol>
-<li>刻画一个最优解的结构特征</li>
-<li>递归定义最优解的值</li>
-<li>计算最优解的值，通常采用自底向上的方法</li>
-<li>利用计算出的信息构造一个最优解</li>
-</ol>
-<h2 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h2><p>寻找最优切割方案</p>
-<p>暴力递归求解复杂度高，因为求解了很多重复子问题</p>
-<p>采用动态规划的思想，并用一个数组保存中间结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自顶向下递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">cutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> q = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        q = Math.max(q, p[i] + cutRod(p, n - i - <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态规划，自顶向下带备忘录</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">memoCutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i] = Integer.MIN_VALUE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memoCutRodAux(p, n, dp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">memoCutRodAux</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n, <span class="keyword">int</span>[] dp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[n] &gt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    <span class="keyword">int</span> ans;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>)</span><br><span class="line">        ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ans = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            ans = Math.max(ans, p[i] + memoCutRodAux(p, n - i - <span class="number">1</span>, dp));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[n] = ans;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自底向上版本</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bottomUpCutRod</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">            ans = Math.max(ans, p[j - <span class="number">1</span>] + dp[i - j]);</span><br><span class="line">        &#125;</span><br><span class="line">        dp[i] = ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h2><p>完全括号化的矩阵乘积链</p>
-<p>求完全括号化方案使得所需标量乘法次数最少</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MatrixChainMultiplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] p = &#123;<span class="number">30</span>, <span class="number">35</span>, <span class="number">15</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">25</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] m = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>][<span class="number">7</span>];</span><br><span class="line">        <span class="keyword">int</span>[][] s = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>][<span class="number">7</span>];</span><br><span class="line">        Matrix_Chain(p, <span class="number">6</span>, m, s);</span><br><span class="line">        print_optimal_parens(s, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Matrix_Chain</span><span class="params">(<span class="keyword">int</span>[] p, <span class="keyword">int</span> n, <span class="keyword">int</span>[][] m, <span class="keyword">int</span>[][] s)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//①将对角线上的值先赋值为0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            m[i][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>; <span class="comment">//l为矩阵链的长度</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//m[i][j]的第一个参数</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//m[i][j]的第二个参数</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//②以长度L为划分，L从2开始到n</span></span><br><span class="line">        <span class="keyword">for</span> (l = <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//循环第一个参数，因为l的长度至少为2，所以i和j在这个循环里面肯定不相等</span></span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n - l + <span class="number">1</span>; i++) &#123;</span><br><span class="line">                <span class="comment">//因为j-i+1=l，所以j=l+i-1</span></span><br><span class="line">                j = i + l - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//给m[i][j]赋初值，这里要寻找m[i][j]的最小值，本来应当给m[i][j]赋值一个正无穷，但是这里直接赋一个i=j时候的特值也可以</span></span><br><span class="line">                m[i][j] = m[i][i] + m[i + <span class="number">1</span>][j] + p[i - <span class="number">1</span>] * p[i] * p[j];</span><br><span class="line">                s[i][j] = i;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//对于每个特定的i和j的组合，遍历此时所有的合适k值，k大于等于i小于j</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = i + <span class="number">1</span>; k &lt; j; k++) &#123; <span class="comment">//这里k不能等于j，因为后面要m[k+1][j]，不然k+1就比j大了</span></span><br><span class="line"></span><br><span class="line">                    tmp = m[i][k] + m[k + <span class="number">1</span>][j] + p[i - <span class="number">1</span>] * p[k] * p[j];</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (tmp &lt; m[i][j]) &#123;</span><br><span class="line">                        m[i][j] = tmp;</span><br><span class="line">                        s[i][j] = k;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print_optimal_parens</span><span class="params">(<span class="keyword">int</span>[][] s, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;A&quot;</span> + i);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">            print_optimal_parens(s, i, s[i][j]);</span><br><span class="line">            print_optimal_parens(s, s[i][j] + <span class="number">1</span>, j);</span><br><span class="line">            System.out.print(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="动态规划原理"><a href="#动态规划原理" class="headerlink" title="动态规划原理"></a>动态规划原理</h2><p>最优子结构和子问题重叠</p>
-<p>如果一个问题的最优解包含其子问题的最优解，称此问题为具有最优子结构性质</p>
-<ol>
-<li>证明问题最优解的第一个组成部分是做出一个选择。</li>
-<li>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解。</li>
-<li>给定可能最优解的选择后 ，你确定这次选择会产生哪些子问题，以及如何更好地刻画子问题空间。</li>
-<li>证明最为构成原问题的最优解的组成部分，每个子问题的解就是它本身的最优解。</li>
-</ol>
-<p>对于重叠子问题，对每个子问题求解一次，将解存入一个表中，当再次需要这个子问题时直接查表，每次查表的代价为常量时间。（备忘）</p>
-<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><p>给定两个序列，求X和Y长度最长的公共子序列</p>
-<p>定义c[i, j]表示$X_i和Y_j$的LCS长度，则</p>
-<script type="math/tex; mode=display">
-c[i,j]=
-\begin{cases}
-0,若i=0或j=0\\
-c[i-1,j-1]+1,若i,j>0且x_i=y_i\\
-max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
-\end{cases}</script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LCS</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] X = &#123;<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">char</span>[] Y = &#123;<span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;A&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[X.length + <span class="number">1</span>][Y.length + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[][] b = <span class="keyword">new</span> <span class="keyword">int</span>[X.length + <span class="number">1</span>][Y.length + <span class="number">1</span>];</span><br><span class="line">        LCS(X, Y, c, b);</span><br><span class="line">        printLCS(b, X, X.length, Y.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">char</span>[] x, <span class="keyword">char</span>[] y, <span class="keyword">int</span>[][] c, <span class="keyword">int</span>[][] b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = x.length;</span><br><span class="line">        <span class="keyword">int</span> n = y.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            c[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            c[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (x[i - <span class="number">1</span>] == y[j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                    b[i][j] = <span class="number">2</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] &gt;= c[i][j - <span class="number">1</span>]) &#123;</span><br><span class="line">                    c[i][j] = c[i - <span class="number">1</span>][j];</span><br><span class="line">                    b[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    c[i][j] = c[i][j - <span class="number">1</span>];</span><br><span class="line">                    b[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printLCS</span><span class="params">(<span class="keyword">int</span>[][] b, <span class="keyword">char</span>[] X, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (b[i][j] == <span class="number">2</span>) &#123;</span><br><span class="line">            printLCS(b, X, i - <span class="number">1</span>, j - <span class="number">1</span>);</span><br><span class="line">            System.out.print(X[i - <span class="number">1</span>] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">            printLCS(b, X, i - <span class="number">1</span>, j);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            printLCS(b, X, i, j - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="最优二叉搜索树"><a href="#最优二叉搜索树" class="headerlink" title="最优二叉搜索树"></a>最优二叉搜索树</h2><p>对于每个关键字，都有一个搜索频率，如何构造一个二叉搜索树使得所有搜索操作访问的结点总数最少</p>
-<p>e[i,j]表示在包含关键字$k_i,…,k_j$进行一次搜索的的期望代价，最终希望计算出e[1,n]</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OptimalBST</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[] p;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[] q;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[][] e;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span>[][] w;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        OptimalBST sample=<span class="keyword">new</span> OptimalBST();</span><br><span class="line">        sample.getInputInfo();</span><br><span class="line">        sample.optimalBST();</span><br><span class="line">        sample.constructOptimalBST(sample.root, <span class="number">1</span>, sample.n);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getInputInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;输入关键字的个数&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">this</span>.n=in.nextInt();</span><br><span class="line">        p=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">1</span>];</span><br><span class="line">        q=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">1</span>];</span><br><span class="line">        System.out.println(<span class="string">&quot;依次输入&quot;</span>+<span class="keyword">this</span>.n+<span class="string">&quot;个关键字的概率p&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            p[i+<span class="number">1</span>]=in.nextDouble();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;依次输入&quot;</span>+(<span class="keyword">this</span>.n+<span class="number">1</span>)+<span class="string">&quot;个非关键字的概率q&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            q[i]=in.nextDouble();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">optimalBST</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        e=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">2</span>][n+<span class="number">1</span>];</span><br><span class="line">        w=<span class="keyword">new</span> <span class="keyword">double</span>[n+<span class="number">2</span>][n+<span class="number">1</span>];</span><br><span class="line">        root=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n+<span class="number">2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            e[i][i-<span class="number">1</span>]=q[i-<span class="number">1</span>];</span><br><span class="line">            w[i][i-<span class="number">1</span>]=q[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l=<span class="number">1</span>;l&lt;=n;l++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n-l+<span class="number">1</span>;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j=i+l-<span class="number">1</span>;</span><br><span class="line">                e[i][j]=Double.MAX_VALUE;</span><br><span class="line">                w[i][j]=w[i][j-<span class="number">1</span>]+p[j]+q[j];</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> r=i;r&lt;=j;r++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">double</span> t=e[i][r-<span class="number">1</span>]+e[r+<span class="number">1</span>][j]+w[i][j];</span><br><span class="line">                    <span class="keyword">if</span>(t&lt;e[i][j])</span><br><span class="line">                    &#123;</span><br><span class="line">                        e[i][j]=t;</span><br><span class="line">                        root[i][j]=r;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">constructOptimalBST</span><span class="params">(<span class="keyword">int</span>[][] root,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r=root[i][j];</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">1</span>&amp;&amp;j==<span class="keyword">this</span>.n)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+r+<span class="string">&quot;是根&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(r-<span class="number">1</span>&lt;i)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;d&quot;</span>+(r-<span class="number">1</span>)+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的左子树&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+root[i][r-<span class="number">1</span>]+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的左子树&quot;</span>);</span><br><span class="line">            constructOptimalBST(root,i,r-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(j&lt;r+<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;d&quot;</span>+j+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的右子树&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;k&quot;</span>+root[r+<span class="number">1</span>][j]+<span class="string">&quot; 是 k&quot;</span>+r+<span class="string">&quot;的右子树&quot;</span>);</span><br><span class="line">            constructOptimalBST(root,r+<span class="number">1</span>,j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" class="post-title-link" itemprop="url">内存中MVCC系统的可伸缩垃圾收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-30 20:50:50" itemprop="dateCreated datePublished" datetime="2021-04-30T20:50:50+08:00">2021-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-29 14:03:47" itemprop="dateModified" datetime="2021-05-29T14:03:47+08:00">2021-05-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读者和写者的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往称为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准的后台清理方法使系统容易受到工作负荷突然激增的影响。</p>
-<p>在这项工作中，我们提出了一种新的垃圾收集方法，它可以急切地修剪过时的版本。它与交易处理的无缝集成使GC的开销最小，并确保良好的可扩展性。我们表明，我们的方法可以很好地处理混合工作负载。而且与现有的最先进的方法相比，还可以加快纯OLTP工作负载的速度，如TPC-C。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/" class="post-title-link" itemprop="url">第5章 指令级并行及其开发</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-30 08:39:00" itemprop="dateCreated datePublished" datetime="2021-04-30T08:39:00+08:00">2021-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-24 21:52:30" itemprop="dateModified" datetime="2021-05-24T21:52:30+08:00">2021-05-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">计算机体系结构</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="指令级并行的基本概念"><a href="#指令级并行的基本概念" class="headerlink" title="指令级并行的基本概念"></a>指令级并行的基本概念</h2><h3 id="什么是指令级并行"><a href="#什么是指令级并行" class="headerlink" title="什么是指令级并行"></a>什么是指令级并行</h3><p>指令级并行：指令之间可以实现重叠执行</p>
-<p>两种开发方法：</p>
-<ol>
-<li>依靠硬件来实现动态发现和开发并行</li>
-<li>依靠软件技术在编译时静态发现并行</li>
-</ol>
-<p>$CPI_{流水线}=CPI_{理想}+停顿_{结构冲突}+停顿_{数据冲突}+停顿_{控制冲突}$</p>
-<p>理想CPI是衡量流水线最高性能的一个指标</p>
-<p><em>基本程序块</em>：一个程序块，除了出口和入口不包含其他分支</p>
-<p>循环级并行：使一个循环中的不同循环体并行执行</p>
-<p>最基本的开发循环级并行的技术</p>
-<ul>
-<li>循环展开技术</li>
-<li>采用向量处理器和图形处理器（GPU）中的SIMD</li>
-</ul>
-<h3 id="数据相关和冒险"><a href="#数据相关和冒险" class="headerlink" title="数据相关和冒险"></a><strong>数据相关和冒险</strong></h3><p>相关：两条指令之间存在某种依赖关系</p>
-<p>三种类型：数据相关/真数据相关、名称相关、控制相关</p>
-<p><em>数据相关</em></p>
-<p>指令i，j相关满足下述条件之一</p>
-<ol>
-<li>指令j使用指令i产生的结果</li>
-<li>指令j与指令k数据相关，而指令k又与指令i数据相关</li>
-</ol>
-<ul>
-<li>从两个方面解决相关问题<ul>
-<li>保持相关，避免发生冒险</li>
-<li>通过代码变换，消除相关</li>
-</ul>
-</li>
-</ul>
-<p><em>名称相关</em></p>
-<p>名称：指令所访问的寄存器或存储单元的名称</p>
-<p>如果两条指令使用相同的名称，但是它们之间并没有数据流动，则称这两条指令存在名称相关。</p>
-<p>换名技术</p>
-<p>数据冒险：只要指令间存在名称相关或数据相关，当相关的指令靠的足够近时，它们在流水线中的重叠执行或者重新排序会改变指令读/写操作数顺序，使之不同于它们非流水实现时的顺序，则发生了数据冒险。</p>
-<p>程序顺序：由源程序确定的在完全串行方式下指令的执行顺序。</p>
-<p>必须保持源程序顺序</p>
-<p>三种类型的数据冒险</p>
-<ul>
-<li>写后读</li>
-<li>写后写</li>
-<li>读后写冲突</li>
-</ul>
-<h3 id="控制相关"><a href="#控制相关" class="headerlink" title="控制相关"></a><strong>控制相关</strong></h3><p>控制相关是由分支指令引起的相关</p>
-<p>对于正确执行程序来说，必须保持的最关键的两个属性是：数据流和异常行为</p>
-<p>保持程序的数据相关和控制相关就能保持前两者</p>
-<h2 id="基本流水线调度和循环展开"><a href="#基本流水线调度和循环展开" class="headerlink" title="基本流水线调度和循环展开"></a>基本流水线调度和循环展开</h2><p>充分开发指令之间存在的并行性，找出不相关的指令序列，让它们在流水线上重叠并行执行。</p>
-<p>最常用的方法：</p>
-<ol>
-<li>开发循环级并行性——循环的不同迭代之间存在的并行性。</li>
-<li>在把循环展开后，通过重命名和指令调度来开发更多的并行性。</li>
-</ol>
-<h2 id="用高级分支预测降低分支成本"><a href="#用高级分支预测降低分支成本" class="headerlink" title="用高级分支预测降低分支成本"></a>用高级分支预测降低分支成本</h2><h3 id="竞赛预测器"><a href="#竞赛预测器" class="headerlink" title="竞赛预测器"></a>竞赛预测器</h3><p>采用多个预测器，通常是一个基于全局信息的预测器和一个基于局部信息的预测器，用选择器将它们结合起来。</p>
-<h3 id="Intel-Core-i7分支预测器"><a href="#Intel-Core-i7分支预测器" class="headerlink" title="Intel Core i7分支预测器"></a>Intel Core i7分支预测器</h3><ul>
-<li>使用一个两级预测器</li>
-<li>每个预测器都组合了3个不同的预测器</li>
-</ul>
-<h2 id="用动态调度克服数据冒险"><a href="#用动态调度克服数据冒险" class="headerlink" title="用动态调度克服数据冒险"></a>用动态调度克服数据冒险</h2><h3 id="动态调度"><a href="#动态调度" class="headerlink" title="动态调度"></a>动态调度</h3><p>在程序执行过程中，依靠专门硬件对代码进行调度，减少数据相关导致的停顿。</p>
-<h3 id="Tomasulo算法"><a href="#Tomasulo算法" class="headerlink" title="Tomasulo算法"></a>Tomasulo算法</h3><p>见<a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Tomasulo%E7%AE%97%E6%B3%95/">Tomasulo算法</a></p>
-<h2 id="基于硬件的推测"><a href="#基于硬件的推测" class="headerlink" title="基于硬件的推测"></a>基于硬件的推测</h2><p>基本思想：对分支指令的结果进行猜测，并假设这个猜测总是对的，然后按这个猜测结果继续取、流出和执行后续的指令。只是执行指令的结果不是写回到寄存器或存储器，而是放到一个称为ROB的缓冲器中。等到相应的指令得到“确认”之后，才将结果写入寄存器或存储器。</p>
-<h2 id="以多发射和静态调度来开发ILP"><a href="#以多发射和静态调度来开发ILP" class="headerlink" title="以多发射和静态调度来开发ILP"></a>以多发射和静态调度来开发ILP</h2><h2 id="以动态调度、多发射和推测来开发ILP"><a href="#以动态调度、多发射和推测来开发ILP" class="headerlink" title="以动态调度、多发射和推测来开发ILP"></a>以动态调度、多发射和推测来开发ILP</h2><h2 id="用指令传送和推测的高级技术"><a href="#用指令传送和推测的高级技术" class="headerlink" title="用指令传送和推测的高级技术"></a>用指令传送和推测的高级技术</h2><h2 id="ILP局限性研究"><a href="#ILP局限性研究" class="headerlink" title="ILP局限性研究"></a>ILP局限性研究</h2><h2 id="交叉问题：ILP方法与存储器系统"><a href="#交叉问题：ILP方法与存储器系统" class="headerlink" title="交叉问题：ILP方法与存储器系统"></a>交叉问题：ILP方法与存储器系统</h2><h2 id="多线程：开发线程级并行提高单处理器吞吐量"><a href="#多线程：开发线程级并行提高单处理器吞吐量" class="headerlink" title="多线程：开发线程级并行提高单处理器吞吐量"></a>多线程：开发线程级并行提高单处理器吞吐量</h2><h2 id="Intel-Core-i7和ARM-Cortex-A8"><a href="#Intel-Core-i7和ARM-Cortex-A8" class="headerlink" title="Intel Core i7和ARM Cortex-A8"></a>Intel Core i7和ARM Cortex-A8</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">查询处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-25 18:16:15" itemprop="dateCreated datePublished" datetime="2021-04-25T18:16:15+08:00">2021-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 20:43:04" itemprop="dateModified" datetime="2021-05-11T20:43:04+08:00">2021-05-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h2><p>排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序</p>
-<h3 id="简单的两路Merge排序"><a href="#简单的两路Merge排序" class="headerlink" title="简单的两路Merge排序"></a><strong>简单的两路Merge排序</strong></h3><ul>
-<li>使用三个页的内存排序</li>
-<li>基本思想<ul>
-<li>将大的文件转换成小的块</li>
-<li>对这些块进行排序</li>
-<li>使用最小空间进行Merge排序</li>
-</ul>
-</li>
-<li>每个排过序的小文件为一个run</li>
-<li>在内存中可以用各种排序算法</li>
-</ul>
-<p>总开销为：$2N*(\lceil log_2{N}\rceil + 1)$</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png" alt="image-20210511113138096"></p>
-<h3 id="外部Merge排序"><a href="#外部Merge排序" class="headerlink" title="外部Merge排序"></a><strong>外部Merge排序</strong></h3><p>若有B个page</p>
-<ul>
-<li>在page0一次性读入B个页的数据进行排序</li>
-<li>在page1,2…一次性读入B个页的数据进行排序，利用B-1个Buffer页作为输入，将最后一个Buffer页作为输出的缓冲区，进行B-1路的Merge排序</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113346.png" alt="image-20210511113346036"></p>
-<h3 id="提高性能的几点考虑"><a href="#提高性能的几点考虑" class="headerlink" title="提高性能的几点考虑"></a><strong>提高性能的几点考虑</strong></h3><ul>
-<li><p>如何减少run的次数</p>
-</li>
-<li><p>减少I/O代价的优化</p>
-</li>
-<li>双缓冲区</li>
-</ul>
-<h3 id="利用B-树排序"><a href="#利用B-树排序" class="headerlink" title="利用B+树排序"></a><strong>利用B+树排序</strong></h3><ul>
-<li>聚集索引：由于磁盘上的数据已经排序，而且上层有一个索引结构，所以查询和排序操作性能均很高</li>
-<li>非聚集索引：Data entry中的数据是排序的，但数据在磁盘上的存储层次是杂乱无章的，计算量为(f+p)*N</li>
-</ul>
-<h2 id="关系操作的执行"><a href="#关系操作的执行" class="headerlink" title="关系操作的执行"></a>关系操作的执行</h2><p>查询操作是查询执行的基本组成部分，包括选择、投影、连接，查询优化根据数据库的实际情况选择查询操作的执行方法</p>
-<h3 id="查询过程简介"><a href="#查询过程简介" class="headerlink" title="查询过程简介"></a><strong>查询过程简介</strong></h3><p>影响因素：数据库表的大小、索引、排序情况、缓冲区大小和置换策略</p>
-<p>各个操作实现时常用的基本技术：</p>
-<ol>
-<li>Iteration</li>
-<li>Indexing</li>
-<li>Partitioning</li>
-</ol>
-<p><strong>访问路径</strong></p>
-<ul>
-<li>各路从关系表中访问记录的方法</li>
-<li>方式<ul>
-<li>文件扫描</li>
-<li>索引加上选择匹配条件</li>
-</ul>
-</li>
-</ul>
-<h3 id="选择操作"><a href="#选择操作" class="headerlink" title="选择操作"></a><strong>选择操作</strong></h3><ul>
-<li>没有索引、数据不排序：需要扫描全表，选择率差，代价大</li>
-<li>没有索引、数据排序：折半查找</li>
-<li>B+索引：先找到约束数据所在位置，从相应的data entry开始向后逐个检测知道找到所有满足条件的data entry，根据data entry找到相应的元组</li>
-<li>Hash索引、相等选择：先找到相应的bucket，在bucket中数据进行检测，从数据文件中找到对应的元组</li>
-</ul>
-<h3 id="General-Selection操作"><a href="#General-Selection操作" class="headerlink" title="General Selection操作"></a><strong>General Selection操作</strong></h3><p>一般的查询条件是一个逻辑表达式，通过逻辑连接符连接的项表达式</p>
-<p>CNF（conjunctive normal form）</p>
-<p><strong>不包括disjunction的选择操作的执行</strong></p>
-<p>可以进行文件扫描，或先对选择率最高的primary conjuncts通过索引进行查询，然后利用非primary key对结果进行筛选</p>
-<p><strong>包括disjunction的选择操作的执行</strong></p>
-<p>如果有一个项需要对整个文件进行扫描，则需要对整个文件进行扫描</p>
-<h3 id="投影操作"><a href="#投影操作" class="headerlink" title="投影操作"></a><strong>投影操作</strong></h3><p>主要功能：去除不需要的属性、删除重复元组</p>
-<p><strong>基于排序的投影方法</strong></p>
-<p>基本思路：扫描关系R，生成只包含需要属性的数据集，对数据集进行排序，扫描排好序的结果，通过前后比较去除重复元组</p>
-<p>改进：</p>
-<ol>
-<li>将第一步同排序操作的pass 0结合在一起</li>
-<li>每次做merge的时候去除重复元组</li>
-</ol>
-<p><strong>基于Hashing的投影方法</strong></p>
-<p>主要思路：</p>
-<ul>
-<li>分区阶段</li>
-<li>重复数据删除</li>
-</ul>
-<p>两种方法的比较：基于排序的方法总体性能比较好，产生的结果是排序的，特别适合内存比较小和数据分布不均匀的情况，一般排序和重复元组删除两部分是分开的；基于Hashing的方法当B&gt;$T^{1/2}$的时候两者性能相差不大。</p>
-<h3 id="Join操作"><a href="#Join操作" class="headerlink" title="Join操作"></a><strong>Join操作</strong></h3><p>相当于一个叉乘操作加上一个选择和投影操作，所以Join操作的结果一般比叉乘操作的结果小</p>
-<p>实现方法</p>
-<ul>
-<li>需要扫描整表<ul>
-<li>嵌套循环join</li>
-<li>块嵌套循环join</li>
-</ul>
-</li>
-<li>不需要扫描整表<ul>
-<li>Sort-merge join方法</li>
-<li>Hash join方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a><strong>集合操作</strong></h3><p>$R\bigcap S，R\bigcup S，R \times S， R - S$</p>
-<p>$R\bigcap S,R \times S$ 可以认为是特殊的join操作</p>
-<p>$R\bigcup S,R-S$ 原理类似，均是发现两个关系中相同的元组，实现</p>
-<ul>
-<li>通过排序</li>
-<li>通过Hash</li>
-</ul>
-<h3 id="聚集操作"><a href="#聚集操作" class="headerlink" title="聚集操作"></a><strong>聚集操作</strong></h3><p>AVG MIN MAX SUM COUNT</p>
-<p>基本实现方法是对整个表进行扫描，对每个元组将所需要的信息收集起来</p>
-<p>GROUP BY，需要对rating属性进行分组</p>
-<h3 id="缓冲区的影响"><a href="#缓冲区的影响" class="headerlink" title="缓冲区的影响"></a><strong>缓冲区的影响</strong></h3><p>如果几个操作并行执行，则每个操作占用的空间将减少，如果索引是非簇聚的，则通过data entry访问物理页时，需要多次从磁盘调用数据，缓冲区将很快就被装满，需要有好的调度策略。</p>
-<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>每个查询均有多种实现方法，DBMS需要选出其中最好的访问方法查询优化器用于解决这个问题</p>
-<h3 id="查询优化概述"><a href="#查询优化概述" class="headerlink" title="查询优化概述"></a><strong>查询优化概述</strong></h3><p>查询处理过程</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511183245.png" alt="image-20210511183245435"></p>
-<p>查询优化包括两步：</p>
-<ol>
-<li>列出表达式的各种执行方案（一般只列出一部分）</li>
-<li>计算每种代价，选择代价最小的</li>
-</ol>
-<p>查询访问计划：由一颗扩充的关系代数树构成，在每个节点将注明对关系的访问方法和关系操作的执行方法。</p>
-<p>Piplined Evaluation：如果一个查询操作的结果直接传入下一个操作，而不生成一个中间表，则称为Piplined的方式，标为on-the-fly，如果一个查询的结果先生成一个中间表，则称为物化的。</p>
-<p><strong>System R的优化器</strong></p>
-<p>第一个数据库管理系统，其查询优化器具有指导意义，主要特点为：</p>
-<ol>
-<li>使用数据库中数据对象的统计信息估测查询的代价</li>
-<li>只考虑两个关系的Join，其中inner关系为原始表，用启发式方法减少可能的访问计划数量</li>
-<li>不考虑嵌套查询的优化</li>
-<li>投影操作中一般不进行重复元组的删除</li>
-<li>代价模型同时考虑CPU和IO的代价</li>
-</ol>
-<h3 id="关系数据库关系系统中的数据字典"><a href="#关系数据库关系系统中的数据字典" class="headerlink" title="关系数据库关系系统中的数据字典"></a><strong>关系数据库关系系统中的数据字典</strong></h3><p>数据字典提供对数据库中各种对象的描述，称为System catalog，catalog或数据字典，这些数据存储在很多表中称为Catalog表</p>
-<ul>
-<li><p>对每个关系，系统信息包括：关系名、属性名、属性类型、索引名、约束描述</p>
-</li>
-<li><p>对每个索引</p>
-</li>
-<li>对每个视图</li>
-<li>关系和索引的统计信息也存放在系统中</li>
-<li>这些数据字典本身也存成为数据库表的形式</li>
-</ul>
-<h3 id="各种访问方法"><a href="#各种访问方法" class="headerlink" title="各种访问方法"></a><strong>各种访问方法</strong></h3><p>使用索引提高查询性能</p>
-<p>少量查询结果的处理</p>
-<h2 id="一个典型的关系查询优化器"><a href="#一个典型的关系查询优化器" class="headerlink" title="一个典型的关系查询优化器"></a>一个典型的关系查询优化器</h2><ul>
-<li>一个查询被分成若干个块，每个块被翻译成一个查询代数表达式</li>
-<li>查询代数表达式的优化包括：<ul>
-<li>列出查询代数表达式对应的各种访问计划</li>
-<li>对每个计划估算其执行代价，从中选出最好的访问计划</li>
-<li>估算时要考虑每个查询操作的执行代价和操作执行结果的特性</li>
-</ul>
-</li>
-</ul>
-<h3 id="SQL查询到代数表达式的转换"><a href="#SQL查询到代数表达式的转换" class="headerlink" title="SQL查询到代数表达式的转换"></a><strong>SQL查询到代数表达式的转换</strong></h3><p>首先将查询分解为块，然后将每一块转换成查询代数，再进行后续的转换</p>
-<p><strong>查询块</strong></p>
-<p>定义：一个没有嵌套的查询语句，有唯一的Select、From、Where、Group和Having子句</p>
-<p>例子：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511202815.png" alt="image-20210511202815536"></p>
-<h3 id="访问计划的代价估计"><a href="#访问计划的代价估计" class="headerlink" title="访问计划的代价估计"></a><strong>访问计划的代价估计</strong></h3><p>一个查询块的访问计划的代价估算包括</p>
-<ul>
-<li>估算每个操作的代价，代价应该包括查询结果是Pipelining的方式输入还是用临时表的方式。这两点有较大的差距</li>
-<li>估算每个操作产生的结果长度，是否排序，这对其父节点的实现有影响</li>
-<li>这些估算利用的信息记录在数据库管理系统的数据字典中</li>
-</ul>
-<p><strong>结果大小的估算</strong></p>
-<p>包括两个因素：返回属性的类型长度和返回元组的个数（其数目由Where带来的Reduction Factor决定）</p>
-<h3 id="查询代数的等价变换"><a href="#查询代数的等价变换" class="headerlink" title="查询代数的等价变换"></a><strong>查询代数的等价变换</strong></h3><p>依据查询代数表达式间的等价关系进行变换，两个查询代数表达式是等价的当且仅当它们产生的结果是相同的</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203419.png" alt="image-20210511203418961"></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203506.png" alt="image-20210511203506511"></p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203538.png" alt="image-20210511203538060"></p>
-<h3 id="生成各种访问计划"><a href="#生成各种访问计划" class="headerlink" title="生成各种访问计划"></a><strong>生成各种访问计划</strong></h3><p>将利用前面提到的代数表达式对查询的代数表达式进行变换得到各种访问计划，但不是利用所有的变换，否则优化时间会过长</p>
-<p><strong>单个关系查询</strong></p>
-<p>关键在于索引的使用和选择、投影算法实现方法的选择</p>
-<p><strong>多个关系的查询</strong></p>
-<p>最主要的问题是如何在一定的时间内找到好的联接次序</p>
-<p>两种联接树</p>
-<p>Left-deep tree和bushy tree</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203917.png" alt="image-20210511203917589"></p>
-<h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a><strong>嵌套子查询</strong></h3><p>实际的关系数据库管理系统中均提供了对嵌套查询的处理方法</p>
-<h3 id="其他查询优化方法"><a href="#其他查询优化方法" class="headerlink" title="其他查询优化方法"></a><strong>其他查询优化方法</strong></h3><p>启发式的方法最大的问题是在关系比较多的情况下，搜索空间太大，为此出现了一些新的方法</p>
-<ul>
-<li>基于规则的方法</li>
-<li>随机访问计划生成方法</li>
-<li>带参数的查询优化</li>
-<li>多查询优化</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/24/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/24/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">图书馆管理系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-24 22:03:17" itemprop="dateCreated datePublished" datetime="2021-04-24T22:03:17+08:00">2021-04-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-30 13:12:49" itemprop="dateModified" datetime="2021-04-30T13:12:49+08:00">2021-04-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">项目记录</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/24/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/24/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h2><p><code>LibraryManagementSystem</code>实现了一个网上图书馆的功能，可以对图书进行借阅以及管理。实现了管理员和用户两种权限，具体功能请参考”功能设计“。</p>
-<h2 id="开发环境和运行"><a href="#开发环境和运行" class="headerlink" title="开发环境和运行"></a>开发环境和运行</h2><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>Spring+SpringMVC+MyBatis、Bootstrap</p>
-<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>Win10、IntelliJ IDEA 2020.3.3、mysql 8.0.21、Jetty 9.4.40.v20210413</p>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ol>
-<li><p>运行library.sql创建本项目所需数据库</p>
-</li>
-<li><p>将项目导入IntelliJ IDEA中，修改<code>dp.properties</code>中的<code>password</code>以配置与本地mysql数据库的连接，配置好Jetty运行即可（或者在根目录下运行<code>mvn Jetty:run</code>）</p>
-</li>
-</ol>
-<p>注：如果使用的mysql和Jetty版本不一样请在<code>pom.xml</code>中修改</p>
-<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><h3 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h3><p>一共设计了6张表：</p>
-<ul>
-<li><p>admin：存储管理员信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430112206.png" alt="image-20210430112206620"></p>
-</li>
-<li><p>book_info：存储图书信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430125857.png" alt="image-20210430125857278"></p>
-</li>
-<li><p>lend_list：存储借书信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430130035.png" alt="image-20210430130035170"></p>
-</li>
-<li><p>reader_card：存储借书卡信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430130020.png" alt="image-20210430130020162"></p>
-</li>
-<li><p>reader_info：存储读者信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430125958.png" alt="image-20210430125958780"></p>
-</li>
-<li><p>class_info：存储图书类型信息</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430125923.png" alt="image-20210430125923248"></p>
-</li>
-</ul>
-<h3 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210430111937.jpg" alt="图书管理系统ER图"></p>
-<h2 id="功能设计"><a href="#功能设计" class="headerlink" title="功能设计"></a>功能设计</h2><h3 id="管理员"><a href="#管理员" class="headerlink" title="管理员"></a>管理员</h3><ul>
-<li>查看、编辑用户信息</li>
-<li>查看、检索、编辑图书信息</li>
-<li>查看、编辑借阅情况</li>
-<li>修改密码</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li>查看个人信息</li>
-<li>查看、检索图书信息、借阅归还图书</li>
-<li>查看个人借阅情况</li>
-<li>修改密码</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1190,7 +216,7 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-23 10:28:18" itemprop="dateModified" datetime="2021-04-23T10:28:18+08:00">2021-04-23</time>
+                <time title="修改时间：2021-05-29 14:15:04" itemprop="dateModified" datetime="2021-05-29T14:15:04+08:00">2021-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1228,24 +254,14 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
 
       
           <h2 id="红黑树的性质"><a href="#红黑树的性质" class="headerlink" title="红黑树的性质"></a>红黑树的性质</h2><p>在二叉搜索树的基础上增加一位表示结点是红色或黑色。</p>
-<p>定义：红黑树是满足下列条件的二叉搜索树</p>
-<ol>
-<li>每个结点是红色或者黑色</li>
-<li>根节点是黑色</li>
-<li>每个叶子节点（NIL）是黑色</li>
-<li>如果一个结点是红色，则其两个子节点是黑色</li>
-<li>对每个结点，从该结点到其所有后代结点的简单路径上，均包含相同数目的黑色节点</li>
-</ol>
-<p><em>设置一个哨兵结点代表NIL，所有指向NIL的指针都用哨兵结点替换</em></p>
-<p>黑高bh(x)：从某个结点出发到叶结点的任意一条简单路径上，黑色结点个数，红黑树的黑高定义为根节点的黑高</p>
-<p>引理：一颗有n个内部节点的红黑树高度至多为$2\lg(n+1)$</p>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>进行插入和删除操作可能会破坏红黑树的性质，需要旋转操作来维护。</p>
-<p><img src="C:\Users\87670\AppData\Roaming\Typora\typora-user-images\image-20210421135539585.png" alt="image-20210421135539585"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LEFT-ROTATE(T, x)</span><br><span class="line">	y &#x3D; x.right</span><br><span class="line">	x.right &#x3D; y.left</span><br><span class="line">	if y.left !&#x3D; T.nil</span><br><span class="line">		y.left.p &#x3D; x</span><br><span class="line">    y.p &#x3D; x.p</span><br><span class="line">    if x.p &#x3D;&#x3D; T.nil</span><br><span class="line">    	T.root &#x3D; y</span><br><span class="line">    else x &#x3D;&#x3D; x.p.left</span><br><span class="line">    	x.p.left &#x3D; y</span><br><span class="line">    else x.p.right &#x3D; y</span><br><span class="line">    y.left &#x3D; x</span><br><span class="line">    x.p &#x3D; y</span><br></pre></td></tr></table></figure>
-<p>右旋转和左旋转对称，时间复杂度都为$O(1)$</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210421135908.png" alt="image-20210421135908430"></p>
-<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>先按照二叉搜索树的INSERT方式把结点插入并着为红色，然后调用辅助程序RB-INSERT-FIXUP对结点重新着色并旋转。</p>
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/16/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC13%E7%AB%A0-%E7%BA%A2%E9%BB%91%E6%A0%91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1295,7 +311,7 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-12 15:19:05" itemprop="dateModified" datetime="2021-05-12T15:19:05+08:00">2021-05-12</time>
+                <time title="修改时间：2021-05-29 14:14:57" itemprop="dateModified" datetime="2021-05-29T14:14:57+08:00">2021-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1333,20 +349,14 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
 
       
           <h2 id="什么是二叉搜索树"><a href="#什么是二叉搜索树" class="headerlink" title="什么是二叉搜索树"></a>什么是二叉搜索树</h2><p>中序遍历递增，执行一次中序遍历耗费的时间是O(n)</p>
-<h2 id="查询二叉搜索树"><a href="#查询二叉搜索树" class="headerlink" title="查询二叉搜索树"></a>查询二叉搜索树</h2><p><em>查找</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TREE-SEARCH(x,k)</span><br><span class="line">	<span class="keyword">if</span> x == NIL or k == x.key</span><br><span class="line">		<span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">if</span> k &lt; x.key</span><br><span class="line">    	<span class="keyword">return</span> TREE-SEARCH(x.left, k)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> TREE-SEARCH(x.right, k)</span><br></pre></td></tr></table></figure>
-<p><em>最大关键字元素和最小关键字元素</em></p>
-<p>见后文</p>
-<p><em>后继和前驱</em></p>
-<p>见后文</p>
-<p>以上操作在高度为h的二叉树上都能在O(h)的时间内完成</p>
-<h2 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h2><p><em>插入</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TREE-INSERT(T,z)</span><br><span class="line">	y &#x3D; NIL</span><br><span class="line">	x &#x3D; T.root</span><br><span class="line">	while x !&#x3D; NIL</span><br><span class="line">		y &#x3D; x</span><br><span class="line"> 		if z.key &lt; x.key</span><br><span class="line"> 			x &#x3D; x.left</span><br><span class="line">        else x &#x3D; x.right</span><br><span class="line">    z.p &#x3D; y</span><br><span class="line">    if y &#x3D;&#x3D; NIL</span><br><span class="line">    	T.root &#x3D; x &#x2F;&#x2F; 空树</span><br><span class="line">    elseif z.key &lt; y.key</span><br><span class="line">    	y.left &#x3D; z</span><br><span class="line">    else y.right &#x3D; z</span><br></pre></td></tr></table></figure>
-<p>运行时间同样为O(h)，因为这些操作都是在二叉搜索树上从上往下进行一次遍历</p>
-<p><em>删除</em></p>
-<p>首先定义一个子过程TRANSPLANT，用另一棵子树替换一棵子树并成为其双亲的孩子节点</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BST</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Node root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BST</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.root = root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeWalk</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TreeWalk(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">TreeWalk</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x != <span class="keyword">null</span>) &#123;</span><br><span class="line">            TreeWalk(x.left);</span><br><span class="line">            System.out.println(x.key);</span><br><span class="line">            TreeWalk(x.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeSearch</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeSearch(root, k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">TreeSearch</span><span class="params">(Node x, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( x == <span class="keyword">null</span> || k == x.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k &lt; x.key) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeSearch(x.left, k);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeSearch(x.right, k);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMinimum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeMinimum(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMinimum</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        Node y = x;</span><br><span class="line">        <span class="keyword">while</span> (y.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = y.left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeMaximum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> TreeMaximum(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Node <span class="title">TreeMaximum</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        Node y = x;</span><br><span class="line">        <span class="keyword">while</span> (y.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = y.right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreeSuccessor</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeMinimum(x.right);</span><br><span class="line">        &#125;</span><br><span class="line">        Node y = x.p;</span><br><span class="line">        <span class="keyword">while</span> (y != <span class="keyword">null</span> &amp;&amp; x == y.right) &#123;</span><br><span class="line">            x = y;</span><br><span class="line">            y = y.p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">TreePreDecessor</span><span class="params">(Node x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> TreeMaximum(x.left);</span><br><span class="line">        &#125;</span><br><span class="line">        Node y = x.p;</span><br><span class="line">        <span class="keyword">while</span> (y != <span class="keyword">null</span> &amp;&amp; x == y.left) &#123;</span><br><span class="line">            x = y;</span><br><span class="line">            y = y.p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeInsert</span><span class="params">(Node z)</span> </span>&#123;</span><br><span class="line">        Node y = <span class="keyword">null</span>;</span><br><span class="line">        Node x = root;</span><br><span class="line">        <span class="comment">// x占据的位置就是z要插入的位置</span></span><br><span class="line">        <span class="keyword">while</span> (x != <span class="keyword">null</span>) &#123;</span><br><span class="line">            y = x;</span><br><span class="line">            <span class="keyword">if</span> (z.key &lt; x.key) &#123;</span><br><span class="line">                x = x.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                x = x.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        z.p = y;</span><br><span class="line">        <span class="keyword">if</span> (y == <span class="keyword">null</span>) &#123;</span><br><span class="line">            root = z;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (z.key &lt; y.key) &#123;</span><br><span class="line">            y.left = z;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            y.right = z;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除</span></span><br><span class="line">    <span class="comment">// 1.没有孩子节点直接删除，修改其父节点的孩子节点为null</span></span><br><span class="line">    <span class="comment">// 2.只有一个孩子，将孩子换到它原来的位置，并修改其父节点</span></span><br><span class="line">    <span class="comment">// 3.有两个孩子，用其后继占据其位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    r</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">     null r</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    l</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">      l  null</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q</span></span><br><span class="line"><span class="comment">        |           |</span></span><br><span class="line"><span class="comment">        z     -&gt;    y</span></span><br><span class="line"><span class="comment">       / \         / \</span></span><br><span class="line"><span class="comment">      l   y       l   x</span></span><br><span class="line"><span class="comment">         / \</span></span><br><span class="line"><span class="comment">       null x</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        q           q               q</span></span><br><span class="line"><span class="comment">        |           |               |</span></span><br><span class="line"><span class="comment">        z     -&gt;    z    y   -&gt;     y</span></span><br><span class="line"><span class="comment">       / \         /    / \        / \</span></span><br><span class="line"><span class="comment">      l   r       l  null  r      l   r</span></span><br><span class="line"><span class="comment">         / \              / \        / \</span></span><br><span class="line"><span class="comment">        y   ...          x  ...     x  ...</span></span><br><span class="line"><span class="comment">       / \</span></span><br><span class="line"><span class="comment">    null  x</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把v换到u的位置上，同时修改u的父节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TransPlant</span><span class="params">(Node u, Node v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (u.p == <span class="keyword">null</span>)</span><br><span class="line">            root = v;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (u == u.p.left)</span><br><span class="line">            u.p.left = v;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            u.p.right = v;</span><br><span class="line">        <span class="keyword">if</span> (v != <span class="keyword">null</span>)</span><br><span class="line">            v.p = u.p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TreeDelete</span><span class="params">(Node z)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (z.left == <span class="keyword">null</span>)</span><br><span class="line">            TransPlant(z, z.right);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (z.right == <span class="keyword">null</span>)</span><br><span class="line">            TransPlant(z, z.left);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Node y = TreeMaximum(z.right);</span><br><span class="line">            <span class="keyword">if</span> (y.p != z) &#123;</span><br><span class="line">                TransPlant(y, y.right);</span><br><span class="line">                y.right = z.right;</span><br><span class="line">                y.right.p = y;</span><br><span class="line">            &#125;</span><br><span class="line">            TransPlant(z, y);</span><br><span class="line">            y.left = z.left;</span><br><span class="line">            y.left.p = y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/14/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC12%E7%AB%A0-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1396,7 +406,7 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 11:26:02" itemprop="dateModified" datetime="2021-05-11T11:26:02+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-29 14:17:00" itemprop="dateModified" datetime="2021-05-29T14:17:00+08:00">2021-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1434,199 +444,695 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
 
       
           <h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="存储层次"><a href="#存储层次" class="headerlink" title="存储层次"></a>存储层次</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210413184802.png" alt="image-20210413184754054"></p>
-<p>存储介质层次</p>
-<p>（CPU）、第一级存储器（高速缓存、内存）、第二级存储器（快闪存、磁盘存储器）、第三级存储器（光存储器、磁带存储器）</p>
-<p>分级存储的原因：</p>
-<ol>
-<li>价格因素：主存是磁盘的100倍</li>
-<li>寻址的问题：32位主存大小小于$2^{32}$</li>
-<li>数据需要永久保存</li>
-</ol>
-<p><strong>磁盘</strong></p>
-<p>基本概念</p>
-<ul>
-<li><p>硬件上的最小单位是sector，是硬件的不可变属性</p>
-</li>
-<li><p>Block是数据存储的最小单元，由若干sector组成</p>
-</li>
-<li>磁盘上的同心圆构成track</li>
-<li>相同半径的同心圆构成Cylinder</li>
-<li>存放数据的盘片为Platter</li>
-<li>每个面有一个读头，通过磁盘臂进行移动</li>
-<li>磁盘转动，读头不动</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510213551.png" alt="image-20210510213544527"></p>
-<p>数据由柱面号、磁头号、盘块号定位</p>
-<p>性能指标：容量、存取时间、传输速度、可靠性</p>
-<p><strong>第三级存储器</strong></p>
-<p>光盘：CD DVD WORM</p>
-<p>磁带：价格便宜，存储量大，顺序读取</p>
-<p>胶片</p>
-<h3 id="RAID磁盘系统"><a href="#RAID磁盘系统" class="headerlink" title="RAID磁盘系统"></a>RAID磁盘系统</h3><p>磁盘是数据库管理系统提高性能的瓶颈</p>
-<p>磁盘阵列：通过数据条带组织，提高性能（提高并行性和可靠性）</p>
-<p>数据条带：数据分成等长区域，分布在多个盘上，每个分区的大小为一个条带单元</p>
-<p>通过增加数据冗余check disk提高数据可靠性</p>
-<p>海明码</p>
-<p><strong>RAID LEVEL</strong></p>
-<p>RAID：将磁盘分成组，每个组有若干数据盘和一些校验盘构成，校验盘的个数由RAID Level决定</p>
-<p>LEVEL 0：没有冗余数据、可靠性差、写性能最优，读性能不是最优、空间利用率100%</p>
-<p>LEVEL 1：最昂贵，每个磁盘都进行一个备份，每次写两遍，同一块数据可并行读，空间利用率50%</p>
-<p>LEVEL 1+0：以1为基础，增加数据分布条带化</p>
-<p>LEVEL 2    LEVEL 3    LEVEL 4    LEVEL 5（性能最好）    LEVEL 6</p>
-<p>选择</p>
-<ul>
-<li>0代价最小</li>
-<li>0 + 1适合小型系统或大量写系统</li>
-<li>3适合大规模连续读写，优于2</li>
-<li>5各项性能均不错，优于4</li>
-<li>6适合高可靠性系统</li>
-</ul>
-<h3 id="磁盘空间管理"><a href="#磁盘空间管理" class="headerlink" title="磁盘空间管理"></a>磁盘空间管理</h3><ul>
-<li><p>DBMS结构最底层</p>
-</li>
-<li><p>以页为单位组织数据，主要操作包括读、写、申请、释放</p>
-</li>
-<li><p>经常访问的数据可放在连续空间中</p>
-</li>
-<li><p>隔离上层模块和底层的软、硬平台</p>
-</li>
-</ul>
-<p>管理空闲块：空间块链表或空闲块位图</p>
-<p>实现：操作系统文件系统管理或者自己实现</p>
-<h3 id="缓冲区管理"><a href="#缓冲区管理" class="headerlink" title="缓冲区管理"></a>缓冲区管理</h3><p>缓冲区管理器：负责将磁盘上的数据读入内存并写回磁盘的软件层</p>
-<ul>
-<li>管理的内存空间叫Buffer Pool</li>
-<li>每个页叫Frame，有替换策略</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210510215250.png" alt="image-20210510215250219"></p>
-<p>frame数据结构：</p>
-<ul>
-<li>pin_count：正在访问该frame的事务个数</li>
-<li>dirty：已经被修改过的frame</li>
-</ul>
-<p>替换策略：LRU、Clock</p>
-<p>BufferPool和virtual memory的区别在于Buffer Pool能够发现页访问模式</p>
-<h3 id="文件和索引"><a href="#文件和索引" class="headerlink" title="文件和索引"></a>文件和索引</h3><p>每个页有若干记录，每个文件有若干页，每个记录有唯一标识符rid</p>
-<p><strong>堆文件</strong></p>
-<ul>
-<li>数据在文件中以记录为单位无序存储</li>
-<li>提供创建、删除文件、插入、删除记录</li>
-<li>用页的链表或页字典维护文件空闲区域位置</li>
-</ul>
-<p><strong>顺序文件</strong></p>
-<ul>
-<li>根据查找键的值的顺序存储记录的文件</li>
-<li>每个记录有一个指针，按键值大小创建链表</li>
-<li>通过自由空间管理，管理空闲空间</li>
-</ul>
-<p><strong>聚集文件</strong></p>
-<ul>
-<li>一个文件中存储多个关系中的元组</li>
-<li>根据键属性进行数据组织</li>
-</ul>
-<p><strong>代价模型</strong></p>
-<p>用于估算不同的查询操作的代价</p>
-<p><strong>三种文件组织方式</strong></p>
-<p>堆文件、排序文件、Hash文件（后两者有Search Key）</p>
-<h3 id="页格式"><a href="#页格式" class="headerlink" title="页格式"></a>页格式</h3><p>页由一系列记录构成，每个记录为一个Slot，记录的id为(page id,slot number)</p>
-<h3 id="记录格式"><a href="#记录格式" class="headerlink" title="记录格式"></a>记录格式</h3><p>定长记录：每条记录的长度是固定的，即便没有变长字段，一个页存放记录的数量和位置也是确定的</p>
-<p>变长记录：记录中包含变长字段，记录长度可变</p>
-<h2 id="文件组织和索引"><a href="#文件组织和索引" class="headerlink" title="文件组织和索引"></a>文件组织和索引</h2><p>文件组织是当前文件存储在磁盘上时在文件中组织记录的方法，索引是查询操作的性能的工具。</p>
-<h3 id="索引简介"><a href="#索引简介" class="headerlink" title="索引简介"></a>索引简介</h3><p>索引是加速查询操作的辅助文件结构，包括树形索引和Hash索引，一个索引可认为是一个data entry的集合， 通过它可快速地找到相应的记录所在的位置</p>
-<p>考虑的问题</p>
-<ol>
-<li>为了方便查询如何组织data entry</li>
-<li>data entry的构成</li>
-<li>如何适应存储介质的特点</li>
-</ol>
-<p>三种data entry</p>
-<ul>
-<li>k*：包含整个记录</li>
-<li><k, rid>search key为k的记录</li>
-<li><k, rid-list>search key为k的记录集合</li>
-</ul>
-<h3 id="索引特性"><a href="#索引特性" class="headerlink" title="索引特性"></a>索引特性</h3><ul>
-<li><p><strong>聚集索引和非聚集索引</strong>：如果文件中记录顺序同索引中data entry顺序相同，则这个索引是Clustered（聚集/聚簇）的</p>
-</li>
-<li><p><strong>密集索引和稀疏索引</strong>：如果表在该属性上出现的所有值在索引文件中至少有一个data entry与之相对应则为dense（密集）索引，sparse（稀疏）索引每个页只有一个data entry</p>
-</li>
-<li><p><strong>pirmary and secondary indexes</strong>：索引建在包含primary key的属性上则为primary key，其它的为secondary index</p>
-</li>
-<li><p><strong>composite search key索引</strong>：包含多个属性的索引是composite search key索引</p>
-</li>
-</ul>
-<h2 id="树结构索引"><a href="#树结构索引" class="headerlink" title="树结构索引"></a>树结构索引</h2><h3 id="索引序列访问方法（ISAM）"><a href="#索引序列访问方法（ISAM）" class="headerlink" title="索引序列访问方法（ISAM）"></a>索引序列访问方法（ISAM）</h3><p>一种静态索引结构，适用于数据库变化不大的情况</p>
-<p>创建一个二级文件作为索引，记录每一页的起始记录的属性值，索引中元素的格式为（页中第一个键，指向页的指针）</p>
-<p><strong>ISAM</strong></p>
-<p>对每一层二级文件均建立相应二级文件结构</p>
-<p>构造方法：</p>
-<ul>
-<li>在最底层使用溢出链表</li>
-<li>索引中一结点的大小同一个物理页的大小相同</li>
-<li>关系中所有数据均存放在叶子结点</li>
-<li>也可以在实际数据上层增加一个第二种类型的data entry</li>
-<li>树结构静态，只有叶结点中溢出结点会变化</li>
-</ul>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511110725.png" alt="image-20210511110724884"></p>
-<p>操作</p>
-<ul>
-<li>搜索：复杂度$\log_F{N}$，F是每个结点中data entry数量，N为关系中记录数</li>
-<li>插入、删除：只对叶子层的数据起作用</li>
-</ul>
-<h3 id="B-树：一种动态索引结构"><a href="#B-树：一种动态索引结构" class="headerlink" title="B+树：一种动态索引结构"></a>B+树：一种动态索引结构</h3><p>一种动态结构，适用于各种情况</p>
-<p><strong>M阶B+树</strong></p>
-<ul>
-<li>每个结点之多有m棵子树，至少有[m/2]棵子树</li>
-<li>根节点或为叶结点，或至少有两个子树</li>
-<li>在insert、delete操作中树保持平衡</li>
-<li>搜索时只需要访问树的高层次</li>
-<li>所有叶结点在同一层次，data entry层用双向链表连接，便于访问</li>
-</ul>
-<p>B+树结构：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111010.png" alt="image-20210511111009926"></p>
-<p>B+树索引结点的结构：</p>
-<ol>
-<li>每个结点由n个数值和n+1个指针构成</li>
-<li>pi指向子树上的结点的值k，有ki&lt;=k&lt;=ki+1</li>
-<li>通常用第二种或第三种data entry</li>
-<li>data entry本身可以看成为是记录的文件，如果data entry包含整个记录，则文件就是数据本身，否则是一个单独的文件</li>
-</ol>
-<p><strong>操作</strong></p>
-<ul>
-<li>搜索</li>
-<li>插入</li>
-<li>删除</li>
-</ul>
-<h2 id="基于Hash的索引结构"><a href="#基于Hash的索引结构" class="headerlink" title="基于Hash的索引结构"></a>基于Hash的索引结构</h2><p>基于Hash的索引结构适用于相等查询操作，基本想法是将数据映射成一个bucket，bucket对应相应数据的存储位置，有各种不同的基于Hash的索引结构，不适合区间查询。</p>
-<h3 id="静态Hash"><a href="#静态Hash" class="headerlink" title="静态Hash"></a>静态Hash</h3><p>包含数据的页构成一系列的bucket，每个bucket由一个primary bucket page和一串overflow page构成，overflow page中的数据可以进行排序</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511111855.png" alt="image-20210511111855580"></p>
-<h3 id="可扩充的Hash"><a href="#可扩充的Hash" class="headerlink" title="可扩充的Hash"></a>可扩充的Hash</h3><ul>
-<li><p>通过一个directory来记录每个bucket所处的位置，随着数据的增加，bucket将分解，而不是增加overflow页</p>
-</li>
-<li><p>随着bucket的分解，相应的directory会增长</p>
-</li>
-<li><p>利用Hash函数结果最后若干位作为确定bucket的依据</p>
-</li>
-<li>在directory和bucket上分别标有global depth和local depth作为判断的长度</li>
-</ul>
-<h3 id="线性Hash"><a href="#线性Hash" class="headerlink" title="线性Hash"></a>线性Hash</h3><ul>
-<li>一种动态Hashing</li>
-<li>由一个bucket序列构成</li>
-<li>每个bucket还附带一串overflow page</li>
-<li>克服可扩充Hashing在数据倾斜情况下过于频繁的特点</li>
-<li>没有directory</li>
-<li>每次只对一个bucket进行分解，激发分解的条件是数据库中有一个bucket进行了分解或增加了新的bucket page</li>
-</ul>
-<h3 id="可扩充Hash和线性Hash的比较"><a href="#可扩充Hash和线性Hash的比较" class="headerlink" title="可扩充Hash和线性Hash的比较"></a>可扩充Hash和线性Hash的比较</h3><ul>
-<li>两者都依赖于Hash函数的好坏</li>
-<li>当Hash函数比较均衡的时候，两者相差不大，线性Hash少了一次读取directory的时间</li>
-<li>不均衡时<ul>
-<li>线性的primary bucket增长较慢，由于overflow串较长，所以查询性能较差，但空间少</li>
-<li>可扩展的Hashing的primary bucket增长较快，由于overflow串较短，所以查询性能好，但占用空间大</li>
-</ul>
-</li>
-</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/13/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/12/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/12/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">高并发秒杀系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-12 23:15:17" itemprop="dateCreated datePublished" datetime="2021-04-12T23:15:17+08:00">2021-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:18:41" itemprop="dateModified" datetime="2021-05-29T14:18:41+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">项目记录</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/12/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/12/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一个javaweb项目的运行流程"><a href="#一个javaweb项目的运行流程" class="headerlink" title="一个javaweb项目的运行流程"></a>一个javaweb项目的运行流程</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/12/%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/12/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/12/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">软件工程 第7章 面向对象方法基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-12 21:01:14" itemprop="dateCreated datePublished" datetime="2021-04-12T21:01:14+08:00">2021-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:14:08" itemprop="dateModified" datetime="2021-05-29T14:14:08+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/12/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/12/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>面向对象方法是一种把面向对象的思想应用于软件开发过程中，指导开发活动的系统方法，是建立在对象概念基础上的方法，简称为OO方法。</p>
+<h2 id="面向对象的基本概念"><a href="#面向对象的基本概念" class="headerlink" title="面向对象的基本概念"></a>面向对象的基本概念</h2><p>面向对象=对象+分类+继承+通过消息的通信</p>
+<h2 id="面向对象分析和设计过程"><a href="#面向对象分析和设计过程" class="headerlink" title="面向对象分析和设计过程"></a>面向对象分析和设计过程</h2><p><strong>面向对象分析过程OOA</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/12/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC7%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E5%9F%BA%E7%A1%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">同时多线程结构上操作系统的行为分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-11 20:45:58" itemprop="dateCreated datePublished" datetime="2021-04-11T20:45:58+08:00">2021-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:03:55" itemprop="dateModified" datetime="2021-05-29T14:03:55+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>作者：Joshua A. Redstone, Susan J. Eggers and Henry M. Levy University of Washington</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>本论文首次分析了操作系统在同步多线程(SMT)处理器上的执行情况。虽然SMT在过去六年得到了广泛的研究，但这些研究大都集中在用户模式执行上。然而，许多最适合多线程技术的应用程序都将很大一部分时间都花在内核代码上。因此，要完全理解这种工作负载的行为，需要执行和测量操作系统以及应用程序本身。</p>
+<p>为了进行这项研究，我们做了以下工作：<br>1.修改Digital Unix 4.0d操作系统以运行在SMT CPU上<br>2.将我们的SMT Alpha指令集模拟器集成到SimOS模拟器种以提供一个执行环境</p>
+<p>对于操作系统密集型工作负载，我们在SMT上运行多线程Apache Web服务器。我们将Apache的用户模式和内核模式行为与标准SPECInt工作负载进行了比较。总的来说，我们的结果展示了SMT处理器上操作系统密集型工作负载的微架构影响，并提供了对Apache Web服务器操作系统需求的深入了解。SMT处理器与Web和OS软件之间的协同作用产生了比以前检查过了任何工作负载（包括商业数据库和显示并行程序）上更大的吞吐量增益。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">大数运算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-11 20:38:37" itemprop="dateCreated datePublished" datetime="2021-04-11T20:38:37+08:00">2021-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:19:20" itemprop="dateModified" datetime="2021-05-29T14:19:20+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">算法题解</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>高精度整数：使用vector/数组存储每一位数字</p>
+<p>高精度加法/乘法：模拟加法和乘法的过程</p>
+<p>示例：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">第八章 线性时间排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-10 14:02:07" itemprop="dateCreated datePublished" datetime="2021-04-10T14:02:07+08:00">2021-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:15:47" itemprop="dateModified" datetime="2021-05-29T14:15:47+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>归并排序、堆排序、快速排序各元素的次序依赖于它们之间的比较，称为比较排序。</p>
+<h2 id="排序算法的下界"><a href="#排序算法的下界" class="headerlink" title="排序算法的下界"></a>排序算法的下界</h2><p><strong>决策树模型</strong></p>
+<p>一个完全二叉树，可以表示在给定输入规模情况下，某一特定排序算法对所有元素的比较操作</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/" class="post-title-link" itemprop="url">第9章 中位数和顺序统计量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-10 14:02:07" itemprop="dateCreated datePublished" datetime="2021-04-10T14:02:07+08:00">2021-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:14:54" itemprop="dateModified" datetime="2021-05-29T14:14:54+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="最小值和最大值"><a href="#最小值和最大值" class="headerlink" title="最小值和最大值"></a>最小值和最大值</h2><p>为了确定最小值/最大值，必须要进行n-1次比较</p>
+<p>同时找到最大值/最小值，总的比较次数为至多是$3\lfloor n/2\rfloor$</p>
+<p>方法：对输入元素成对处理，大的和最大值比，小的和最小值比</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">第4章 存储器层次结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-09 08:05:59" itemprop="dateCreated datePublished" datetime="2021-04-09T08:05:59+08:00">2021-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:17:43" itemprop="dateModified" datetime="2021-05-29T14:17:43+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">计算机体系结构</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="存储系统的基本知识"><a href="#存储系统的基本知识" class="headerlink" title="存储系统的基本知识"></a>存储系统的基本知识</h2><p>存储器的特性：</p>
+<ul>
+<li>速度越快，每位价格就越高</li>
+<li>容量大，价格低</li>
+<li>容量越大，速度越慢</li>
+<li>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1712,7 +1218,7 @@ max(c[i,j-1],c[i-1,j]),若i,j>0且x_i\neq y_i
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
