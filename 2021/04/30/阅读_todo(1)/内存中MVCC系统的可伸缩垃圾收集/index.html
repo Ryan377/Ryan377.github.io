@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="摘要为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读者和写者的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往称为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准的后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存中MVCC系统的可伸缩垃圾收集">
+<meta property="og:url" content="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB_todo(1)/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="摘要为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读者和写者的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往称为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准的后">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png">
+<meta property="article:published_time" content="2021-04-30T12:50:50.035Z">
+<meta property="article:modified_time" content="2021-05-29T06:03:47.118Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png">
+
+<link rel="canonical" href="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB_todo(1)/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>内存中MVCC系统的可伸缩垃圾收集 | My Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">My Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB_todo(1)/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内存中MVCC系统的可伸缩垃圾收集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-30 20:50:50" itemprop="dateCreated datePublished" datetime="2021-04-30T20:50:50+08:00">2021-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-29 14:03:47" itemprop="dateModified" datetime="2021-05-29T14:03:47+08:00">2021-05-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/30/%E9%98%85%E8%AF%BB_todo(1)/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/30/%E9%98%85%E8%AF%BB_todo(1)/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读者和写者的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往称为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准的后台清理方法使系统容易受到工作负荷突然激增的影响。</p>
+<p>在这项工作中，我们提出了一种新的垃圾收集方法，它可以急切地修剪过时的版本。它与交易处理的无缝集成使GC的开销最小，并确保良好的可扩展性。我们表明，我们的方法可以很好地处理混合工作负载。而且与现有的最先进的方法相比，还可以加快纯OLTP工作负载的速度，如TPC-C。</p>
+<span id="more"></span>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>MVCC是数据库系统中最常见的并发控制机制，根据不同的实现，它保证了快照隔离或完全可序化，如果辅以预决策锁的话，MVCC已经成为许多商业系统的默认机制。</p>
+<p>MVCC的核心思想是简答而强大的：当一个元组被更新时，它的前一个版本通过系统保持活力，因此，事务可以在一个一致的数据快照上工作，而不会阻塞其他事务。与其他并发控制协议相比，读者可以访问元素的旧快照，而写入者正在创建新版本，尽管多版本控制本身是无阻塞的，而且是可扩展的，但它在混合工作负载中存在固有的问题，如果在长期运行的事务中存在许多更新，活动版本的数量会迅速增长。只要活跃的事务可能需要的版本，都不能被丢弃。</p>
+<p>由于这个原因，长期运行的事务会导致一个“恶性循环”，在事务是生命周期内，新添加的版本不能被垃圾收集，活动版本的数量不断累积，导致了长的版本链。随着链的长度的增加，检索所需的版本变得更加昂贵。版本检索会使长期运行的事务变得更加缓慢，这就是其影响更加扩大了。写入交易最初几乎不被较长版本链的影响。因为它们不需要遍历整个版本链。他们只在链的开始添加新的版本。因此，快速的写交易和慢速的读交易之间的差距越来越大，迅速产生越来越多的版本。在某些时候，写的性能也会受到版本链上不断增加的争论的影响，因此新版本的插入被阻止了，而版本链被锁在GC上。当线程在前台清理版本时，系统也会损失交易的处理时间。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png" alt="image-20210528161933340"></p>
+<p>如图，我们通过监测混合CH基准中的MVCC系统，直观地看到了所谓的“恶性循环的”实际意义，OLTP线程持续地运行短暂的TPC-C风格的事务，而OLAP线程发出分析性查询。我们看到，读取性能在几秒钟内就崩溃了，而写入则因为长时间的GC变慢了。如果有更高的写入量或者更高的并发读者，其负面影响会更加明显。然而，即使是低容量的工作负载，只要GC被一个运行时间很长的事务（例如，被一个交互式用户事务）阻断，就会遇到这个问题。</p>
+<p>事实上，GC是一个主要的实际问题，会导致内存使用量的增加、征用和CPU的峰值，这一点已经被其他人观察到了。然而，关于MVCC协议和其他论文数量相比，关于GC的研究很少。</p>
+<p>在本文中，我们表明，垃圾收集器是MVCC系统的一个重要组成部分。它的实现可以对系统的整体性能产生巨大的影响，因为它影响到事务的管理。因此，它对所有类别的工作负载都很重要，而不仅仅是混合的垃圾多的工作负载。我们的实验结果强调了GC在现代多核数据库中的重要性。作为一种解决方案，我们提出了Steam——一种精简的，无锁的GC设计，其性能由于以前的实现。Steam每当穿越一个版本链时都会急切地修剪。它删除了所有不被任何活动事务需要的版本。但大多数系统所使用的标准高期限方法会错过这些版本。</p>
+<p>第二节介绍了基本的版本管理和垃圾处理在MVCC系统中收集以及关于混合工作负载和可扩展性的挑战。</p>
+<p>第三节对现有的GCs和设计决策进行了深入的调查。</p>
+<p>第四节中提出了我们的可扩展和稳健的垃圾收集器Steam，它减少了对长时间运行的脆弱性事务。</p>
+<p>第五节介绍了与Steam不同的最先进的GC实施方案的实验评估。</p>
+<p>第六节中总结关于HTAP工作负载和垃圾收集的相关工作。</p>
+<h2 id="2-MVCC中的版本管理"><a href="#2-MVCC中的版本管理" class="headerlink" title="2 MVCC中的版本管理"></a>2 MVCC中的版本管理</h2><h3 id="2-1-识别过时的版本"><a href="#2-1-识别过时的版本" class="headerlink" title="2.1 识别过时的版本"></a>2.1 识别过时的版本</h3><h3 id="2-2-GC的实际影响"><a href="#2-2-GC的实际影响" class="headerlink" title="2.2 GC的实际影响"></a>2.2 GC的实际影响</h3><h2 id="3-垃圾收集调查"><a href="#3-垃圾收集调查" class="headerlink" title="3 垃圾收集调查"></a>3 垃圾收集调查</h2><h2 id="4-Steam垃圾收集"><a href="#4-Steam垃圾收集" class="headerlink" title="4 Steam垃圾收集"></a>4 Steam垃圾收集</h2><h3 id="4-1-基本设计"><a href="#4-1-基本设计" class="headerlink" title="4.1 基本设计"></a>4.1 基本设计</h3><h3 id="4-2-可扩展的同步化"><a href="#4-2-可扩展的同步化" class="headerlink" title="4.2 可扩展的同步化"></a>4.2 可扩展的同步化</h3><h3 id="4-3-急于修剪过时的版本"><a href="#4-3-急于修剪过时的版本" class="headerlink" title="4.3 急于修剪过时的版本"></a>4.3 急于修剪过时的版本</h3><h3 id="4-4-版本记录的布局"><a href="#4-4-版本记录的布局" class="headerlink" title="4.4 版本记录的布局"></a>4.4 版本记录的布局</h3><h2 id="5-评价"><a href="#5-评价" class="headerlink" title="5 评价"></a>5 评价</h2><h3 id="5-1-随着时间的推移，垃圾收集"><a href="#5-1-随着时间的推移，垃圾收集" class="headerlink" title="5.1 随着时间的推移，垃圾收集"></a>5.1 随着时间的推移，垃圾收集</h3><h3 id="5-2-TPC-C"><a href="#5-2-TPC-C" class="headerlink" title="5.2 TPC-C"></a>5.2 TPC-C</h3><h3 id="5-3-混合工作负载的可扩展性"><a href="#5-3-混合工作负载的可扩展性" class="headerlink" title="5.3 混合工作负载的可扩展性"></a>5.3 混合工作负载的可扩展性</h3><h3 id="5-4-垃圾收集频率"><a href="#5-4-垃圾收集频率" class="headerlink" title="5.4 垃圾收集频率"></a>5.4 垃圾收集频率</h3><h3 id="5-5-歪斜"><a href="#5-5-歪斜" class="headerlink" title="5.5 歪斜"></a>5.5 歪斜</h3><h3 id="5-6-不同的读写频率"><a href="#5-6-不同的读写频率" class="headerlink" title="5.6 不同的读写频率"></a>5.6 不同的读写频率</h3><h3 id="5-7-急于修剪过时的版本"><a href="#5-7-急于修剪过时的版本" class="headerlink" title="5.7 急于修剪过时的版本"></a>5.7 急于修剪过时的版本</h3><h2 id="6-相关的工作"><a href="#6-相关的工作" class="headerlink" title="6 相关的工作"></a>6 相关的工作</h2><h2 id="7-结论"><a href="#7-结论" class="headerlink" title="7 结论"></a>7 结论</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/" rel="prev" title="第5章 指令级并行及其开发">
+      <i class="fa fa-chevron-left"></i> 第5章 指令级并行及其开发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA_todo/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="第15章 动态规划">
+      第15章 动态规划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MVCC%E4%B8%AD%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">2 MVCC中的版本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%AF%86%E5%88%AB%E8%BF%87%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 识别过时的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-GC%E7%9A%84%E5%AE%9E%E9%99%85%E5%BD%B1%E5%93%8D"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 GC的实际影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E8%B0%83%E6%9F%A5"><span class="nav-number">4.</span> <span class="nav-text">3 垃圾收集调查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Steam%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="nav-number">5.</span> <span class="nav-text">4 Steam垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 基本设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 可扩展的同步化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%80%A5%E4%BA%8E%E4%BF%AE%E5%89%AA%E8%BF%87%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 急于修剪过时的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E7%89%88%E6%9C%AC%E8%AE%B0%E5%BD%95%E7%9A%84%E5%B8%83%E5%B1%80"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 版本记录的布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E8%AF%84%E4%BB%B7"><span class="nav-number">6.</span> <span class="nav-text">5 评价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E9%9A%8F%E7%9D%80%E6%97%B6%E9%97%B4%E7%9A%84%E6%8E%A8%E7%A7%BB%EF%BC%8C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 随着时间的推移，垃圾收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-TPC-C"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 TPC-C</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E6%B7%B7%E5%90%88%E5%B7%A5%E4%BD%9C%E8%B4%9F%E8%BD%BD%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 混合工作负载的可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E9%A2%91%E7%8E%87"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 垃圾收集频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-%E6%AD%AA%E6%96%9C"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 歪斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-%E4%B8%8D%E5%90%8C%E7%9A%84%E8%AF%BB%E5%86%99%E9%A2%91%E7%8E%87"><span class="nav-number">6.6.</span> <span class="nav-text">5.6 不同的读写频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-%E6%80%A5%E4%BA%8E%E4%BF%AE%E5%89%AA%E8%BF%87%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 急于修剪过时的版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">6 相关的工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="nav-number">8.</span> <span class="nav-text">7 结论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenrui"
+      src="/images/avatar_1.gif">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
