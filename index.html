@@ -614,7 +614,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(2)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(1)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -628,7 +628,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(2)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/" class="post-title-link" itemprop="url">系统实现技术</a>
+            <a href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(1)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/" class="post-title-link" itemprop="url">系统实现技术</a>
         </h2>
 
         <div class="post-meta">
@@ -645,7 +645,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-29 14:16:41" itemprop="dateModified" datetime="2021-05-29T14:16:41+08:00">2021-05-29</time>
+                <time title="修改时间：2021-06-04 09:20:12" itemprop="dateModified" datetime="2021-06-04T09:20:12+08:00">2021-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -666,8 +666,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(2)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(2)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(1)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(1)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -682,18 +682,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是构成单一逻辑工作单元的操作集合。</p>
+          <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>事务是构成单一逻辑工作单元的操作集合。由一系列下面这些操作构成：</p>
+<ul>
+<li>读数据库对象：磁盘-&gt;缓冲区-&gt;程序</li>
+<li>对数据库对象的写操作：缓冲区-&gt;磁盘</li>
+</ul>
 <p>在程序中，事务以BEGIN TRANSACTION开始，以COMMIT语句或ROLLBACK语句结束。</p>
 <p>性质（ACID）</p>
 <ul>
-<li>原子性</li>
-<li>一致性</li>
-<li>隔离性</li>
-<li>持久性</li>
+<li>原子性：事务是一个不可分割的工作单元；</li>
+<li>一致性：数据不会因事务的执行而遭受破坏；</li>
+<li>隔离性：在多个事务并发执行时，系统应保证这些事务先后单独执行时的结果一样；</li>
+<li>持久性：一个事务一旦完成全部操作后，它对数据库的所有更新应永久地反映在数据库中。</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(2)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/#more" rel="contents">
+              <a class="btn" href="/2021/05/18/%E6%95%B0%E6%8D%AE%E5%BA%93_todo(1)/%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -748,7 +752,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-31 00:00:58" itemprop="dateModified" datetime="2021-05-31T00:00:58+08:00">2021-05-31</time>
+                <time title="修改时间：2021-06-04 15:49:31" itemprop="dateModified" datetime="2021-06-04T15:49:31+08:00">2021-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
