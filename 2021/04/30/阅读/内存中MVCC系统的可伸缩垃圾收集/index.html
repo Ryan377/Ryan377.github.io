@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="摘要为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读操作和写操作的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往成为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存中MVCC系统的可伸缩垃圾收集">
+<meta property="og:url" content="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="摘要为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读操作和写操作的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往成为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601164529.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601164736.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601174301.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603193539.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603213953.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603220014.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603215712.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603215606.png">
+<meta property="article:published_time" content="2021-04-30T12:50:50.035Z">
+<meta property="article:modified_time" content="2021-06-07T15:07:34.960Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png">
+
+<link rel="canonical" href="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>内存中MVCC系统的可伸缩垃圾收集 | My Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">My Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内存中MVCC系统的可伸缩垃圾收集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-30 20:50:50" itemprop="dateCreated datePublished" datetime="2021-04-30T20:50:50+08:00">2021-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-07 23:07:34" itemprop="dateModified" datetime="2021-06-07T23:07:34+08:00">2021-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">阅读</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>为了支持混合事务和分析处理（HTAP），数据库系统通常依赖于多版本并发控制（MVCC），虽然MVCC优雅地实现了读操作和写操作的轻量级隔离，但它也产生了过时的元组版本，这些版本最终必须被回收。令人惊讶的是，我们发现在HTAP工作负载中，这些旧版本的回收，即垃圾收集，往往成为性能瓶颈。事实证明在长期运行的查询中，最先进的垃圾收集器的粒度太粗了。因此，版本的数量迅速增长，拖慢了整个系统。此外，标准的后台清理方法使系统容易受到工作负荷突然激增的影响。</p>
+<p>在这项工作中，我们提出了一种新的垃圾收集方法，它可以急切地修剪过时的版本。它与事务处理的无缝集成使GC的开销最小，并确保良好的可扩展性。我们表明，我们的方法可以很好地处理混合工作负载。而且与现有的最先进的方法相比，还可以加快纯OLTP工作负载的速度，如TPC-C。</p>
+<span id="more"></span>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>MVCC是数据库系统中最常见的并发控制机制，根据不同的实现，它保证了快照隔离或完全可序化，如果辅以预决策锁的话，MVCC已经成为许多商业系统的默认机制。</p>
+<p>MVCC的核心思想是简答而强大的：当一个元组被更新时，它的前一个版本通过系统保持存活，因此，事务可以在一个一致的数据快照上工作，而不会阻塞其他事务。与其他并发控制协议相比，读操作可以访问元素的旧快照，而写操作正在创建新版本，尽管多版本控制本身是无阻塞的，而且是可扩展的，但它在混合工作负载中存在固有的问题，如果在长期运行的事务中存在许多更新，活动版本的数量会迅速增长。只要活跃的事务可能需要的版本，都不能被丢弃。</p>
+<p>由于这个原因，长期运行的事务会导致一个“恶性循环”，在事务的生命周期内，新添加的版本不能被垃圾收集，活动版本的数量不断累积，导致了版本链变长。随着链的长度的增加，检索所需的版本的成本也会增加。版本检索会使长期运行的事务变得更加缓慢，这就是使影响更加扩大了。写入事务最初几乎不被较长版本链的影响。因为它们不需要遍历整个版本链。他们只在链的开始添加新的版本。因此，快速的写事务和慢速的读事务之间的差距越来越大，迅速产生越来越多的版本。在某些时候，写的性能也会受到版本链上不断增加的冲突的影响，因此新版本的插入被阻止了，而版本链被锁在GC上。当线程在前台清理版本时，系统也会损失事务的处理时间。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210528161933.png" alt="图1"></p>
+<p>如图2，我们通过监测混合CH基准中的MVCC系统，直观地看到了所谓的“恶性循环的”实际意义，OLTP线程持续地运行短暂的TPC-C风格的事务，而OLAP线程发出分析性查询。我们看到，读取性能在几秒钟内就崩溃了，而写入则因为长时间的GC变慢了。如果有更高的写入量或者更高的并发读操作，其负面影响会更加明显。然而，即使是低容量的工作负载，只要GC被一个运行时间很长的事务（例如，被一个交互式用户事务）阻断，就会遇到这个问题。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601164529.png" alt="图2"></p>
+<p>事实上，GC是一个主要的实际问题，会导致内存使用量的增加、征用和CPU的峰值，这一点已经被其他人观察到了。然而，关于MVCC协议和其他论文数量相比，关于GC的研究很少。</p>
+<p>在本文中，我们表明，垃圾收集器是MVCC系统的一个重要组成部分。它的实现可以对系统的整体性能产生巨大的影响，因为它影响到事务的管理。因此，它对所有类别的工作负载都很重要，而不仅仅是混合的垃圾多的工作负载。我们的实验结果强调了GC在现代多核数据库中的重要性。作为一种解决方案，我们提出了Steam——一种精简的，无锁的GC设计，其性能优于以前的实现。Steam每当穿越一个版本链时都会急切地修剪。它删除了所有不被任何活动事务需要的版本。但大多数系统所使用的标准高期限方法会错过这些版本。</p>
+<p>第二节介绍了基本的版本管理和垃圾处理在MVCC系统中收集以及关于混合工作负载和可扩展性的挑战。</p>
+<p>第三节对现有的GCs和设计决策进行了深入的调查。</p>
+<p>第四节中提出了我们的可扩展和稳健的垃圾收集器Steam，它减少了长时间运行的事务的脆弱性。</p>
+<h2 id="2-MVCC中的版本管理"><a href="#2-MVCC中的版本管理" class="headerlink" title="2 MVCC中的版本管理"></a>2 MVCC中的版本管理</h2><p>MVCC是一个并发控制协议，每当元组被修改时，它就备份元组的旧版本。对于每个元组，事务可以检索到事务开始时的有效版本。因此所有事务都可以观察到表的一致快照。</p>
+<p>一个元组的版本在一个有序的版本记录链中管理。每个版本记录都包含元组的旧版本和表明可见性的时间戳。在快照隔离下，如果一个版本在事务开始前被提交，那么它对事务是可见的。因此，时间戳等于事务的提交时间戳或一个高的临时数字，如果它仍然在运行中。</p>
+<p>MVCC可以维护一个元组的多个版本（快照），而每次更新都会在链上增加一个新的版本记录。该链是按时间戳排序的，以方便检索可见的版本。</p>
+<p>图3显示了一个被多次更新的元组的版本链。由于事务B和C在v4被提交之前就开始了，它们必须穿过该链以检索可见版本v1。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601164736.png" alt="图3"></p>
+<h3 id="2-1-识别过时的版本"><a href="#2-1-识别过时的版本" class="headerlink" title="2.1 识别过时的版本"></a>2.1 识别过时的版本</h3><p>在讨论高效的垃圾收集之前，我们再来看看什么时候删除一个版本是安全的。一般来说，只要活动事务需要它来观察和数据库的一致快照，版本就必须被保留下来。从本质上来说，这意味着所有对活动事务可见的版本都必须保留。这些版本是否会被实际检索并不重要，因为数据库系统通常无法预测一个事务的访问时间，特别是在交互式用户查询的情况下。因此，它总是要保留可见的版本，只要它们在未来可能被访问。</p>
+<p>可见的版本是由当前活跃的事务决定的。当一个版本不再被任何活动事务所需要时，它可以被安全地删除。未来是事务将不需要它们，因为它们已经在数据库的较新快照上工作了。因此，每个版本的重新要求的寿命只取决于当前的活动事务。</p>
+<p>在最好的情况下，垃圾收集器可以识别并重新移动所有不必要的版本。然而，传统的垃圾收集器只跟踪最古老的事务的开始时间戳。因此，他们只能得到一个粗略的可重新要求的版本记录的估计。基本上，只有在最古老的事务开始之前提交的版本被确定为过时的。这就导致了在多次更新和长期事务的情况下，会有几个“遗漏”的版本。为了克服这个问题，我们在4.3节中提出了一个更细化的方法，对不必要的中间版本进行修剪。</p>
+<h3 id="2-2-GC的实际影响"><a href="#2-2-GC的实际影响" class="headerlink" title="2.2 GC的实际影响"></a>2.2 GC的实际影响</h3><p>如图2，在这个实验中，我们运行了混合的CH基准测试，它结合了事务性的TPC-C和分析性的TPC-H工作负载，一个OLAP和OLTP线程足以使传统的高标准GC的能力过度紧张。只有一个仓库，孤立的查询执行时间是相当快的，然而，与写的持续时间相比，一些查询已经运行了很长时间，足以运行到“恶性循环”。通过添加更多的线程和仓库，效果会更差。</p>
+<p>查询吞吐量在若干秒后明显下降，查询开始持续数秒。这些长期运行的查询在最上面的图中显示0查询/秒的增加其。只要这些查询在运行，版本记录的数量就会堆积起来。这导致了版本记录数量的“鲨鱼鳍”出现。只有当读结束后，写才开始清理版本记录。在这些GC时期，它不能实现任何额外的写进度。随着时间的推移，效果越来越差，版本记录数量的振幅增加，而读写性能几乎下降到0。在这种设置下，只有一个写线程，GC线程的背压已经很高了，而且版本的数量不断增长。特别是如果GC线程不能赶上写线程的话，对读取性能的影响是巨大的。在某些时候，整个系统会耗尽内存。</p>
+<h2 id="3-垃圾收集调查"><a href="#3-垃圾收集调查" class="headerlink" title="3 垃圾收集调查"></a>3 垃圾收集调查</h2><p>我们的调查将现代内存中MVCC系统的GC实现与我们的新方法Steam进行了比较，我们在第四节中详述。</p>
+<p>Steam是一个高度可扩展的垃圾收集器，它建立在HyPer的事务和版本管理之上。通过基于当前的活动的事务精确地修剪版本链，避免了长的版本链。这是用一种类似于HANA的基于间隔的算法来完成的，只是版本修剪不是在后台进行的，而是在前台通过对事务处理的搭接来主动完成的。每当一个链因更新或插入而增长时，它就会被急切地修剪掉。这使得修剪的成本小的可以忽略不计，因为链已经被相应的更新操作锁定和访问。</p>
+<p>Hekaton也在常规的事务处理过程中清理版本。与Steam不同的是，它只清理那些在扫描过程中被遍历的过时版本，而Steam在读者可能需要遍历它们时就已经删除了过时的版本。从本质上讲，Steam在版本链因新版本的插入而增长时就会进行修剪——将版本链的长度限制在活动事务的数量上。此外，Hekaton只根据一个更粗略的高水印概念回收版本，而Steam则清理一个链上的所有过时版本。</p>
+<p>在高层次上，Steam可以被看做HANA，Hekaton和HyPer中各种现有技术的实际结合和扩展。正如我们在实验中所展示的，看似微小的差异对性能、可扩展性和可靠性都有巨大的影响。在本节的其余部分，我们将更详细地讨论不同的设计决策，并在表1中对其进行总结。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210601174301.png" alt="表1"></p>
+<p><strong>追踪水平</strong></p>
+<p>数据库系统使用不同颗粒度来追踪垃圾收集的版本。最精确的方法是在元组级GC，GC通过扫描单个图元来识别过时的版本，一般来说，这是用一个周期性调用的后台真空程序来实现的。然而，在常规事务处理过程中，也有可能在前台找到并清理版本。例如，Hekaton的工作线程在查询处理过程中清理了他们看到的所有过时的版本。由于这种方法只清理了遍历的版本，Hekaton仍然需要一个额外的后台线程来寻找剩余的版本。</p>
+<p>另外，系统可以根据事务行为来收集版本。所有由同一事务创建的版本都有相同的提交时间戳。因此，多个过时的版本可以被识别并一次性清理掉。虽然这使得内存管理和版本管理更容易，但与更细粒度的元组级方法相比，它可能会延迟单个版本的回收。</p>
+<p>基于纪元的系统更进一步，将多个事务归入一个纪元。一个纪元是根据一个阈值标准来推进的，比如分配的内存量或版本数量。  BOHM也使用纪元，但由于它是分批执行事务的，所以它也在批次层面上跟踪GC。</p>
+<p>最粗略的粒度是对每个表进行版本回收。当确定一组给定的转换动作将永远不会访问一个表时，这才有意义。只有这样，系统才能删除该表的所有版本，而不必等待这些事务的完成。由于这只适用于具有固定给定操作集的特殊工作负载，例如存储程序或准备好的语句，这种方法很少被使用。HANA是我们所知道的唯一一个将这种方法作为其图层和事务层GC的延伸的系统。一般来说，数据库系统不能确定地预测哪些表将在事务的生命周期内被访问。</p>
+<p><strong>频率和精度</strong></p>
+<p>频率和精度指的是GC识别和清理过时版本的速度和彻底程度。如果GC没有被定期触发或者工作不精确，那么它保留的版本就会超过必要的时间。基于纪元的系统通过在一定的阈值计数或内存限制的基础上推进其全局纪元来控制GC。因此，频率高度依赖于阈值的设置。</p>
+<p>建立在后台线程上的GC系统，会周期性地触发后台线程。因此，GC的频率取决于背景线程被调用的频率。由于HANA和Hekaton使用后台线程来重新刷新他们的高水印，如果GC被调用的频率太低，那么垃圾收集的决策就会基于过时的信息。在最坏的情况下，GC会停滞，直到下一次调用后台线程。像Hekaton这样的系统，根据当前的负载自适应地改变间隔时间。</p>
+<p>BOHM的事务是分批组织和执行的。在一个批次结束时进行GC，以确保所有的事务都执行完毕。除了一个元组的最新状态外，只有以前执行的批次的版本可以安全地进行GC。</p>
+<p>除了GC的频率，它的彻底性主要由GC识别可删除版本的方式来决定。基于时间戳的识别方式不如基于区间的方式彻底。时间戳的方法比较近似，因为它只删除那些严格按照时间顺序排列的时间戳已经落后于高水位的版本，高水位是由当前活动交易的最小开始时间戳设定的。由于高水位线与最古老的活动事务有关，所以只要是活动的，长期运行的事务就会阻碍整个GC的进展。在这种情况下，基于时间间隔的GC仍然可以通过从链的中间位置切除过时的版本来取得进展。一般来说，基于时间间隔的GC只保留必要的版本，从而准确地清理数据库。</p>
+<p><strong>版本存储</strong></p>
+<p>大多数系统将版本记录存储在全局数据结构中，如哈希表。这使得系统可以独立地回收每一个版本。缺点是，标准情况下，整个交易的所有版本都落在水印后面，变得更加复杂，因为这些版本必须在全局存储中被识别。根据实施情况，这可能需要一个定期的后台真空过程。</p>
+<p>由于这个原因，HyPer和Steam将其版本直接存储在事务中，即Undo Log。当一个事务落后于高水位时，它的所有版本可以一起被回收，因为它们的内存是由事务对象拥有的。尽管如此，单个版本仍然可以从版本链中被剪除（解除链接）。只有对其内存的回收被推迟到拥有的事务对象被释放。一般来说，使用事务的撤销日志作为版本存储也是很有吸引力的，因为撤销日志无论如何都是需要回滚的。  使用撤销日志条目作为版本记录是直截了当的，因为之前的存储图像包含了恢复一个元组的前一个版本的所有信息。由于空间的原因，我们只在版本记录中存储<em>delta</em>，即改变的属性。如果一个系统存储整个元组，更新宽表或具有可变大小属性的表，如字符串或BLOBs，会导致几个不必要的复制操作。</p>
+<p>Hekaton的版本管理很特别，因为它不使用连续的表空间和原位元组。一个元组的版本只能从索引中访问。由于这个原因，Hekaton不区分版本记录和元组。此外，它是唯一一个将记录从最旧到最新排序的系统（O2N）。这种顺序迫使事务遍历整个链条以找到最新的版本，这使得系统的性能高度依赖于其快速修剪旧版本的能力。O2N排序也使得检测写与写之间的冲突变得更加昂贵，因为事务必须遍历整个链来检测冲突版本的存在。同样的情况也适用于回滚，回滚也需要遍历整个链来恢复和删除以前安装的版本。</p>
+<p><strong>识别</strong></p>
+<p>如果提交时间戳是单调的，它们可以用来识别过时的版本。所有在最老的活动事务开始之前提交的版本都可以被安全回收。  当活跃的事务被管理在一个有序的数据结构中时，如全局txn列表或txn地图，最老的活跃事务的开始时间戳可以在静态时间内确定。</p>
+<p>由于纯粹的基于时间戳的方法错过了第2.1节中讨论的中间版本，像HANA和Steam这样的系统用更精细的基于时间间隔的方法来补充它。虽然这种方法使版本链的长度最小，但实施起来也更复杂。这些系统必须跟踪所有活跃的交易，并对每个版本链进行基于时间间隔的交叉分析。HANA通过使用参考计数列表（”全球STS跟踪器”）跟踪所有在同一时间开始的交易来实现这一点。在第4.3节中，我们提出了一个使用本地txn列表的更可扩展的替代实现。</p>
+<p>为了实现更粗略的垃圾收集，也可以控制版本的寿命，以纪元为单位。这在本质上接近于其他系统所使用的更精确的基于时间戳的水印。然而，在数据库系统中，基于历时的内存管理是一种很有吸引力的技术，因为它可以用来控制所有类型的对象的回收，而不仅仅是版本。当一个事务开始时，它通过输入纪元将自己注册在当前的纪元中。这将导致纪元保护器推迟事务所做的所有内存去分配/版本删除，直到所有其他线程离开这个纪元，从而不再访问它们。虽然在历时中管理版本限制了GC的精度，但它允许系统在执行事务时不会出现单调增加的事务时间戳。例如，在基于时间戳排序的MVCC系统中，如Deuteronomy或BOHM，版本的创建或访问顺序可能与它们的逻辑时间戳显示的顺序不同。</p>
+<p>与所选择的数据结构无关，识别哪些版本是过时的，既可以由后台（BG）线程来完成，也可以在前台（FG）主动完成。</p>
+<p><strong>清除</strong></p>
+<p>在HANA中，整个GC工作是由一个专门的后台线程完成的，该线程会定期触发。Hekaton在事务处理过程中即时清理所有版本。每当一个线程遍历一个过时的版本，它就会从链上删除它。注意，这只适用于O2N，当过时的（旧的）版本被存储在开始时，因此总是被事务所遍历。为了清理不经常访问的图元，Hekaton运行一个后台线程，扫描整个数据库，以寻找迄今为止错过的版本。然后，后台线程将清除这些版本的工作分配给工人线程，工人线程将GC工作与常规事务处理穿插进行。</p>
+<p>在基于历时的系统中，一个常见的模式是将已提交的版本与当前的历时信息一起添加到一个自由列表中。当一个事务需要一个新的版本时，它会检查它是否能从基于当前纪元的自由列表中回收一个旧版本。因此，版本重新移动基本上是与正常的交易处理穿插进行的。然而，纪元保护应该周期性地释放超过新需要的版本。另外，随着时间的推移，版本的总体数量只能上升，因为所有重复使用的版本最终都会再次进入自由列表。通过限制版本的最大数量来解决这个问题。当达到硬性限制时，就不允许再创建版本了，线程会被联合起来执行GC，直到版本的数量再次得到控制。</p>
+<p>HyPer和Steam也在前台执行整个GC工作，将GC任务穿插在事务执行过程中。如果有过时的版本，工人线程会在每次提交后直接回收这些版本。因此，GC成为事务处理的一个自然部分，不需要额外的后台线程。这使得系统可以自我调节，并对高峰期保持稳定，但代价是提交延迟略有增加。此外，每当Steam将一个新版本插入到一个链中时，它都会在创建时修剪过时的版本。  因此，Steam确保 “污染者 “负责清除垃圾，从而减轻了（可能已经很慢的）读者的负担。</p>
+<h2 id="4-Steam垃圾收集"><a href="#4-Steam垃圾收集" class="headerlink" title="4 Steam垃圾收集"></a>4 Steam垃圾收集</h2><p>版本的垃圾收集在MVCC系统中具有内在的重要性，因为它可以保持较低的内存占用率并减少昂贵的版本检索次数。在这一节中，我们为MVCC系统中的垃圾收集提出了一个高效和稳健的解决方案。我们主要针对三个方面：可扩展性、长期运行的事务和内存效率设计。</p>
+<h3 id="4-1-基本设计"><a href="#4-1-基本设计" class="headerlink" title="4.1 基本设计"></a>4.1 基本设计</h3><p>Steam以HyPer的MVCC实现为基础，并使其变得更加强大和可扩展。为了跟踪活动的和承诺的事务，HyPer使用两个链接列表，如图4所示。</p>
+<p>虽然HANA和Hekaton使用不同的数据结构（一个参考计数的列表和一个地图），但高层属性是相同的。所有的实现都隐含地保持了交易行动的有序性，添加或删除一个交易可以在恒定的时间内完成。为了启动一个新的事务，系统将其添加到活动事务列表中。当一个活动事务提交时，系统会把它移到已提交的事务列表中，以保留其创建的版本。已完成的只读事务，如果没有创建任何元组版本，则直接被丢弃。</p>
+<p>通过将新的或已承诺的交易追加到列表中，交易列表被隐含地按其时间戳排序。这种排序允许人们通过查看活动事务列表的第一个元素来有效地检索最小的startTs。已提交的交易中，commitId为min(startTs)的版本可以被安全回收。由于已提交的交易列表也是有序的，系统可以回收所有的交易，直到它遇到在最古老的活动交易之后提交的交易。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603193539.png" alt="图4"></p>
+<h3 id="4-2-可扩展的同步化"><a href="#4-2-可扩展的同步化" class="headerlink" title="4.2 可扩展的同步化"></a>4.2 可扩展的同步化</h3><p>虽然前面描述的基本设计为GC操作提供了稳定的访问时间，但其可扩展性是有限的由全局事务列表组成。这两个列表都需要由一个全局突变器来保护。出于可扩展性的考虑，我们的目标是避免引入全局争用的数据结构。Hekaton通过使用一个无锁存器的交易行动图来避免全局突变的问题。  与此相反，Steam遵循的范式是，最好使用完全不需要同步的算法。对于GC，我们利用了一个特定领域的事实，即保留版本的时间稍长于必要的时间不会影响正确性—版本仍然可以在 “下一轮 “中被回收。Steam的实施根本不需要任何同步通信。Steam中的每个线程都管理着一个不相连的事务子集，而不是使用全局列表。一个线程只在全局范围内分享其线程本地最小值的信息，通过使用一个原子性的64位整数将其公开。这个线程本地的startTs可以被其他线程读取，以确定全球最小值。</p>
+<p>本地最小值总是对应于第一个活跃的交易。如果没有活跃的交易，它被设置为可能的最高值（264 1）。在图中，本地最小值是4、3和12。为了确定GC的全局最小值，每个线程都扫描了其他线程的局部最小值。虽然这种设计不需要任何锁存，但全局最小值仍然可以在O(线程)内确定。更新线程的本地最小值也不会引入任何写入竞争，因为每个线程只更新自己的minStartTs。</p>
+<p>在线程本地数据结构中管理所有事务可以减少争论。但缺点是，当一个线程由于缺乏工作而变得不活跃时，这可能会导致问题的出现。因为每个线程在处理事务的过程中都会清理其过时的版本，如果线程变得闲置，GC就会被延迟。为了避免这个问题，调度器会定期检查线程是否变得不活跃，并在必要时触发GC。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603213953.png" alt="图5"></p>
+<h3 id="4-3-急于修剪过时的版本"><a href="#4-3-急于修剪过时的版本" class="headerlink" title="4.3 急于修剪过时的版本"></a>4.3 急于修剪过时的版本</h3><p>在最初的测试中，我们注意到在混合工作负载中出现了明显的性能下降。缓慢的OLAP查询阻碍了垃圾的收集，因为只要一个长期运行的查询处于活动状态，全局最小值就不会提前。根据分析查询的复杂性，这可能会使GC暂停很长时间。在并发的更新事务中，版本的数量会在查询的生命周期内迅速增加。这很容易导致1节所述的恶性循环。在实践中，这种影响会被倾斜的更新所进一步放大，从而导致更长的版本链。图3显示了一个元组的版本如何形成一个长链，其中大部分的版本对活动事务来说是无用的。无用的版本拖慢了长期运行的事务的速度，因为它们必须穿越整个链来检索最终需要的版本。因此，我们设计了Eager Pruning of Obsolete Versions (EPO)，删除了所有不被任何活动事务所需要的版本。为了识别过时的版本，每个线程定期检索当前活动事务的开始时间戳，并将其存储在一个排序的列表中。如第4.3.1节所述，活动时间戳的获取是有效的，无需额外的同步。在整个交易处理过程中，线程识别并删除所有当前活动交易不需要的版本。每当一个线程接触到一个版本链时，它就会应用以下算法来修剪所有过时的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">input : active timestamps A ( sorted )</span><br><span class="line">output : pruned version chain</span><br><span class="line">v_current &lt;-  getFirstVersion(chain)</span><br><span class="line">for ai in A</span><br><span class="line">v_visible &lt;- retrieveVisibleVersion(a_i; chain)</span><br><span class="line">&#x2F;&#x2F; prune obsolete in-between versions</span><br><span class="line">for v in (v_current; v_visible )</span><br><span class="line">&#x2F;&#x2F; ensure that the final version covers all attributes</span><br><span class="line">	if attrs(v) not in attrs(v_visible)</span><br><span class="line">		merge ( v , v_visible )</span><br><span class="line">		chain.remove ( v )</span><br><span class="line">&#x2F;&#x2F; update current version iterator</span><br><span class="line">v_current &lt;- v_visible</span><br></pre></td></tr></table></figure>
+<p>我们只在版本记录中存储改变的属性，以节省内存。由于这个原因，我们必须检查v的所有属性是否被vvisible覆盖。如果有额外的属性，我们就把它们合并到最终版本中。存储整个元组的系统不需要这种检查，可以直接丢弃中间的版本。</p>
+<p>图6显示了从时间戳20开始的一个活动事务的版本链的修剪情况。它显示了相对简单的情况，即所有的属性都被vvisible覆盖，以及更复杂的情况，即中间的版本包含额外的属性。  在这种情况下，我们将缺失的版本添加到最终版本中。  当一个属性被多次更新时，当我们在接近可见版本vvisble时发现它的旧版本，我们就会覆盖它。在我们的例子中，A50被A25覆盖了。  在修剪之后，vcurrent被设置为vvisible的当前值，vvisible被推进到下一个较旧的（较小的）活动id可见的版本。由于我们的例子中只有一个活动事务，我们可以在这一点上停止。</p>
+<p>由于版本链和活动时间戳都是经过排序的，没有重复，所以每个版本只被算法触及一次。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603220014.png" alt="image-20210603220013966"></p>
+<h3 id="4-3-1-短暂的事务"><a href="#4-3-1-短暂的事务" class="headerlink" title="4.3.1 短暂的事务"></a>4.3.1 短暂的事务</h3><p>EPO是为混合工作负载设计的，其中一些交易（主要是OLAP查询）明显比其他的慢。如果所有的交易都一样快，它就没有帮助，因为提交的时间戳与最古老的活动交易的ID几乎没有差别。</p>
+<p>一个使用全局最小值的标准GC在这里已经工作得非常好。因此，创建一个活跃的交易集几乎不会有什么回报，因为可还原的版本链的数量很少。理想情况下，我们可以避免重新计算当前交易时间戳的开销。</p>
+<p>然而，一般来说，数据库系统不可能知道工作负载的特点，而且会随着时间的推移而改变。因此，我们不是关闭EPO，而是减少其开销，而不影响其在混合工作负载中的有效性。</p>
+<p>该方法的唯一可测量的开销是创建当前活动事务的排序列表。列表的创建只给每个事务的处理增加了几个周期（对于一个使用10个工作线程的系统来说，有10条负载指令2并对其进行排序），但在高容量的微观测试中，它仍然是明显的。</p>
+<p>为了减少这种开销，每个线程都会重复使用其有效交易列表，如果它仍然是合理的最新的。因此，成本被分摊到多个短暂的交易中，开销变得可以忽略不计。对于运行时间超过1毫秒的交易，获取活动交易时间戳的成本变得微不足道。EPO的质量不会受到影响，因为长期运行的交易集的变化频率明显低于活动交易列表的更新。</p>
+<p>在使用廉价键值更新事务的微观测试中，我们注意到，更新周期可以被设置为低至5毫秒，而不会造成任何可衡量的开销。这个更新周期仍然明显小于甚至是 “短的长期运行 “事务的生命时间。</p>
+<h3 id="4-3-2-HANA的基于区间的GC"><a href="#4-3-2-HANA的基于区间的GC" class="headerlink" title="4.3.2 HANA的基于区间的GC"></a>4.3.2 HANA的基于区间的GC</h3><p>HANA的间隔GC建立在类似的技术基础上，以缩短不必要的长版本链，但它在重要的方面有区别，总结在表2。最大的区别是如何访问版本链进行修剪。  在Steam中，修剪发生在一个元组的每次更新期间，也就是说，每当版本链被一个新的版本扩展时。因此，版本链永远不会增长到比当前活动事务数量更多的版本，也不会包含过时的版本。</p>
+<p>相反，在HANA中，修剪是由一个专门的后台线程完成的，该线程每隔10天才会被触发。当HANA的GC线程被触发时，它扫描了在最古老的活动事务开始后提交的版本集。  对于这些版本中的每一个，它都会使用与我们类似的基于合并的算法来检查它在其相应的版本链中是否已经过时。这将导致额外的链访问，而Steam可以在正常处理中 “回溯 “这项工作。由于HANA只是周期性地调用基于间隔的GC，版本链不会被修剪，并在GC再次被调用之前不断增长。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603215712.png" alt="image-20210603215712265"></p>
+<h3 id="4-4-版本记录的布局"><a href="#4-4-版本记录的布局" class="headerlink" title="4.4 版本记录的布局"></a>4.4 版本记录的布局</h3><p>版本记录的设计应该在空间和com-putation上是有效的。所有涉及版本的操作（插入、更新、删除、查找和回滚）都应该尽可能有效。此外，布局应该有利于GC本身，特别是我们的修剪中间版本的算法。</p>
+<p>表3显示了一个版本记录的基本布局。它有一个类型（插入/更新/删除）和在版本中编码的可见性信息。在提交时，版本被设置为提交的时间戳，这使得该版本对所有未来的事务都是可见的。为了保证原子提交，版本包括一个锁位，当一个事务同时提交多个版本时，它就会被使用。</p>
+<p>当一个事务被回滚时，它使用RelationId和TupleId来识别和恢复关系中的元组。  这些字段在GC期间也被用来识别拥有版本链的元组。版本链本身被实现为一个使用Next Pointer字段的链接列表。下一个指针要么指向链中的下一个版本记录，要么在没有记录的情况下指向NULL。</p>
+<p>对于所有类型的版本记录，除了删除，我们需要一些额外的字段或变化。对于删除，只需要来存储一个元组由于被删除而变得不可见的时间戳。</p>
+<p>对于插入，我们通过重新解释属性TupleId和Next Pointer来调整数据布局，以维护一个插入元组ID的列表。这使我们能够更有效地处理批量插入，因为我们可以对同一关系的所有插入元组使用一个版本记录。共享插入的版本记录减少了内存占用（以前每个插入的元组都需要一个自己的版本记录）并改善了提交延迟。我们现在可以通过只更新一个版本来原子地提交多个版本。这种优化是可能的，因为新的元组只能被插入到以前的空槽中。  因此，我们可以重新使用<em>下一个指针</em>字段来维护插入的图元ID的列表。对于MVCC，我们只需要插入的图元变得可见时的信息。  元组ID列表可以通过存储后续元组的范围来进一步压缩，用于批量插入。</p>
+<p>更新版本记录需要最多的字段，因为它们包含元组以前的版本（BeforeImages）。为了节省空间，我们只存储改变了的at-tributes的版本，而不是元组的完整副本。因此，版本记录需要明确指出它包含哪些属性。因此，对于所有少于64个属性的关系，我们使用一个64位的属性掩码，其中每个改变的属性都用一个位来标记。当关系有更多的列时，我们使用所有改变的属性的id的列表来表示改变的属性。</p>
+<p>虽然与列表相比，属性掩码节省了空间，但它也允许我们使用单一的位智或操作来执行检查一个版本记录是否被另一个版本记录所覆盖（参见算法第9行）。  如果vx和vy的属性掩码的位智或等于vx的属性掩码，那么vy的所有属性都被vx覆盖。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210603215606.png" alt="image-20210603215606140"></p>
+<h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5 结论"></a>5 结论</h2><p>在本文中，我们展示了在现代多核系统上的内存MVCC系统的垃圾收集的重要性。我们发现，GC应该基于线程本地数据结构和异步通信以获得最佳性能。此外，对于HTAP的工作负载来说，保持尽可能低的活动版本数量是非常重要的，因为它是短命的写和长命的读。在传统的基于高水印的方法中，一个长期运行的事务会在其生命周期内阻碍GC的进展。我们新颖的、可扩展的GC Steam通过每当有新版本加入时急切地修剪所有过时的版本来加速事务处理和垃圾清除。因此，Steam有效地将链的长度限制在活动事务的数量上。除了HTAP工作负载，我们的实验结果表明，Steam有利于所有类型的工作负载，从只写到只读。与其他先进的GC方法相比，Steam在交易处理中的无缝集成使其性能更加优越。来自交易处理的GC。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/" rel="prev" title="第5章 指令级并行及其开发">
+      <i class="fa fa-chevron-left"></i> 第5章 指令级并行及其开发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA_todo(4)/%E7%AC%AC15%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="第15章 动态规划">
+      第15章 动态规划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MVCC%E4%B8%AD%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">2 MVCC中的版本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E8%AF%86%E5%88%AB%E8%BF%87%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 识别过时的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-GC%E7%9A%84%E5%AE%9E%E9%99%85%E5%BD%B1%E5%93%8D"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 GC的实际影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E8%B0%83%E6%9F%A5"><span class="nav-number">4.</span> <span class="nav-text">3 垃圾收集调查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Steam%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="nav-number">5.</span> <span class="nav-text">4 Steam垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 基本设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 可扩展的同步化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%80%A5%E4%BA%8E%E4%BF%AE%E5%89%AA%E8%BF%87%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 急于修剪过时的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-%E7%9F%AD%E6%9A%82%E7%9A%84%E4%BA%8B%E5%8A%A1"><span class="nav-number">5.4.</span> <span class="nav-text">4.3.1 短暂的事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-HANA%E7%9A%84%E5%9F%BA%E4%BA%8E%E5%8C%BA%E9%97%B4%E7%9A%84GC"><span class="nav-number">5.5.</span> <span class="nav-text">4.3.2 HANA的基于区间的GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E7%89%88%E6%9C%AC%E8%AE%B0%E5%BD%95%E7%9A%84%E5%B8%83%E5%B1%80"><span class="nav-number">5.6.</span> <span class="nav-text">4.4 版本记录的布局</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="nav-number">6.</span> <span class="nav-text">5 结论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenrui"
+      src="/images/avatar_1.gif">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
