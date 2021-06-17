@@ -20,17 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="多周期处理器多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。">
+  <meta name="description" content="基本设计情况多周期处理器多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多周期CPU设计">
 <meta property="og:url" content="http://example.com/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C_todo(2)/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="多周期处理器多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。">
+<meta property="og:description" content="基本设计情况多周期处理器多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191128.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191153.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191211.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616182129.png">
 <meta property="article:published_time" content="2021-05-06T00:04:03.738Z">
-<meta property="article:modified_time" content="2021-05-29T06:19:04.549Z">
+<meta property="article:modified_time" content="2021-06-16T11:53:55.565Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191128.png">
 
 <link rel="canonical" href="http://example.com/2021/05/06/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C_todo(2)/%E5%A4%9A%E5%91%A8%E6%9C%9FCPU%E8%AE%BE%E8%AE%A1/">
 
@@ -218,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-29 14:19:04" itemprop="dateModified" datetime="2021-05-29T14:19:04+08:00">2021-05-29</time>
+                <time title="修改时间：2021-06-16 19:53:55" itemprop="dateModified" datetime="2021-06-16T19:53:55+08:00">2021-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,12 +267,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="多周期处理器"><a href="#多周期处理器" class="headerlink" title="多周期处理器"></a>多周期处理器</h2><p>多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。</p>
+        <h2 id="基本设计情况"><a href="#基本设计情况" class="headerlink" title="基本设计情况"></a>基本设计情况</h2><h3 id="多周期处理器"><a href="#多周期处理器" class="headerlink" title="多周期处理器"></a>多周期处理器</h3><p>多周期处理器，通过往处理器中添加寄存器，用于储存中间量，以此把处理器划分为多个部分， 同时把各个指令分解为多个短步骤，指令运行会更加高效、紧凑。同时还复用单个ALU合并指令、数据存储器。此外，还需要设计 FSM来控制每条指令各部分的运行顺序。</p>
 <span id="more"></span>
-<h2 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h2><ol>
-<li>书上的指令：add、sub、and、or、slt、sw、lw、beq、addi、j</li>
-<li></li>
+<h3 id="MIPS指令集"><a href="#MIPS指令集" class="headerlink" title="MIPS指令集"></a>MIPS指令集</h3><ol>
+<li>书上的指令集：add、sub、and、or、slt、addi、sw、lw、beq、addi、j</li>
+<li>添加的指令：andi（and一个立即数）</li>
 </ol>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191128.png" alt="image-20210616191128451"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191153.png" alt="image-20210616191153567"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616191211.png" alt="image-20210616191211230"></p>
+<h2 id="多周期MIPS处理器"><a href="#多周期MIPS处理器" class="headerlink" title="多周期MIPS处理器"></a>多周期MIPS处理器</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210616182129.png" alt="image-20210616182122485"></p>
 
     </div>
 
@@ -349,7 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">多周期处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIPS%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">MIPS指令集</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%83%85%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">基本设计情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">多周期处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MIPS%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS指令集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%91%A8%E6%9C%9FMIPS%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">多周期MIPS处理器</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
