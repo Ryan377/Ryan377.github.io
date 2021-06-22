@@ -28,7 +28,7 @@
 <meta property="og:description" content="图的表示G&#x3D;(V,E)  将图作为邻接链表的组合（适合稀疏矩阵） 将图作为邻接矩阵看待（适合稠密矩阵）  邻接链表可以表示权重图（每条边带一个权重） 邻接矩阵可以快速判断一条边是否存在 图的属性：v.d表示结点的属性d，(u,v).f表示边的属性f">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-05T05:18:41.584Z">
-<meta property="article:modified_time" content="2021-06-09T12:41:13.273Z">
+<meta property="article:modified_time" content="2021-06-22T12:46:52.624Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-09 20:41:13" itemprop="dateModified" datetime="2021-06-09T20:41:13+08:00">2021-06-09</time>
+                <time title="修改时间：2021-06-22 20:46:52" itemprop="dateModified" datetime="2021-06-22T20:46:52+08:00">2021-06-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,10 +293,14 @@
 <p>第二个时间戳v.f：记录搜索完成时对v的邻接链表扫描的时间（涂上黑色的时候）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">for</span> (Vertex u : G.V) &#123;</span><br><span class="line">         u.color = Color.White;</span><br><span class="line">         u.pi = <span class="keyword">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     time = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (Vertex u : G.V) &#123;</span><br><span class="line">         <span class="keyword">if</span> (u.color == Color.White) &#123;</span><br><span class="line">             dfsVisit(G, u);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dfsVisit</span><span class="params">(Graph G, Vertex u)</span> </span>&#123;</span><br><span class="line">    time++;</span><br><span class="line">    u.d = time;</span><br><span class="line">    u.color = Color.Grey;</span><br><span class="line">    <span class="keyword">for</span> (Vertex v : u.adj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (v.color == Color.White) &#123;</span><br><span class="line">            v.pi = u;</span><br><span class="line">            dfsVisit(G, v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    u.color = Color.Black;</span><br><span class="line">    time++;</span><br><span class="line">    u.f = time;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>发现时间和完成时间具有括号化性质</p>
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>使用深度优先搜索对有向无环图进行拓扑排序，对一个有向无环图来说，其拓扑排序是G中所有节点的一种线性次序，所有有向边都从前面指向后面。</p>
-<p>通过DFS得出每个顶点的v.f，然后以此排序即可。</p>
-<h2 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h2><p>有向图中u可以到v，v可以到u。</p>
-<p>将一个有向图分解为强连通分量：进行两次深度优先搜索，一次在$G$上，一次在$G^T$上</p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><ul>
+<li>使用深度优先搜索对有向无环图进行拓扑排序，对一个有向无环图来说，其拓扑排序是G中所有节点的一种线性次序，所有有向边都从前面指向后面。</li>
+<li>通过DFS得出每个顶点的v.f，然后以此排序即可。</li>
+</ul>
+<h2 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h2><ul>
+<li>有向图中任意两个顶点u可以到v，v可以到u。</li>
+<li>将一个有向图分解为强连通分量：进行两次深度优先搜索，一次在$G$上，一次在$G^T$上</li>
+</ul>
 
     </div>
 

@@ -20,17 +20,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="流网络流网络和流 流网络：容量值、源结点、汇点 流的性质：  容量限制 流量守恒">
+  <meta name="description" content="流网络流网络和流 流网络：容量值、源结点、汇点 流的性质：  容量限制 反对称性 流量守恒">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第26章 最大流">
 <meta property="og:url" content="http://example.com/2021/06/09/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA_todo(4)/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="流网络流网络和流 流网络：容量值、源结点、汇点 流的性质：  容量限制 流量守恒">
+<meta property="og:description" content="流网络流网络和流 流网络：容量值、源结点、汇点 流的性质：  容量限制 反对称性 流量守恒">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214140.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214237.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214349.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214616.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622215439.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622215523.png">
 <meta property="article:published_time" content="2021-06-09T07:33:39.954Z">
-<meta property="article:modified_time" content="2021-06-22T10:42:48.520Z">
+<meta property="article:modified_time" content="2021-06-22T13:56:17.798Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214140.png">
 
 <link rel="canonical" href="http://example.com/2021/06/09/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA_todo(4)/%E7%AC%AC26%E7%AB%A0-%E6%9C%80%E5%A4%A7%E6%B5%81/">
 
@@ -218,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-22 18:42:48" itemprop="dateModified" datetime="2021-06-22T18:42:48+08:00">2021-06-22</time>
+                <time title="修改时间：2021-06-22 21:56:17" itemprop="dateModified" datetime="2021-06-22T21:56:17+08:00">2021-06-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,11 +274,36 @@
 <p>流的性质：</p>
 <ol>
 <li>容量限制</li>
+<li>反对称性</li>
 <li>流量守恒</li>
 </ol>
 <span id="more"></span>
 <p>具有多个源结点和汇结点的网络：加入一个超级源结点和超级汇点</p>
-<h2 id="ford-fulkerson算法"><a href="#ford-fulkerson算法" class="headerlink" title="ford-fulkerson算法"></a>ford-fulkerson算法</h2><h3 id="Edmonds-Karp算法"><a href="#Edmonds-Karp算法" class="headerlink" title="Edmonds-Karp算法"></a>Edmonds-Karp算法</h3><h2 id="最大二分匹配"><a href="#最大二分匹配" class="headerlink" title="最大二分匹配"></a>最大二分匹配</h2>
+<h2 id="ford-fulkerson算法"><a href="#ford-fulkerson算法" class="headerlink" title="ford-fulkerson算法"></a>ford-fulkerson算法</h2><p>Ford-Fulkerson算法是一种迭代算法，首先对图中所有顶点对的流大小清零，此时的网络流大小也为0。在每次迭代中，通过寻找一条“增广路径”(augument path)来增加流的值。增广路径可以看作是源点s到汇点t的一条路径，并且沿着这条路径可以增加更多的流。迭代直至无法再找到增广路径位置，此时必然从源点到汇点的所有路径中都至少有一条边的满边（即边的流的大小等于边的容量大小）。</p>
+<p>基本思想：</p>
+<ol>
+<li>给定一个流网络G和一个流，流的残留网$G_f$拥有与原网相同的顶点。原流网络中每条边将对应残留网中一条或者两条边，对于原流网络中的任意边(u, v)，流量为f(u, v)，容量为c(u, v);</li>
+<li>如果f(u, v) &gt; 0，则在残留网中包含一条容量为f(u, v)的边(v, u);</li>
+<li>如果f(u, v) &lt; c(u, v)，则在残留网中包含一条容量为c(u, v) - f(u, v)的边(u, v)。</li>
+</ol>
+<p>残留网允许我们使用任何广义图搜索算法来找一条增广路径，因为残留网中从源点s到汇点t的路径都直接对应着一条增广路径。</p>
+<p>具体分析增广路径及其相应残留网：</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214140.png" alt="image-20210622214140611"></p>
+<p>a. 原始图流网络，每条边上的流都为0。因为f(u, v) = 0 &lt; c(u, v)，则在残留网中包含容量为c(u, v)的边(u, v)，所以此时残留图中顶点与原始流网络相同，边也与原始流网络相同，并且边的容量与原始流网络相同。在残留网中可以找到一条增广路径<v0, v1, v3, v5>，每条边的流为2，此原始流网络和残留网中相应的边会有所变化，如下图。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214237.png" alt="image-20210622214237272"></p>
+<p>b.在操作(a)之后，路径<v0, v1, v3, v5>上有了大小为2的流，此时需要对残留图中相应的边做调整：f(0, 1) &gt; 0，在残留图中有容量为2的边(1, 0)；<br>c(1, 3) &gt; f(1, 3) &gt; 0，在残留图中有容量为1的边(1, 3)和容量为2的边(3, 1)；<br>f(3, 5) &gt; 0，在残留图中有容量为2的边(5, 3).在残留网中可以找到一条增广路径<v0, v2, v4, v5>，每条边的流为1，此原始流网络和残留网会有所变化，如下图。<img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214349.png" alt="image-20210622214349644"></p>
+<p>c.在操作(b)之后，路径<v0, v2, v4, v5>上有了大小为1的流，此时需要对残留图中相应的边做调整：c(0, 2) &gt; f(0, 2) &gt; 0，在残留图中有容量为2的边(0, 2)和容量为1的边(2, 0)；f(2, 4) &gt; 0，在残留图中有容量为1的边(4, 2)；c(4, 5) &gt; f(4, 5) &gt; 0，在残留图中有容量为2的边(4, 5)和容量为1的边(5, 4).进一步在残留网中可以找到一条增广路径<v0, v2, v3, v1, v4, v5>，每条边的流为1，此原始流网络和残留网会有所变化，如下图。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622214616.png" alt="image-20210622214616869"></p>
+<p>d.在操作(c)之后，路径<v0, v2, v3, v1, v4, v5>上有了大小为1的流，此时需要对残留图中相应的边做调整：c(0, 2) &gt; f(0, 2) &gt; 0，在残留图中有容量为1的边(0, 2)和容量为2的边(2, 0)；f(2, 3) &gt; 0，在残留图中有容量为1的边(3, 2)；c(3, 1) &gt; f(3, 1) &gt; 0，在残留图中有容量为1的边(3, 1)和容量为2的边(1, 3)；f(1, 4) &gt; 0，在残留图中有容量为1的边(4, 1)；c(4, 5) &gt; f(4, 5) &gt; 0，在残留图中有容量为1的边(4, 5)和容量为2的边(5, 4)；此时残留图中无法再找到顶点0到顶点5的路径，则迭代结束，我们认为图d中即为寻找到的最大流（该结论可以由最大流最小割定理证明）。</p>
+<p>最大流最小割定理：一个网中所有流中的最大值等于所有割中的最小容量。</p>
+<p><strong>寻找最短路径方法的影响</strong></p>
+<p>增广路径事实上是残留网中从源点s到汇点t的路径，可以利用图算法中的任意一种被算法来获取这条路径，例如BFS，DFS等。其中基于BFS的算法通常称为<strong>Edmonds-Karp</strong>算法，该算法是“最短”扩充路径，这里的“最短”由路径上的边的数量来度量，而不是流量或者容量。</p>
+<h2 id="最大二分匹配"><a href="#最大二分匹配" class="headerlink" title="最大二分匹配"></a>最大二分匹配</h2><p>最大二分匹配在现实生活中比较普遍，常常出现在任务分配上。例如，有5个员工，4个不同的任务，而不同员工能够完成不同或相同的任务。也就是说，有的员工只会做这个任务，有的员工会做那个任务，有的员工会做一些任务。如何合理安排员工，尽可能多地完成任务数。可以将其转变为最大流问题。</p>
+<p>如图，左边表示员工，右边表示任务，连线代表能够完成，如图为一种最佳匹配。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622215439.png" alt="image-20210622215438946"></p>
+<p>转换为最大流问题，如图，答案与上面一样，但有不同选择。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210622215523.png" alt="image-20210622215523660"></p>
+
     </div>
 
     
@@ -352,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">流网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ford-fulkerson%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">ford-fulkerson算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Edmonds-Karp%E7%AE%97%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">Edmonds-Karp算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D"><span class="nav-number">3.</span> <span class="nav-text">最大二分匹配</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">流网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ford-fulkerson%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">ford-fulkerson算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D"><span class="nav-number">3.</span> <span class="nav-text">最大二分匹配</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -502,6 +534,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
