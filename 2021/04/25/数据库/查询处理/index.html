@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查询处理">
+<meta property="og:url" content="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="外排序排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113346.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511183245.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210620233527.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511202815.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203917.png">
+<meta property="article:published_time" content="2021-04-25T10:16:15.270Z">
+<meta property="article:modified_time" content="2021-06-20T15:47:36.730Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png">
+
+<link rel="canonical" href="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>查询处理 | My Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">My Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          查询处理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-25 18:16:15" itemprop="dateCreated datePublished" datetime="2021-04-25T18:16:15+08:00">2021-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-20 23:47:36" itemprop="dateModified" datetime="2021-06-20T23:47:36+08:00">2021-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/25/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="外排序"><a href="#外排序" class="headerlink" title="外排序"></a>外排序</h2><p>排序操作是数据库中常用的操作、由于数据库中的数据量经常超过内存大小，所以需要用外部排序</p>
+<span id="more"></span>
+<h3 id="简单的两路Merge排序"><a href="#简单的两路Merge排序" class="headerlink" title="简单的两路Merge排序"></a><strong>简单的两路Merge排序</strong></h3><ul>
+<li>使用三个页的内存排序</li>
+<li>基本思想<ul>
+<li>将大的文件转换成小的块</li>
+<li>对这些块进行排序</li>
+<li>使用最小空间进行Merge排序</li>
+</ul>
+</li>
+<li>每个排过序的小文件为一个run</li>
+<li>在内存中可以用各种排序算法</li>
+</ul>
+<p>总开销为：$2N*(\lceil log_2{N}\rceil + 1)$（N为文件数，每页做一次读，一次写）</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113138.png" alt="image-20210511113138096"></p>
+<h3 id="外部Merge排序"><a href="#外部Merge排序" class="headerlink" title="外部Merge排序"></a><strong>外部Merge排序</strong></h3><p>若有B个page</p>
+<ul>
+<li>在page0一次性读入B个页的数据进行排序</li>
+<li>在page1,2…一次性读入B个页的数据进行排序，利用B-1个Buffer页作为输入，将最后一个Buffer页作为输出的缓冲区，进行B-1路的Merge排序</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511113346.png" alt="image-20210511113346036"></p>
+<p>计算量分析：</p>
+<ol>
+<li>第一次产生$N1=\lceil N/B \rceil$</li>
+<li>对数据扫描的遍数，变为$\lceil log_{B-1}N1\rceil+1$</li>
+<li>最终IO次数为$2N*\lceil log_{B-1}N1\rceil+1$</li>
+</ol>
+<h3 id="提高性能的几点考虑"><a href="#提高性能的几点考虑" class="headerlink" title="提高性能的几点考虑"></a><strong>提高性能的几点考虑</strong></h3><ul>
+<li><p>如何减少run的次数：在Pass0过程中，可使用一些技巧，使得最初的run的长度平均为2B</p>
+</li>
+<li><p>减少I/O代价的优化：使用块IO</p>
+</li>
+<li>双缓冲区：对每个run多加一个缓冲区，一个缓冲区在进行IO操作的同时，对另一个缓冲区的数据进行计算</li>
+</ul>
+<h3 id="利用B-树排序"><a href="#利用B-树排序" class="headerlink" title="利用B+树排序"></a><strong>利用B+树排序</strong></h3><ul>
+<li>聚集索引：由于磁盘上的数据已经排序，而且上层有一个索引结构，所以查询和排序操作性能均很高</li>
+<li>非聚集索引：Data entry中的数据是排序的，但数据在磁盘上的存储层次是杂乱无章的，计算量为(f+p)*N（N为数据页数量，p为每页平均包含的记录数，f是data entry中每条记录的长度同记录的长度的比）</li>
+</ul>
+<h2 id="关系操作的执行"><a href="#关系操作的执行" class="headerlink" title="关系操作的执行"></a>关系操作的执行</h2><p>查询操作是查询执行的基本组成部分，包括选择、投影、连接，查询优化根据数据库的实际情况选择查询操作的执行方法。</p>
+<h3 id="查询过程简介"><a href="#查询过程简介" class="headerlink" title="查询过程简介"></a><strong>查询过程简介</strong></h3><p>影响因素：数据库表的大小、索引、排序情况、缓冲区大小和置换策略</p>
+<p>各个操作实现时常用的基本技术：</p>
+<ol>
+<li>Iteration：逐个检测</li>
+<li>Indexing：索引</li>
+<li>Partitioning：分区</li>
+</ol>
+<p><strong>访问路径</strong></p>
+<ul>
+<li>各路从关系表中访问记录的方法</li>
+<li>方式<ul>
+<li>文件扫描</li>
+<li>索引加上选择匹配条件</li>
+<li>查询优化的目的是选择高选择率的访问路径（即访问的页数少的）</li>
+</ul>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sailors(sid:integer, sname:string, rating:integer, age:real)</span><br><span class="line">Reserves(sid:integer, bid:integer, day:date, rname:string)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个reserves记录长为40个字节，一页100条记录，共1000页</li>
+<li>每个sailors记录长为50个字节，一页80条记录，共50页</li>
+<li>只考虑IO次数</li>
+</ul>
+<h3 id="选择操作"><a href="#选择操作" class="headerlink" title="选择操作"></a><strong>选择操作</strong></h3><ul>
+<li>没有索引、数据不排序：需要扫描全表，代价1000次IO操作，选择率差，代价大</li>
+<li>没有索引、数据排序：折半查找，代价$O(log_21000)$，选择率高，代价小</li>
+<li>B+索引：先找到约束数据所在位置，从相应的data entry开始向后逐个检测知道找到所有满足条件的data entry，根据data entry找到相应的元组，主要代价在于满足条件的记录数和索引的是否是簇聚的。</li>
+<li>Hash索引、相等选择：先找到相应的bucket，在bucket中数据进行检测，从数据文件中找到对应的元组。</li>
+</ul>
+<h3 id="General-Selection操作"><a href="#General-Selection操作" class="headerlink" title="General Selection操作"></a><strong>General Selection操作</strong></h3><p>一般的查询条件是一个逻辑表达式，通过逻辑连接符连接的项表达式</p>
+<p>CNF（conjunctive normal form）：由$\vee$连接的conjunct，一个conjunct是由$\wedge$连接的项的表达式，如果conjunct包含$\vee$则称为disjunctive，或包含disjunction。</p>
+<p><strong>不包括disjunction的选择操作的执行</strong></p>
+<p>可以进行文件扫描，或先对选择率最高的primary conjuncts通过索引进行查询，然后利用非primary key对结果进行筛选；</p>
+<p>如果有多个索引同时满足选择条件，首先用每个索引进行筛选，找出相应的候选记录集合，将这些集合合并，可采用先排序再合并的方法。</p>
+<p><strong>包括disjunction的选择操作的执行</strong></p>
+<p>如果有一个项需要对整个文件进行扫描，则需要对整个文件进行扫描。</p>
+<h3 id="投影操作"><a href="#投影操作" class="headerlink" title="投影操作"></a><strong>投影操作</strong></h3><p>Select distinct R.sid, R.bid From Reserves R</p>
+<p>主要功能：去除不需要的属性、删除重复元组</p>
+<p><strong>基于排序的投影方法</strong></p>
+<p>基本思路：扫描关系R，生成只包含需要属性的数据集，对数据集进行排序，扫描排好序的结果，通过前后比较去除重复元组</p>
+<p>改进：</p>
+<ol>
+<li>将第一步同排序操作的pass 0结合在一起</li>
+<li>每次做merge的时候去除重复元组</li>
+</ol>
+<p><strong>基于Hashing的投影方法</strong></p>
+<p>主要思路：</p>
+<ul>
+<li>分区阶段：将数据逐条读入内存，用一块数据作为输入缓冲区，另B-1块作为输出缓冲区，用Hash函数进行映射，将数据集分为B-1块。</li>
+<li>重复数据删除：将每个分区的数据逐条读入内存，利用Hash函数H2在内存中进行分区，并删除重复数据；将内存中的数据写入硬盘中，将内存缓冲区进行清理，准备下一分区的处理。</li>
+</ul>
+<p>两种方法的比较：基于排序的方法总体性能比较好，产生的结果是排序的，特别适合内存比较小和数据分布不均匀的情况，一般排序和重复元组删除两部分是分开的；基于Hashing的方法当B&gt;$T^{1/2}$的时候两者性能相差不大。</p>
+<h3 id="Join操作"><a href="#Join操作" class="headerlink" title="Join操作"></a><strong>Join操作</strong></h3><p>Select * From Reserves R, Sailors S Where R.sid=S.sid</p>
+<p>相当于一个叉乘操作加上一个选择和投影操作，所以Join操作的结果一般比叉乘操作的结果小</p>
+<p><strong>实现方法</strong></p>
+<ul>
+<li>需要扫描整表<ul>
+<li>嵌套循环join</li>
+<li>块嵌套循环join</li>
+</ul>
+</li>
+<li>不需要扫描整表<ul>
+<li>Sort-merge join方法</li>
+<li>Hash join方法</li>
+</ul>
+</li>
+</ul>
+<p>简单嵌套循环Join、块嵌套循环Join、查询索引嵌套循环 Join</p>
+<p><strong>Sort-Merge Join</strong></p>
+<ol>
+<li>首先将两个关系进行排序，并根据排序的结果进行分区，每个分区在join的属性上是相同的。</li>
+<li>用两个指针对两个关系分别从前向后扫描，找到相同的分区，对联接属性值相同的分区进行Join操作，输出结果</li>
+<li>可以用上一章讲的方法进行排序</li>
+</ol>
+<p><strong>Hash Join</strong></p>
+<p>Hash Join分成两个阶段</p>
+<ol>
+<li>Partitioning阶段，用相同的Hash函数对两个关系的联接属性分别进行分区，同一个分区中的元组具有相同的Hash值。</li>
+<li>Probing阶段，将两个表中Hash值相同的分区分别调入内存进行Join，产生结果。在Join时可以再次采用Hash  Join的方法。</li>
+</ol>
+<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a><strong>集合操作</strong></h3><p>$R\bigcap S，R\bigcup S，R \times S， R - S$</p>
+<p>$R\bigcap S,R \times S$ 可以认为是特殊的join操作</p>
+<p>$R\bigcup S,R-S$ 原理类似，均是发现两个关系中相同的元组，实现</p>
+<ul>
+<li>通过排序</li>
+<li>通过Hash</li>
+</ul>
+<h3 id="聚集操作"><a href="#聚集操作" class="headerlink" title="聚集操作"></a><strong>聚集操作</strong></h3><p>AVG MIN MAX SUM COUNT</p>
+<p>基本实现方法是对整个表进行扫描，对每个元组将所需要的信息收集起来</p>
+<p>GROUP BY，需要对rating属性进行分组</p>
+<h3 id="缓冲区的影响"><a href="#缓冲区的影响" class="headerlink" title="缓冲区的影响"></a><strong>缓冲区的影响</strong></h3><p>如果几个操作并行执行，则每个操作占用的空间将减少，如果索引是非簇聚的，则通过data entry访问物理页时，需要多次从磁盘调用数据，缓冲区将很快就被装满，需要有好的调度策略。</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>每个查询均有多种实现方法，DBMS需要选出其中最好的访问方法查询优化器用于解决这个问题。</p>
+<h3 id="查询优化概述"><a href="#查询优化概述" class="headerlink" title="查询优化概述"></a><strong>查询优化概述</strong></h3><p>查询处理过程</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511183245.png" alt="image-20210511183245435"></p>
+<p>查询优化包括两步：</p>
+<ol>
+<li>列出表达式的各种执行方案（一般只列出一部分）</li>
+<li>计算每种代价，选择代价最小的</li>
+</ol>
+<p>查询访问计划：由一颗扩充的关系代数树构成，在每个节点将注明对关系的访问方法和关系操作的执行方法。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210620233527.png" alt="image-20210620233520334"></p>
+<p>Piplined Evaluation：如果一个查询操作的结果直接传入下一个操作，而不生成一个中间表，则称为Piplined的方式，标为on-the-fly，如果一个查询的结果先生成一个中间表，则称为物化的。</p>
+<p>操作和访问方法的循环访问界面：</p>
+<ul>
+<li>访问计划中查询操作的执行是有一定次序的</li>
+<li>每个查询操作都有一个输入接口和一个输出接口</li>
+<li>为了简化访问方法，一般提供一个循环访问接口，循环访问接口包括<ul>
+<li>Open：对操作进行初始化，分配相应的缓冲区</li>
+<li>Get_next：取出下一个输入元组</li>
+<li>Close：释放相应的资源</li>
+</ul>
+</li>
+<li>循环访问接口支持piplined的方法</li>
+</ul>
+<p><strong>System R的优化器</strong></p>
+<p>第一个数据库管理系统，其查询优化器具有指导意义，主要特点为：</p>
+<ol>
+<li>使用数据库中数据对象的统计信息估测查询的代价</li>
+<li>只考虑两个关系的Join，其中inner关系为原始表，用启发式方法减少可能的访问计划数量</li>
+<li>不考虑嵌套查询的优化</li>
+<li>投影操作中一般不进行重复元组的删除</li>
+<li>代价模型同时考虑CPU和IO的代价</li>
+</ol>
+<h3 id="关系数据库关系系统中的数据字典"><a href="#关系数据库关系系统中的数据字典" class="headerlink" title="关系数据库关系系统中的数据字典"></a><strong>关系数据库关系系统中的数据字典</strong></h3><p>数据字典提供对数据库中各种对象的描述，称为System catalog，catalog或数据字典，这些数据存储在很多表中称为Catalog表</p>
+<ul>
+<li><p>对每个关系，系统信息包括：关系名、属性名、属性类型、索引名、约束描述</p>
+</li>
+<li><p>对每个索引</p>
+</li>
+<li>对每个视图</li>
+<li>关系和索引的统计信息也存放在系统中</li>
+<li>这些数据字典本身也存成为数据库表的形式</li>
+</ul>
+<h3 id="各种访问方法"><a href="#各种访问方法" class="headerlink" title="各种访问方法"></a><strong>各种访问方法</strong></h3><ul>
+<li><p>使用索引提高查询性能</p>
+</li>
+<li><p>少量查询结果的处理</p>
+</li>
+</ul>
+<h2 id="一个典型的关系查询优化器"><a href="#一个典型的关系查询优化器" class="headerlink" title="一个典型的关系查询优化器"></a>一个典型的关系查询优化器</h2><ul>
+<li>一个查询被分成若干个块，每个块被翻译成一个查询代数表达式</li>
+<li>查询代数表达式的优化包括：<ul>
+<li>列出查询代数表达式对应的各种访问计划</li>
+<li>对每个计划估算其执行代价，从中选出最好的访问计划</li>
+<li>估算时要考虑每个查询操作的执行代价和操作执行结果的特性</li>
+</ul>
+</li>
+</ul>
+<h3 id="SQL查询到代数表达式的转换"><a href="#SQL查询到代数表达式的转换" class="headerlink" title="SQL查询到代数表达式的转换"></a><strong>SQL查询到代数表达式的转换</strong></h3><p>首先将查询分解为块，然后将每一块转换成查询代数，再进行后续的转换</p>
+<p><strong>查询块</strong></p>
+<p>定义：一个没有嵌套的查询语句，有唯一的Select、From、Where、Group和Having子句</p>
+<p>例子：</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511202815.png" alt="image-20210511202815536"></p>
+<h3 id="访问计划的代价估计"><a href="#访问计划的代价估计" class="headerlink" title="访问计划的代价估计"></a><strong>访问计划的代价估计</strong></h3><p>一个查询块的访问计划的代价估算包括</p>
+<ul>
+<li>估算每个操作的代价，代价应该包括查询结果是Pipelining的方式输入还是用临时表的方式。这两点有较大的差距</li>
+<li>估算每个操作产生的结果长度，是否排序，这对其父节点的实现有影响</li>
+<li>这些估算利用的信息记录在数据库管理系统的数据字典中</li>
+</ul>
+<p><strong>结果大小的估算</strong></p>
+<p>包括两个因素：返回属性的类型长度和返回元组的个数（其数目由Where带来的Reduction Factor决定）</p>
+<h3 id="查询代数的等价变换"><a href="#查询代数的等价变换" class="headerlink" title="查询代数的等价变换"></a><strong>查询代数的等价变换</strong></h3><p>依据查询代数表达式间的等价关系进行变换，两个查询代数表达式是等价的当且仅当它们产生的结果是相同的</p>
+<h3 id="生成各种访问计划"><a href="#生成各种访问计划" class="headerlink" title="生成各种访问计划"></a><strong>生成各种访问计划</strong></h3><p>将利用前面提到的代数表达式对查询的代数表达式进行变换得到各种访问计划，但不是利用所有的变换，否则优化时间会过长</p>
+<p><strong>单个关系查询</strong></p>
+<p>关键在于索引的使用和选择、投影算法实现方法的选择</p>
+<p><strong>多个关系的查询</strong></p>
+<p>最主要的问题是如何在一定的时间内找到好的联接次序</p>
+<p>两种联接树</p>
+<p>Left-deep tree和bushy tree</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210511203917.png" alt="image-20210511203917589"></p>
+<h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a><strong>嵌套子查询</strong></h3><p>实际的关系数据库管理系统中均提供了对嵌套查询的处理方法</p>
+<h3 id="其他查询优化方法"><a href="#其他查询优化方法" class="headerlink" title="其他查询优化方法"></a><strong>其他查询优化方法</strong></h3><p>启发式的方法最大的问题是在关系比较多的情况下，搜索空间太大，为此出现了一些新的方法</p>
+<ul>
+<li>基于规则的方法</li>
+<li>随机访问计划生成方法</li>
+<li>带参数的查询优化</li>
+<li>多查询优化</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/24/%E5%AE%9E%E8%B7%B5/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="prev" title="图书馆管理系统">
+      <i class="fa fa-chevron-left"></i> 图书馆管理系统
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/26/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC13%E7%AB%A0-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" rel="next" title="软件工程 第13章 软件测试">
+      软件工程 第13章 软件测试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">外排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%A4%E8%B7%AFMerge%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">简单的两路Merge排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8Merge%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">外部Merge排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E5%87%A0%E7%82%B9%E8%80%83%E8%99%91"><span class="nav-number">1.3.</span> <span class="nav-text">提高性能的几点考虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8B-%E6%A0%91%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">利用B+树排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">关系操作的执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">查询过程简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%93%8D%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">选择操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#General-Selection%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">General Selection操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%95%E5%BD%B1%E6%93%8D%E4%BD%9C"><span class="nav-number">2.4.</span> <span class="nav-text">投影操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join%E6%93%8D%E4%BD%9C"><span class="nav-number">2.5.</span> <span class="nav-text">Join操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">2.6.</span> <span class="nav-text">集合操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E9%9B%86%E6%93%8D%E4%BD%9C"><span class="nav-number">2.7.</span> <span class="nav-text">聚集操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">2.8.</span> <span class="nav-text">缓冲区的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E6%A6%82%E8%BF%B0"><span class="nav-number">3.1.</span> <span class="nav-text">查询优化概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8"><span class="nav-number">3.2.</span> <span class="nav-text">关系数据库关系系统中的数据字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E8%AE%BF%E9%97%AE%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">各种访问方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%85%B8%E5%9E%8B%E7%9A%84%E5%85%B3%E7%B3%BB%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">一个典型的关系查询优化器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%9F%A5%E8%AF%A2%E5%88%B0%E4%BB%A3%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.1.</span> <span class="nav-text">SQL查询到代数表达式的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E8%AE%A1%E5%88%92%E7%9A%84%E4%BB%A3%E4%BB%B7%E4%BC%B0%E8%AE%A1"><span class="nav-number">4.2.</span> <span class="nav-text">访问计划的代价估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%A3%E6%95%B0%E7%9A%84%E7%AD%89%E4%BB%B7%E5%8F%98%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">查询代数的等价变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%90%84%E7%A7%8D%E8%AE%BF%E9%97%AE%E8%AE%A1%E5%88%92"><span class="nav-number">4.4.</span> <span class="nav-text">生成各种访问计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.5.</span> <span class="nav-text">嵌套子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">4.6.</span> <span class="nav-text">其他查询优化方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenrui"
+      src="/images/avatar_1.gif">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

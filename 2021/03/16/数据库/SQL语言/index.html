@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SQL体系结构：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL语言">
+<meta property="og:url" content="http://example.com/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="SQL体系结构：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210309194458.png">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210602132757.png">
+<meta property="article:published_time" content="2021-03-16T13:09:53.442Z">
+<meta property="article:modified_time" content="2021-06-02T05:28:18.564Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210309194458.png">
+
+<link rel="canonical" href="http://example.com/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E8%A8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SQL语言 | My Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">My Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL语言
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-16 21:09:53" itemprop="dateCreated datePublished" datetime="2021-03-16T21:09:53+08:00">2021-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-02 13:28:18" itemprop="dateModified" datetime="2021-06-02T13:28:18+08:00">2021-06-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E8%A8%80/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/16/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%E8%AF%AD%E8%A8%80/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="SQL体系结构："><a href="#SQL体系结构：" class="headerlink" title="SQL体系结构："></a>SQL体系结构：</h2><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210309194458.png" alt=""></p>
+<span id="more"></span>
+<h2 id="SQL的数据定义"><a href="#SQL的数据定义" class="headerlink" title="SQL的数据定义"></a>SQL的数据定义</h2><h3 id="SQL模式的创建和撤销"><a href="#SQL模式的创建和撤销" class="headerlink" title="SQL模式的创建和撤销"></a><strong>SQL模式的创建和撤销</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> SCHEMA <span class="operator">&lt;</span>模式名<span class="operator">&gt;</span> <span class="keyword">AUTHORIZATION</span> <span class="operator">&lt;</span>用户名<span class="operator">&gt;</span> <span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">DROP</span> SCHEMA <span class="operator">&lt;</span>模式名<span class="operator">&gt;</span> [CASCADE<span class="operator">|</span>RESTRICT] <span class="operator">/</span><span class="operator">/</span>删除</span><br></pre></td></tr></table></figure>
+<p>CASCADE级联式，直接删除；RESTRICT约束式，若模式下面有其他模式，则提示</p>
+<h3 id="SQL基本数据类型"><a href="#SQL基本数据类型" class="headerlink" title="SQL基本数据类型"></a>SQL基本数据类型</h3><p>数值型、字符串型、位串型、时间型</p>
+<h3 id="基本表的创建、修改和撤销"><a href="#基本表的创建、修改和撤销" class="headerlink" title="基本表的创建、修改和撤销"></a><strong>基本表的创建</strong>、<strong>修改和撤销</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">TABLE</span>  S</span><br><span class="line">			(S#	    <span class="type">CHAR</span>(<span class="number">4</span>)  <span class="keyword">NOT</span>  <span class="keyword">NULL</span>,</span><br><span class="line">			 SNAME  <span class="type">CHAR</span>(<span class="number">8</span>)  <span class="keyword">NOT</span>  <span class="keyword">NULL</span>,</span><br><span class="line">			 AGE	<span class="type">CHAR</span>(<span class="number">1</span>),</span><br><span class="line">			 SEX    <span class="type">CHAR</span>(<span class="number">1</span>),</span><br><span class="line">  		 <span class="keyword">PRIMARY</span>  KEY(S#));</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>修改</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span> <span class="keyword">ADD</span> <span class="operator">&lt;</span>列名<span class="operator">&gt;</span> <span class="operator">&lt;</span>类型<span class="operator">&gt;</span> </span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>删除</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span> <span class="keyword">DROP</span> <span class="operator">&lt;</span>列名<span class="operator">&gt;</span>［CASCADE│RESTRICT］</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>修改某个列</span><br><span class="line"><span class="keyword">ALTER</span>  <span class="keyword">TABLE</span>  S  MODIFY  S#  <span class="type">CHAR</span>(<span class="number">6</span>)</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>删除表</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span>［CASCADE│RESTRICT］</span><br></pre></td></tr></table></figure>
+<ul>
+<li>CASCADE表示删除时自动删除该列的视图和约束，RESTRICT则拒绝删除</li>
+<li>CAHR提前给一个固定的地址大小，VARCHAR根据实际情况调整大小（在范围内）</li>
+</ul>
+<h3 id="索引的创建和撤销："><a href="#索引的创建和撤销：" class="headerlink" title="索引的创建和撤销："></a><strong>索引的创建和撤销</strong>：</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>创建</span><br><span class="line"><span class="keyword">CREATE</span> ［<span class="keyword">UNIQUE</span>］ INDEX  <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span> <span class="keyword">ON</span>  <span class="operator">&lt;</span>基本表名<span class="operator">&gt;</span>(列名表) </span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>撤销</span><br><span class="line"><span class="keyword">DROP</span>  INDEX  <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="SQL的数据查询"><a href="#SQL的数据查询" class="headerlink" title="SQL的数据查询"></a>SQL的数据查询</h2><h3 id="SELECT查询语句"><a href="#SELECT查询语句" class="headerlink" title="SELECT查询语句"></a><strong>SELECT查询语句</strong></h3><ul>
+<li>SELECT-FROM-WHERE句型</li>
+<li>WHERE子句的条件表达式可用的运算符<ul>
+<li>算数比较 &lt;…</li>
+<li>逻辑 AND…</li>
+<li>集合成员资格 IN…</li>
+<li>谓词 EXISTS…</li>
+<li>聚合函数 AVG…</li>
+<li>另一个SELECT语句嵌套</li>
+<li>集合 UNION…</li>
+</ul>
+</li>
+</ul>
+<p>SELECT语句能表示所有的关系代数表达式</p>
+<p><strong>SLECT语句的图示化</strong></p>
+<p>（C2是常量，P是要打印的数据）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>SC</th>
+<th>S#</th>
+<th>C#</th>
+<th>GRADE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>P.</td>
+<td>C2</td>
+<td>P.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>聚合函数</strong></p>
+<ul>
+<li>COUNT(*) 计算元组个数  </li>
+<li>COUNT(列名) 对一列中的值计算个数</li>
+<li>SUM(列名) 对某一列的值的总和</li>
+<li>AVG</li>
+<li>MAX</li>
+<li>MIN</li>
+<li>…</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> 求男学生总人数和平均年龄</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>), <span class="built_in">AVG</span>(AGE)</span><br><span class="line">frome S</span><br><span class="line"><span class="keyword">where</span> sex <span class="operator">=</span> <span class="string">&#x27;M&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span> 统计选修了课程的总人数</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span> (<span class="keyword">DISTINCT</span> S#)</span><br><span class="line">frome SC</span><br></pre></td></tr></table></figure>
+<h3 id="SELECT完整语句"><a href="#SELECT完整语句" class="headerlink" title="SELECT完整语句"></a><strong>SELECT完整语句</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 目标表的列名或列表达式序列</span><br><span class="line"><span class="keyword">FROM</span> 基本表名和（或）视图序列</span><br><span class="line">[<span class="keyword">WHERE</span> 行条件表达式]</span><br><span class="line"> [<span class="keyword">GROUP</span> <span class="keyword">BY</span> 列名序列 ]</span><br><span class="line">   [<span class="keyword">HAVING</span> 组条件表达式 ]</span><br><span class="line"> [<span class="keyword">ORDER</span> <span class="keyword">BY</span> 列名[<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]，…]</span><br></pre></td></tr></table></figure>
+<p>执行过程</p>
+<blockquote>
+<p>读取FROM子句中基本表、视图的数据，执行笛卡儿积操作</p>
+<p>选取满足WHERE子句中给出的条件表达式的元组</p>
+<p>按GROUP子句中指定列的值分组，同时提取满足HAVING子句中组条件表达式的那些组</p>
+<p>按SELECT子句中给出的列名或列表达式求值输出</p>
+<p>ORDER子句对输出的目标表进行排序，按附加说明ASC升序排列，或按DESC降序排列。</p>
+</blockquote>
+<h3 id="SELECT语句中的限定"><a href="#SELECT语句中的限定" class="headerlink" title="SELECT语句中的限定"></a>SELECT语句中的限定</h3><ul>
+<li>select子句中的规定<ul>
+<li>distinct</li>
+<li>检索出生年份：2021-age</li>
+</ul>
+</li>
+<li>条件表达式中的算术比较<ul>
+<li>可以是θ符号，也可以是between…and…</li>
+</ul>
+</li>
+<li>列和基本表可以改名</li>
+<li>字符串匹配：LIKE</li>
+<li>集合的并、交、差</li>
+<li>空值比较，可以用NULL</li>
+<li>集合的比较<ul>
+<li>资格比较 IN / NOT IN</li>
+<li>算术比较 SOME / ALL</li>
+<li>空关系测试：EXISTS / NOT EXISTS</li>
+<li>重复元组测试：UNIQUE / NOT UNIQUE</li>
+</ul>
+</li>
+<li>导出表：可以在FROM中使用子查询</li>
+</ul>
+<h3 id="基本表的连接"><a href="#基本表的连接" class="headerlink" title="基本表的连接"></a><strong>基本表的连接</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>连接类型</th>
+<th>连接条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INNER JOIN 内连接</td>
+<td>NATURAL</td>
+</tr>
+<tr>
+<td>LEFT OUTER JOIN 左外连接</td>
+<td>ON 等值连接条件</td>
+</tr>
+<tr>
+<td>RIGHT OUTER JOIN 右外连接</td>
+<td>USING(A1,A2,…,An)</td>
+</tr>
+<tr>
+<td>FULL OUTER JOIN 完全外连接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="递归查询"><a href="#递归查询" class="headerlink" title="递归查询"></a><strong>递归查询</strong></h3><p>假设课程有先修与后继的联系</p>
+<p>COURSE(C#,CNAME,PC#)</p>
+<p>设临时关系W（C#，PC#）的属性表示课程号、直接或间接先修课的课程号。求W，可以利用这样两个规则：</p>
+<p><strong>① W(x,y)← COURSE(x,u,y)</strong></p>
+<p><strong>② W(x,y)← COURSE(x,u,z)∧ W(z,y)</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="keyword">RECURSIVE</span> W(C#, PC#) <span class="keyword">AS</span></span><br><span class="line">		(<span class="keyword">SELECT</span> C#, PC# <span class="keyword">FROM</span> COURSE)</span><br><span class="line">    <span class="keyword">UNION</span></span><br><span class="line">        (<span class="keyword">SELECT</span> W1.C#, W2.PC#</span><br><span class="line">        <span class="keyword">FROM</span> COURSE <span class="keyword">AS</span> W1, W <span class="keyword">AS</span> W2</span><br><span class="line">        <span class="keyword">WHERE</span> W1.PC#<span class="operator">=</span>W2.C#)</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> W;</span><br></pre></td></tr></table></figure>
+<h2 id="数据更新"><a href="#数据更新" class="headerlink" title="数据更新"></a>数据更新</h2><p><strong>数据插入</strong></p>
+<ul>
+<li><p>单元组插入</p>
+<p> INSERT INTO基本表名[(列名表)] VALUES(元组值)</p>
+</li>
+<li><p>多元组插入</p>
+<p>INSERT INTO 基本表名 [(列名表)]</p>
+<p>VALUES (元组值),(元组值)，……，(元组值)</p>
+</li>
+<li><p>查询结果插入</p>
+<p>INSERT INTO 基本表名 [(列名表)]<SELECT查询语句></p>
+</li>
+<li><p>表的插入</p>
+<p>INSERT INTO 基本表名1[(列名表)]TABLE 基本表名2</p>
+</li>
+</ul>
+<p><strong>数据删除</strong></p>
+<p>DELETE FROM 基本表名</p>
+<p>[WHERE 条件表达式]</p>
+<p><strong>数据修改</strong></p>
+<p>UPDATE 基本表名</p>
+<p>SET 列名 = …</p>
+<p>[WHERE 条件表达式]</p>
+<h2 id="视图的定义和对视图的操作"><a href="#视图的定义和对视图的操作" class="headerlink" title="视图的定义和对视图的操作"></a>视图的定义和对视图的操作</h2><p><strong>视图的创建和撤销</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> <span class="operator">&lt;</span>视图名<span class="operator">&gt;</span>（列表名）</span><br><span class="line"></span><br><span class="line"><span class="keyword">AS</span> <span class="operator">&lt;</span><span class="keyword">SELECT</span> 查询语句<span class="operator">&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>视图实际上对应一个查询语句</p>
+<p>DROP VIEW</p>
+<p><strong>对视图的更新操作</strong></p>
+<p>如果视图是从单个基本表只使用选择、投影操作导出的，并且包含了基本表的主键，那么这样的视图称为<em>行列子集视图</em>，并且可以被执行更新操作。</p>
+<p><strong>视图的优点</strong></p>
+<ol>
+<li>视图提供了逻辑数据独立性</li>
+<li>简化了用户观点</li>
+<li>数据的安全保护功能</li>
+</ol>
+<h2 id="嵌入式SQL"><a href="#嵌入式SQL" class="headerlink" title="嵌入式SQL"></a>嵌入式SQL</h2><p>SQL的两种使用方式：</p>
+<ol>
+<li>终端交互方式下使用：交互式SQL</li>
+<li>嵌入高级语言的程序中使用：嵌入式SQL</li>
+</ol>
+<p><strong>SQL的运行环境</strong></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210602132757.png" alt="SQL语言运行环境"></p>
+<p><strong>嵌入式SQL的使用规定</strong></p>
+<p>允许嵌入的SQL语句引用宿主语言的程序变量（称为共享变量）</p>
+<ul>
+<li>游标定义语句 DECLARE</li>
+<li>游标打开语句 OPEN</li>
+<li>游标推进语句 FETCH</li>
+<li>游标关闭语句 CLOSE</li>
+</ul>
+<p><strong>嵌入式SQL的使用技术</strong></p>
+<ol>
+<li>不涉及游标的SQL DML语句</li>
+<li>设计游标的SQL DML语句</li>
+<li>卷游标的定义和推进</li>
+</ol>
+<p><strong>动态SQL语句</strong></p>
+<p>EXEC SQL PREPARE &lt;动态SQL语句名&gt;</p>
+<p>FROM &lt;共享变量或字符串&gt;</p>
+<p>这个语句可以在程序运行时由用户输入才组合起来</p>
+<p><strong>ODBC</strong></p>
+<p>公共接口API</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%90%86%E8%AE%BA/" rel="prev" title="关系运算模型和关系运算理论">
+      <i class="fa fa-chevron-left"></i> 关系运算模型和关系运算理论
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA_todo(4)/%E7%AC%AC4%E7%AB%A0%20%E5%88%86%E6%B2%BB%E7%AD%96%E7%95%A5/" rel="next" title="第4章 分治策略">
+      第4章 分治策略 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">SQL体系结构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">SQL的数据定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%92%A4%E9%94%80"><span class="nav-number">2.1.</span> <span class="nav-text">SQL模式的创建和撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">SQL基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E3%80%81%E4%BF%AE%E6%94%B9%E5%92%8C%E6%92%A4%E9%94%80"><span class="nav-number">2.3.</span> <span class="nav-text">基本表的创建、修改和撤销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%92%A4%E9%94%80%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">索引的创建和撤销：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E7%9A%84%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.</span> <span class="nav-text">SQL的数据查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.1.</span> <span class="nav-text">SELECT查询语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT%E5%AE%8C%E6%95%B4%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">SELECT完整语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT%E8%AF%AD%E5%8F%A5%E4%B8%AD%E7%9A%84%E9%99%90%E5%AE%9A"><span class="nav-number">3.3.</span> <span class="nav-text">SELECT语句中的限定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.4.</span> <span class="nav-text">基本表的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.5.</span> <span class="nav-text">递归查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0"><span class="nav-number">4.</span> <span class="nav-text">数据更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AF%B9%E8%A7%86%E5%9B%BE%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">视图的定义和对视图的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8FSQL"><span class="nav-number">6.</span> <span class="nav-text">嵌入式SQL</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenrui"
+      src="/images/avatar_1.gif">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
