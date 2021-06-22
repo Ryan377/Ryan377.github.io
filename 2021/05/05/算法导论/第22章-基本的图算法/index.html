@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="图的表示G&#x3D;(V,E)  将图作为邻接链表的组合（适合稀疏矩阵） 将图作为邻接矩阵看待（适合稠密矩阵）  邻接链表可以表示权重图（每条边带一个权重） 邻接矩阵可以快速判断一条边是否存在 图的属性：v.d表示结点的属性d，(u,v).f表示边的属性f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第22章 基本的图算法">
+<meta property="og:url" content="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC22%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9B%BE%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="图的表示G&#x3D;(V,E)  将图作为邻接链表的组合（适合稀疏矩阵） 将图作为邻接矩阵看待（适合稠密矩阵）  邻接链表可以表示权重图（每条边带一个权重） 邻接矩阵可以快速判断一条边是否存在 图的属性：v.d表示结点的属性d，(u,v).f表示边的属性f">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T05:18:41.584Z">
+<meta property="article:modified_time" content="2021-06-22T12:46:52.624Z">
+<meta property="article:author" content="chenrui">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC22%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9B%BE%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>第22章 基本的图算法 | My Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">My Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC22%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9B%BE%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.gif">
+      <meta itemprop="name" content="chenrui">
+      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          第22章 基本的图算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-05 13:18:41" itemprop="dateCreated datePublished" datetime="2021-05-05T13:18:41+08:00">2021-05-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-22 20:46:52" itemprop="dateModified" datetime="2021-06-22T20:46:52+08:00">2021-06-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">算法导论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC22%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9B%BE%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC22%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%9B%BE%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="图的表示"><a href="#图的表示" class="headerlink" title="图的表示"></a>图的表示</h2><p>G=(V,E)</p>
+<ol>
+<li>将图作为邻接链表的组合（适合稀疏矩阵）</li>
+<li>将图作为邻接矩阵看待（适合稠密矩阵）</li>
+</ol>
+<p>邻接链表可以表示权重图（每条边带一个权重）</p>
+<p>邻接矩阵可以快速判断一条边是否存在</p>
+<p>图的属性：v.d表示结点的属性d，(u,v).f表示边的属性f</p>
+<span id="more"></span>
+<p>定义示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    White,Grey,Black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vertex</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String s;</span><br><span class="line">    <span class="keyword">public</span> Color color;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> d;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> f;</span><br><span class="line">    <span class="keyword">public</span> Vertex pi;</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Vertex&gt; adj;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Vertex</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">        <span class="keyword">this</span>.adj = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addAdj</span><span class="params">(Vertex v)</span> </span>&#123;</span><br><span class="line">        adj.add(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Vertex&gt; V;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Graph</span><span class="params">(ArrayList&lt;Vertex&gt; v)</span> </span>&#123;</span><br><span class="line">        V = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h2><p>Prim算法和Djikstra算法</p>
+<p>将每个结点涂上白色、灰色、黑色</p>
+<p>白色：没有被发现</p>
+<p>灰色：已知和未知之间</p>
+<p>黑色：所有与黑色结点邻接的结点都已被发现</p>
+<p>v.$\pi$表示结点的前驱节点，没被发现就是Null</p>
+<p>v.d表示从源结点s到结点v的距离</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BFS</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Vertex s = <span class="keyword">new</span> Vertex(<span class="string">&quot;s&quot;</span>);</span><br><span class="line">        Vertex r = <span class="keyword">new</span> Vertex(<span class="string">&quot;r&quot;</span>);</span><br><span class="line">        Vertex v = <span class="keyword">new</span> Vertex(<span class="string">&quot;v&quot;</span>);</span><br><span class="line">        Vertex w = <span class="keyword">new</span> Vertex(<span class="string">&quot;w&quot;</span>);</span><br><span class="line">        Vertex t = <span class="keyword">new</span> Vertex(<span class="string">&quot;t&quot;</span>);</span><br><span class="line">        Vertex x = <span class="keyword">new</span> Vertex(<span class="string">&quot;x&quot;</span>);</span><br><span class="line">        Vertex y = <span class="keyword">new</span> Vertex(<span class="string">&quot;y&quot;</span>);</span><br><span class="line">        Vertex u = <span class="keyword">new</span> Vertex(<span class="string">&quot;u&quot;</span>);</span><br><span class="line"></span><br><span class="line">        s.addAdj(r);</span><br><span class="line">        r.addAdj(s);</span><br><span class="line"></span><br><span class="line">        r.addAdj(v);</span><br><span class="line">        v.addAdj(r);</span><br><span class="line"></span><br><span class="line">        s.addAdj(w);</span><br><span class="line">        w.addAdj(s);</span><br><span class="line"></span><br><span class="line">        t.addAdj(w);</span><br><span class="line">        w.addAdj(t);</span><br><span class="line"></span><br><span class="line">        x.addAdj(w);</span><br><span class="line">        w.addAdj(x);</span><br><span class="line"></span><br><span class="line">        t.addAdj(x);</span><br><span class="line">        x.addAdj(t);</span><br><span class="line"></span><br><span class="line">        t.addAdj(u);</span><br><span class="line">        u.addAdj(t);</span><br><span class="line"></span><br><span class="line">        x.addAdj(u);</span><br><span class="line">        u.addAdj(x);</span><br><span class="line"></span><br><span class="line">        x.addAdj(y);</span><br><span class="line">        y.addAdj(x);</span><br><span class="line"></span><br><span class="line">        u.addAdj(y);</span><br><span class="line">        y.addAdj(u);</span><br><span class="line"></span><br><span class="line">        ArrayList&lt;Vertex&gt; V = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        V.add(s);</span><br><span class="line">        V.add(r);</span><br><span class="line">        V.add(v);</span><br><span class="line">        V.add(w);</span><br><span class="line">        V.add(x);</span><br><span class="line">        V.add(y);</span><br><span class="line">        V.add(t);</span><br><span class="line">        V.add(u);</span><br><span class="line"></span><br><span class="line">        Graph G = <span class="keyword">new</span> Graph(V);</span><br><span class="line"></span><br><span class="line">        bfs(G, s);</span><br><span class="line"></span><br><span class="line">        PrintPath(G, s, u);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G, Vertex s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Vertex u : G.V) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!u.s.equals(s.s)) &#123;</span><br><span class="line">                u.color = Color.White;</span><br><span class="line">                u.d = Integer.MAX_VALUE;</span><br><span class="line">                u.pi = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        s.color = Color.Grey;</span><br><span class="line">        s.d = <span class="number">0</span>;</span><br><span class="line">        s.pi = <span class="keyword">null</span>;</span><br><span class="line">        Queue&lt;Vertex&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        q.add(s);</span><br><span class="line">        <span class="keyword">while</span> ( !q.isEmpty() ) &#123;</span><br><span class="line">            Vertex u = q.poll();</span><br><span class="line">            <span class="keyword">for</span> (Vertex v : u.adj) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v.color == Color.White) &#123;</span><br><span class="line">                    v.color = Color.Grey;</span><br><span class="line">                    v.d = u.d + <span class="number">1</span>;</span><br><span class="line">                    v.pi = u;</span><br><span class="line">                    q.add(v);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            u.color = Color.Black;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">PrintPath</span><span class="params">(Graph G, Vertex s, Vertex v)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (v.s.equals(s.s)) &#123;</span><br><span class="line">            System.out.println(s.s);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (v.pi == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;no path from s to v exists&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            PrintPath(G, s, v.pi);</span><br><span class="line">            System.out.println(v.s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>分析</strong></p>
+<p>广度优先算法总运行时间O(V+E)</p>
+<p>图G的前驱子图为$G_\pi=(V_\pi,E_\pi)$，其中$V_\pi=\{v\in V:v.\pi \neq NIL\}\bigcup \{s\}$，$E_\pi=\{(v.\pi, v):v\in V_\pi-\{s\}\}$</p>
+<p>BFS过程所建造出来的$\pi$属性使得前驱子图$G_\pi$成为一颗广度优先树</p>
+<p>获得的是到源结点的最短路径</p>
+<h2 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h2><p>先搜索最近才发现的结点，直到从该结点出发所有边都被发现，然后回溯，搜索其前驱节点的出发边。</p>
+<p>形成一个由多棵深度优先树构成的深度优先森林。</p>
+<p>深度优先算法在每个结点上盖一个时间戳</p>
+<p>第一个时间戳v.d：记录结点v第一次被发现的时间（涂上灰色的时候）</p>
+<p>第二个时间戳v.f：记录搜索完成时对v的邻接链表扫描的时间（涂上黑色的时候）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">for</span> (Vertex u : G.V) &#123;</span><br><span class="line">         u.color = Color.White;</span><br><span class="line">         u.pi = <span class="keyword">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     time = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">for</span> (Vertex u : G.V) &#123;</span><br><span class="line">         <span class="keyword">if</span> (u.color == Color.White) &#123;</span><br><span class="line">             dfsVisit(G, u);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dfsVisit</span><span class="params">(Graph G, Vertex u)</span> </span>&#123;</span><br><span class="line">    time++;</span><br><span class="line">    u.d = time;</span><br><span class="line">    u.color = Color.Grey;</span><br><span class="line">    <span class="keyword">for</span> (Vertex v : u.adj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (v.color == Color.White) &#123;</span><br><span class="line">            v.pi = u;</span><br><span class="line">            dfsVisit(G, v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    u.color = Color.Black;</span><br><span class="line">    time++;</span><br><span class="line">    u.f = time;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现时间和完成时间具有括号化性质</p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><ul>
+<li>使用深度优先搜索对有向无环图进行拓扑排序，对一个有向无环图来说，其拓扑排序是G中所有节点的一种线性次序，所有有向边都从前面指向后面。</li>
+<li>通过DFS得出每个顶点的v.f，然后以此排序即可。</li>
+</ul>
+<h2 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h2><ul>
+<li>有向图中任意两个顶点u可以到v，v可以到u。</li>
+<li>将一个有向图分解为强连通分量：进行两次深度优先搜索，一次在$G$上，一次在$G^T$上</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC17%E7%AB%A0-%E6%91%8A%E8%BF%98%E5%88%86%E6%9E%90/" rel="prev" title="第17章 摊还分析">
+      <i class="fa fa-chevron-left"></i> 第17章 摊还分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/05/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC23%E7%AB%A0-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="next" title="第23章 最小生成树">
+      第23章 最小生成树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">图的表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="nav-number">2.</span> <span class="nav-text">广度优先搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="nav-number">3.</span> <span class="nav-text">深度优先搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">强连通分量</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenrui"
+      src="/images/avatar_1.gif">
+  <p class="site-author-name" itemprop="name">chenrui</p>
+  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenrui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
+      appKey     : 'g61pWrmFa2w876qITKSoChaX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
