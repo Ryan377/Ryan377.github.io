@@ -28,7 +28,7 @@
 <meta property="og:description" content="指令级并行的基本概念什么是指令级并行指令级并行：指令之间可以实现重叠执行 两种开发方法：  依靠硬件来实现动态发现和开发并行 依靠软件技术在编译时静态发现并行">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-30T00:39:00.607Z">
-<meta property="article:modified_time" content="2021-05-29T06:17:39.177Z">
+<meta property="article:modified_time" content="2021-06-23T02:36:49.673Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-29 14:17:39" itemprop="dateModified" datetime="2021-05-29T14:17:39+08:00">2021-05-29</time>
+                <time title="修改时间：2021-06-23 10:36:49" itemprop="dateModified" datetime="2021-06-23T10:36:49+08:00">2021-06-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -323,7 +323,16 @@
 <h2 id="用动态调度克服数据冒险"><a href="#用动态调度克服数据冒险" class="headerlink" title="用动态调度克服数据冒险"></a>用动态调度克服数据冒险</h2><h3 id="动态调度"><a href="#动态调度" class="headerlink" title="动态调度"></a>动态调度</h3><p>在程序执行过程中，依靠专门硬件对代码进行调度，减少数据相关导致的停顿。</p>
 <h3 id="Tomasulo算法"><a href="#Tomasulo算法" class="headerlink" title="Tomasulo算法"></a>Tomasulo算法</h3><p>见<a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Tomasulo%E7%AE%97%E6%B3%95/">Tomasulo算法</a></p>
 <h2 id="基于硬件的推测"><a href="#基于硬件的推测" class="headerlink" title="基于硬件的推测"></a>基于硬件的推测</h2><p>基本思想：对分支指令的结果进行猜测，并假设这个猜测总是对的，然后按这个猜测结果继续取、流出和执行后续的指令。只是执行指令的结果不是写回到寄存器或存储器，而是放到一个称为ROB的缓冲器中。等到相应的指令得到“确认”之后，才将结果写入寄存器或存储器。</p>
-<h2 id="以多发射和静态调度来开发ILP"><a href="#以多发射和静态调度来开发ILP" class="headerlink" title="以多发射和静态调度来开发ILP"></a>以多发射和静态调度来开发ILP</h2><h2 id="以动态调度、多发射和推测来开发ILP"><a href="#以动态调度、多发射和推测来开发ILP" class="headerlink" title="以动态调度、多发射和推测来开发ILP"></a>以动态调度、多发射和推测来开发ILP</h2><h2 id="用指令传送和推测的高级技术"><a href="#用指令传送和推测的高级技术" class="headerlink" title="用指令传送和推测的高级技术"></a>用指令传送和推测的高级技术</h2><h2 id="ILP局限性研究"><a href="#ILP局限性研究" class="headerlink" title="ILP局限性研究"></a>ILP局限性研究</h2><h2 id="交叉问题：ILP方法与存储器系统"><a href="#交叉问题：ILP方法与存储器系统" class="headerlink" title="交叉问题：ILP方法与存储器系统"></a>交叉问题：ILP方法与存储器系统</h2><h2 id="多线程：开发线程级并行提高单处理器吞吐量"><a href="#多线程：开发线程级并行提高单处理器吞吐量" class="headerlink" title="多线程：开发线程级并行提高单处理器吞吐量"></a>多线程：开发线程级并行提高单处理器吞吐量</h2><h2 id="Intel-Core-i7和ARM-Cortex-A8"><a href="#Intel-Core-i7和ARM-Cortex-A8" class="headerlink" title="Intel Core i7和ARM Cortex-A8"></a>Intel Core i7和ARM Cortex-A8</h2>
+<h2 id="以多发射和静态调度来开发ILP"><a href="#以多发射和静态调度来开发ILP" class="headerlink" title="以多发射和静态调度来开发ILP"></a>以多发射和静态调度来开发ILP</h2><h2 id="以动态调度、多发射和推测来开发ILP"><a href="#以动态调度、多发射和推测来开发ILP" class="headerlink" title="以动态调度、多发射和推测来开发ILP"></a>以动态调度、多发射和推测来开发ILP</h2><h2 id="用指令传送和推测的高级技术"><a href="#用指令传送和推测的高级技术" class="headerlink" title="用指令传送和推测的高级技术"></a>用指令传送和推测的高级技术</h2><h2 id="ILP局限性研究"><a href="#ILP局限性研究" class="headerlink" title="ILP局限性研究"></a>ILP局限性研究</h2><h2 id="交叉问题：ILP方法与存储器系统"><a href="#交叉问题：ILP方法与存储器系统" class="headerlink" title="交叉问题：ILP方法与存储器系统"></a>交叉问题：ILP方法与存储器系统</h2><h2 id="多线程：开发线程级并行提高单处理器吞吐量"><a href="#多线程：开发线程级并行提高单处理器吞吐量" class="headerlink" title="多线程：开发线程级并行提高单处理器吞吐量"></a>多线程：开发线程级并行提高单处理器吞吐量</h2><h2 id="Intel-Core-i7和ARM-Cortex-A8"><a href="#Intel-Core-i7和ARM-Cortex-A8" class="headerlink" title="Intel Core i7和ARM Cortex-A8"></a>Intel Core i7和ARM Cortex-A8</h2><p>计算机体系结构：</p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC1%E7%AB%A0%20%E9%87%8F%E5%8C%96%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/">第1章 量化设计与分析基础</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC2%E7%AB%A0%20%E6%8C%87%E4%BB%A4%E9%9B%86%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">第2章 指令集基本原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC3%E7%AB%A0%20%E6%B5%81%E6%B0%B4%E7%BA%BF/">第3章 流水线</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">第4章 存储器层次结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/04/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC5%E7%AB%A0-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E5%8F%8A%E5%85%B6%E5%BC%80%E5%8F%91/">第5章 指令级并行及其开发</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC6%E7%AB%A0-%E5%90%91%E9%87%8F%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">第6章 向量体系结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC7%E7%AB%A0-%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C/">第7章 互联网络</a></p>
+<p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC8%E7%AB%A0-%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E8%A1%8C/">第8章 线程级并行</a></p>
+
     </div>
 
     
