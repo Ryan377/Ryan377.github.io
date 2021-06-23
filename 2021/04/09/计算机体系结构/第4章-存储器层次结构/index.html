@@ -20,17 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Tomasulo算法">
-<meta property="og:url" content="http://example.com/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/Tomasulo%E7%AE%97%E6%B3%95/index.html">
+  <meta name="description" content="存储系统的基本知识存储器的特性：  速度越快，每位价格就越高  容量大，价格低  容量越大，速度越慢">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第4章 存储器层次结构">
+<meta property="og:url" content="http://example.com/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="存储系统的基本知识存储器的特性：  速度越快，每位价格就越高  容量大，价格低  容量越大，速度越慢">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-24T13:39:31.818Z">
-<meta property="article:modified_time" content="2021-05-29T06:17:23.141Z">
+<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210409102940.png">
+<meta property="article:published_time" content="2021-04-09T00:05:59.868Z">
+<meta property="article:modified_time" content="2021-05-31T01:51:13.597Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210409102940.png">
 
-<link rel="canonical" href="http://example.com/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/Tomasulo%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://example.com/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">
 
 
 <script id="page-configurations">
@@ -43,7 +47,7 @@
   };
 </script>
 
-  <title>Tomasulo算法 | My Blog</title>
+  <title>第4章 存储器层次结构 | My Blog</title>
   
 
 
@@ -186,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/Tomasulo%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar_1.gif">
@@ -199,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Tomasulo算法
+          第4章 存储器层次结构
         </h1>
 
         <div class="post-meta">
@@ -209,14 +213,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-05-24 21:39:31" itemprop="dateCreated datePublished" datetime="2021-05-24T21:39:31+08:00">2021-05-24</time>
+              <time title="创建时间：2021-04-09 08:05:59" itemprop="dateCreated datePublished" datetime="2021-04-09T08:05:59+08:00">2021-04-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-29 14:17:23" itemprop="dateModified" datetime="2021-05-29T14:17:23+08:00">2021-05-29</time>
+                <time title="修改时间：2021-05-31 09:51:13" itemprop="dateModified" datetime="2021-05-31T09:51:13+08:00">2021-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,8 +248,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/Tomasulo%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/Tomasulo%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC4%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -260,7 +264,121 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <span id="more"></span>
+        <h2 id="存储系统的基本知识"><a href="#存储系统的基本知识" class="headerlink" title="存储系统的基本知识"></a>存储系统的基本知识</h2><p>存储器的特性：</p>
+<ul>
+<li><p>速度越快，每位价格就越高</p>
+</li>
+<li><p>容量大，价格低</p>
+</li>
+<li><p>容量越大，速度越慢</p>
+</li>
+</ul>
+<span id="more"></span>
+<p>采用多种存储器技术，构成多级存储器结构层次，依据：局部性原理</p>
+<p>两种层次结构：</p>
+<p>Cache-主存：弥补主存速度的不足</p>
+<p>主存-辅存：弥补主存容量不足</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210409102940.png" alt="image-20210409102940071"></p>
+<p>四个问题：</p>
+<ol>
+<li>当把一个块调入高一层（靠近CPU）存储器时，可以放在哪些位置上？（映像规则）</li>
+<li>当所要访问的块再高一层存储器中时，如何找到该块？（查找方法）</li>
+<li>当发生不命中时，应替换哪一块？（替换算法）</li>
+<li>当进行写访问时，应进行哪些操作？（写策略）</li>
+</ol>
+<h2 id="Cache基本知识"><a href="#Cache基本知识" class="headerlink" title="Cache基本知识"></a>Cache基本知识</h2><p>Cache是按块进行管理的，Cache和主存均被分割成大小相同的块。信息以块为单位调入Cache。</p>
+<p>块地址+块内位移</p>
+<p><em>映像规则</em></p>
+<ul>
+<li>全相联映像：主存中任一块可以被放置到Cache中的任意一个位置</li>
+<li>直接映像：主存中的每一块只能被放置到Cache中唯一的一个位置</li>
+<li>组相联映像：主存中的每一块可以被放置到Cache中唯一一个组的任何一个位置</li>
+</ul>
+<p><em>查找方法</em></p>
+<p>通过查找目录表实现，在Cache中有一个目录表，该表共有M项，每一项对应于cache中的一个块，用于指出当前该块的信息是哪个主存块的。</p>
+<p><em>替换算法</em></p>
+<p>直接映像别无选择，组相联和全相联Cache中，则有多个块可供选择，主要的算法有三种：</p>
+<ol>
+<li>随机发</li>
+<li>先进先出法FIFO</li>
+<li>最近最少使用法LRU</li>
+</ol>
+<p><em>写策略</em></p>
+<ul>
+<li>写直达法：执行“写”操作时，不仅写入Cache，而且也写入下一级存储器。</li>
+<li>写回法：执行“写”操作时，只写入Cache。仅当Cache中相应的块被替换时，才写回主存。</li>
+</ul>
+<h2 id="缓存性能分析"><a href="#缓存性能分析" class="headerlink" title="缓存性能分析"></a>缓存性能分析</h2><p>命中率H和不命中率F</p>
+<p>平均访问时间$T_A$</p>
+<p>CPU执行时间</p>
+<h2 id="6种基本的缓存优化方法"><a href="#6种基本的缓存优化方法" class="headerlink" title="6种基本的缓存优化方法"></a>6种基本的缓存优化方法</h2><p>平均访问时间 = 命中时间 + 缺失率 * 缺失代价</p>
+<p>可以从三个方面改进Cache性能：</p>
+<ul>
+<li>降低缺失率</li>
+<li>减少缺失代价</li>
+<li>减少Cache命中时间</li>
+</ul>
+<p>三种类型的缺失（3C）</p>
+<ul>
+<li>强制性缺失：当第一次访问一个块时，该块不在Cache中，需从下一级存储器中调入Cache。</li>
+<li>容量缺失：如果程序执行所需的块不能全部调入Cache中，则当某些块被替换后，若又被重新访问，就会发生缺失。</li>
+<li>冲突缺失：在组相联或直接映像中，若太多的块映像到同一组（块）中，则会出现该组中某个块被别的块替换，然后又被重新访问的情况。</li>
+</ul>
+<p><em>方法</em></p>
+<p>降低缺失率</p>
+<ul>
+<li>增加Cache块的大小</li>
+<li>增加Cache的容量</li>
+<li>提高相联度</li>
+</ul>
+<p>降低缺失代价</p>
+<ul>
+<li>采用多级Cache</li>
+<li>使读取缺失的优先级高于写入缺失</li>
+</ul>
+<p>缩短命中时间</p>
+<ul>
+<li>避免在索引Cache期间进行地址转换</li>
+</ul>
+<h2 id="10种高级的缓存优化方法"><a href="#10种高级的缓存优化方法" class="headerlink" title="10种高级的缓存优化方法"></a>10种高级的缓存优化方法</h2><p>分为五类</p>
+<ul>
+<li>缩短命中时间<ul>
+<li>容量小、结构简单的第一级Cache以缩短命中时间降低功耗</li>
+<li>采用路预测缩短命中时间</li>
+</ul>
+</li>
+<li>增加缓存带宽<ul>
+<li>实现缓存访问流水化</li>
+<li>采用无阻塞Cache</li>
+<li>采用多组Cache</li>
+</ul>
+</li>
+<li>降低缺失代价<ul>
+<li>关键字有限和提前启动</li>
+<li>合并写缓冲区</li>
+</ul>
+</li>
+<li><p>降低缺失率</p>
+<ul>
+<li>采用编译器优化</li>
+</ul>
+</li>
+<li><p>通过并行降低缺失代价或缺失率</p>
+<ul>
+<li>对指令和数据进行硬件预取</li>
+<li>用编译器控制预取</li>
+</ul>
+</li>
+</ul>
+<h2 id="存储器技术"><a href="#存储器技术" class="headerlink" title="存储器技术"></a>存储器技术</h2><p>对存储器的性能度量同时强调延迟和带宽</p>
+<p>采用DRAM作为主存储器，采用SRAM作为缓存，在处理器芯片内集成一到三级缓存</p>
+<h2 id="虚拟存储器和虚拟机"><a href="#虚拟存储器和虚拟机" class="headerlink" title="虚拟存储器和虚拟机"></a>虚拟存储器和虚拟机</h2><p>虚拟存储器是“主存-辅存”层次进一步发展的结果</p>
+<p>可以分为页式和段式</p>
+<p>映像规则：全相联</p>
+<p>查找算法：页表、段表、TLB</p>
+<p>替换算法：最近最少使用LRU</p>
+<p>写策略：写回法</p>
+
     </div>
 
     
@@ -275,12 +393,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_todo(6)/%E7%AC%AC8%E7%AB%A0-%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E8%A1%8C/" rel="prev" title="第8章 线程级并行">
-      <i class="fa fa-chevron-left"></i> 第8章 线程级并行
+    <a href="/2021/04/03/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E7%AC%AC8%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BB%BA%E6%A8%A1/" rel="prev" title="软件工程 第8章 面向对象建模">
+      <i class="fa fa-chevron-left"></i> 软件工程 第8章 面向对象建模
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/05/31/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C/%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%E8%AE%BE%E8%AE%A1/" rel="next" title="流水线CPU设计">
-      流水线CPU设计 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC9%E7%AB%A0-%E4%B8%AD%E4%BD%8D%E6%95%B0%E5%92%8C%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1%E9%87%8F/" rel="next" title="第9章 中位数和顺序统计量">
+      第9章 中位数和顺序统计量 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -341,6 +459,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">存储系统的基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">Cache基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">缓存性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E7%A7%8D%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">6种基本的缓存优化方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10%E7%A7%8D%E9%AB%98%E7%BA%A7%E7%9A%84%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">10种高级的缓存优化方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E6%8A%80%E6%9C%AF"><span class="nav-number">6.</span> <span class="nav-text">存储器技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">7.</span> <span class="nav-text">虚拟存储器和虚拟机</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -490,6 +609,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
