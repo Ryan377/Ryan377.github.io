@@ -28,7 +28,7 @@
 <meta property="og:description" content="指令级并行的基本概念什么是指令级并行指令级并行：指令之间可以实现重叠执行 两种开发方法：  依靠硬件来实现动态发现和开发并行 依靠软件技术在编译时静态发现并行">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-30T00:39:00.607Z">
-<meta property="article:modified_time" content="2021-06-23T02:36:49.673Z">
+<meta property="article:modified_time" content="2021-06-24T02:02:00.077Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-23 10:36:49" itemprop="dateModified" datetime="2021-06-23T10:36:49+08:00">2021-06-23</time>
+                <time title="修改时间：2021-06-24 10:02:00" itemprop="dateModified" datetime="2021-06-24T10:02:00+08:00">2021-06-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,9 +269,10 @@
 <li>依靠软件技术在编译时静态发现并行</li>
 </ol>
 <span id="more"></span>
+<p><strong>流水线处理机的实际CPI</strong></p>
 <p>$CPI_{流水线}=CPI_{理想}+停顿_{结构冲突}+停顿_{数据冲突}+停顿_{控制冲突}$</p>
 <p>理想CPI是衡量流水线最高性能的一个指标</p>
-<p><em>基本程序块</em>：一个程序块，除了出口和入口不包含其他分支</p>
+<p>基本程序块：一个程序块，除了出口和入口不包含其他分支</p>
 <p>循环级并行：使一个循环中的不同循环体并行执行</p>
 <p>最基本的开发循环级并行的技术</p>
 <ul>
@@ -280,7 +281,7 @@
 </ul>
 <h3 id="数据相关和冒险"><a href="#数据相关和冒险" class="headerlink" title="数据相关和冒险"></a><strong>数据相关和冒险</strong></h3><p>相关：两条指令之间存在某种依赖关系</p>
 <p>三种类型：数据相关/真数据相关、名称相关、控制相关</p>
-<p><em>数据相关</em></p>
+<p><strong>数据相关</strong></p>
 <p>指令i，j相关满足下述条件之一</p>
 <ol>
 <li>指令j使用指令i产生的结果</li>
@@ -293,10 +294,21 @@
 </ul>
 </li>
 </ul>
-<p><em>名称相关</em></p>
-<p>名称：指令所访问的寄存器或存储单元的名称</p>
-<p>如果两条指令使用相同的名称，但是它们之间并没有数据流动，则称这两条指令存在名称相关。</p>
-<p>换名技术</p>
+<p><strong>名称相关</strong></p>
+<ul>
+<li><p>名称：指令所访问的寄存器或存储单元的名称</p>
+</li>
+<li><p>如果两条指令使用相同的名称，但是它们之间并没有数据流动，则称这两条指令存在名称相关。</p>
+</li>
+<li><p>指令j与指令i之间的名称相关有两种：</p>
+<ul>
+<li>反相关：如果指令j写的名与指令i读的名相同，则    称指令i和j发生了反相关。</li>
+<li>输出相关：如果指令j和指令i写相同的名称，则称指令i和j发生了输出相关。</li>
+</ul>
+</li>
+<li><p>换名技术：通过改变指令中操作数的名称来消除名相关。</p>
+</li>
+</ul>
 <p>数据冒险：只要指令间存在名称相关或数据相关，当相关的指令靠的足够近时，它们在流水线中的重叠执行或者重新排序会改变指令读/写操作数顺序，使之不同于它们非流水实现时的顺序，则发生了数据冒险。</p>
 <p>程序顺序：由源程序确定的在完全串行方式下指令的执行顺序。</p>
 <p>必须保持源程序顺序</p>
@@ -306,24 +318,157 @@
 <li>写后写</li>
 <li>读后写冲突</li>
 </ul>
-<h3 id="控制相关"><a href="#控制相关" class="headerlink" title="控制相关"></a><strong>控制相关</strong></h3><p>控制相关是由分支指令引起的相关</p>
-<p>对于正确执行程序来说，必须保持的最关键的两个属性是：数据流和异常行为</p>
-<p>保持程序的数据相关和控制相关就能保持前两者</p>
+<p><strong>控制相关</strong></p>
+<ul>
+<li><p>控制相关是由分支指令引起的相关，为了保证程序应有的执行顺序，必须严格按控制相关确定的顺序执行。</p>
+</li>
+<li><p>对于正确执行程序来说，必须保持的最关键的两个属性是：数据流和异常行为</p>
+<ul>
+<li>保持异常行为是指：无论怎么改变指令的执行顺序，都不能改变程序中异常的发生情况。</li>
+<li>数据流：指数据值在生成结果和使用结果的指令之间进行的实际流动。 </li>
+</ul>
+</li>
+<li><p>保持程序的数据相关和控制相关就能保持数据流和异常行为。</p>
+</li>
+</ul>
 <h2 id="基本流水线调度和循环展开"><a href="#基本流水线调度和循环展开" class="headerlink" title="基本流水线调度和循环展开"></a>基本流水线调度和循环展开</h2><p>充分开发指令之间存在的并行性，找出不相关的指令序列，让它们在流水线上重叠并行执行。</p>
 <p>最常用的方法：</p>
 <ol>
 <li>开发循环级并行性——循环的不同迭代之间存在的并行性。</li>
 <li>在把循环展开后，通过重命名和指令调度来开发更多的并行性。</li>
 </ol>
-<h2 id="用高级分支预测降低分支成本"><a href="#用高级分支预测降低分支成本" class="headerlink" title="用高级分支预测降低分支成本"></a>用高级分支预测降低分支成本</h2><h3 id="竞赛预测器"><a href="#竞赛预测器" class="headerlink" title="竞赛预测器"></a>竞赛预测器</h3><p>采用多个预测器，通常是一个基于全局信息的预测器和一个基于局部信息的预测器，用选择器将它们结合起来。</p>
+<p>例子：</p>
+<p>略</p>
+<h2 id="用高级分支预测降低分支成本"><a href="#用高级分支预测降低分支成本" class="headerlink" title="用高级分支预测降低分支成本"></a>用高级分支预测降低分支成本</h2><p><strong>相关分支预测</strong></p>
+<ul>
+<li>2位预测器方案仅使用单个分支的最近行为来预测该分支的未来行为。</li>
+<li>如果同时还查看其它分支的最近情况，而不是仅查看要预测的分支，那就有可能提高预测准确度。</li>
+</ul>
+<p>相关预测（或两级预测）：利用其它分支行为来进行预测的分支预测器。</p>
+<h3 id="竞赛预测器"><a href="#竞赛预测器" class="headerlink" title="竞赛预测器"></a>竞赛预测器</h3><ul>
+<li>竞赛预测器采用多个预测器，通常是一个基于全局信息的预测器和一个基于局部信息的预测器，用选择器将它们结合起来。</li>
+<li>现有竞赛预测器为每个分支使用一个2位饱和计数器，根据哪种预测器（局部、全局，甚至包括两者的组合方式）在最近的预测中最为有效，从两个不同预测器中进行选择。</li>
+</ul>
 <h3 id="Intel-Core-i7分支预测器"><a href="#Intel-Core-i7分支预测器" class="headerlink" title="Intel Core i7分支预测器"></a>Intel Core i7分支预测器</h3><ul>
 <li>使用一个两级预测器</li>
-<li>每个预测器都组合了3个不同的预测器</li>
+<li>每个预测器都组合了3个不同的预测器：<ul>
+<li>简单的两位预测器；</li>
+<li>全局历史预测器；</li>
+<li>循环退出预测器。</li>
 </ul>
-<h2 id="用动态调度克服数据冒险"><a href="#用动态调度克服数据冒险" class="headerlink" title="用动态调度克服数据冒险"></a>用动态调度克服数据冒险</h2><h3 id="动态调度"><a href="#动态调度" class="headerlink" title="动态调度"></a>动态调度</h3><p>在程序执行过程中，依靠专门硬件对代码进行调度，减少数据相关导致的停顿。</p>
-<h3 id="Tomasulo算法"><a href="#Tomasulo算法" class="headerlink" title="Tomasulo算法"></a>Tomasulo算法</h3><p>见<a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/Tomasulo%E7%AE%97%E6%B3%95/">Tomasulo算法</a></p>
-<h2 id="基于硬件的推测"><a href="#基于硬件的推测" class="headerlink" title="基于硬件的推测"></a>基于硬件的推测</h2><p>基本思想：对分支指令的结果进行猜测，并假设这个猜测总是对的，然后按这个猜测结果继续取、流出和执行后续的指令。只是执行指令的结果不是写回到寄存器或存储器，而是放到一个称为ROB的缓冲器中。等到相应的指令得到“确认”之后，才将结果写入寄存器或存储器。</p>
-<h2 id="以多发射和静态调度来开发ILP"><a href="#以多发射和静态调度来开发ILP" class="headerlink" title="以多发射和静态调度来开发ILP"></a>以多发射和静态调度来开发ILP</h2><h2 id="以动态调度、多发射和推测来开发ILP"><a href="#以动态调度、多发射和推测来开发ILP" class="headerlink" title="以动态调度、多发射和推测来开发ILP"></a>以动态调度、多发射和推测来开发ILP</h2><h2 id="用指令传送和推测的高级技术"><a href="#用指令传送和推测的高级技术" class="headerlink" title="用指令传送和推测的高级技术"></a>用指令传送和推测的高级技术</h2><h2 id="ILP局限性研究"><a href="#ILP局限性研究" class="headerlink" title="ILP局限性研究"></a>ILP局限性研究</h2><h2 id="交叉问题：ILP方法与存储器系统"><a href="#交叉问题：ILP方法与存储器系统" class="headerlink" title="交叉问题：ILP方法与存储器系统"></a>交叉问题：ILP方法与存储器系统</h2><h2 id="多线程：开发线程级并行提高单处理器吞吐量"><a href="#多线程：开发线程级并行提高单处理器吞吐量" class="headerlink" title="多线程：开发线程级并行提高单处理器吞吐量"></a>多线程：开发线程级并行提高单处理器吞吐量</h2><h2 id="Intel-Core-i7和ARM-Cortex-A8"><a href="#Intel-Core-i7和ARM-Cortex-A8" class="headerlink" title="Intel Core i7和ARM Cortex-A8"></a>Intel Core i7和ARM Cortex-A8</h2><p>计算机体系结构：</p>
+</li>
+</ul>
+<h2 id="用动态调度克服数据冒险"><a href="#用动态调度克服数据冒险" class="headerlink" title="用动态调度克服数据冒险"></a>用动态调度克服数据冒险</h2><p>静态调度：</p>
+<ul>
+<li>依靠编译器对代码进行静态调度，以减少相关和冒险。</li>
+<li>它不是在程序执行的过程中、而是在编译期间进行代码调度和优化。</li>
+<li>通过把相关的指令拉开距离来减少可能产生的停顿。</li>
+</ul>
+<p>动态调度：</p>
+<p>在程序的执行过程中，依靠专门硬件对代码进行调度，减少数据相关导致的停顿。<br>优点：</p>
+<ul>
+<li>能够使本来是面向某一流水线编译的代码在其他的流水线（动态调度）上也能高效地执行；</li>
+<li>能够处理一些在编译时情况不明的相关（比如涉及到存储器访问的相关）</li>
+<li>允许处理器容忍一些预料之外的延迟，比如缓存缺失，它可以在等待解决缺失问题时执行其他代码。</li>
+</ul>
+<p>以硬件复杂性的显著增加为代价</p>
+<h3 id="动态调度的思想"><a href="#动态调度的思想" class="headerlink" title="动态调度的思想"></a>动态调度的思想</h3><p>简单流水线的一个主要限制：指令必须按序流出和执行</p>
+<p>在经典的5级流水线中：</p>
+<ul>
+<li>在指令译码（ID）期间检查结构冒险和数据冒险；</li>
+<li>当一条指令可以无冒险执行时，知道所有数据冒险都已经解决，从ID将其发射出去。</li>
+<li>一旦一条指令受阻，其后的指令都将停顿。</li>
+</ul>
+<p>解决办法：   允许乱序执行</p>
+<p>为了允许乱序执行，我们将5段流水线的译码阶段再分为两个阶段：</p>
+<ul>
+<li>发射：指令译码，检查是否存在结构冒险。  </li>
+<li>读操作数：等待数据冒险消失，然后读操作数。</li>
+</ul>
+<p>指令乱序完成使异常处理变得复杂：</p>
+<ul>
+<li>动态调度要保持正确的异常行为，只有那些在程序严格按程序顺序执行时会发生的异常，才能真正发生。</li>
+<li>即使保持了正确的异常行为，动态调度处理器仍可能发生不精确异常。 </li>
+</ul>
+<h3 id="Tomasulo算法"><a href="#Tomasulo算法" class="headerlink" title="Tomasulo算法"></a>Tomasulo算法</h3><p>一种典型的动态调度算法</p>
+<p>Tomasulo算法的核心思想：</p>
+<ul>
+<li>记录和检测指令相关，操作数一旦就绪就立即执行，把发生RAW冒险的可能性减少到最小；</li>
+<li>通过寄存器换名来消除WAR冒险和WAW冒险。</li>
+</ul>
+<p>例子：略</p>
+<h2 id="基于硬件的推测"><a href="#基于硬件的推测" class="headerlink" title="基于硬件的推测"></a>基于硬件的推测</h2><p>基于硬件的推测的基本思想：<br>    对分支指令的结果进行猜测，并假设这个猜测总是对的，然后按这个猜测结果继续取、流出和执行后续的指令。只是执行指令的结果不是写回到寄<br>存器或存储器，而是放到一个称为ROB（ReOrder Buffer）的缓冲器中。等到相应的指令得到“确认”（即确实是应该执行的）之后，才将结果写入寄存器或存储器。 </p>
+<p>基于硬件的推测结合了三种思想：</p>
+<ul>
+<li>动态分支预测。用来选择后续执行的指令。</li>
+<li>在控制相关的结果尚未出来之前，可以执行后续指令。</li>
+<li>用动态调度对基本块的各种组合进行跨基本块的调度。</li>
+</ul>
+<p>实现推测的关键思想：允许指令乱序执行，但必须顺序提交（确认）。</p>
+<p>支持推测的浮点部件的结构 </p>
+<p>基于硬件的推测：</p>
+<ul>
+<li>通过ROB实现了指令的顺序完成。</li>
+<li>能够实现精确异常。</li>
+<li>很容易地推广到整数寄存器和整数功能单元上。 </li>
+<li>主要缺点：所需的硬件太复杂。 </li>
+</ul>
+<h2 id="以多发射和静态调度来开发ILP"><a href="#以多发射和静态调度来开发ILP" class="headerlink" title="以多发射和静态调度来开发ILP"></a>以多发射和静态调度来开发ILP</h2><p>多发射处理器的目标： 一个时钟周期内发射多条指令， CPI＜1。</p>
+<p>多发射处理机有两种基本风格：</p>
+<ul>
+<li>超标量（Superscalar）<ul>
+<li>在每个时钟周期流出的指令条数不固定，依代码的具体情况而定。（有上限）</li>
+<li>可以通过编译器进行静态调度，也可以基于Tomasulo算法进行动态调度。 </li>
+</ul>
+</li>
+<li>超长指令字VLIW（Very Long Instruction Word）<ul>
+<li>在每个时钟周期发射的指令条数是固定的，这些指令构成一条长指令或者一个指令包。</li>
+<li>指令包中，指令之间的并行性是通过指令显式地表示出来的。</li>
+<li>指令调度是由编译器静态完成的。  </li>
+</ul>
+</li>
+</ul>
+<h2 id="以动态调度、多发射和推测来开发ILP"><a href="#以动态调度、多发射和推测来开发ILP" class="headerlink" title="以动态调度、多发射和推测来开发ILP"></a>以动态调度、多发射和推测来开发ILP</h2><p>动态调度、多发射和推测等机制结合起来 </p>
+<ul>
+<li>为了简单起见，只考虑每个时钟周期发射两条指令；</li>
+<li>扩展Tomasulo算法，以支持具有分离的整数、载入/存储和浮点单元的多发射超标量流水线，每个单元都可以在每个时钟周期启动一个操作；</li>
+<li>指令按顺序流向保留站，否则会破坏程序语义。 </li>
+<li>允许流水线在一个时钟周期内发射两条任意组合的指令，通过调度硬件向整数和浮点单元实际分配运算</li>
+</ul>
+<p>有两种不同的方法可以实现在每个时钟周期发射多条指令。 </p>
+<p>对保留站的分配和对流水线控制表格的修改。</p>
+<p>方法1:在半个时钟周期里完成发射步骤，这样一个时钟周期就能处理两条指令</p>
+<p>方法2:设置一次能同时处理两条或更多条指令的逻辑电路，包括处理指令之间可能存在的相关性。</p>
+<p>现代的流出4条或4条以上指令的超标量处理器经常是两种方法都采用。  </p>
+<h2 id="用指令传送和推测的高级技术"><a href="#用指令传送和推测的高级技术" class="headerlink" title="用指令传送和推测的高级技术"></a>用指令传送和推测的高级技术</h2><p>提高指令提取带宽 </p>
+<ul>
+<li>在最近的多发射处理器中，高带宽发射流意味着每个时钟周期需要提取4~8条指令。</li>
+<li>提取这些指令需要有足够宽的路径能够连接指令缓存，但最重要的部分还是分支处理。</li>
+</ul>
+<p>分支目标缓冲区</p>
+<ul>
+<li>将分支成功的分支指令的地址和它的分支目标地址都放到一个缓冲区中保存起来，缓冲区以分支指令的地址作为标识。</li>
+<li>这个缓冲区就是分支目标缓冲区（Branch-Target Buffer，简记为BTB，或者Branch-Target Cache）。</li>
+</ul>
+<h2 id="ILP局限性研究"><a href="#ILP局限性研究" class="headerlink" title="ILP局限性研究"></a>ILP局限性研究</h2><ul>
+<li>在尝试开发更多ILP时，一些技术取得了一点点改进，但通常会大幅提高复杂度、增加时钟周期、使功率的增加不合比例，其效率非常低下。</li>
+<li>设计人员开发ILP的热情已经减退，在大多数体系结构最终采用的硬件方案中，每个时钟周期发射3~4条指令。</li>
+</ul>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>线程级并行TLP</p>
+<ul>
+<li>线程是进程内的一个相对独立且可独立调度和指派的执行单元，它比进程要“轻巧”得多。</li>
+<li>只拥有在运行过程中必不可少的一点资源，如：程序计数器、一组寄存器、堆栈等。 </li>
+<li>线程切换时，只需保存和设置少量寄存器的内容，开销很小。</li>
+<li>线程切换只需要几个时钟周期。 </li>
+<li>进程的切换一般需要成百上千个处理器时钟周期。 </li>
+</ul>
+<p>三种主要方法：</p>
+<ol>
+<li>细粒度多线程</li>
+<li>粗粒度多线程</li>
+<li>同时多线程</li>
+</ol>
+<p>计算机体系结构：</p>
 <p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC1%E7%AB%A0%20%E9%87%8F%E5%8C%96%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/">第1章 量化设计与分析基础</a></p>
 <p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC2%E7%AB%A0%20%E6%8C%87%E4%BB%A4%E9%9B%86%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">第2章 指令集基本原理</a></p>
 <p><a target="_blank" rel="noopener" href="https://ryan377.github.io/2021/03/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/%E7%AC%AC3%E7%AB%A0%20%E6%B5%81%E6%B0%B4%E7%BA%BF/">第3章 流水线</a></p>
@@ -413,7 +558,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">指令级并行的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">什么是指令级并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E5%92%8C%E5%86%92%E9%99%A9"><span class="nav-number">1.2.</span> <span class="nav-text">数据相关和冒险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.</span> <span class="nav-text">控制相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%B0%83%E5%BA%A6%E5%92%8C%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80"><span class="nav-number">2.</span> <span class="nav-text">基本流水线调度和循环展开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%AB%98%E7%BA%A7%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E9%99%8D%E4%BD%8E%E5%88%86%E6%94%AF%E6%88%90%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">用高级分支预测降低分支成本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%9E%E8%B5%9B%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">竞赛预测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intel-Core-i7%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">Intel Core i7分支预测器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6%E5%85%8B%E6%9C%8D%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9"><span class="nav-number">4.</span> <span class="nav-text">用动态调度克服数据冒险</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6"><span class="nav-number">4.1.</span> <span class="nav-text">动态调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomasulo%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">Tomasulo算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A1%AC%E4%BB%B6%E7%9A%84%E6%8E%A8%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">基于硬件的推测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%A4%9A%E5%8F%91%E5%B0%84%E5%92%8C%E9%9D%99%E6%80%81%E8%B0%83%E5%BA%A6%E6%9D%A5%E5%BC%80%E5%8F%91ILP"><span class="nav-number">6.</span> <span class="nav-text">以多发射和静态调度来开发ILP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6%E3%80%81%E5%A4%9A%E5%8F%91%E5%B0%84%E5%92%8C%E6%8E%A8%E6%B5%8B%E6%9D%A5%E5%BC%80%E5%8F%91ILP"><span class="nav-number">7.</span> <span class="nav-text">以动态调度、多发射和推测来开发ILP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%8C%87%E4%BB%A4%E4%BC%A0%E9%80%81%E5%92%8C%E6%8E%A8%E6%B5%8B%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E6%9C%AF"><span class="nav-number">8.</span> <span class="nav-text">用指令传送和推测的高级技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ILP%E5%B1%80%E9%99%90%E6%80%A7%E7%A0%94%E7%A9%B6"><span class="nav-number">9.</span> <span class="nav-text">ILP局限性研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E5%8F%89%E9%97%AE%E9%A2%98%EF%BC%9AILP%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AD%98%E5%82%A8%E5%99%A8%E7%B3%BB%E7%BB%9F"><span class="nav-number">10.</span> <span class="nav-text">交叉问题：ILP方法与存储器系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%9A%E5%BC%80%E5%8F%91%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E8%A1%8C%E6%8F%90%E9%AB%98%E5%8D%95%E5%A4%84%E7%90%86%E5%99%A8%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-number">11.</span> <span class="nav-text">多线程：开发线程级并行提高单处理器吞吐量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intel-Core-i7%E5%92%8CARM-Cortex-A8"><span class="nav-number">12.</span> <span class="nav-text">Intel Core i7和ARM Cortex-A8</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">指令级并行的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">什么是指令级并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E5%92%8C%E5%86%92%E9%99%A9"><span class="nav-number">1.2.</span> <span class="nav-text">数据相关和冒险</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%B0%83%E5%BA%A6%E5%92%8C%E5%BE%AA%E7%8E%AF%E5%B1%95%E5%BC%80"><span class="nav-number">2.</span> <span class="nav-text">基本流水线调度和循环展开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%AB%98%E7%BA%A7%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E9%99%8D%E4%BD%8E%E5%88%86%E6%94%AF%E6%88%90%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">用高级分支预测降低分支成本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%9E%E8%B5%9B%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">竞赛预测器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intel-Core-i7%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">Intel Core i7分支预测器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6%E5%85%8B%E6%9C%8D%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9"><span class="nav-number">4.</span> <span class="nav-text">用动态调度克服数据冒险</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6%E7%9A%84%E6%80%9D%E6%83%B3"><span class="nav-number">4.1.</span> <span class="nav-text">动态调度的思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomasulo%E7%AE%97%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">Tomasulo算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A1%AC%E4%BB%B6%E7%9A%84%E6%8E%A8%E6%B5%8B"><span class="nav-number">5.</span> <span class="nav-text">基于硬件的推测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%A4%9A%E5%8F%91%E5%B0%84%E5%92%8C%E9%9D%99%E6%80%81%E8%B0%83%E5%BA%A6%E6%9D%A5%E5%BC%80%E5%8F%91ILP"><span class="nav-number">6.</span> <span class="nav-text">以多发射和静态调度来开发ILP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%8A%A8%E6%80%81%E8%B0%83%E5%BA%A6%E3%80%81%E5%A4%9A%E5%8F%91%E5%B0%84%E5%92%8C%E6%8E%A8%E6%B5%8B%E6%9D%A5%E5%BC%80%E5%8F%91ILP"><span class="nav-number">7.</span> <span class="nav-text">以动态调度、多发射和推测来开发ILP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%8C%87%E4%BB%A4%E4%BC%A0%E9%80%81%E5%92%8C%E6%8E%A8%E6%B5%8B%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E6%9C%AF"><span class="nav-number">8.</span> <span class="nav-text">用指令传送和推测的高级技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ILP%E5%B1%80%E9%99%90%E6%80%A7%E7%A0%94%E7%A9%B6"><span class="nav-number">9.</span> <span class="nav-text">ILP局限性研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">10.</span> <span class="nav-text">多线程</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -429,7 +574,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

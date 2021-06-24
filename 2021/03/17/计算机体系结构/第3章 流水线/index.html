@@ -30,16 +30,13 @@
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083341.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083424.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083526.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326090245.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326091005.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326102646.png">
-<meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402083346.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402102601.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103054.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103316.png">
 <meta property="og:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402103408.png">
 <meta property="article:published_time" content="2021-03-17T13:23:15.433Z">
-<meta property="article:modified_time" content="2021-06-23T02:36:38.218Z">
+<meta property="article:modified_time" content="2021-06-23T14:59:36.831Z">
 <meta property="article:author" content="chenrui">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326083341.png">
@@ -230,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-23 10:36:38" itemprop="dateModified" datetime="2021-06-23T10:36:38+08:00">2021-06-23</time>
+                <time title="修改时间：2021-06-23 22:59:36" itemprop="dateModified" datetime="2021-06-23T22:59:36+08:00">2021-06-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,7 +292,6 @@
 <li>流水线技术适合于大量重复的时序过程，只有在输入端不断地提供任务，才能充分发挥流水线的效率；</li>
 <li>通过时间：第一个任务从进入流水线到流出结果所需的时间；</li>
 <li>排空时间：最后一个任务从进入流水线到流出结果所需的时间；</li>
-<li></li>
 </ul>
 <h3 id="流水线的分类"><a href="#流水线的分类" class="headerlink" title="流水线的分类"></a>流水线的分类</h3><ol>
 <li>单功能与多功能流水线：前者只能完成一种功能，后者各段能进行不同的连接，实现不同的功能</li>
@@ -307,16 +303,13 @@
 <p>单位时间内流水线所完成的任务/输出结果数量</p>
 <p>$TP=\frac{n}{T_k}$</p>
 <p>n表示任务数，$T_k$表示处理n个任务所用的时间</p>
-<p>各段时间相等：</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326090245.png" alt="image-20210326090245212"></p>
+<p><strong>各段时间相等</strong>：</p>
 <script type="math/tex; mode=display">
-TP=\frac{n}{(k+n-1)\Delta{t}}</script><p>最大吞吐率</p>
+TP=\frac{n}{(k+n-1)\Delta{t}}</script><p>最大吞吐率：</p>
 <script type="math/tex; mode=display">
-TP_{max}=\lim_{n\rightarrow+\infty}\frac{n}{(k+n-1)\Delta{t}}=\frac{1}{\Delta{t}}</script><p>各段时间不完全相等：</p>
-<p>最长的叫瓶颈段</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210326091005.png" alt="image-20210326091005492"></p>
+TP_{max}=\lim_{n\rightarrow+\infty}\frac{n}{(k+n-1)\Delta{t}}=\frac{1}{\Delta{t}}</script><p><strong>各段时间不完全相等</strong>（最长的叫瓶颈段）：</p>
 <script type="math/tex; mode=display">
-TP=\frac{n}{\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p>最大吞吐率</p>
+TP=\frac{n}{\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p>最大吞吐率：</p>
 <script type="math/tex; mode=display">
 TP_{max}=\frac{1}{max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p>解决瓶颈问题：细分瓶颈段、重新设置瓶颈段</p>
 <p><strong>2.加速比</strong></p>
@@ -328,10 +321,10 @@ S=\frac{nk}{k+n-1}</script><p>不完全相等：</p>
 <script type="math/tex; mode=display">
 S=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})}</script><p><strong>3.效率</strong></p>
 <p>设备实际使用时间和整个运行时间的比值，即设备利用率</p>
-<p>各段时间相等</p>
+<p>各段时间相等：</p>
 <script type="math/tex; mode=display">
 E=\frac{n}{k+n-1}</script><script type="math/tex; mode=display">
-E_{max}=1</script><p>各段不相等</p>
+E_{max}=1</script><p>各段不相等：</p>
 <script type="math/tex; mode=display">
 E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{t_1},\Delta{t_2},\cdots,\Delta{t_k})]}</script><h3 id="一个经典的5段流水线"><a href="#一个经典的5段流水线" class="headerlink" title="一个经典的5段流水线"></a>一个经典的5段流水线</h3><p>非流水情况下，一条指令的执行过程分为以下5个周期</p>
 <ol>
@@ -353,9 +346,15 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
 <li>数据冒险：当指令在流水线中重叠执行时，因需要用到前面指令的执行结果，导致数据冒险</li>
 <li>控制冒险：流水线遇到分支指令和其他会改变PC值的指令，导致控制冒险</li>
 </ul>
-<h3 id="带有停顿的流水线性能"><a href="#带有停顿的流水线性能" class="headerlink" title="带有停顿的流水线性能"></a>带有停顿的流水线性能</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402083346.png" alt="image-20210402083338983"></p>
-<h3 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h3><p>如果某种指令组合因为资源冲突而不能正常执行，则称该处理机有结构冒险</p>
-<p>常见原因：功能部件不是完全流水、资源份数不够</p>
+<h3 id="带有停顿的流水线性能"><a href="#带有停顿的流水线性能" class="headerlink" title="带有停顿的流水线性能"></a>带有停顿的流水线性能</h3><script type="math/tex; mode=display">
+流水线加速比=\frac{非流水化指令平均执行时间}{流水话指令平均执行时间}=\frac{非流水化CPI}{流水化CPI}\times\frac{非流水化周期}{流水化时钟周期} \\
+流水化CPI=理想CPI+每条指令的流水停顿时钟周期=1+每条指令的流水停顿时钟周期 \\
+加速比=\frac{非流水化CPI/流水深度}{1+每条指令的流水停顿时钟周期}</script><h3 id="结构冒险"><a href="#结构冒险" class="headerlink" title="结构冒险"></a>结构冒险</h3><ul>
+<li>在流水线处理机中，为了能够使各种组合的指令都能顺利地重叠执行，需要对功能部件进行流水或重复设置资源。</li>
+<li>如果某种指令组合因为资源冲突而不能正常执行，则称该处理机有结构冒险</li>
+<li>常见原因：功能部件不是完全流水、资源份数不够</li>
+</ul>
+<p>例子：由于访问同一个存储器而引起结构冲突</p>
 <p>解决办法：</p>
 <ol>
 <li>插入暂停周期（“气泡”）</li>
@@ -368,12 +367,15 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
 <li><p>增加流水线互锁硬件、插入“停顿”（或气泡）：检测发现数据冲突，并使流水线停顿，直至冲突消失。</p>
 </li>
 </ul>
-<h3 id="分支冒险"><a href="#分支冒险" class="headerlink" title="分支冒险"></a>分支冒险</h3><p><strong>降低流水线分支代价的方法：</strong></p>
-<p>处理分支指令最简单的方法：“冻结”流水线，保留或删除分支之后的所有指令，直到直到分支目标地址。</p>
-<p>预测未选中（预测分支失败）：允许分支指令后的指令继续在流水线中流动，就好像什么都没发生似的；若确定分支失败，将分支指令看作一条普通指令，流水线正常移流动；若确定分支成功，流水线就把在分支指令之后取出的所有指令转化为空操作，并按分支目标地址重新取指令执行。</p>
-<p>预测选中（预测分支成功）：假设分支转移成功，并从分支目标地址处取指令执行；起作用的前提：先知道分支目标地址，后知道分支是否成功。</p>
-<p>延迟分支：把延迟分支看成是由原来的分支指令和若干个延迟槽构成（一般为一个延迟槽），不管分支是否成功，都要按顺序执行延迟槽中的指令。</p>
-<p>分支延迟指令的调度</p>
+<h3 id="分支冒险"><a href="#分支冒险" class="headerlink" title="分支冒险"></a>分支冒险</h3><p>分支指令执行结果：分支成功/不成功或失败</p>
+<p><strong>降低流水线分支代价的方法</strong></p>
+<ul>
+<li>处理分支指令最简单的方法：“冻结”流水线，保留或删除分支之后的所有指令，直到直到分支目标地址。</li>
+<li>预测未选中（预测分支失败）：允许分支指令后的指令继续在流水线中流动，就好像什么都没发生似的；若确定分支失败，将分支指令看作一条普通指令，流水线正常移流动；若确定分支成功，流水线就把在分支指令之后取出的所有指令转化为空操作，并按分支目标地址重新取指令执行。</li>
+<li>预测选中（预测分支成功）：假设分支转移成功，并从分支目标地址处取指令执行；起作用的前提：先知道分支目标地址，后知道分支是否成功。</li>
+<li>延迟分支：把延迟分支看成是由原来的分支指令和若干个延迟槽构成（一般为一个延迟槽），不管分支是否成功，都要按顺序执行延迟槽中的指令。</li>
+</ul>
+<p><strong>分支延迟指令的调度</strong></p>
 <p>在延迟槽中放入有用的指令，由编译器完成，能否带来好处取决于编译器能否把有用的指令调度到延迟槽中。</p>
 <p>三种方法：</p>
 <ol>
@@ -389,7 +391,7 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
 <li>动态分支预测：根据程序特性对分支进行动态预测的策略</li>
 </ul>
 <p>分支预测缓冲区/分支历史表(BHT)方法：</p>
-<p>用BHT来记录分支指令最近一次或几次的执行情况（成功或不成功），并据此进行预测</p>
+<p>用BHT来记录分支指令最近一次或几次的执行情况（成功或不成功），并据此进行预测。</p>
 <h2 id="实现流水化"><a href="#实现流水化" class="headerlink" title="实现流水化"></a>实现流水化</h2><h3 id="MIPS的简单实现"><a href="#MIPS的简单实现" class="headerlink" title="MIPS的简单实现"></a>MIPS的简单实现</h3><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210402102601.png" alt="image-20210402102601455"></p>
 <h3 id="MIPS基本流水线"><a href="#MIPS基本流水线" class="headerlink" title="MIPS基本流水线"></a>MIPS基本流水线</h3><p>每一个时钟周期完成的工作看作是流水线的一段，每个时钟周期启动一条新的指令。</p>
 <p>段和段之间设置流水寄存器，命名：用其相邻的两个段的名称拼合而成</p>
@@ -503,7 +505,7 @@ E=\frac{n\sum_{i=1}^{k}\Delta{t_i}}{k[\sum_{i=1}^{k}\Delta{t_i}+(n-1)max(\Delta{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
