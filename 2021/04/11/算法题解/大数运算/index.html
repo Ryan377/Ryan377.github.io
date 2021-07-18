@@ -1,268 +1,235 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="高精度整数：使用vector/数组存储每一位数字
+下面介绍具体的实现">
+  <meta name="author" content="chenrui">
+  <meta name="keywords" content="">
+  
+  <title>大数运算 - My Blog</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="高精度整数：使用vector&#x2F;数组存储每一位数字 下面介绍具体的实现">
-<meta property="og:type" content="article">
-<meta property="og:title" content="大数运算">
-<meta property="og:url" content="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/index.html">
-<meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="高精度整数：使用vector&#x2F;数组存储每一位数字 下面介绍具体的实现">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-11T12:38:37.458Z">
-<meta property="article:modified_time" content="2021-06-20T06:46:54.241Z">
-<meta property="article:author" content="chenrui">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>大数运算 | My Blog</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">My Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
 </nav>
 
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="大数运算">
+              
+            </span>
 
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-11 20:38" pubdate>
+        2021年4月11日 晚上
+      </time>
+    </span>
+  
+</div>
 
+<div class="mt-1">
+  
     
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/">
+</div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar_1.gif">
-      <meta itemprop="name" content="chenrui">
-      <meta itemprop="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          大数运算
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-11 20:38:37" itemprop="dateCreated datePublished" datetime="2021-04-11T20:38:37+08:00">2021-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-20 14:46:54" itemprop="dateModified" datetime="2021-06-20T14:46:54+08:00">2021-06-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">算法题解</span></a>
-                </span>
-            </span>
+            
+          </div>
 
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>高精度整数：使用vector/数组存储每一位数字</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">大数运算</h1>
+            
+            <div class="markdown-body">
+              <p>高精度整数：使用vector/数组存储每一位数字</p>
 <p>下面介绍具体的实现</p>
 <span id="more"></span>
 <h2 id="加法和减法"><a href="#加法和减法" class="headerlink" title="加法和减法"></a>加法和减法</h2><p>加法：</p>
@@ -461,214 +428,149 @@
 </div>
 <p>取余借助除法实现即可</p>
 <h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p>BigNum.h</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> TERMPJ_BIGNUM_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TERMPJ_BIGNUM_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">vector</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BigNum</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> BigNum <span class="title">absv</span><span class="params">(<span class="keyword">const</span> BigNum&amp; num)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">friend</span> <span class="built_in">std</span>::istream&amp; <span class="keyword">operator</span>&gt;&gt;(<span class="built_in">std</span>::istream&amp;, BigNum&amp;);</span><br><span class="line">    <span class="keyword">friend</span> <span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(<span class="built_in">std</span>::ostream&amp;, <span class="keyword">const</span> BigNum&amp;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>+(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>+(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>*(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>*(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>/(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>/(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>%(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> BigNum <span class="keyword">operator</span>%(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&gt;(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&gt;=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>!=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type size_type;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    BigNum() &#123; create(); &#125;</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">BigNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123; create(num); &#125;</span><br><span class="line">    BigNum(<span class="keyword">size_t</span> n, <span class="keyword">int</span> v);</span><br><span class="line"></span><br><span class="line">    <span class="function">size_type <span class="title">size</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> vec.size() - <span class="number">1</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isNegative</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> vec[<span class="number">0</span>] != <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isZero</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> vec.size() == <span class="number">2</span> &amp;&amp; vec[<span class="number">1</span>] == <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    BigNum&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> BigNum&amp; num);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>&amp; <span class="keyword">operator</span>[](size_type i) &#123;</span><br><span class="line">        <span class="keyword">return</span> vec[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">trim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (vec.size() &gt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (*(vec.end() - <span class="number">1</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                vec.erase(vec.end() - <span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment">// 减法后可能出现前面有多余的零的情况，需要去掉</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">(<span class="keyword">int</span> num)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">//TERMPJ_BIGNUM_H</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> TERMPJ_BIGNUM_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> TERMPJ_BIGNUM_H</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BigNum</span> &#123;</span><br>    <span class="hljs-function"><span class="hljs-keyword">friend</span> BigNum <span class="hljs-title">absv</span><span class="hljs-params">(<span class="hljs-keyword">const</span> BigNum&amp; num)</span></span>;<br><br>    <span class="hljs-keyword">friend</span> <span class="hljs-built_in">std</span>::istream&amp; <span class="hljs-keyword">operator</span>&gt;&gt;(<span class="hljs-built_in">std</span>::istream&amp;, BigNum&amp;);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-built_in">std</span>::ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(<span class="hljs-built_in">std</span>::ostream&amp;, <span class="hljs-keyword">const</span> BigNum&amp;);<br><br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num);<br><br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>+(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>+(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>*(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>*(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>/(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>/(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>%(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> BigNum <span class="hljs-keyword">operator</span>%(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2);<br><br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&gt;(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&gt;=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2);<br><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">typedef</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::size_type size_type;<br><br>    <span class="hljs-comment">// 构造函数</span><br>    BigNum() &#123; create(); &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">BigNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123; create(num); &#125;<br>    BigNum(<span class="hljs-keyword">size_t</span> n, <span class="hljs-keyword">int</span> v);<br><br>    <span class="hljs-function">size_type <span class="hljs-title">size</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123; <span class="hljs-keyword">return</span> vec.size() - <span class="hljs-number">1</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isNegative</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123; <span class="hljs-keyword">return</span> vec[<span class="hljs-number">0</span>] != <span class="hljs-number">0</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isZero</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123; <span class="hljs-keyword">return</span> vec.size() == <span class="hljs-number">2</span> &amp;&amp; vec[<span class="hljs-number">1</span>] == <span class="hljs-number">0</span>; &#125;<br><br>    BigNum&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> BigNum&amp; num);<br><br>    <span class="hljs-keyword">int</span>&amp; <span class="hljs-keyword">operator</span>[](size_type i) &#123;<br>        <span class="hljs-keyword">return</span> vec[i];<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">trim</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (vec.size() &gt; <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">if</span> (*(vec.end() - <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>) &#123;<br>                vec.erase(vec.end() - <span class="hljs-number">1</span>);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span>;<br>        &#125;<br>    &#125; <span class="hljs-comment">// 减法后可能出现前面有多余的零的情况，需要去掉</span><br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">create</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">create</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span></span>;<br><br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec;<br>&#125;;<br><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">//TERMPJ_BIGNUM_H</span></span><br></code></pre></td></tr></table></figure>
 <p>BigNum.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;BigNum.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdexcept&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">vector</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::ostream;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::istream;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">isspace</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::domain_error;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BigNum::create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BigNum::create</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">    vec.push_back(num &lt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="keyword">this</span>-&gt;isNegative() ? -num : num;</span><br><span class="line">    <span class="keyword">while</span> (temp != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> digit = temp % <span class="number">10</span>;</span><br><span class="line">        vec.push_back(digit);</span><br><span class="line">        temp = temp / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum::BigNum(<span class="keyword">size_t</span> n, <span class="keyword">int</span> v) &#123;</span><br><span class="line">    vec.push_back(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (BigNum::size_type i = <span class="number">0</span>; i != n; i++) &#123;</span><br><span class="line">        vec.push_back(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="keyword">const</span> BigNum&amp; num)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (num.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        os &lt;&lt; <span class="string">&quot;0&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> os;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( num.isNegative() ) &#123;</span><br><span class="line">        os &lt;&lt; <span class="string">&quot;-&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (BigNum::size_type i = num.size(); i != <span class="number">0</span>; i--) &#123;</span><br><span class="line">        os &lt;&lt; num.vec[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> os;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">istream&amp; <span class="keyword">operator</span>&gt;&gt;(istream&amp; is, BigNum&amp; num)</span><br><span class="line">&#123;</span><br><span class="line">    num.vec.clear();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> v;</span><br><span class="line">    <span class="keyword">while</span> (is.get(v) &amp;&amp; <span class="built_in">isspace</span>(v))</span><br><span class="line">        ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (is) &#123;</span><br><span class="line">        <span class="keyword">do</span>	temp.push_back(v);</span><br><span class="line">        <span class="keyword">while</span> (is.get(v) &amp;&amp; !<span class="built_in">isspace</span>(v));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (is)</span><br><span class="line">            is.unget();</span><br><span class="line">    &#125;</span><br><span class="line">    num.vec.push_back(temp[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (num.vec[<span class="number">0</span>] == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = temp.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            num.vec.push_back(temp[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = temp.size() - <span class="number">1</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            num.vec.push_back(temp[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">if</span> ( num1.isNegative() ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( !num2.isNegative() ) <span class="comment">// -x &lt; y</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> ( num1.size() &gt; num2.size() ) <span class="comment">// -xx &lt; -y</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> ( num1.size() &lt; num2.size() ) <span class="comment">// -x &gt; -yy</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = num1.size(); i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( num1.vec[i] &lt; num2.vec[i] )</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> ( num1.vec[i] &gt; num2.vec[i] )</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;  <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> ( num2.isNegative() ) <span class="comment">// x &gt; -y</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> ( num1.size() &gt; num2.size() ) <span class="comment">// xx &gt; y</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> ( num1.size() &lt; num2.size() ) <span class="comment">// x &lt; yy</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = num1.size(); i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( num1.vec[i] &lt; num2.vec[i] )</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> ( num1.vec[i] &gt; num2.vec[i] )</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&gt;(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num2 &lt; num1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> !(num1 &gt; num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&gt;=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> !(num1 &lt; num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> (num1 &lt;= num2) &amp;&amp; (num1 &gt;= num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>!=(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> !(num1 == num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num) &#123;</span><br><span class="line">    BigNum negative;</span><br><span class="line">    negative.vec.push_back(num.isNegative() ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt;= num.size(); i++) &#123;</span><br><span class="line">        negative.vec.push_back(num.vec[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> negative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum &amp; BigNum::<span class="keyword">operator</span>=(<span class="keyword">const</span> BigNum &amp;num)&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;vec = *<span class="keyword">new</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line">    <span class="keyword">for</span> (BigNum::size_type i = <span class="number">0</span>; i &lt;= num.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;vec.push_back(num.vec[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BigNum <span class="title">absv</span><span class="params">(<span class="keyword">const</span> BigNum&amp; num)</span> </span>&#123;</span><br><span class="line">    BigNum <span class="built_in">abs</span>;</span><br><span class="line">    <span class="built_in">abs</span>.vec.push_back(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt;= num.size(); i++) &#123;</span><br><span class="line">        <span class="built_in">abs</span>.vec.push_back(num.vec[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">abs</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>+(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    BigNum b1 = absv(num1) &gt; absv(num2) ? num1 : num2;</span><br><span class="line">    BigNum b2 = absv(num1) &gt; absv(num2) ? num2 : num1;</span><br><span class="line">    BigNum ans;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!b1.isNegative() &amp;&amp; !b2.isNegative()) &#123;</span><br><span class="line">        ans.vec.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt;= b1.size(); i++) &#123;</span><br><span class="line">            carry += b1[i];</span><br><span class="line">            <span class="keyword">if</span>(i &lt;= b2.size()) carry += b2[i];</span><br><span class="line">            ans.vec.push_back(carry % <span class="number">10</span>);</span><br><span class="line">            carry /= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (carry != <span class="number">0</span>) ans.vec.push_back(carry);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b1.isNegative() &amp;&amp; !b2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> -( (-b1) - b2 );</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!b1.isNegative() &amp;&amp; b2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> b1 - (-b2);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (b1.isNegative() &amp;&amp; b2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> -((-b1) + (-b2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">const</span> BigNum&amp; num2) &#123;</span><br><span class="line">    <span class="keyword">if</span> (num1 == num2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">new</span> BigNum(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    BigNum ans;</span><br><span class="line">    BigNum b1 = num1;</span><br><span class="line">    BigNum b2 = num2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (absv(num1) &gt; absv(num2)) &#123;</span><br><span class="line">            ans.vec.push_back(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt;= b1.size(); i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i &lt;= b2.size()) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (b1[i] + carry &lt; b2[i]) &#123;</span><br><span class="line">                        ans.vec.push_back(<span class="number">10</span> + b1[i] - b2[i] + carry);</span><br><span class="line">                        carry = <span class="number">-1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        ans.vec.push_back(b1[i] - b2[i] + carry);</span><br><span class="line">                        carry = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (b1[i] + carry &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        ans.vec.push_back(<span class="number">10</span> + b1[i] + carry);</span><br><span class="line">                        carry = <span class="number">-1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        ans.vec.push_back(b1[i] + carry);</span><br><span class="line">                        carry = <span class="number">0</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -(num2 - num1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> -( (-num1) + num2 );</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> num1 + (-num2);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">       <span class="keyword">if</span> (absv(num1) &gt; absv(num2)) &#123;</span><br><span class="line">           <span class="keyword">return</span> -( (-num1) - (-num2) );</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> (-num2) - (-num1);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ans.trim();</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>+(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + *<span class="keyword">new</span> BigNum(num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>-(<span class="keyword">const</span> BigNum&amp; num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 - *<span class="keyword">new</span> BigNum(num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>*(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">const</span> BigNum &amp;num2) &#123;</span><br><span class="line">    <span class="keyword">if</span> (num1.isZero() || num2.isZero()) &#123;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">new</span> BigNum(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    BigNum ans;</span><br><span class="line">    <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        ans.vec.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt;= num1.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (BigNum::size_type j = <span class="number">1</span>; j &lt;= num2.size(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (ans.vec.size() &lt;= i + j - <span class="number">1</span>) &#123;</span><br><span class="line">                    ans.vec.push_back(<span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                ans.vec[i + j - <span class="number">1</span>] += num1.vec[i] * num2.vec[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = <span class="number">1</span>; i &lt; ans.size(); i++) &#123;</span><br><span class="line">            ans.vec[i + <span class="number">1</span>] += ans.vec[i] / <span class="number">10</span>;</span><br><span class="line">            ans.vec[i] = ans.vec[i] % <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ans.vec[ans.size()] &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">            ans.vec.push_back(ans.vec[ans.size()] / <span class="number">10</span>);</span><br><span class="line">            ans.vec[ans.size()] = ans.vec[ans.size()] % <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> - (num1 * (-num2));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> - ((-num1) * num2);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> (-num1) * (-num2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>*(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 * *<span class="keyword">new</span> BigNum(num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>/(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">const</span> BigNum &amp;num2) &#123;</span><br><span class="line">    <span class="keyword">if</span> ( num2.isZero() ) &#123;</span><br><span class="line">        <span class="keyword">throw</span> domain_error(<span class="string">&quot;dividend cannot be zero!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( num1.isZero() ) &#123;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">new</span> BigNum(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( num1 &lt; num2 ) &#123;</span><br><span class="line">        <span class="keyword">return</span> num1;</span><br><span class="line">    &#125;</span><br><span class="line">    BigNum ans = *<span class="keyword">new</span> BigNum(<span class="number">0</span>);</span><br><span class="line">    BigNum b1 = num1;</span><br><span class="line">    BigNum b2 = num2;</span><br><span class="line">    <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        BigNum::size_type diff = b1.size() - b2.size();</span><br><span class="line">        BigNum sub = b2;</span><br><span class="line">        BigNum add = *<span class="keyword">new</span> BigNum(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = <span class="number">0</span>; i &lt; diff; i++) &#123;</span><br><span class="line">            sub = sub * <span class="number">10</span>;</span><br><span class="line">            add = add * <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (BigNum::size_type i = <span class="number">0</span>; i &lt;= diff; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (b1 &gt;= sub) &#123;</span><br><span class="line">                b1 = b1 - sub;</span><br><span class="line">                ans = ans + add;</span><br><span class="line">            &#125;</span><br><span class="line">            sub.vec.erase(sub.vec.begin() + <span class="number">1</span>);</span><br><span class="line">            add.vec.erase(add.vec.begin() + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> - (num1 / (-num2));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> - ((-num1) / num2);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;</span><br><span class="line">        <span class="keyword">return</span> (-num1) / (-num2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>/(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 / *<span class="keyword">new</span> BigNum(num2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>%(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">const</span> BigNum &amp;num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 - ( (num1 / num2) * num2 );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BigNum <span class="keyword">operator</span>%(<span class="keyword">const</span> BigNum &amp;num1, <span class="keyword">int</span> num2) &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 / *<span class="keyword">new</span> BigNum(num2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;BigNum.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdexcept&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span>;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::ostream;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::istream;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">isspace</span>;<br><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::domain_error;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BigNum::create</span><span class="hljs-params">()</span> </span>&#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BigNum::create</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num)</span> </span>&#123;<br>    vec.push_back(num &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">int</span> temp = <span class="hljs-keyword">this</span>-&gt;isNegative() ? -num : num;<br>    <span class="hljs-keyword">while</span> (temp != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">int</span> digit = temp % <span class="hljs-number">10</span>;<br>        vec.push_back(digit);<br>        temp = temp / <span class="hljs-number">10</span>;<br>    &#125;<br>&#125;<br><br>BigNum::BigNum(<span class="hljs-keyword">size_t</span> n, <span class="hljs-keyword">int</span> v) &#123;<br>    vec.push_back(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">0</span>; i != n; i++) &#123;<br>        vec.push_back(v);<br>    &#125;<br>&#125;<br><br>ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream&amp; os, <span class="hljs-keyword">const</span> BigNum&amp; num)<br>&#123;<br>    <span class="hljs-keyword">if</span> (num.size() == <span class="hljs-number">0</span>) &#123;<br>        os &lt;&lt; <span class="hljs-string">&quot;0&quot;</span>;<br>        <span class="hljs-keyword">return</span> os;<br>    &#125;<br>    <span class="hljs-keyword">if</span> ( num.isNegative() ) &#123;<br>        os &lt;&lt; <span class="hljs-string">&quot;-&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (BigNum::size_type i = num.size(); i != <span class="hljs-number">0</span>; i--) &#123;<br>        os &lt;&lt; num.vec[i];<br>    &#125;<br>    <span class="hljs-keyword">return</span> os;<br>&#125;<br><br>istream&amp; <span class="hljs-keyword">operator</span>&gt;&gt;(istream&amp; is, BigNum&amp; num)<br>&#123;<br>    num.vec.clear();<br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; temp;<br><br>    <span class="hljs-keyword">char</span> v;<br>    <span class="hljs-keyword">while</span> (is.get(v) &amp;&amp; <span class="hljs-built_in">isspace</span>(v))<br>        ;<br><br>    <span class="hljs-keyword">if</span> (is) &#123;<br>        <span class="hljs-keyword">do</span>	temp.push_back(v);<br>        <span class="hljs-keyword">while</span> (is.get(v) &amp;&amp; !<span class="hljs-built_in">isspace</span>(v));<br><br>        <span class="hljs-keyword">if</span> (is)<br>            is.unget();<br>    &#125;<br>    num.vec.push_back(temp[<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;-&#x27;</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">if</span> (num.vec[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = temp.size() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>            num.vec.push_back(temp[i] - <span class="hljs-string">&#x27;0&#x27;</span>);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = temp.size() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">1</span>; i--) &#123;<br>            num.vec.push_back(temp[i] - <span class="hljs-string">&#x27;0&#x27;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> is;<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">if</span> ( num1.isNegative() ) &#123;<br>        <span class="hljs-keyword">if</span> ( !num2.isNegative() ) <span class="hljs-comment">// -x &lt; y</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">if</span> ( num1.size() &gt; num2.size() ) <span class="hljs-comment">// -xx &lt; -y</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">if</span> ( num1.size() &lt; num2.size() ) <span class="hljs-comment">// -x &gt; -yy</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = num1.size(); i &gt;= <span class="hljs-number">1</span>; i--) &#123;<br>            <span class="hljs-keyword">if</span> ( num1.vec[i] &lt; num2.vec[i] )<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            <span class="hljs-keyword">if</span> ( num1.vec[i] &gt; num2.vec[i] )<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;  <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">if</span> ( num2.isNegative() ) <span class="hljs-comment">// x &gt; -y</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> ( num1.size() &gt; num2.size() ) <span class="hljs-comment">// xx &gt; y</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> ( num1.size() &lt; num2.size() ) <span class="hljs-comment">// x &lt; yy</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br><br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = num1.size(); i &gt;= <span class="hljs-number">1</span>; i--) &#123;<br>            <span class="hljs-keyword">if</span> ( num1.vec[i] &lt; num2.vec[i] )<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span> ( num1.vec[i] &gt; num2.vec[i] )<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&gt;(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">return</span> num2 &lt; num1;<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">return</span> !(num1 &gt; num2);<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&gt;=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">return</span> !(num1 &lt; num2);<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">return</span> (num1 &lt;= num2) &amp;&amp; (num1 &gt;= num2);<br>&#125;<br><br><span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>!=(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">return</span> !(num1 == num2);<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num) &#123;<br>    BigNum negative;<br>    negative.vec.push_back(num.isNegative() ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt;= num.size(); i++) &#123;<br>        negative.vec.push_back(num.vec[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> negative;<br>&#125;<br><br>BigNum &amp; BigNum::<span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> BigNum &amp;num)&#123;<br>    <span class="hljs-keyword">this</span>-&gt;vec = *<span class="hljs-keyword">new</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;();<br>    <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">0</span>; i &lt;= num.size(); i++) &#123;<br>        <span class="hljs-keyword">this</span>-&gt;vec.push_back(num.vec[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br><br><span class="hljs-function">BigNum <span class="hljs-title">absv</span><span class="hljs-params">(<span class="hljs-keyword">const</span> BigNum&amp; num)</span> </span>&#123;<br>    BigNum <span class="hljs-built_in">abs</span>;<br>    <span class="hljs-built_in">abs</span>.vec.push_back(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt;= num.size(); i++) &#123;<br>        <span class="hljs-built_in">abs</span>.vec.push_back(num.vec[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>;<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>+(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    BigNum b1 = absv(num1) &gt; absv(num2) ? num1 : num2;<br>    BigNum b2 = absv(num1) &gt; absv(num2) ? num2 : num1;<br>    BigNum ans;<br>    <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (!b1.isNegative() &amp;&amp; !b2.isNegative()) &#123;<br>        ans.vec.push_back(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt;= b1.size(); i++) &#123;<br>            carry += b1[i];<br>            <span class="hljs-keyword">if</span>(i &lt;= b2.size()) carry += b2[i];<br>            ans.vec.push_back(carry % <span class="hljs-number">10</span>);<br>            carry /= <span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (carry != <span class="hljs-number">0</span>) ans.vec.push_back(carry);<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b1.isNegative() &amp;&amp; !b2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> -( (-b1) - b2 );<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!b1.isNegative() &amp;&amp; b2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> b1 - (-b2);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b1.isNegative() &amp;&amp; b2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> -((-b1) + (-b2));<br>    &#125;<br><br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">const</span> BigNum&amp; num2) &#123;<br>    <span class="hljs-keyword">if</span> (num1 == num2)<br>    &#123;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">new</span> BigNum(<span class="hljs-number">0</span>);<br>    &#125;<br>    BigNum ans;<br>    BigNum b1 = num1;<br>    BigNum b2 = num2;<br>    <span class="hljs-keyword">int</span> carry = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        <span class="hljs-keyword">if</span> (absv(num1) &gt; absv(num2)) &#123;<br>            ans.vec.push_back(<span class="hljs-number">0</span>);<br>            <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt;= b1.size(); i++) &#123;<br>                <span class="hljs-keyword">if</span> (i &lt;= b2.size()) &#123;<br>                    <span class="hljs-keyword">if</span> (b1[i] + carry &lt; b2[i]) &#123;<br>                        ans.vec.push_back(<span class="hljs-number">10</span> + b1[i] - b2[i] + carry);<br>                        carry = <span class="hljs-number">-1</span>;<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        ans.vec.push_back(b1[i] - b2[i] + carry);<br>                        carry = <span class="hljs-number">0</span>;<br>                    &#125;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">if</span> (b1[i] + carry &lt; <span class="hljs-number">0</span>) &#123;<br>                        ans.vec.push_back(<span class="hljs-number">10</span> + b1[i] + carry);<br>                        carry = <span class="hljs-number">-1</span>;<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        ans.vec.push_back(b1[i] + carry);<br>                        carry = <span class="hljs-number">0</span>;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> -(num2 - num1);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> -( (-num1) + num2 );<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> num1 + (-num2);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>       <span class="hljs-keyword">if</span> (absv(num1) &gt; absv(num2)) &#123;<br>           <span class="hljs-keyword">return</span> -( (-num1) - (-num2) );<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">return</span> (-num2) - (-num1);<br>       &#125;<br>    &#125;<br><br>    ans.trim();<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>+(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 + *<span class="hljs-keyword">new</span> BigNum(num2);<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>-(<span class="hljs-keyword">const</span> BigNum&amp; num1, <span class="hljs-keyword">int</span> num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 - *<span class="hljs-keyword">new</span> BigNum(num2);<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>*(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">const</span> BigNum &amp;num2) &#123;<br>    <span class="hljs-keyword">if</span> (num1.isZero() || num2.isZero()) &#123;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">new</span> BigNum(<span class="hljs-number">0</span>);<br>    &#125;<br>    BigNum ans;<br>    <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        ans.vec.push_back(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt;= num1.size(); i++) &#123;<br>            <span class="hljs-keyword">for</span> (BigNum::size_type j = <span class="hljs-number">1</span>; j &lt;= num2.size(); j++) &#123;<br>                <span class="hljs-keyword">if</span> (ans.vec.size() &lt;= i + j - <span class="hljs-number">1</span>) &#123;<br>                    ans.vec.push_back(<span class="hljs-number">0</span>);<br>                &#125;<br>                ans.vec[i + j - <span class="hljs-number">1</span>] += num1.vec[i] * num2.vec[j];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">1</span>; i &lt; ans.size(); i++) &#123;<br>            ans.vec[i + <span class="hljs-number">1</span>] += ans.vec[i] / <span class="hljs-number">10</span>;<br>            ans.vec[i] = ans.vec[i] % <span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (ans.vec[ans.size()] &gt;= <span class="hljs-number">10</span>) &#123;<br>            ans.vec.push_back(ans.vec[ans.size()] / <span class="hljs-number">10</span>);<br>            ans.vec[ans.size()] = ans.vec[ans.size()] % <span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> - (num1 * (-num2));<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> - ((-num1) * num2);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> (-num1) * (-num2);<br>    &#125;<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>*(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">int</span> num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 * *<span class="hljs-keyword">new</span> BigNum(num2);<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>/(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">const</span> BigNum &amp;num2) &#123;<br>    <span class="hljs-keyword">if</span> ( num2.isZero() ) &#123;<br>        <span class="hljs-keyword">throw</span> domain_error(<span class="hljs-string">&quot;dividend cannot be zero!&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span> ( num1.isZero() ) &#123;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">new</span> BigNum(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span> ( num1 &lt; num2 ) &#123;<br>        <span class="hljs-keyword">return</span> num1;<br>    &#125;<br>    BigNum ans = *<span class="hljs-keyword">new</span> BigNum(<span class="hljs-number">0</span>);<br>    BigNum b1 = num1;<br>    BigNum b2 = num2;<br>    <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        BigNum::size_type diff = b1.size() - b2.size();<br>        BigNum sub = b2;<br>        BigNum add = *<span class="hljs-keyword">new</span> BigNum(<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">0</span>; i &lt; diff; i++) &#123;<br>            sub = sub * <span class="hljs-number">10</span>;<br>            add = add * <span class="hljs-number">10</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (BigNum::size_type i = <span class="hljs-number">0</span>; i &lt;= diff; i++) &#123;<br>            <span class="hljs-keyword">while</span> (b1 &gt;= sub) &#123;<br>                b1 = b1 - sub;<br>                ans = ans + add;<br>            &#125;<br>            sub.vec.erase(sub.vec.begin() + <span class="hljs-number">1</span>);<br>            add.vec.erase(add.vec.begin() + <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> - (num1 / (-num2));<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; !num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> - ((-num1) / num2);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (num1.isNegative() &amp;&amp; num2.isNegative()) &#123;<br>        <span class="hljs-keyword">return</span> (-num1) / (-num2);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>/(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">int</span> num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 / *<span class="hljs-keyword">new</span> BigNum(num2);<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>%(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">const</span> BigNum &amp;num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 - ( (num1 / num2) * num2 );<br>&#125;<br><br>BigNum <span class="hljs-keyword">operator</span>%(<span class="hljs-keyword">const</span> BigNum &amp;num1, <span class="hljs-keyword">int</span> num2) &#123;<br>    <span class="hljs-keyword">return</span> num1 / *<span class="hljs-keyword">new</span> BigNum(num2);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">同时多线程结构上操作系统的行为分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/">
+                        <span class="hidden-mobile">Hexo报错</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/04/10/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/%E7%AC%AC8%E7%AB%A0%20%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/" rel="prev" title="第8章 线性时间排序">
-      <i class="fa fa-chevron-left"></i> 第8章 线性时间排序
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" rel="next" title="同时多线程结构上操作系统的行为分析">
-      同时多线程结构上操作系统的行为分析 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%92%8C%E5%87%8F%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">加法和减法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%98%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A4%E6%B3%95%E5%92%8C%E5%8F%96%E4%BD%99"><span class="nav-number">3.</span> <span class="nav-text">除法和取余</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="chenrui"
-      src="/images/avatar_1.gif">
-  <p class="site-author-name" itemprop="name">chenrui</p>
-  <div class="site-description" itemprop="description">To hate, to love, to think, to feel, to see; all this is nothing but to perceive.</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">55</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Ryan377" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ryan377" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://gitee.com/freemansonary" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;freemansonary" rel="noopener" target="_blank"><i class="gitee fa-fw"></i>Gitee</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/m0_46233340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_46233340" rel="noopener" target="_blank"><i class="csdn fa-fw"></i>CSDN</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="http://douban.com/people/191298908" title="豆瓣 → http:&#x2F;&#x2F;douban.com&#x2F;people&#x2F;191298908" rel="noopener" target="_blank"><i class="douban fa-fw"></i>豆瓣</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="http://www.zhihu.com/people/luo-sen-nei-li-69-87" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;luo-sen-nei-li-69-87" rel="noopener" target="_blank"><i class="zhihu fa-fw"></i>知乎</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">chenrui</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-
-
-
-
-
-
-
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+  
+</footer>
 
 
-<script src="/js/schemes/pisces.js"></script>
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/next-boot.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
@@ -676,12 +578,39 @@
 
 
 
-
-  
-<script src="/js/local-search.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
 
@@ -692,40 +621,14 @@
 
 
 
-  
-
-  
-
-  
 
 
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz',
-      appKey     : 'g61pWrmFa2w876qITKSoChaX',
-      placeholder: "Just go go",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : false,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
 
 </body>
 </html>
