@@ -40,7 +40,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz","app_key":"g61pWrmFa2w876qITKSoChaX","server_url":"https://tgxc9yic.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -52,7 +52,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>My Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -142,12 +142,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/forest.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="An elegant Material-Design theme for Hexo">
+            <span class="h2" id="subtitle" title="You're never wrong to do the right thing.">
               
             </span>
 
@@ -179,21 +179,84 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/21/%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%9D%91/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="使用选择器的坑">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/06/17/%E5%B7%A5%E5%85%B7/vim%E5%8D%A1%E4%BD%8F/" target="_self">
+        <a href="/2021/07/21/%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%9D%91/" target="_self">
+          使用选择器的坑
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/21/%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%9D%91/" target="_self">
+          
+          
+            
+          
+          前几天想用td选择器给单元格加一个效果，但怎么修改都无法生效，折腾了半天发现选择器参数如果是一个变量就没有效果，比如下面的data[k]，要想使用变量的话要给它用下面这种方式加两个引号，注意加引号的方式，引号不是用来包含这个变量的。
+1234567&quot;rowCallback&quot; : function (row, data, index) &#123;                
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-21 23:36" pubdate>
+              2021-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JS/">JS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/17/vim%E5%8D%A1%E4%BD%8F/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="vim卡住">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/17/vim%E5%8D%A1%E4%BD%8F/" target="_self">
           vim卡住
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/06/17/%E5%B7%A5%E5%85%B7/vim%E5%8D%A1%E4%BD%8F/" target="_self">
+        <a href="/2021/06/17/vim%E5%8D%A1%E4%BD%8F/" target="_self">
           
           
             
           
-          今天用vim突然卡住，按什么键都不能恢复，查了下发现是因为不小心按了Ctrl+S，这个快捷键的含义是“阻断向终端输出内容”
+          今天用vim突然卡住，按什么键都不能恢复，查了下发现是因为不小心按了Ctrl+S，这个快捷键的含义是“阻断向终端输出内容”。
         </a>
       </p>
 
@@ -210,10 +273,17 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+              <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vim/">vim</a>
+            
+          </div>
         
       </div>
     </article>
@@ -222,16 +292,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/17/%E4%BD%BF%E7%94%A8GaussDB(for-mysql)%E5%92%8CECS%E5%BC%B9%E6%80%A7%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="使用GaussDB(for mysql)和ECS弹性云服务器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/06/17/%E5%AE%9E%E8%B7%B5/%E4%BD%BF%E7%94%A8GaussDB(for-mysql)%E5%92%8CECS%E5%BC%B9%E6%80%A7%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
+        <a href="/2021/06/17/%E4%BD%BF%E7%94%A8GaussDB(for-mysql)%E5%92%8CECS%E5%BC%B9%E6%80%A7%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
           使用GaussDB(for mysql)和ECS弹性云服务器
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/06/17/%E5%AE%9E%E8%B7%B5/%E4%BD%BF%E7%94%A8GaussDB(for-mysql)%E5%92%8CECS%E5%BC%B9%E6%80%A7%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
+        <a href="/2021/06/17/%E4%BD%BF%E7%94%A8GaussDB(for-mysql)%E5%92%8CECS%E5%BC%B9%E6%80%A7%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
           
           
             
@@ -258,6 +334,13 @@
           </div>
         
         
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            
+          </div>
+        
       </div>
     </article>
   </div>
@@ -265,16 +348,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="多线程同步">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/06/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
+        <a href="/2021/06/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
           多线程同步
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/06/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
+        <a href="/2021/06/11/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
           
           
             
@@ -297,10 +386,19 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">Java</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
         
       </div>
     </article>
@@ -309,16 +407,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/14/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EB+%E6%A0%91%E7%B4%A2%E5%BC%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="一个基于B+树索引简单的数据库">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/05/14/%E5%AE%9E%E8%B7%B5/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EB+%E6%A0%91%E7%B4%A2%E5%BC%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
+        <a href="/2021/05/14/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EB+%E6%A0%91%E7%B4%A2%E5%BC%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
           一个基于B+树索引简单的数据库
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/05/14/%E5%AE%9E%E8%B7%B5/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EB+%E6%A0%91%E7%B4%A2%E5%BC%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
+        <a href="/2021/05/14/%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EB+%E6%A0%91%E7%B4%A2%E5%BC%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
           
           
             
@@ -345,6 +449,15 @@
           </div>
         
         
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            
+          </div>
+        
       </div>
     </article>
   </div>
@@ -352,16 +465,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/30/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="内存中MVCC系统的可伸缩垃圾收集">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" target="_self">
+        <a href="/2021/04/30/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" target="_self">
           内存中MVCC系统的可伸缩垃圾收集
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/04/30/%E9%98%85%E8%AF%BB/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" target="_self">
+        <a href="/2021/04/30/%E5%86%85%E5%AD%98%E4%B8%ADMVCC%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" target="_self">
           
           
             
@@ -383,10 +502,19 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E9%98%85%E8%AF%BB/">阅读</a>
+              <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/GC/">GC</a>
+            
+              <a href="/tags/%E6%80%A7%E8%83%BD/">性能</a>
+            
+          </div>
         
       </div>
     </article>
@@ -395,16 +523,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/24/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="图书馆管理系统">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/04/24/%E5%AE%9E%E8%B7%B5/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" target="_self">
+        <a href="/2021/04/24/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" target="_self">
           图书馆管理系统
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/04/24/%E5%AE%9E%E8%B7%B5/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" target="_self">
+        <a href="/2021/04/24/%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" target="_self">
           
           
             
@@ -431,51 +565,14 @@
           </div>
         
         
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/12/%E5%AE%9E%E8%B7%B5/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" target="_self">
-          高并发秒杀系统
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/12/%E5%AE%9E%E8%B7%B5/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" target="_self">
-          
-          
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
             
-          
-          参考自：https://github.com/codingXiaxw/seckill
-1. 业务流程描述用户成功秒杀商品，系统需要做的事：
-1、减库存；
-2、记录用户的购买明细。（1.谁购买成功了。2.购买成功的时间/有效期。3.付款/发货信息）
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-12 23:15" pubdate>
-              2021-04-12
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              <a href="/tags/Java/">Java</a>
             
-              <a href="/categories/%E5%AE%9E%E8%B7%B5/">实践</a>
+              <a href="/tags/Spring/">Spring</a>
             
           </div>
-        
         
       </div>
     </article>
@@ -484,16 +581,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/11/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="同时多线程结构上操作系统的行为分析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" target="_self">
+        <a href="/2021/04/11/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" target="_self">
           同时多线程结构上操作系统的行为分析
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/04/11/%E9%98%85%E8%AF%BB/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" target="_self">
+        <a href="/2021/04/11/%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9E%84%E4%B8%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90/" target="_self">
           
           
             
@@ -516,10 +619,17 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E9%98%85%E8%AF%BB/">阅读</a>
+              <a href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            
+          </div>
         
       </div>
     </article>
@@ -528,16 +638,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/11/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="大数运算">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_self">
+        <a href="/2021/04/11/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_self">
           大数运算
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/04/11/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_self">
+        <a href="/2021/04/11/%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97/" target="_self">
           
           
             
@@ -560,10 +676,17 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/">算法题解</a>
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
         
       </div>
     </article>
@@ -572,16 +695,22 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/03/17/Hexo%E6%8A%A5%E9%94%99/" target="_self">
+          <img src="/img/default.png" srcset="/img/loading.gif" lazyload alt="Hexo报错">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/" target="_self">
+        <a href="/2021/03/17/Hexo%E6%8A%A5%E9%94%99/" target="_self">
           Hexo报错
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/03/17/%E5%B7%A5%E5%85%B7/Hexo%E6%8A%A5%E9%94%99/" target="_self">
+        <a href="/2021/03/17/Hexo%E6%8A%A5%E9%94%99/" target="_self">
           
           
             
@@ -605,10 +734,17 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+              <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">问题记录</a>
             
           </div>
         
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hexo/">Hexo</a>
+            
+          </div>
         
       </div>
     </article>
@@ -669,6 +805,31 @@
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
 
   
 
@@ -723,6 +884,8 @@
 
 
 
+  <script defer src="/js/leancloud.js" ></script>
+
 
 
   <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
@@ -745,6 +908,19 @@
 
 
 
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
