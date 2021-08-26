@@ -4,6 +4,58 @@
   
   
   <entry>
+    <title>ElasticSearch简介</title>
+    <link href="/2021/08/15/ElasticSearch%E5%8E%9F%E7%90%86/"/>
+    <url>/2021/08/15/ElasticSearch%E5%8E%9F%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="ES如何解决搜索问题"><a href="#ES如何解决搜索问题" class="headerlink" title="ES如何解决搜索问题"></a>ES如何解决搜索问题</h2><p>ElasticSearch是构建在Apache Lucene上的开源分布式搜索引擎。</p><p>由于ElasticSearch是以Lucene作为底层的，Lucene是一个高性能的搜索引擎包，默认情况下会将所有数据进行索引，Lucene使用的是倒排索引，倒排索引如下所示：</p><div class="table-container"><table><thead><tr><th>博客文章ID</th><th>标签</th><th>标签</th><th>博客文章ID</th></tr></thead><tbody><tr><td>1</td><td>elections</td><td>elections</td><td>1,3</td></tr><tr><td>2</td><td>peace</td><td>peace</td><td>2,3,4</td></tr><tr><td>3</td><td>elections, peace</td><td></td><td></td></tr><tr><td>4</td><td>peace</td><td></td></tr></tbody></table></div><p>左边是原始数据，右边则是倒排索引。</p><p>一个关键的问题：如何排序，方法是计算相关性得分，根据分数将结果排序，默认情况下使用的算法是TF-IDF（词频-逆文档频率），主要有两个影响因素：</p><ol><li>词频，出现次数越高，相关性得分越高。</li><li>逆文档频率，在所有文档上出现次数少的词权重越高，得分越高。</li></ol><p>ES不仅仅是精确匹配用户的输入，还可以：</p><ol><li>处理错误拼写</li><li>支持变体</li><li>使用统计信息</li><li>给予自动提示</li></ol><h2 id="ES使用场景"><a href="#ES使用场景" class="headerlink" title="ES使用场景"></a>ES使用场景</h2><p>ES主要有三种使用场景</p><p>一、将ES作为主要的后端系统：</p><p>ES是一个现代化搜索引擎，提供了持久化存储、统计和很多其他数据存储的特性。可用作简单系统的后端。</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213341.png" alt="场景1"></p><p>二、将ES添加到现有的系统：</p><p>在有一个数据存储的基础上使用ES，如果想在现有系统中加入搜索功能，可以加入ES让它和现有模块协同工作。</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213623.png" alt="场景2"></p><p>三、将ES和现有工具一同使用：</p><p>可以通过Rsyslog、Logstash或Apache Flume这样的日志工具处理日志并输出到ElasticSearch，并用Kibana作可视化界面搜索和分析日志。</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213652.png" alt="场景3"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+      <tag>ElasticSearch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>机器学习概念</title>
+    <link href="/2021/07/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E5%BF%B5/"/>
+    <url>/2021/07/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E5%BF%B5/</url>
+    
+    <content type="html"><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>机器学习就是通过算法使得机器能从大量数据中学习规律从而对新样本做决策。</p><p>这个规律就是决策（预测）函数。</p><h2 id="机器学习的三要素"><a href="#机器学习的三要素" class="headerlink" title="机器学习的三要素"></a>机器学习的三要素</h2><h3 id="1-模型"><a href="#1-模型" class="headerlink" title="1. 模型"></a><strong>1. 模型</strong></h3><p>首先要确定输入空间$X$和输出空间$Y$，它们构成了一个样本空间。我们的目标是找到它们的一个近似真实的映射函数或条件概率分布。</p><p>根据经验来假设一个函数集合$F$，称为假设空间，通过其在训练集$D$上的特性，从中选择一个理想的假设$f^*\in F$；</p><p>通常$F=\{f(x;\theta)|\theta\in R^D\}$；</p><p>$f(x;\theta)$也称为模型，根据假设空间是线性还是非线性将$f$分为线性模型和非线性模型。</p><h3 id="2-学习准则"><a href="#2-学习准则" class="headerlink" title="2. 学习准则"></a><strong>2. 学习准则</strong></h3><p>模型的好坏可以通过期望风险$R(\theta)$来衡量</p><script type="math/tex; mode=display">R(\theta)=E_{(x,y)~p_r(x,y)}|L(y,f(x;\theta))|</script><p>其中$|L(y,f(x;\theta))|$为损失函数，常用的有</p><ul><li>0-1损失函数</li><li>平方损失函数</li><li>交叉熵损失函数</li><li>Hinge损失函数</li></ul><p>一个切实可行的学习准则是找到一组参数使得经验风险最小，这就是经验最小化（ERM）准则，为了避免过拟合，还要引入参数正则化，使其不要过度最小化经验风险，即结构风险最小化（SRM）准则。</p><h3 id="3-优化算法"><a href="#3-优化算法" class="headerlink" title="3. 优化算法"></a><strong>3. 优化算法</strong></h3><p>找最优模型就是一个最优化问题，机器学习的过程就是最优化问题的求解过程。</p><p>优化可以分为参数优化和超参数优化，模型中的$\theta$是模型的参数，除此之外还有一类参数是用来定义模型结构或优化策略的，这类参数叫超参数。</p><ul><li>梯度下降法</li><li>提前停止</li><li>随机梯度下降法</li><li>小批量梯度下降法</li></ul><h2 id="机器学习算法的类型"><a href="#机器学习算法的类型" class="headerlink" title="机器学习算法的类型"></a>机器学习算法的类型</h2><h3 id="1-监督学习"><a href="#1-监督学习" class="headerlink" title="1. 监督学习"></a>1. 监督学习</h3><p>监督学习的目标是建模样本的特征$x$和标签的特征$y$之间的关系，并且训练集中的每个样本都有标签，根据标签类型可以分为回归问题、分类问题和结构化学习问题。</p><h3 id="2-无监督学习"><a href="#2-无监督学习" class="headerlink" title="2. 无监督学习"></a>2. 无监督学习</h3><p>无监督学习是从不包含目标标签的训练样本中自动学习到一些有价值的信息。</p><h3 id="3-强化学习"><a href="#3-强化学习" class="headerlink" title="3. 强化学习"></a>3. 强化学习</h3><p>强化学习是一类通过交互来学习的机器学习算法，在强化学习中，智能体根据环境的状态作出一个动作，并得到即时或延时的奖励，智能体在和环境的交互中不断学习并调整策略，以取得最大化的期望总回报。</p><h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><p>为了衡量一个机器学习模型的好坏，需要给定一个测试集，用模型对测试集中的每一个样本进行预测，并根据预测结果计算评价分数。</p><p>常见指标有：</p><ul><li>准确率</li><li>错误率</li><li>精确率和召回率</li><li>…</li></ul><h2 id="理论和定理"><a href="#理论和定理" class="headerlink" title="理论和定理"></a>理论和定理</h2><p>机器学习有名的理论或定理</p><ol><li>PAC学习理论：一个PAC可学习的算法是指该学习算法能在多项式时间内从合理数量的训练数据中学习到一个近似正确的$f(x)$</li><li>没有免费午餐定理：对于基于迭代的最优化算法，不存在某种算法对于所有问题都有效。不存在一种机器学习算法适合任何领域或任务</li><li>奥卡姆剃须刀原理：简单的模型泛化能力更好，如果有两个性能相近的模型，我们应该选择更简单的模型。</li><li>丑小鸭定理：丑小鸭与白天鹅之间的区别和两只白天鹅之间的区别一样大，原因是一切相似性的标准都是主观的。</li><li>归纳偏置：对要学习的问题做一些假设。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用选择器的坑</title>
     <link href="/2021/07/21/%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%9D%91/"/>
     <url>/2021/07/21/%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%9D%91/</url>
@@ -72,6 +124,8 @@
       
       <tag>数据库</tag>
       
+      <tag>JavaWeb</tag>
+      
     </tags>
     
   </entry>
@@ -126,6 +180,8 @@
       
       <tag>数据库</tag>
       
+      <tag>树</tag>
+      
     </tags>
     
   </entry>
@@ -142,16 +198,16 @@
     
     <categories>
       
-      <category>论文阅读</category>
+      <category>翻译</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>GC</tag>
+      <tag>数据库</tag>
       
-      <tag>性能</tag>
+      <tag>GC</tag>
       
     </tags>
     
@@ -178,7 +234,7 @@
       
       <tag>Java</tag>
       
-      <tag>Spring</tag>
+      <tag>JavaWeb</tag>
       
     </tags>
     
@@ -196,7 +252,7 @@
     
     <categories>
       
-      <category>论文阅读</category>
+      <category>翻译</category>
       
     </categories>
     
