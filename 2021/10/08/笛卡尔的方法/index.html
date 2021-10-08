@@ -18,7 +18,7 @@
   <meta name="author" content="chenrui">
   <meta name="keywords" content="">
   
-  <title>ElasticSearch简介 - My Blog</title>
+  <title>笛卡尔的“方法” - My Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="ElasticSearch简介">
+            <span class="h2" id="subtitle" title="笛卡尔的“方法”">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-15 01:56" pubdate>
-        2021年8月15日 凌晨
+      <time datetime="2021-10-08 20:56" pubdate>
+        2021年10月8日 晚上
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      441 字
+      1.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      19
        分钟
     </span>
   
@@ -233,71 +233,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ElasticSearch简介</h1>
+            <h1 style="display: none">笛卡尔的“方法”</h1>
             
             <div class="markdown-body">
-              <h2 id="ES如何解决搜索问题"><a href="#ES如何解决搜索问题" class="headerlink" title="ES如何解决搜索问题"></a>ES如何解决搜索问题</h2><p>ElasticSearch是构建在Apache Lucene上的开源分布式搜索引擎。</p>
-<p>由于ElasticSearch是以Lucene作为底层的，Lucene是一个高性能的搜索引擎包，默认情况下会将所有数据进行索引，Lucene使用的是倒排索引，倒排索引如下所示：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>博客文章ID</th>
-<th>标签</th>
-<th>标签</th>
-<th>博客文章ID</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>elections</td>
-<td>elections</td>
-<td>1,3</td>
-</tr>
-<tr>
-<td>2</td>
-<td>peace</td>
-<td>peace</td>
-<td>2,3,4</td>
-</tr>
-<tr>
-<td>3</td>
-<td>elections, peace</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>peace</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>左边是原始数据，右边则是倒排索引。</p>
-<p>一个关键的问题：如何排序，方法是计算相关性得分，根据分数将结果排序，默认情况下使用的算法是TF-IDF（词频-逆文档频率），主要有两个影响因素：</p>
-<ol>
-<li>词频，出现次数越高，相关性得分越高。</li>
-<li>逆文档频率，在所有文档上出现次数少的词权重越高，得分越高。</li>
-</ol>
-<p>ES不仅仅是精确匹配用户的输入，还可以：</p>
-<ol>
-<li>处理错误拼写</li>
-<li>支持变体</li>
-<li>使用统计信息</li>
-<li>给予自动提示</li>
-</ol>
-<h2 id="ES使用场景"><a href="#ES使用场景" class="headerlink" title="ES使用场景"></a>ES使用场景</h2><p>ES主要有三种使用场景</p>
-<p>一、将ES作为主要的后端系统：</p>
-<p>ES是一个现代化搜索引擎，提供了持久化存储、统计和很多其他数据存储的特性。可用作简单系统的后端。</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213341.png" srcset="/img/loading.gif" lazyload alt="场景1"></p>
-<p>二、将ES添加到现有的系统：</p>
-<p>在有一个数据存储的基础上使用ES，如果想在现有系统中加入搜索功能，可以加入ES让它和现有模块协同工作。</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213623.png" srcset="/img/loading.gif" lazyload alt="场景2"></p>
-<p>三、将ES和现有工具一同使用：</p>
-<p>可以通过Rsyslog、Logstash或Apache Flume这样的日志工具处理日志并输出到ElasticSearch，并用Kibana作可视化界面搜索和分析日志。</p>
-<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20210822213652.png" srcset="/img/loading.gif" lazyload alt="场景3"></p>
+              <h3 id="1、确定性"><a href="#1、确定性" class="headerlink" title="1、确定性"></a>1、确定性</h3><p>​        在阅读笛卡尔的哲学作品时，我们可以看到他对确定性的追求，笛卡尔试图建立一个完善的思想体系，其中的各条原理不仅仅是真的，而且以一种清晰的方式联结起来，让我们可以从一条真实的原理推进到另一条真实的原理。为了达成这样的体系，笛卡尔认为有必要制定出一个完整的规划，借助这个规划，不仅能够将现有的知识组织起来，还能够通过理性去发现我们尚不知道的真理，这就是我们所说的笛卡尔的“方法”。</p>
+<p>​        笛卡尔的方法在于利用一套规则来驾驭心灵的各种能力，他无法接受当时一些经院学者对真理问题毫无章法的探讨，希望能够以一种系统的、有序的方式进行思维，而方法则是能够指导我们的直觉和推理能力有序运作的规则。</p>
+<h3 id="2、数学的例证"><a href="#2、数学的例证" class="headerlink" title="2、数学的例证"></a>2、数学的例证</h3><p>​        笛卡尔有这样的想法和他对数学的研究密不可分，在数学中我们可以直接而清楚地领会一些基本原理，也就是直观，因此笛卡尔认为在其他领域中我们应当也有清楚地知晓某些观念的能力。而在数学中，以一些基本原理为基础，我们可以按照有序的方法从已知的东西前进到未知的东西，也就是我们所说的演绎，那么这一推理方法应该也能被运用到别的领域。也就是说通过直观和演绎这两种方式我们可以掌握知识，不仅能够拥有关于数学概念的知识的可靠性，而且能还拥有关于实在本质的知识的可靠性。而这也就是笛卡尔方法的关键成分。他的方法的另一个成分包括指导直观和演绎的规则。比如笛卡尔在《谈谈方法》中制定的四条准则，并说”只要我立下坚定不移的决心，决不在任何情况下不遵守它们“，这四条准则就完全够用了，笛卡尔认为只要按照他提出的诸条规则，通过直观和演绎，我们就能构建出知识的大厦。</p>
+<h3 id="3、奥古斯丁的观点"><a href="#3、奥古斯丁的观点" class="headerlink" title="3、奥古斯丁的观点"></a>3、奥古斯丁的观点</h3><p>​        笛卡尔的方法意味着我们能够通过自身的理性来认识真理，但在笛卡尔之前，关于人类如何认识真理有许多不同的看法，比如奥古斯丁的“光照论”。奥古斯丁认为，一切真理都存在于上帝之中，上帝是真理的来源，真理是上帝之光，“光照”是人的理性获得、理解、认识真理的途径。</p>
+<p>​        奥古斯丁是这样解释光照论的，当我们用肉眼去看一个物体时，只要物体是沐浴在光照之下，我们就能对这个物体形成图像。同样，只要永恒的对象也沐浴在与它们相适合的光照之下，那么我们的心灵也可以“看到”永恒的对象。也就是说，如果人的心灵想“看见“永恒的和必然的真理的话，它就需要光照。没有光照我们不能“看见”理智理解的对象或理智的真理，就像没有阳光我们不能看见世界上的事物一样。对奥古斯丁来说，光照来自上帝。虽然光照论也说明了理性在认识真理过程中的作用，就像眼睛在看到事物中的作用一样，但是奥古斯丁认为信仰是先于理性的，对他来说，信仰照耀着理性，没有信仰就没有理解，可以认为真理是在理性之上的。这和《旧约》里先知以赛亚所说的“除非你信，否则不会理解”十分相似。</p>
+<p>​        相比较于光照论，笛卡尔的方法则是将理性和真理至少置于了同等的地位上，人类可以仅凭自身的理性去认识真理，而不是去借助于别的力量，这种思想中暗含了一种人为自然立法的观念，对科学的发展起到了推动的作用。</p>
+<p>​        但是虽然笛卡尔和奥古斯丁对人类认识真理的方式有不同的解释，他们的思想都离不开对确定性的追求，只不过他们将这个确定性寄托在了不同的事物上，他们的观点中都暗示存在着一个绝对的、永恒的真理的想法，并且认为我们人类的理性可以认识到这样一种真理，笛卡尔相信只要我们运用了正确的方法，就没有人类理性不能解决的问题。这种对人类理性能力的乐观主义也受到了后来者的一些质疑。</p>
+<h3 id="4、自身观点"><a href="#4、自身观点" class="headerlink" title="4、自身观点"></a>4、自身观点</h3><p>​        如果我们仔细关注我们是如何获得知识的话，我们会发现这种对理性能力的乐观确实是有待商榷的，比如我们即使每天都看到太阳从东边升起，我们也无法确定太阳明天一定会从东边升起。虽然笛卡尔认为真理需要经过怀疑的检验才能被接受，但如果严格将这样的方法应用到认识事物本质的研究中，我们所得到的只是一些类似于数学中的观念上的相互联系，先不讨论是否正确，它们和实际事物其实并没有什么关系。斯宾诺莎和莱布尼茨也用和笛卡尔类似的方法对事物本质的问题进行了研究，但是他们得出来的结论却是有多样性的，通过笛卡尔、斯宾诺莎和莱布尼茨之间的差异，我们可以看出这种研究事物本质的方法是存在一定的独断性的。笛卡尔的方法在数学领域可以很好地应用，但在其他领域，尤其是研究事物本质时还是不能很好地解释一些问题。</p>
+<p>​        关于绝对真理是否存在，以及我们是否能认识到绝对的真理或者事物的本质，我认为这些问题我们确实是难以知道的，我们无法知道这样的绝对真理是否存在，即使存在我们也不知道自己是否能获得，因为我们自身的理性能力的限制，事物本质的问题是我们无法完全掌握的。我们只能关注我们能看到的事物的表象，也只需要关注我们能看到的事物的表象，即使它不是事物的本质，因为相较于把不确定是否为真理的知识当成真理，我认为承认自己没有掌握真理的能力，只知道一些从观察中得出的经验会是一个更好的选择。持这样一种态度还有一种好处，我们能够始终保持一种随时更新自己知识的开放态度，这样当和发生和我们经验相违背的事情的时候，我们就不会产生世界发生混乱了的担忧，因为我们知道这不是事物的本质发生了变化，只不过是我们的经验在某些情况下不适用罢了。</p>
 
             </div>
             <hr>
@@ -307,7 +254,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8E%9F%E7%90%86/">原理</a>
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
                     
                   </div>
                 
@@ -315,9 +262,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-                    
-                      <a class="hover-with-bg" href="/tags/ElasticSearch/">ElasticSearch</a>
+                      <a class="hover-with-bg" href="/tags/%E5%93%B2%E5%AD%A6/">哲学</a>
                     
                   </div>
                 
@@ -334,18 +279,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/08/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%9A%84%E6%96%B9%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">笛卡尔的“方法”</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E5%BF%B5/">
-                        <span class="hidden-mobile">机器学习概念</span>
+                      <a href="/2021/08/15/ElasticSearch%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">ElasticSearch简介</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
