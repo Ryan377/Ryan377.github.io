@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>并行计算模型</title>
+    <link href="/2021/10/10/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B/"/>
+    <url>/2021/10/10/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h2 id="PRAM模型"><a href="#PRAM模型" class="headerlink" title="PRAM模型"></a>PRAM模型</h2><p>Parallel Random Access Machine 并行随机存储模型，也称为共享存储器的SIMD模型。</p><ul><li>假定存在一个容量无限大的共享存储器</li><li>有有限个或无限个功能相同的处理器，均具有简单的算术运算和逻辑判断能力</li><li>任何时刻各处理器均可以通过共享存储单元相互交换数据</li></ul><p>根据读写方式，PRAM模型可以分为以下几类：</p><ol><li>PRAM-EREW 互斥读互斥写</li><li>PRAM-CREW 并发读互斥写</li><li>PRAM-CRCW 并发读并发写（计算能力最强）<ul><li>Common：仅允许写入相同数据</li><li>Priority：仅允许优先级最高的写</li><li>Arbitrary：允许任意处理器任意写</li></ul></li></ol><p>例子：</p><p>并行加法</p><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++)<br>        sum += A[i]<br></code></pre></div></td></tr></table></figure><p>PRAM模型的并行加法算法</p><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span> to log_2(n) do<br>    <span class="hljs-keyword">for</span> all k in parallel do<br>        <span class="hljs-keyword">if</span> ((k + <span class="hljs-number">1</span>) mod <span class="hljs-number">2</span>^j = <span class="hljs-number">0</span>) then<br>X[k] := X[k - <span class="hljs-number">2</span>^(j - <span class="hljs-number">1</span>)] + X[k]<br>fi<br></code></pre></div></td></tr></table></figure><p>如下图所示：</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010165110.png" alt="PRAM模型并行加法"></p><p>使用Prefix Scan做加法：</p><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">prefixScan[<span class="hljs-number">0</span>] = A[<span class="hljs-number">0</span>];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; N; i++)<br>        prefixScan[i] = prefixScan[i - <span class="hljs-number">1</span>] + A[i];<br></code></pre></div></td></tr></table></figure><p>如图：</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010165326.png" alt="prefixScan"></p><p>PRAM模型使用prefixScan做并行加法</p><figure class="highlight golang"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs golang"><span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span> to log_2(n) do<br>    <span class="hljs-keyword">for</span> all k in parallel do <br>        <span class="hljs-keyword">if</span> (k &gt;= <span class="hljs-number">2</span>^(j - <span class="hljs-number">1</span>)) then<br>            X[k] := X[k - <span class="hljs-number">2</span>^(j - <span class="hljs-number">1</span>)] + X[k]<br>fi<br>od<br>od<br></code></pre></div></td></tr></table></figure><p>如图：</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010165807.png" alt="PRAM用prefix做并行加法"></p><h2 id="异步PRAM模型"><a href="#异步PRAM模型" class="headerlink" title="异步PRAM模型"></a>异步PRAM模型</h2><p>又称分相（Phase）PRAM</p><ul><li>由p个处理器构成，每个处理器有其局部存储器、局部时钟、局部程序</li><li>无全局时钟，各处理器异步执行</li><li>处理器通过SM进行通讯</li><li>处理器之间的依赖关系，需要在并行程序中显示地加入<strong>同步路障</strong></li><li>一条指令可以在非确定（无界）但有限的时间内完成</li></ul><p>异步PRAM根据读写方式将指令分为以下类型：</p><ol><li>全局读：将全局存储单元中的内容读入局部存储单元中</li><li>全局写：将局部存储单元中的内容写回全局存储单元中</li><li>局部操作：对句存储数据进行读写</li><li>同步：计算中的一个逻辑点，在该点各处理器均需等待别的处理器到达后才能继续执行其局部程序</li></ol><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010195035.png" alt="异步PRAM"></p><p>在各全局相中，每个处理器异步地进行其局部计算，每个局部程序中的最后一条指令是同步障指令；各处理器均可以异步地读取和写入全局存储器，但在同一相内不允许两个处理器访问同一单元。</p><p>例子：</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010195229.png" alt="异步PRAM用Prefix Scan实现并行加法"></p><h2 id="BSP模型"><a href="#BSP模型" class="headerlink" title="BSP模型"></a>BSP模型</h2><p>Bulk Synchronous Parallel 块同步模型，相对的APRAM为轻量同步模型                                                                                                               </p><p>计算过程</p><p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211010201018.png" alt="BSP"></p><h2 id="LogP模型"><a href="#LogP模型" class="headerlink" title="LogP模型"></a>LogP模型</h2><p>MPC：Massively Parallel Computers，数千个功能强大的处理器/存储器节点，由带宽受限的、延迟可观的互连网络组成。</p><p>LogP是一种分布存储的、点到点通信的多处理机模型。</p><p>​    </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>原理</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>分布式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>笛卡尔的“方法”</title>
     <link href="/2021/10/08/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <url>/2021/10/08/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%9A%84%E6%96%B9%E6%B3%95/</url>
