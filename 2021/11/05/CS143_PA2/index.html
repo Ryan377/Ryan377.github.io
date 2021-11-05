@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+  <meta name="author" content="chenrui">
+  <meta name="keywords" content="">
+  
+  <title>CS143_PA2 - My Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz","app_key":"g61pWrmFa2w876qITKSoChaX","server_url":"https://tgxc9yic.lc-cn-n1-shared.com"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>My Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/spiderman.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CS143_PA2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-05 23:48" pubdate>
+        2021年11月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CS143_PA2</h1>
+            
+            <div class="markdown-body">
+              <h2 id="基本说明"><a href="#基本说明" class="headerlink" title="基本说明"></a>基本说明</h2><p>在<code>PA2</code>中运行<code>make lexer</code>，会在目录下产生一个可执行文件<code>lexer</code>，运行<code>./lexer test.cl</code>，即可对<code>test.cl</code>中的代码进行词法分析。</p>
+<p><code>.flex</code>文件定义了语法分析的规则，在本次<code>PA</code>中，我们需要完成<code>cool.flex</code>文件， 在其中设置正确的正则表达式。从而使得我们的<code>lexer</code>能产生正确的词法分析结果。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>在<code>.flex</code>文件中，<code>definitions</code>区包含了定义全局变量、定义宏等内容；<code>rules</code>区中设置各个正则表达式和对应的代码处理，每当匹配到一个正则表达式，就会执行对应的代码块；下面分别介绍<code>definitions</code>区和<code>rules</code>区的具体实现。</p>
+<h3 id="definitions区"><a href="#definitions区" class="headerlink" title="definitions区"></a>definitions区</h3><p>除了已有定义，在definition区我们还做了以下定义：</p>
+<ul>
+<li>两个全局变量，<code>comment_layer</code>保存注释的层数，用于后续处理嵌套循环，<code>stringArray</code>用于存储字符串；</li>
+<li>对于<code>cool</code>语言中的简单关键字也在这里做<code>flex</code>定义，供后续代码中使用</li>
+</ul>
+<p>具体代码如下：</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vbnet"><span class="hljs-keyword">static</span> int comment_layer=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">static</span> std::vector&lt;<span class="hljs-type">char</span>&gt; stringArray;<br><br>DARROW          =&gt;<br><span class="hljs-keyword">CLASS</span>           <span class="hljs-keyword">class</span><br><span class="hljs-keyword">ELSE</span>            <span class="hljs-keyword">else</span><br>FI              fi<br><span class="hljs-keyword">IF</span>              <span class="hljs-keyword">if</span><br><span class="hljs-keyword">IN</span>              <span class="hljs-keyword">in</span><br><span class="hljs-keyword">INHERITS</span>        <span class="hljs-keyword">inherits</span><br><span class="hljs-keyword">LET</span>             <span class="hljs-keyword">let</span><br><span class="hljs-keyword">LOOP</span>            <span class="hljs-keyword">loop</span><br>POOL            pool<br><span class="hljs-keyword">THEN</span>            <span class="hljs-keyword">then</span><br><span class="hljs-keyword">WHILE</span>           <span class="hljs-keyword">while</span><br><span class="hljs-keyword">CASE</span>            <span class="hljs-keyword">case</span><br>ESAC            esac<br><span class="hljs-keyword">OF</span>              <span class="hljs-keyword">of</span><br><span class="hljs-built_in">NEW</span>             <span class="hljs-built_in">new</span><br>ISVOID          isvoid<br><span class="hljs-built_in">NOT</span>             <span class="hljs-built_in">not</span><br><br>DIGIT		[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]<br>TYPEID		[A-Z][A-Za-z0-<span class="hljs-number">9_</span>]*<br>OBJECTID	[a-z][A-Za-z0-<span class="hljs-number">9_</span>]*<br>INVALID		[\[\]\<span class="hljs-comment">&#x27;&gt;]</span><br>BOOL_TRUE	t[Rr][Uu][Ee]<br>BOOL_FALSE      f[Aa][Ll][Ss][Ee]<br></code></pre></div></td></tr></table></figure>
+<h3 id="rules区"><a href="#rules区" class="headerlink" title="rules区"></a>rules区</h3><p><code>rules</code>区主要对以下几类语句进行处理：</p>
+<ol>
+<li>注释</li>
+<li>关键字（固定字符）</li>
+<li>单个字符</li>
+<li>字符串</li>
+</ol>
+<p>下面分别进行介绍。</p>
+<h4 id="注释处理"><a href="#注释处理" class="headerlink" title="注释处理"></a>注释处理</h4><p><code>cool</code>有两种注释格式，分别是使用<code>(*</code>的多行注释和使用<code>--</code>的单行注释，并且支持嵌套循环，在这使用一个全局变量<code>comment_layer</code>来记录嵌套数量，具体代码如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">&lt;INITIAL,COMMENTS&gt;&quot;(*&quot;	&#123;   ++comment_layer; <span class="hljs-keyword">BEGIN</span>(COMMENTS);&#125;<br><br>&lt;COMMENTS&gt;[^\n(*]*  &#123;&#125;<br><br>&lt;COMMENTS&gt;[()*]   &#123;&#125;<br><br>&lt;COMMENTS&gt;&quot;*)&quot;   &#123;  <span class="hljs-comment">--comment_layer;  </span><br>          <span class="hljs-keyword">if</span>(comment_layer==<span class="hljs-number">0</span>)&#123;<br>             <span class="hljs-keyword">BEGIN</span>(INITIAL);<br>           &#125;<br>       &#125;<br><br>&lt;COMMENTS&gt;<span class="hljs-symbol">&lt;&lt;EOF&gt;&gt;</span> &#123;<br>	cool_yylval.error_msg=&quot;EOF in comment&quot;; <br>	<span class="hljs-keyword">BEGIN</span>(INITIAL);<br>	<span class="hljs-keyword">return</span> (ERROR);<br>&#125;<br><br>&lt;COMMENTS&gt;\n &#123;	++curr_lineno;	&#125;<br><br>&quot;*)&quot;    &#123;   cool_yylval.error_msg = &quot;Unmatched *)&quot;;<br>            <span class="hljs-keyword">BEGIN</span>(INITIAL);<br>    <span class="hljs-keyword">return</span> (ERROR); &#125;<br><br>&lt;INITIAL&gt;&quot;--&quot; 	   &#123;	<span class="hljs-keyword">BEGIN</span>(INLINE_COMMENTS);   &#125;<br><br>&lt;INLINE_COMMENTS&gt;[^\n]*     &#123;&#125;<br><br>&lt;INLINE_COMMENTS&gt;\n 	    &#123; ++curr_lineno;	<span class="hljs-keyword">BEGIN</span>(INITIAL);  &#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="固定字符、单个字符"><a href="#固定字符、单个字符" class="headerlink" title="固定字符、单个字符"></a>固定字符、单个字符</h4><p>这类字符的处理比较简单，借用一些之前的定义一一对应即可。</p>
+<p>具体代码如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-string">&quot;&lt;-&quot;</span>			&#123; <span class="hljs-keyword">return</span> ASSIGN;&#125;<br><span class="hljs-string">&quot;&lt;=&quot;</span>			&#123; <span class="hljs-keyword">return</span> LE;    &#125;<br><span class="hljs-string">&quot;+&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;+&#x27;</span>); &#125;<br><span class="hljs-string">&quot;-&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;-&#x27;</span>); &#125;<br><span class="hljs-string">&quot;*&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;*&#x27;</span>); &#125;<br><span class="hljs-string">&quot;/&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;/&#x27;</span>); &#125;<br><span class="hljs-string">&quot;&lt;&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;&lt;&#x27;</span>); &#125;<br><span class="hljs-string">&quot;=&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;=&#x27;</span>); &#125;<br><span class="hljs-string">&quot;.&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;.&#x27;</span>); &#125;<br><span class="hljs-string">&quot;;&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;;&#x27;</span>); &#125;<br><span class="hljs-string">&quot;~&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;~&#x27;</span>); &#125;<br><span class="hljs-string">&quot;&#123;&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;&#123;&#x27;</span>); &#125;<br><span class="hljs-string">&quot;&#125;&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;&#125;&#x27;</span>); &#125;<br><span class="hljs-string">&quot;(&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;(&#x27;</span>); &#125;<br><span class="hljs-string">&quot;)&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;)&#x27;</span>); &#125;<br><span class="hljs-string">&quot;:&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;:&#x27;</span>); &#125;<br><span class="hljs-string">&quot;@&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;@&#x27;</span>); &#125;<br><span class="hljs-string">&quot;,&quot;</span>			&#123; <span class="hljs-keyword">return</span> int(<span class="hljs-string">&#x27;,&#x27;</span>); &#125;<br><br>&#123;DARROW&#125;		&#123; <span class="hljs-keyword">return</span> DARROW; &#125;<br>&#123;CLASS&#125; 		&#123; <span class="hljs-keyword">return</span> (CLASS); &#125;<br>&#123;ELSE&#125; 			&#123; <span class="hljs-keyword">return</span> (ELSE); &#125;<br>&#123;FI&#125; 			&#123; <span class="hljs-keyword">return</span> (FI); &#125;<br>&#123;IF&#125; 			&#123; <span class="hljs-keyword">return</span> (IF); &#125;<br>&#123;IN&#125; 			&#123; <span class="hljs-keyword">return</span> (IN); &#125;<br>&#123;INHERITS&#125; 		&#123; <span class="hljs-keyword">return</span> (INHERITS); &#125;<br>&#123;LET&#125; 			&#123; <span class="hljs-keyword">return</span> (LET); &#125;<br>&#123;LOOP&#125; 			&#123; <span class="hljs-keyword">return</span> (LOOP); &#125;<br>&#123;POOL&#125; 			&#123; <span class="hljs-keyword">return</span> (POOL); &#125;<br>&#123;THEN&#125; 			&#123; <span class="hljs-keyword">return</span> (THEN); &#125;<br>&#123;WHILE&#125; 		&#123; <span class="hljs-keyword">return</span> (WHILE); &#125;<br>&#123;CASE&#125; 			&#123; <span class="hljs-keyword">return</span> (CASE); &#125;<br>&#123;ESAC&#125; 			&#123; <span class="hljs-keyword">return</span> (ESAC); &#125;<br>&#123;OF&#125; 			&#123; <span class="hljs-keyword">return</span> (OF); &#125;<br>&#123;NEW&#125; 			&#123; <span class="hljs-keyword">return</span> (NEW); &#125;<br>&#123;ISVOID&#125; 		&#123; <span class="hljs-keyword">return</span> (ISVOID); &#125;<br>&#123;NOT&#125; 			&#123; <span class="hljs-keyword">return</span> (NOT); &#125;<br><br>&#123;TYPEID&#125;		&#123;	cool_yylval.symbol=idtable.add_string(yytext);<br>			  	<span class="hljs-keyword">return</span> TYPEID;<br>			&#125;<br><br>&#123;OBJECTID&#125;		&#123;	cool_yylval.symbol=idtable.add_string(yytext);<br>			  	<span class="hljs-keyword">return</span> OBJECTID;<br>			&#125;<br><br>[ \f\r\t\v]+		&#123; &#125;<br><br>&#123;DIGIT&#125;+		&#123;	cool_yylval.symbol=inttable.add_string(yytext);<br>				<span class="hljs-keyword">return</span> INT_CONST;		<br>			&#125;<br><br>&#123;INVALID&#125;		&#123;	cool_yylval.error_msg=yytext;<br>				<span class="hljs-keyword">return</span> ERROR;			<br>			&#125;<br><br>&#123;BOOL_TRUE&#125;		&#123;	cool_yylval.boolean=<span class="hljs-literal">true</span>;<br>				<span class="hljs-keyword">return</span> BOOL_CONST;				<br>			&#125;<br><br>&#123;BOOL_FALSE&#125;		&#123;<br>				cool_yylval.boolean=<span class="hljs-literal">false</span>;<br>				<span class="hljs-keyword">return</span> BOOL_CONST;<br>			&#125;<br></code></pre></div></td></tr></table></figure>
+<h4 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h4><p>字符串处理主要需要注意的是转义字符和一些不合法状态的处理，具体代码如下：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xquery"><span class="hljs-string">&quot;\n&quot;</span>			&#123;	curr_lineno++;	&#125;<br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">INITIAL</span>&gt;</span>\&quot;		</span><span class="xquery">&#123;	stringArray.clear();	BEGIN(STRING);	&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING</span>&gt;</span>[^\\\&quot;\n]*	</span><span class="xquery">&#123;	stringArray.<span class="hljs-keyword">insert</span>(stringArray.<span class="hljs-keyword">end</span>(),yytext,yytext+yyleng);	&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING</span>&gt;</span>\\		</span><span class="xquery">&#123;	BEGIN(STRING_TEMP);	&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING</span>&gt;</span>\\\n		</span><span class="xquery">&#123;	stringArray.push_back(<span class="hljs-string">&#x27;\n&#x27;</span>);	++curr_lineno;		&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>n		</span><span class="xquery">&#123;	stringArray.push_back(<span class="hljs-string">&#x27;\n&#x27;</span>);	BEGIN(STRING);		&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>b		</span><span class="xquery">&#123;	stringArray.push_back(<span class="hljs-string">&#x27;\b&#x27;</span>);	BEGIN(STRING);		&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>t  	</span><span class="xquery">&#123;	stringArray.push_back(<span class="hljs-string">&#x27;\t&#x27;</span>);	BEGIN(STRING);		&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>f		</span><span class="xquery">&#123;	stringArray.push_back(<span class="hljs-string">&#x27;\f&#x27;</span>);	BEGIN(STRING);		&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>[^nbtf0]    </span><span class="xquery">&#123;	stringArray.push_back(yytext[<span class="hljs-number">0</span>]);  BEGIN(STRING);	&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING_TEMP</span>&gt;</span>0		</span><span class="xquery">&#123;	cool_yylval.error_msg=<span class="hljs-string">&quot;String contains null character.&quot;</span>;			</span><br><span class="xquery">				BEGIN(INITIAL);</span><br><span class="xquery">				<span class="hljs-keyword">return</span>(ERROR);				</span><br><span class="xquery">			&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING</span>&gt;</span>\n		</span><span class="xquery">&#123;	cool_yylval.error_msg=<span class="hljs-string">&quot;Unterminated string constant.&quot;</span>;</span><br><span class="xquery">				++curr_lineno;</span><br><span class="xquery">				BEGIN(INITIAL);</span><br><span class="xquery">				<span class="hljs-keyword">return</span>(ERROR);	</span><br><span class="xquery">			&#125;</span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">STRING</span>&gt;</span>\&quot;		</span><span class="xquery">&#123;	stringArray.<span class="hljs-keyword">insert</span>(stringArray.<span class="hljs-keyword">end</span>(),yytext,yytext+yyleng-<span class="hljs-number">1</span>);</span><br><span class="xquery">				<span class="hljs-keyword">if</span>(stringArray.size()&gt;<span class="hljs-number">1024</span>)&#123;</span><br><span class="xquery">				   	 yylval.error_msg=<span class="hljs-string">&quot;String constant too long.&quot;</span>;</span><br><span class="xquery">				  	 BEGIN(INITIAL);</span><br><span class="xquery">				   	<span class="hljs-keyword">return</span> (ERROR);</span><br><span class="xquery">				&#125;</span><br><span class="xml">				cool_yylval.symbol=stringtable.add_string(&amp;stringArray[0],stringArray.size());</span><br><span class="xml">				BEGIN(INITIAL);</span><br><span class="xml">				return(STR_CONST);</span><br><span class="xml">			&#125;</span><br><br><span class="xml">&lt;STRING,STRING_TEMP&gt;&lt;</span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">EOF</span>&gt;</span>&gt;	</span><span class="xquery">&#123;	cool_yylval.error_msg=<span class="hljs-string">&quot;EOF in string constant&quot;</span>;</span><br><span class="xquery">					BEGIN(INITIAL);</span><br><span class="xquery">					<span class="hljs-keyword">return</span>(ERROR);	</span><br><span class="xquery">				&#125;</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="结果测试"><a href="#结果测试" class="headerlink" title="结果测试"></a>结果测试</h2><p>运行<code>make dotest</code>，编译<code>lexer</code>并将当前目录下<code>cool</code>文件<code>test.cl</code>传递给这个<code>lexer</code>，得到测试的输出。为了判断结果是否正确，我们需要把我们的<code>cool.flex</code>结果和标准<code>lexer</code>的输出结果进行比较，通过<code>checker</code>工具检查，可以发现结果是一致的。</p>
+<p>除了<code>test.cl</code>中的例子，还需要对其他情况进行测试，这部分写在<code>test1.cl</code>中，如下，测试了没有<code>“</code>、字符串中包含<code>\0</code>、字符串长度超出限制（<code>cool.flex</code>中将长度限制为1024位）、<code>EOF</code>等情况，代码如下：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">(* my test *)  <br>*)<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> <span class="hljs-title">inherits</span> <span class="hljs-title">IO</span> &#123;</span><br>       myString1 : <span class="hljs-built_in">String</span>;<br>	myString2: <span class="hljs-built_in">String</span>;<br>	myString3: <span class="hljs-built_in">String</span>;<br><br> 	main() : SELF_TYPE &#123;<br>		myString1&lt;-<span class="hljs-string">&quot;fsgd </span><br><span class="hljs-string">		myString2&lt;-&quot;</span>dfad <span class="hljs-string">\0</span> dfad<span class="hljs-string">&quot;;</span><br><span class="hljs-string">		myString3&lt;-&quot;</span>vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitojvdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj vdskhv jsdslkhlb elfjldasjv aljaljdvlk lkdvjsldkvjsad dlkhfaj reitoj<span class="hljs-string">&quot;;</span><br><span class="hljs-string">	&#125;</span><br><span class="hljs-string">		myString1&lt;-&quot;</span><span class="hljs-number">123</span><span class="hljs-string">\0&quot;</span><br>		myString2&lt;-<span class="hljs-string">&quot;123\\0&quot;</span><br>		myString3<br>		<br>&#125;;<br><span class="hljs-string">&quot;&quot;</span><br></code></pre></div></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%9E%E8%B7%B5/">实践</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%AF%91/">编译</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/05/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">语法分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/02/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">词法分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TGxc9YICCvt0nq9LsWQVqXIR-gzGzoHsz","appKey":"g61pWrmFa2w876qITKSoChaX","placeholder":"说点什么","path":"window.location.pathname","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://tgxc9yic.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false,"requiredFields":[]},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.4/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
