@@ -14,7 +14,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="To hate, to love, to think, to feel, to see; all this is nothing but to perceive.">
+  <meta name="description" content=" 光栅图形学主要研究如何使光栅图形最完美地逼近实际图形，本文主要介绍光栅图形学的几个基本算法。
+直线段的扫描转换算法一个像素宽直线绘制的三个常用算法：数值微分法、中点画线法、Bresenham算法">
   <meta name="author" content="chenrui">
   <meta name="keywords" content="">
   
@@ -197,7 +198,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      42 字
+      2.7k 字
     </span>
   
 
@@ -207,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      32
        分钟
     </span>
   
@@ -248,7 +249,137 @@
             <h1 style="display: none">光栅图形学</h1>
             
             <div class="markdown-body">
-              <p> 光栅图形学主要研究如何使光栅图形最完美地逼近实际图形，下面介绍光栅图形学的几个基本算法。</p>
+              <p> 光栅图形学主要研究如何使光栅图形最完美地逼近实际图形，本文主要介绍光栅图形学的几个基本算法。</p>
+<h2 id="直线段的扫描转换算法"><a href="#直线段的扫描转换算法" class="headerlink" title="直线段的扫描转换算法"></a>直线段的扫描转换算法</h2><p>一个像素宽直线绘制的三个常用算法：数值微分法、中点画线法、Bresenham算法</p>
+<span id="more"></span>
+<h3 id="数值微分法（DDA）"><a href="#数值微分法（DDA）" class="headerlink" title="数值微分法（DDA）"></a><strong>数值微分法（DDA）</strong></h3><p>程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DDALine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1, <span class="hljs-keyword">int</span> color)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> x;<br>    <span class="hljs-keyword">float</span> dx, dy, y, k;<br>    dx = x1 - x0;<br>    dy = y1 - y0;<br>    k = dy / dx;<br>    y = y0;<br>    <span class="hljs-keyword">for</span> (x = x0; x &lt; x1; x++) &#123;<br>        drawpixel(x, <span class="hljs-keyword">int</span>(y + <span class="hljs-number">0.5</span>), color);<br>        y = y + k;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 该算法仅适用于|k| &lt;= 1的情形，x每增加1，y最多增加1，当|k| &gt; 1时，必须交换x和y，y和k必须用浮点数表示，每一步都要对y进行四舍五入后取整，不利于硬件实现 </span><br></code></pre></div></td></tr></table></figure>
+<h3 id="中点画线法"><a href="#中点画线法" class="headerlink" title="中点画线法"></a><strong>中点画线法</strong></h3><p>程序（斜率也是小于1）：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MidpointLine</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1, <span class="hljs-keyword">int</span> color)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> a, b, d1, d2, x, y;<br>    a = y0 - y1;<br>    b = x1 - x0;<br>    d = <span class="hljs-number">2</span> * a + b;<br>    d1 =  <span class="hljs-number">2</span> * a;<br>    d2 = <span class="hljs-number">2</span> * (a + b);<br>    x = x0;<br>    y = y0;<br>    drawpixel(x, y, color);<br>    <span class="hljs-keyword">while</span>(x &lt; x1) <br>    &#123;<br>        <span class="hljs-keyword">if</span> (d &lt; <span class="hljs-number">0</span>) &#123;x++; y++; d+=d2;&#125;<br>        <span class="hljs-keyword">else</span>  &#123;x++; d+=d1;&#125;<br>        drawpixel(x, y, color);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="Bresenham算法"><a href="#Bresenham算法" class="headerlink" title="Bresenham算法"></a><strong>Bresenham算法</strong></h3><p>使用最广泛的直线扫描转换算法，仍然假定直线斜率在0~1之间，类似于中点法，由误差项符号决定下一像素</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Bresenhamline</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x0, <span class="hljs-keyword">int</span> y0, <span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> y1, <span class="hljs-keyword">int</span> color)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> x, y, dx, dy;<br>    <span class="hljs-keyword">float</span> k, e;<br>    dx = x1 - x0;<br>    dy = y1 - y0;<br>    k = dy / dx;<br>    e = -<span class="hljs-number">0.5</span>;<br>    x = x0;<br>    y = y0;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; dx; i++) <br>    &#123;<br>        drawpixel(x, y, color);<br>        x = x + <span class="hljs-number">1</span>;<br>        e = e + k;<br>        <span class="hljs-keyword">if</span> (e &gt;= <span class="hljs-number">0.5</span>) e = e - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (e &gt;= <span class="hljs-number">0</span>) y++;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="圆弧的扫描转换算法"><a href="#圆弧的扫描转换算法" class="headerlink" title="圆弧的扫描转换算法"></a>圆弧的扫描转换算法</h2><p>圆的八对称性：若已知圆弧上一点（x, y），可以得到其关于四条对称轴的其它7个点的性质，因此只要扫描转换八分之一圆弧，就可以求出整个圆弧的像素集。</p>
+<h3 id="简单方程产生圆弧"><a href="#简单方程产生圆弧" class="headerlink" title="简单方程产生圆弧"></a><strong>简单方程产生圆弧</strong></h3><p>利用其函数方程，直接离散计算</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127101720.png" srcset="/img/loading.gif" lazyload alt="函数方程"></p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127101753.png" srcset="/img/loading.gif" lazyload alt="极坐标"></p>
+<h3 id="中点画圆法"><a href="#中点画圆法" class="headerlink" title="中点画圆法"></a><strong>中点画圆法</strong></h3><p>程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MidPointCircle</span><span class="hljs-params">(<span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> color)</span> </span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> x, y;<br>    <span class="hljs-keyword">float</span> d;<br>    x = <span class="hljs-number">0</span>;<br>    y = r;<br>    d = <span class="hljs-number">1.25</span> - r;<br>    circlepoints(x, y, color);<br>    <span class="hljs-keyword">while</span>(x &lt;= y) <br>    &#123;<br>        <span class="hljs-keyword">if</span>(d &lt; <span class="hljs-number">0</span>) d+=<span class="hljs-number">2</span>*x+<span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">else</span> &#123;d+=<span class="hljs-number">2</span>*(x-y)+<span class="hljs-number">5</span>; y--;&#125;<br>        x++;<br>        circlepoints(x, y, color);<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="圆的Bresenham算法"><a href="#圆的Bresenham算法" class="headerlink" title="圆的Bresenham算法"></a><strong>圆的Bresenham算法</strong></h3><p>程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">circle</span><span class="hljs-params">(<span class="hljs-keyword">int</span> xc, <span class="hljs-keyword">int</span> yc, <span class="hljs-keyword">int</span> radius, <span class="hljs-keyword">int</span> c)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>; <span class="hljs-keyword">int</span> y = radius;<br>    <span class="hljs-keyword">int</span> p = <span class="hljs-number">3</span> - <span class="hljs-number">2</span> * radius;<br>    <span class="hljs-keyword">while</span> (x &lt; y)<br>    &#123;<br>        polt_circle(xc, yc, x, y, c);<br>        <span class="hljs-keyword">if</span> (p &lt; <span class="hljs-number">0</span>)<br>            p = p + <span class="hljs-number">4</span>*x + <span class="hljs-number">6</span>;<br>        <span class="hljs-keyword">else</span><br>        &#123;<br>            p = p + <span class="hljs-number">4</span>*(x-y) + <span class="hljs-number">10</span>;<br>            y = <span class="hljs-number">1</span>;<br>        &#125;<br>        <br>    &#125;<br>    <span class="hljs-keyword">if</span>(x == y) plot_circle_points(xc, yc, x, y, c);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">plot_circle_points</span><span class="hljs-params">(<span class="hljs-keyword">int</span> xc, <span class="hljs-keyword">int</span> yc, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> c)</span></span><br><span class="hljs-function"></span>&#123;<br>    set_pixel(xc+x, yc+y, c); set_pixel(xc+x, yc+y, c); set_pixel(xc+x, yc-y, c); <br><br>    set_pixel(xc-x, yc-y, c); set_pixel(xc+y, yc+x, c); set_pixel(xc-y, yc+x, c);<br><br>    set_pixel(xc+y, yc-x, c); set_pixel(xc-y, yc-x, c); <br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="椭圆的扫描转换"><a href="#椭圆的扫描转换" class="headerlink" title="椭圆的扫描转换"></a><strong>椭圆的扫描转换</strong></h3><p>椭圆的中点算法：和圆类似，确定一个像素后，接着在两个候选像素的中点计算一个判别式的值，根据判别式的符号确定哪个像素离椭圆更近。</p>
+<h2 id="多边形区域填充"><a href="#多边形区域填充" class="headerlink" title="多边形区域填充"></a>多边形区域填充</h2><h3 id="表示方法"><a href="#表示方法" class="headerlink" title="表示方法"></a>表示方法</h3><p>两种表示方法：</p>
+<ul>
+<li>顶点表示：直观，不能直接用于面填充</li>
+<li>点阵表示：可以用于面填充</li>
+</ul>
+<h3 id="多边形填充-扫描算法"><a href="#多边形填充-扫描算法" class="headerlink" title="多边形填充-扫描算法"></a>多边形填充-扫描算法</h3><p>步骤</p>
+<ol>
+<li>求交：计算扫描线与多边形各边的交点</li>
+<li>排序：把所有交点按x值递增顺序排序</li>
+<li>配对：第一个与第二个，第三个与第四个等；每对交点代表扫描线与多边形一个相交区间</li>
+<li>着色把相交区间内的象素置成多边形颜色，把相交区间外的象素置成背景色</li>
+</ol>
+<p>活性边：与当前扫描线相交的边</p>
+<p>活性边表AET：按与扫描线交点按x坐标递增顺序存放的活性边链表</p>
+<p>活性边表节点保存的信息：</p>
+<ul>
+<li>当前扫描线与边的交点</li>
+<li>从当前扫描线到下一条扫描线之间的x增量</li>
+<li>边所交的最高扫描线号</li>
+</ul>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127145325.png" srcset="/img/loading.gif" lazyload alt="例子"></p>
+<p>算法过程：</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127145914.png" srcset="/img/loading.gif" lazyload alt="算法"></p>
+<h3 id="多边形填充-边界标志算法"><a href="#多边形填充-边界标志算法" class="headerlink" title="多边形填充-边界标志算法"></a>多边形填充-边界标志算法</h3><p>在帧缓冲器中对多边形边界所经过的像素打上标志，按扫描线将位于多边形内的各个区段着上所需颜色。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127150250.png" srcset="/img/loading.gif" lazyload alt="算法"></p>
+<h3 id="多边形填充-种子填充算法"><a href="#多边形填充-种子填充算法" class="headerlink" title="多边形填充-种子填充算法"></a>多边形填充-种子填充算法</h3><p>先将区域的一点赋予指定的颜色，然后将该颜色扩展到整个区域的过程，要求区域是连通的。</p>
+<p>种子填充的递归算法原理简单，但效率不高，下面介绍种子填充的扫描线算法：</p>
+<p>步骤：</p>
+<ol>
+<li><p>初始化</p>
+<p>堆栈置空。将种子点(<em>x</em>, <em>y</em>)入栈</p>
+</li>
+<li><p>出栈</p>
+<p>若栈空则结束。否则取栈顶元素(<em>x</em>, <em>y</em>)，以y作为当前扫描线</p>
+</li>
+<li><p>填充并确定种子点所在区段</p>
+<p>从种子点(<em>x</em>, <em>y</em>)出发，沿当前扫描线向左、右两个方向填充，直到边界。分别标记区段的左、右端点坐标为<em>xl</em>和<em>xr</em></p>
+</li>
+<li><p>确定新的种子点</p>
+<p>在区间[<em>xl</em>，<em>xr</em>]中检查与当前扫描线<em>y</em>上、下相邻的两条扫描线上的象素。若存在非边界、未填充的象素，则把每一区间的最右象素作为种子点压入堆栈，返回第(2)步</p>
+</li>
+</ol>
+<h2 id="字符的生成"><a href="#字符的生成" class="headerlink" title="字符的生成"></a>字符的生成</h2><h3 id="点阵式字符"><a href="#点阵式字符" class="headerlink" title="点阵式字符"></a>点阵式字符</h3><p>定义成一个成为掩膜的矩阵，由点阵中的不同值表达字符的形状。</p>
+<p>变化：加租、旋转等，如下图</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127152517.png" srcset="/img/loading.gif" lazyload alt="变化"></p>
+<h3 id="矢量型字符"><a href="#矢量型字符" class="headerlink" title="矢量型字符"></a>矢量型字符</h3><p>用点坐标的序列表示各个笔划</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127152619.png" srcset="/img/loading.gif" lazyload alt="B"></p>
+<h3 id="方向编码式字符"><a href="#方向编码式字符" class="headerlink" title="方向编码式字符"></a>方向编码式字符</h3><p>用若干种方向编码（如8方向编码）来表达一个字符</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127152842.png" srcset="/img/loading.gif" lazyload alt="B"></p>
+<h3 id="轮廓字型技术"><a href="#轮廓字型技术" class="headerlink" title="轮廓字型技术"></a>轮廓字型技术</h3><p>一种点阵字符压缩技术，对字型数据压缩后再存储，使用时，将压缩的数据还原为字符位图点阵</p>
+<p>原理：</p>
+<ul>
+<li>采用直线、或者二/三次Bezier(贝塞尔)曲线的集合来描述一个字符的轮廓线。轮廓线构成一个或若干个封闭的平面区域</li>
+<li>轮廓线定义加上一些指示横宽、竖宽、基点、基线等的控制信息，就构成了字符的压缩数据。这种控制信息用于保证字符变倍时引起的字符笔划原来的横宽/竖宽变大变小时，其宽度在任何点阵情况下永远一致</li>
+<li>采用适当的区域填充算法，可以从字符的轮廓线定义产生的字符位图点阵</li>
+</ul>
+<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><p>确定图形中哪些部分落在显示区内，以便只显示该部分图形的过程。</p>
+<p>一般先裁剪再扫描转换</p>
+<h3 id="直线段裁剪-Cohen-Sutherland裁剪算法"><a href="#直线段裁剪-Cohen-Sutherland裁剪算法" class="headerlink" title="直线段裁剪-Cohen-Sutherland裁剪算法"></a>直线段裁剪-Cohen-Sutherland裁剪算法</h3><p>延长窗口的边，将二维平面分成九个区域。</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127203816.png" srcset="/img/loading.gif" lazyload alt="图示"></p>
+<p>裁剪一条线段时，先求出P1P2所在的区号code1,code2</p>
+<ul>
+<li>若code1=0 且 code2=0，则线段P1P2完全在窗口内，应取之</li>
+<li>若按位与运算code1 &amp; code2≠0，则说明两个端点同在窗口的上方、下方、左方或右方。可判断线段完全在窗口外，可弃之</li>
+<li>否则，按第三种情况处理。求出线段与窗口某边的交点，在交点处把线段一分为二，其中必有一段在窗口外，可弃之。在对另一段重复上述处理</li>
+</ul>
+<h3 id="直线段裁剪-中点分割裁剪算法"><a href="#直线段裁剪-中点分割裁剪算法" class="headerlink" title="直线段裁剪-中点分割裁剪算法"></a>直线段裁剪-中点分割裁剪算法</h3><p>首先采用前述方法对线段端点进行编码，把线段与窗口的关系分为三种情况: 全在、完全不在、线段和窗口有交</p>
+<ul>
+<li><p>对前两种情况，进行一样的处理(显示或抛弃)</p>
+</li>
+<li><p>对第三种情况，用中点分割方法求出线段与窗口的交点</p>
+<ul>
+<li>从<em>P</em>0点出发找出距<em>P</em>0最近的可见点<em>A</em>(从P0往P1方向运动第一个进入窗口的点)</li>
+<li>从<em>P</em>1点出发找出距<em>P</em>1最近的可见点<em>B</em> (从P1往P0方向运动第一个进入窗口的点)</li>
+</ul>
+</li>
+<li>两个可见点之间的连线即为线段<em>P</em>0<em>P</em>1的可见部分</li>
+</ul>
+<p><strong>中点分割方法</strong></p>
+<ul>
+<li><p>先求出<em>P</em>0<em>P</em>1的中点<em>Pm</em></p>
+</li>
+<li><p>若<em>P</em>0<em>Pm</em>不是显然不可见的，并且<em>P</em>0<em>P</em>1在窗口中有可见部分，则距<em>P</em>0最近的可见点一定落在<em>P</em>0<em>Pm</em>上，所以用<em>P</em>0<em>Pm</em>代替<em>P</em>0<em>P</em>1</p>
+</li>
+<li><p>否则若<em>P0Pm</em>是显然不可见的，则取<em>PmP</em>1代替<em>P</em>0<em>P</em>1</p>
+</li>
+<li><p>再对新的<em>P</em>0<em>P</em>1求中点<em>Pm</em>。重复上述过程，直到<em>PmP</em>1长度小于给定的控制常数为止，此时<em>Pm</em>收敛于交点</p>
+</li>
+</ul>
+<p>由于该算法的主要计算过程只用到加法和除2运算，所以特别适合硬件实现，同时也适合于并行计算</p>
+<h3 id="直线段裁剪-梁友栋-Barskey算法"><a href="#直线段裁剪-梁友栋-Barskey算法" class="headerlink" title="直线段裁剪-梁友栋-Barskey算法"></a>直线段裁剪-梁友栋-Barskey算法</h3><p>一种参数化裁剪算法，更快。</p>
+<h3 id="多边形裁剪"><a href="#多边形裁剪" class="headerlink" title="多边形裁剪"></a>多边形裁剪</h3><p><strong>Sutherland-Hodgeman算法</strong></p>
+<p>基本思想是一次用窗口的一条边裁剪多边形。</p>
+<p>算法的每一步，考虑窗口的一条边以及延长线构成的裁剪线。该线把平面分成两个部分：一部分包含窗口，称为可见一侧；另一部分称为不可见一侧。依序考虑多边形的各条边的两端点S、P。</p>
+<p>它们与裁剪线的位置关系只有四种</p>
+<ul>
+<li>S、P均在可见一侧=&gt;仅输出顶点P</li>
+<li>S、P均在不可见一侧=&gt; 输出0个顶点</li>
+<li>S可见,P不可见=&gt;输出线段SP与裁剪线的交点I;</li>
+<li>S不可见,P可见=&gt;输出线段SP与裁剪线的交点I和终点P</li>
+</ul>
+<p>记忆规则：交点(如果存在)+终点(如果可见)</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127205924.png" srcset="/img/loading.gif" lazyload alt="位置关系"></p>
+<h3 id="字符串裁剪"><a href="#字符串裁剪" class="headerlink" title="字符串裁剪"></a>字符串裁剪</h3><p>主要分为字符串精度剪裁、字符精度剪裁、像素精度剪裁</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127210111.png" srcset="/img/loading.gif" lazyload alt="image-20211127210111156"></p>
+<h2 id="反走样"><a href="#反走样" class="headerlink" title="反走样"></a>反走样</h2><h3 id="提高分辨率"><a href="#提高分辨率" class="headerlink" title="提高分辨率"></a><strong>提高分辨率</strong></h3><p>原理</p>
+<p>显示器分辨率提高一倍，直线经过两倍的象素，锯齿也增加一倍，但同时每个阶梯的宽度也减小了一倍，显示出的直线段看起来就平直光滑了一些</p>
+<p>缺点</p>
+<p>这种反走样方法是以4倍的存储器代价和扫描转换时间获得的。因此，增加分辨率虽然简单，但是不经济的方法，而且它也只能减轻而不能消除锯齿问题</p>
+<p><img src="https://gitee.com/freemansonary/markdown-pic-bed/raw/master/Typora/20211127210208.png" srcset="/img/loading.gif" lazyload alt="提高分辨率"></p>
+<h3 id="区域采样"><a href="#区域采样" class="headerlink" title="区域采样"></a><strong>区域采样</strong></h3><p>假定每个象素是一个具有一定面积的小区域，将直线段看作具有一定宽度的狭长矩形。当直线段与象素有交时，求出两者相交区域的面积，然后根据相交区域面积的大小确定该象素的亮度值。</p>
+<p>象素的显示灰度值=round(阴影面积*象素的最大灰度值) 。反走样效果较好。</p>
+<h3 id="加权区域采样"><a href="#加权区域采样" class="headerlink" title="加权区域采样"></a><strong>加权区域采样</strong></h3><p>使相交区域对象素亮度的贡献依赖于该区域与象素中心的距离。当直线经过该象素时，该象素的亮度F是在两者相交区域A´上对滤波器(函数w)进行积分的积分值。</p>
 
             </div>
             <hr>
@@ -283,9 +414,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/18/%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95/">
+                      <a href="/2021/11/18/%E5%93%B2%E5%AD%A6%E4%B8%AD%E7%9A%84%E4%B8%8A%E5%B8%9D/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">抽象语法</span>
+                        <span class="hidden-mobile">哲学中的上帝</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -293,8 +424,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/05/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/">
-                        <span class="hidden-mobile">语法分析</span>
+                      <a href="/2021/11/05/CS143_PA2/">
+                        <span class="hidden-mobile">CS143_PA2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
